@@ -1,0 +1,19 @@
+.navbar {
+  position: fixed;
+  /* display: flex; */
+  width: 100%;
+  top: 2%;
+  /* justify-content: space-between; */
+}
+.logoImg {
+  left: 2%;
+  position: absolute;
+}
+.bell {
+  position: absolute;
+  right: 8%;
+}
+.menu {
+  right: 2%;
+  position: absolute;
+}
