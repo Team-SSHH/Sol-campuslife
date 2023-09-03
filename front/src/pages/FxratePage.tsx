@@ -4,6 +4,7 @@ import Fxrate from "../components/FxratePage/Fxrate";
 import DiscountRate from "../components/FxratePage/DiscountRate";
 import KrwAmount from "../components/FxratePage/KrwAmount";
 import { fxlist } from "../utils/fxlist";
+import Fxratepush from "../components/FxratePage/Fxratepush";
 
 interface RateData {
   통화코드: string;
@@ -69,6 +70,7 @@ const FxratePage: React.FC = () => {
       <Link to={"/Fxrequest"}>
         <button>환전신청 및 결과 조회</button>
       </Link>
+      <Fxratepush />
     </div>
   );
 };
