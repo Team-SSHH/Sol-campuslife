@@ -5,24 +5,28 @@ import "./FriendsList.css";
 const FriendsList = () => {
   const friends = [
     {
+      id: 1,
       name: "상익스트라",
       major: "경영학과",
       number: 201639874,
       grade: "3학년",
     },
     {
+      id: 2,
       name: "최상익",
       major: "경영학과",
       number: 201904874,
       grade: "1학년",
     },
     {
+      id: 3,
       name: "김동동",
       major: "식품공학과",
       number: 201632084,
       grade: "2학년",
     },
     {
+      id: 4,
       name: "김동그라미",
       major: "식품공학과",
       number: 201632084,
