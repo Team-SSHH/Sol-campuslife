@@ -1,4 +1,4 @@
-package com.shinhan.hack.login.repositroy;
+package com.shinhan.hack.login.repository;
 
 import org.springframework.stereotype.Repository;
 
