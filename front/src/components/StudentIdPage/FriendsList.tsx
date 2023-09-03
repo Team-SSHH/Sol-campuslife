@@ -1,7 +1,35 @@
 import React from "react";
-import FrinedId from "./FrinedId";
+import FriendId from "./FriendId";
 import "./FriendsList.css";
+
 const FriendsList = () => {
+  const friends = [
+    {
+      name: "상익스트라",
+      major: "경영학과",
+      number: 201639874,
+      grade: "3학년",
+    },
+    {
+      name: "최상익",
+      major: "경영학과",
+      number: 201904874,
+      grade: "1학년",
+    },
+    {
+      name: "김동동",
+      major: "식품공학과",
+      number: 201632084,
+      grade: "2학년",
+    },
+    {
+      name: "김동그라미",
+      major: "식품공학과",
+      number: 201632084,
+      grade: "2학년",
+    },
+  ];
+
   return (
     <div>
       <div className="frinedsInfo">
@@ -13,9 +41,10 @@ const FriendsList = () => {
           <div className="friendsCategory">그룹 3</div>
           {/* <div className="friendsCategory">그룹 4</div> */}
         </div>
-        <div className="firendsList">
-          {/* 카데고리별 받아서 포문으로 보여주깅 */}
-          <FrinedId />
+        <div className="friendsList">
+          {friends.map((friend, index) => (
+            <FriendId key={index} friendData={friend} />
+          ))}
         </div>
       </div>
     </div>
