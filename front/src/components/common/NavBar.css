@@ -1,8 +1,9 @@
 .navbar {
-  position: fixed;
+  position: sticky;
   /* display: flex; */
   width: 100%;
   top: 2%;
+  height: 5%;
   /* justify-content: space-between; */
 }
 .logoImg {
