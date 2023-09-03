@@ -7,7 +7,7 @@ const BankLocationPage = () => {
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(37.541981, 127.078959),
-      level: 3,
+      level: 6,
     };
 
     new kakao.maps.Map(container, options);
@@ -17,7 +17,10 @@ const BankLocationPage = () => {
     <div className="BankLocationPage">
       <div className="mapCard">
         <h2>가까운 영업점</h2>
-        <div id="map" style={{ width: "90%", height: "400px" }}></div>
+        <div
+          id="map"
+          style={{ width: "90%", height: "300px", margin: "auto" }}
+        ></div>
       </div>
       <div className="nearLoation">
         <h1>신한은행 @@점</h1>
