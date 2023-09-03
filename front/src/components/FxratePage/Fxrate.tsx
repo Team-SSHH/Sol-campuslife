@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface RateData {
   통화코드: string;
@@ -13,24 +15,25 @@ interface FxrateProps {
 const Fxrate: React.FC<FxrateProps> = ({ selectedCurrency }) => {
   const [ratesData, setRatesData] = useState<RateData | null>(null);
   const [allratesData, setAllRatesData] = useState<RateData | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   const alldata = {
     dataHeader: {
       apikey: "2023_Shinhan_SSAFY_Hackathon",
     },
     dataBody: {
-      조회일자: "20230901",
+      조회일자: startDate ? startDate.toISOString().substring(0, 10) : "", // 선택한 날짜를 조회일자로 설정
     },
   };
 
   useEffect(() => {
     allfxrate(selectedCurrency);
-  }, [selectedCurrency]);
+  }, [selectedCurrency, startDate]);
 
   const allfxrate = async (currency: string) => {
     try {
       const response = await api.post("/search/fxrate/number", alldata);
-      console.log(response);
+      console.log(response.data);
       setAllRatesData(response.data.dataBody.환율리스트);
       console.log(response.data.dataBody.환율리스트);
 
@@ -66,6 +69,10 @@ const Fxrate: React.FC<FxrateProps> = ({ selectedCurrency }) => {
   return (
     <div>
       Fxrate
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+      />
       {renderRates()}
     </div>
   );
