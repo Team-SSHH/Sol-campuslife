@@ -22,7 +22,7 @@ api.interceptors.response.use(
   (response) => {
     // 여기에 원하는 응답 후처리 로직을 추가할 수 있습니다.
     // 예를 들어, 응답 데이터를 가공하거나 에러 처리를 수행할 수 있습니다.
-    console.log(response);
+    // console.log(response);
     return response;
   },
   (error) => {
