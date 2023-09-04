@@ -8,6 +8,11 @@ interface SquareBoxProps {
   height: string;
 }
 
+const titleStyle: React.CSSProperties = {
+  position: "relative",
+  left: "5%",
+};
+
 const SquareBox: React.FC<SquareBoxProps> = ({
   color,
   text,
@@ -20,17 +25,22 @@ const SquareBox: React.FC<SquareBoxProps> = ({
     width,
     height,
     borderRadius: "20px",
+    fontWeight: "bold",
+    fontSize: "1.1rem",
   };
 
-  const imgStyle = {
+  const imgStyle: React.CSSProperties = {
     width: "50px",
     height: "auto",
+    position: "relative",
+    left: "5%",
+    top: "10%",
   };
 
   return (
     <div style={boxStyle}>
       <img src={src} alt="" style={imgStyle} />
-      <p>{text}</p>
+      <p style={titleStyle}>{text}</p>
     </div>
   );
 };
