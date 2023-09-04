@@ -1,0 +1,14 @@
+.fxrate-container {
+  height: 80vh;
+  margin-top: 5%;
+  padding: 5%;
+  border-radius: 20px;
+  background-color: #c6d5ff;
+}
+
+.discount-box {
+  width: 100%;
+  padding: 2%;
+  border-radius: 20px;
+  background-color: aliceblue;
+}

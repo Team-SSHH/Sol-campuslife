@@ -32,7 +32,9 @@ const Fxresult: React.FC = ({}) => {
   return (
     <div>
       <p>환전결과</p>
-      <button onClick={handleBtnClick}>환전결과보기</button>
+      <button className="fxbtn" onClick={handleBtnClick}>
+        환전결과보기
+      </button>
       <div>
         {resultData.map((item, index) => (
           <div key={index}>

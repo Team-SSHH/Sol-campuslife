@@ -57,7 +57,6 @@ const KrwAmount: React.FC<KrwAmountProps> = ({ selectedCurrency }) => {
 
   return (
     <div>
-      <p>Amount</p>
       <input
         type="text"
         value={inputAmount}
