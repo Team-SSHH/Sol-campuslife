@@ -50,11 +50,16 @@
   position: relative;
   width: 90%;
   left: 5%;
-  top: 2%;
+  top: 5%;
   font-size: 0.8rem;
   font-weight: bold;
 }
 .firendName span {
   position: absolute;
   right: 0;
+}
+.frinedInfo {
+  top: 30%;
+  left: 5%;
+  position: absolute;
 }

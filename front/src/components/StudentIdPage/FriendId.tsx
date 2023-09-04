@@ -9,10 +9,11 @@ const FriendIdComponent = styled.div<FriendIdComponentProps>`
   width: 96%;
   height: 30%;
   background-color: #fff;
-  position: relative;
+  position: absolute;
   left: 2%;
   border-radius: 20px;
-  top: ${(props) => props.idx}%;
+  border: solid 0.1rem;
+  top: ${(props) => props.idx * 7}%;
 `;
 interface FriendIdProps {
   friendData: {
@@ -33,15 +34,18 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
         {/* 클릭하면 삭제, 카데고리 옮기기 등 옵션 보여주기 */}
         <span>···</span>
       </div>
-      <div>{friendData.name}의 얼굴</div>
-      <div>
-        <span>{friendData.major}</span>
-        <span> </span>
-        <span>재학생 ({friendData.grade})</span>
-      </div>
-      <div>
-        <span>김동현 </span>
-        <span>201603808</span>
+      <div className="frinedInfo">
+        <div>{friendData.name}의 얼굴</div>
+
+        <div>
+          <span>{friendData.major}</span>
+          <span> </span>
+          <span>재학생 ({friendData.grade})</span>
+        </div>
+        <div>
+          <span>{friendData.name} </span>
+          <span>{friendData.number}</span>
+        </div>
       </div>
     </FriendIdComponent>
   );
