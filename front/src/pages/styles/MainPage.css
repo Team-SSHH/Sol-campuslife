@@ -1,0 +1,29 @@
+.box1 {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+}
+
+.box2 {
+  position: absolute;
+  top: 30%;
+  left: 60%;
+}
+
+.box3 {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+}
+
+.box4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.box5 {
+  position: absolute;
+  top: 70%;
+  left: 5%;
+}
