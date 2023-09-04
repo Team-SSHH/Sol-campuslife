@@ -33,13 +33,14 @@
   font-weight: bold;
 }
 .friendsList {
+  overflow-y: scroll;
   position: absolute;
   display: flex;
   flex-direction: column;
   top: 5%;
   background-color: #c7d6ff;
   width: 100%;
-  height: 90%;
+  height: 95%;
   border-radius: 30px;
   border: #fff 0.4rem solid;
 }

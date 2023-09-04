@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { selectFriend } from "../../utils/atoms";
 
 interface FriendIdComponentProps {
   idx: number;
+  friend: number;
 }
 
 const FriendIdComponent = styled.div<FriendIdComponentProps>`
@@ -13,22 +16,37 @@ const FriendIdComponent = styled.div<FriendIdComponentProps>`
   left: 2%;
   border-radius: 20px;
   border: solid 0.1rem;
-  top: ${(props) => props.idx * 7}%;
+  top: ${(props) =>
+    props.idx > props.friend ? 25 + props.idx * 7 : props.idx * 7 + 1}%;
 `;
 interface FriendIdProps {
   friendData: {
-    id: number;
     name: string;
     major: string;
     number: number;
     grade: string;
   };
-  // idx: number;
+  id: number;
 }
+
 const FriendId: React.FC<FriendIdProps> = (props) => {
   const friendData = props.friendData;
+  const [friend, setFriend] = useRecoilState(selectFriend);
+
+  const saveFriend = () => {
+    if (friend === props.id) {
+      setFriend(100);
+    } else {
+      setFriend(props.id);
+    }
+  };
+
   return (
-    <FriendIdComponent idx={props.friendData.id}>
+    <FriendIdComponent
+      idx={props.id}
+      friend={friend}
+      onClick={() => saveFriend()}
+    >
       <div className="firendName">
         모바일 학생증 {friendData.name}
         {/* 클릭하면 삭제, 카데고리 옮기기 등 옵션 보여주기 */}

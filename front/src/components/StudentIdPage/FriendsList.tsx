@@ -5,32 +5,88 @@ import "./FriendsList.css";
 const FriendsList = () => {
   const friends = [
     {
-      id: 1,
       name: "상익스트라",
       major: "경영학과",
       number: 201639874,
       grade: "3학년",
     },
     {
-      id: 2,
       name: "최상익",
       major: "경영학과",
       number: 201904874,
       grade: "1학년",
     },
     {
-      id: 3,
       name: "김동동",
       major: "식품공학과",
       number: 201632084,
       grade: "2학년",
     },
     {
-      id: 4,
       name: "김동그라미",
       major: "식품공학과",
       number: 201632084,
       grade: "2학년",
+    },
+    {
+      name: "윤자롱",
+      major: "반할과",
+      number: 201725304,
+      grade: "1학년",
+    },
+    {
+      name: "상훈쨩",
+      major: "심심한데 뽀뽀나할과",
+      number: 201432984,
+      grade: "1학년",
+    },
+    {
+      name: "이가용",
+      major: "아랍어과",
+      number: 201890724,
+      grade: "4학년",
+    },
+    {
+      name: "정수완쓰",
+      major: "경제학과",
+      number: 201932084,
+      grade: "1학년",
+    },
+    {
+      name: "식식이",
+      major: "배고플과",
+      number: 201032084,
+      grade: "4학년",
+    },
+    {
+      name: "세울이",
+      major: "마른사람과",
+      number: 201432084,
+      grade: "1학년",
+    },
+    {
+      name: "진진이",
+      major: "직장인과",
+      number: 202033584,
+      grade: "4학년",
+    },
+    {
+      name: "이제노",
+      major: "몸매천재과",
+      number: 202350884,
+      grade: "1학년",
+    },
+    {
+      name: "나재민",
+      major: "존잘과",
+      number: 2015336584,
+      grade: "1학년",
+    },
+    {
+      name: "재현",
+      major: "인형일과",
+      number: 2016357084,
+      grade: "3학년",
     },
   ];
 
@@ -47,7 +103,7 @@ const FriendsList = () => {
         </div>
         <div className="friendsList">
           {friends.map((friend, index) => (
-            <FriendId key={index} friendData={friend} />
+            <FriendId key={index} id={index} friendData={friend} />
           ))}
         </div>
       </div>
