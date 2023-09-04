@@ -54,7 +54,6 @@ const DiscountRate: React.FC<DiscountRateProps> = ({ selectedCurrency }) => {
 
   return (
     <div>
-      <p> DiscountRate</p>
       {checkData
         ? `${selectedCurrency} 우대율: ${checkData.우대율}`
         : "우대율이 없습니다"}

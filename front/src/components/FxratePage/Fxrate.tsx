@@ -2,19 +2,29 @@ import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./Fxrate.css";
 
 interface RateData {
   통화코드: string;
 }
 interface AllRateData {
   통화CODE: string;
+  통화CODE_DISPLAY: string;
+  대미환산환율: number;
+  매매기준환율: number;
+  전신환매입환율: number;
+  전신환매도환율: number;
+  지폐매입환율: number;
+  지폐매도환율: number;
+  TC매입환율: number;
+  TC매도환율: number;
 }
 interface FxrateProps {
   selectedCurrency: string;
 }
 const Fxrate: React.FC<FxrateProps> = ({ selectedCurrency }) => {
-  const [ratesData, setRatesData] = useState<RateData | null>(null);
-  const [allratesData, setAllRatesData] = useState<RateData | null>(null);
+  const [ratesData, setRatesData] = useState<AllRateData | null>(null);
+  const [allratesData, setAllRatesData] = useState<AllRateData | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   const alldata = {
@@ -59,21 +69,31 @@ const Fxrate: React.FC<FxrateProps> = ({ selectedCurrency }) => {
 
   const renderRates = () => {
     if (!ratesData) return null;
-    return Object.entries(ratesData).map(([key, value]) => (
-      <p key={key}>
-        <strong>{key}:</strong> {value}
-      </p>
-    ));
+    return (
+      <div>
+        <h2>
+          {ratesData.통화CODE_DISPLAY}({ratesData.통화CODE})
+        </h2>
+        <p>
+          <strong>대미환산환율:</strong> {ratesData.대미환산환율} $
+        </p>
+        <p>
+          <strong>매매기준환율:</strong> {ratesData.매매기준환율} 원
+        </p>
+      </div>
+    );
   };
 
   return (
-    <div>
-      Fxrate
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-      />
-      {renderRates()}
+    <div className="card-w">
+      <div className="fxrate-box card neumorphism">
+        Fxrate
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+        />
+        {renderRates()}
+      </div>
     </div>
   );
 };

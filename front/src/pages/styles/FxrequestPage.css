@@ -1,0 +1,91 @@
+/* Constants */
+:root {
+  --bkg-color: #e0e5ec;
+  --dark-box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
+    -9px -9px 16px rgba(255, 255, 255, 0.5);
+  --light-box-shadow-hover: 9px 9px 16px rgba(163, 177, 198, 0.6),
+    -9px -9px 16px rgba(255, 255, 255, 0.5),
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
+}
+
+.fxbtn {
+  border-radius: 10px;
+  background-color: #ffcf30;
+  color: #ffffff;
+}
+.fxrequest-container {
+  height: 80vh;
+  margin-top: 5%;
+  padding: 5%;
+  border-radius: 20px;
+  background-color: #c6d5ff;
+}
+
+.kwbox {
+  padding: 2%;
+  width: 100%;
+  border-radius: 20px;
+  background-color: aliceblue;
+}
+
+.requset-box {
+  padding: 2%;
+  width: 100%;
+  border-radius: 20px;
+  background-color: aliceblue;
+}
+
+.neumorphism {
+  background-color: var(--bkg-color);
+  box-shadow: var(--dark-box-shadow);
+  transition: all 250ms ease-in-out;
+}
+
+.neumorphism:hover {
+  box-shadow: var(--light-box-shadow-hover);
+}
+
+.card-w {
+  display: flex;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.card-w .card {
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+  border-radius: 30px;
+  position: relative;
+  background-color: #e5ebfd;
+  background: transparent;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-w .card .card__text {
+  text-align: center;
+}
+
+/* inset */
+.card.inset {
+  box-shadow: inset 3px 3px 7px rgba(136, 165, 191, 0.48),
+    inset -3px -3px 7px #ffffff;
+  transition: all 250ms ease-in-out;
+}
+
+.card.inset i {
+  text-shadow: 1px 1px 1px #d6e1ef99, 0 0 0 #000, 1px 1px 1px #d6e1ef00;
+}
+
+.card.active {
+  box-shadow: var(--dark-box-shadow),
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
+  background: linear-gradient(
+    318.32deg,
+    rgba(163, 177, 198, 0.1) 0%,
+    rgba(163, 177, 198, 0.1) 55%,
+    rgba(163, 177, 198, 0.25) 100%
+  );
+}
