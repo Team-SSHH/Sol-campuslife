@@ -1,25 +1,71 @@
 .studentIdWrapper {
   width: 90%;
   height: 20%;
-  background-color: #fff;
+
+  /* 카드 돌리는데 필요 */
+  perspective: 1000px;
+
   position: absolute;
   left: 5%;
   top: 7%;
-  border-radius: 20px;
+}
+
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  /* 카드 돌리는 효과 */
+  transition: transform 0.6s linear;
+
+  backface-visibility: hidden;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-weight: bold;
+  font-size: 0.9rem;
+
+  border-radius: 20px;
+}
+
+.front {
+  background-color: #fff;
+  transform: rotateY(0deg);
+}
+.back {
+  background-image: url("../../assets/card2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transform: rotateY(-180deg);
+}
+
+.studentIdWrapper.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.studentIdWrapper.flipped .back {
+  transform: rotateY(0deg);
 }
 
 .studentInfo {
   position: absolute;
   left: 5%;
-  font-weight: bold;
-  font-size: 0.9rem;
   display: flex;
   align-items: center;
 }
 .studentTextInfo {
   position: relative;
   left: 5%;
+}
+
+.cardInfo {
+  position: absolute;
+  left: 30%;
+  align-items: center;
+  font-size: large;
 }
