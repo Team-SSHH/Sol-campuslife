@@ -7,6 +7,7 @@ import BankLocationPage from "./pages/BankLocationPage";
 import FxrequestPage from "./pages/FxrequestPage";
 import FavoritePlacePage from "./pages/FavoritePlacePage";
 import ConsumeLogPage from "./pages/ConsumeLogPage";
+import LoginPage from "./pages/LoginPage";
 
 function AppRouter() {
   return (
@@ -20,6 +21,7 @@ function AppRouter() {
           <Route path="/BankLocation" element={<BankLocationPage />}></Route>
           <Route path="/FavoritePlace" element={<FavoritePlacePage />}></Route>
           <Route path="/ConsumeLog" element={<ConsumeLogPage />}></Route>
+          <Route path="/Login" element={<LoginPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

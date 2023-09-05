@@ -39,7 +39,12 @@ const FxrequestPage: React.FC = () => {
       <div className="card-w">
         <div className="kwbox card neumorphism">
           <p>원화예상금액보기</p>
-          <input type="text" value={inputAmount} onChange={handleInputChange} />
+          <input
+            className="kwinput"
+            type="text"
+            value={inputAmount}
+            onChange={handleInputChange}
+          />
           <KrwAmountRequest
             selectedCurrency={selectedCurrency}
             inputAmount={inputAmount}
