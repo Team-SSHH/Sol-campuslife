@@ -9,15 +9,36 @@ import "./styles/FxratePage.css";
 
 const FxratePage: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>("USD");
-
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const handleCurrencyChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedCurrency(event.target.value);
   };
-
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="fxrate-container">
+      <button className="fxratepush" onClick={handleModalToggle}>
+        알림 설정
+      </button>
+      {/* 모달창 */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            {/* 모달 내용 */}
+            <Fxratepush />
+            <button className="close-button" onClick={handleCloseModal}>
+              X
+            </button>
+          </div>
+        </div>
+      )}
+
       <div>
         <label htmlFor="currencySelect">통화 선택:</label>
         <select
@@ -48,9 +69,8 @@ const FxratePage: React.FC = () => {
       <br />
       <br />
       <Link to={"/Fxrequest"}>
-        <button>환전신청 및 결과 조회</button>
+        <button className="fxratebtn">환전신청 및 결과 조회</button>
       </Link>
-      {/* <Fxratepush /> */}
     </div>
   );
 };

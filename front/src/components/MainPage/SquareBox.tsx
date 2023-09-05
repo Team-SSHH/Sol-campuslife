@@ -1,4 +1,5 @@
 import React from "react";
+import "./Squarebox.css";
 
 interface SquareBoxProps {
   color: string;
@@ -38,7 +39,7 @@ const SquareBox: React.FC<SquareBoxProps> = ({
   };
 
   return (
-    <div style={boxStyle}>
+    <div style={boxStyle} className="square-box">
       <img src={src} alt="" style={imgStyle} />
       <p style={titleStyle}>{text}</p>
     </div>

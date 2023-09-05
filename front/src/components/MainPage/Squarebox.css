@@ -1,0 +1,17 @@
+/* SquareBox.css */
+
+.square-box {
+  background-color: #f0f0f0; /* 박스 배경색 */
+  border-radius: 20px; /* 둥근 모서리 반경 */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
+    -5px -5px 15px rgba(255, 255, 255, 0.5);
+  /* 내부 그림자와 외부 그림자 정의 */
+  cursor: pointer; /* 포인터 커서 표시 */
+  transition: box-shadow 0.3s ease; /* 그림자 변화 애니메이션 */
+}
+
+/* .title {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+} */
