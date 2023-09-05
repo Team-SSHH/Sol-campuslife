@@ -88,6 +88,12 @@ const FriendsList = () => {
       number: 2016357084,
       grade: "3학년",
     },
+    {
+      name: "배고프다",
+      major: "배고파파과",
+      number: 2011057084,
+      grade: "3학년",
+    },
   ];
 
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import "./StudentId.css";
 import sanghoon from "../../assets/sanghoon.png";
+
 const StudentId = () => {
   return (
     <div>
