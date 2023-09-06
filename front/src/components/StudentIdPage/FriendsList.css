@@ -64,3 +64,6 @@
   left: 5%;
   position: absolute;
 }
+.checkBox {
+  z-index: 10;
+}
