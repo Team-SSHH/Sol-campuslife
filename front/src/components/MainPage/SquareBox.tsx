@@ -28,6 +28,7 @@ const SquareBox: React.FC<SquareBoxProps> = ({
     borderRadius: "20px",
     fontWeight: "bold",
     fontSize: "1.1rem",
+    boxShadow: `-2px -2px 8px 0px ${color}, 6px 6px 9px rgba(0, 0, 0, 0.4)`,
   };
 
   const imgStyle: React.CSSProperties = {

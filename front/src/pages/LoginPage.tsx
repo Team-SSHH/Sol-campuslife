@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import api from "../utils/api";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { useRecoilState } from "recoil";
+import { loginuser } from "../utils/atoms";
+import "./styles/LoginPage.css";
 import "./styles/LoginPage.scss";
 
 const LoginPage = () => {
   const [studentId, setStudentId] = useState("");
   const [password, setPassword] = useState("");
+  const [userData, setUserData] = useRecoilState(loginuser);
 
   const navigate = useNavigate();
 
@@ -17,11 +20,13 @@ const LoginPage = () => {
 
   // const handleLogin = async () => {
   //   try {
-  //     const response = await api.post("/", {
+  //     const response = await api.post("/api2/sshh/login", {
   //       studentId,
   //       password,
   //     });
   //     if (response.status === 200) {
+  //       setUserData(response.data);
+  //       localStorage.setItem("user", response.data);
   //       navigate("/Main");
   //     }
   //   } catch (error) {

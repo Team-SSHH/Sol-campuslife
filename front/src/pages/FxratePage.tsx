@@ -23,7 +23,7 @@ const FxratePage: React.FC = () => {
   };
   return (
     <div className="fxrate-container">
-      <button className="fxratepush" onClick={handleModalToggle}>
+      <button className="fxratepush Kwbtn" onClick={handleModalToggle}>
         알림 설정
       </button>
       {/* 모달창 */}
@@ -69,7 +69,7 @@ const FxratePage: React.FC = () => {
       <br />
       <br />
       <Link to={"/Fxrequest"}>
-        <button className="fxratebtn">환전신청 및 결과 조회</button>
+        <button className="fxratebtn Kwbtn">환전신청 및 결과 조회</button>
       </Link>
     </div>
   );

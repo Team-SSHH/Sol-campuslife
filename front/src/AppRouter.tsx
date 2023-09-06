@@ -14,6 +14,7 @@ function AppRouter() {
     <div>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<LoginPage />}></Route>
           <Route path="/Main" element={<MainPage />}></Route>
           <Route path="/StudentId" element={<StudentIdPage />}></Route>
           <Route path="/Fxrate" element={<FxratePage />}></Route>
@@ -21,7 +22,6 @@ function AppRouter() {
           <Route path="/BankLocation" element={<BankLocationPage />}></Route>
           <Route path="/FavoritePlace" element={<FavoritePlacePage />}></Route>
           <Route path="/ConsumeLog" element={<ConsumeLogPage />}></Route>
-          <Route path="/Login" element={<LoginPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

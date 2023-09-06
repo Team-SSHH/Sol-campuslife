@@ -9,3 +9,8 @@ export const checkFriend = atom<number[]>({
   key: "checkFriend",
   default: [],
 });
+
+export const loginuser = atom({
+  key: "loginuser",
+  default: [],
+});

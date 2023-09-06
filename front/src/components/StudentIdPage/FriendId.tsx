@@ -60,6 +60,7 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
   const [check, setCheck] = useState(false);
+  const [resultData, setResultData] = useState("");
 
   const saveFriend = () => {
     if (friend === props.id) {
@@ -68,6 +69,28 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
       setFriend(props.id);
     }
   };
+
+  // const deleteFriend = async () => {
+  //   try {
+  //     const response = await api.delete(`/api2/sshh/freinds/${loginuser.student_id}/delete/${freindStudentId}`);
+  //     if (response.status === 200) {
+  //       setResultData(`${freindStudentId}님과 친구 삭제에 성공했습니다`)
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const deleteFriend = async () => {
+  //   try {
+  //     const response = await api.put(`/api2/sshh/freinds/${loginuser.student_id}/update/${freindStudentId}`, {categoryName});
+  //     if (response.status === 200) {
+  //       setResultData(`${freindStudentId}님의 카테고리 변경 완료`)
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
 
   return (
     <FriendIdComponent
