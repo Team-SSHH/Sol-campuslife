@@ -1,6 +1,9 @@
 import React from "react";
 import FriendId from "./FriendId";
 import "./FriendsList.css";
+import { useRecoilState } from "recoil";
+import { isRemittanceModalOpen } from "../../utils/atoms";
+import RemittanceModal from "./RemittanceModal";
 
 const FriendsList = () => {
   const friends = [
@@ -95,24 +98,28 @@ const FriendsList = () => {
       grade: "3학년",
     },
   ];
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
 
   return (
     <div>
-      <div className="frinedsInfo">
-        <div className="friendsCategorySet">
-          {/* 나중에 포문 돌려서 넣기 */}
-          <div className="friendsCategory">전체보기</div>
-          <div className="friendsCategory">그룹 1</div>
-          <div className="friendsCategory">그룹 2</div>
-          <div className="friendsCategory">그룹 3</div>
-          {/* <div className="friendsCategory">그룹 4</div> */}
+      {!isModalOpen && (
+        <div className="frinedsInfo">
+          <div className="friendsCategorySet">
+            {/* 나중에 포문 돌려서 넣기 */}
+            <div className="friendsCategory">전체보기</div>
+            <div className="friendsCategory">그룹 1</div>
+            <div className="friendsCategory">그룹 2</div>
+            <div className="friendsCategory">그룹 3</div>
+            {/* <div className="friendsCategory">그룹 4</div> */}
+          </div>
+          <div className="friendsList">
+            {friends.map((friend, index) => (
+              <FriendId key={index} id={index} friendData={friend} />
+            ))}
+          </div>
         </div>
-        <div className="friendsList">
-          {friends.map((friend, index) => (
-            <FriendId key={index} id={index} friendData={friend} />
-          ))}
-        </div>
-      </div>
+      )}
+      {isModalOpen && <RemittanceModal />}
     </div>
   );
 };
