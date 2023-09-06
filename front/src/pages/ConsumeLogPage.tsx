@@ -1,4 +1,8 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../utils/atoms";
+
+
 import {
   PieChart,
   Pie,
@@ -72,6 +76,30 @@ const COLORS = [
 ];
 
 const ConsumeLogPage = () => {
+    const [userData, setUserData] = useRecoilState(loginuser);
+
+  // const allConsumeLog = async () => {
+  //   try {
+  //     const response = await api.get("/api2/sshh/history/"");
+  //     if (response.status === 200) {
+  //    setAllLog(response.data)
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const myConsumeLog = async () => {
+  //   try {
+  //     const response = await api.get(`/api2/sshh/history/${loginuser.student_id}`);
+  //     if (response.status === 200) {
+  //      setMyLog(response.data)
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+  
   return (
     <div className="ConsumeLog">
       <div className="CompareCircleWrapper">
@@ -214,6 +242,5 @@ const ConsumeLogPage = () => {
       </div>
     </div>
   );
-};
 
 export default ConsumeLogPage;

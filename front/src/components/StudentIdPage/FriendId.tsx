@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { selectFriend, checkFriend } from "../../utils/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  selectFriend,
+  checkFriend,
+  isRemittanceModalOpen,
+  selectedFriend,
+} from "../../utils/atoms";
 import noncheckImg from "../../assets/noncheck.png";
 import checkImg from "../../assets/check.png";
 
@@ -50,16 +55,17 @@ interface FriendIdProps {
   id: number;
 }
 
-const remittance = () => {
-  // api 요청하기
-  console.log("돈보내라");
-};
-
 const FriendId: React.FC<FriendIdProps> = (props) => {
   const friendData = props.friendData;
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
+
   const [check, setCheck] = useState(false);
+  const [resultData, setResultData] = useState("");
+
+  const [isCheck, setIsCheck] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+  const setSelectedFriend = useSetRecoilState(selectedFriend);
 
   const saveFriend = () => {
     if (friend === props.id) {
@@ -68,6 +74,33 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
       setFriend(props.id);
     }
   };
+  const remittance = () => {
+    setIsModalOpen(true);
+    setSelectedFriend(friendData);
+    console.log("돈보내라");
+  };
+
+  // const deleteFriend = async () => {
+  //   try {
+  //     const response = await api.delete(`/api2/sshh/freinds/${loginuser.student_id}/delete/${freindStudentId}`);
+  //     if (response.status === 200) {
+  //       setResultData(`${freindStudentId}님과 친구 삭제에 성공했습니다`)
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const deleteFriend = async () => {
+  //   try {
+  //     const response = await api.put(`/api2/sshh/freinds/${loginuser.student_id}/update/${freindStudentId}`, {categoryName});
+  //     if (response.status === 200) {
+  //       setResultData(`${freindStudentId}님의 카테고리 변경 완료`)
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
 
   return (
     <FriendIdComponent
@@ -82,16 +115,16 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
           className="checkBox"
           onClick={(e) => {
             e.stopPropagation();
-            setCheck(!check);
+            setIsCheck(!isCheck);
 
-            if (check) {
+            if (isCheck) {
               setCheckFriend(checkfriend.filter((f) => f !== props.id));
             } else {
               setCheckFriend([...checkfriend, props.id]);
             }
           }}
         >
-          {check ? (
+          {isCheck ? (
             <img src={checkImg} style={{ width: "20px" }} />
           ) : (
             <img src={noncheckImg} style={{ width: "20px" }} />

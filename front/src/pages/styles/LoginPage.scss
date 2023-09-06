@@ -1,8 +1,11 @@
 $ruler: 16px;
 $color-red: #ae1100;
-$color-bg: #ebecf0;
-$color-shadow: #babecc;
-$color-white: #fff;
+// $color-bg: #ebecf0;
+$color-bg: #c6d5ff;
+// $color-shadow: #babecc;
+// $color-white: #fff;
+$color-shadow: rgb(155, 160, 177);
+$color-white: #cfdbfb;
 
 body,
 html {
@@ -84,9 +87,8 @@ button {
 .loginbutton {
   color: #61677c;
   font-weight: bold;
-  box-shadow: 
-//   -5px -5px 20px $color-white,
-    5px 5px 20px $color-shadow;
+  // box-shadow: -5px -5px 20px $color-white, 5px 5px 20px $color-shadow;
+  box-shadow: -2px -2px 10px $color-white, 5px 5px 10px $color-shadow;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   font-weight: 600;
