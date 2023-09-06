@@ -2,7 +2,6 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../utils/atoms";
 
-
 import {
   PieChart,
   Pie,
@@ -76,7 +75,7 @@ const COLORS = [
 ];
 
 const ConsumeLogPage = () => {
-    const [userData, setUserData] = useRecoilState(loginuser);
+  const [userData, setUserData] = useRecoilState(loginuser);
 
   // const allConsumeLog = async () => {
   //   try {
@@ -99,7 +98,7 @@ const ConsumeLogPage = () => {
   //     // 에러 처리
   //   }
   // };
-  
+
   return (
     <div className="ConsumeLog">
       <div className="CompareCircleWrapper">
@@ -242,5 +241,5 @@ const ConsumeLogPage = () => {
       </div>
     </div>
   );
-
+};
 export default ConsumeLogPage;
