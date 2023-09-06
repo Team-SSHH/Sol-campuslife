@@ -42,6 +42,7 @@ const RemittanceModal = () => {
 
   const handleClick = () => {
     console.log(value);
+    setIsModalOpen(false);
   };
 
   return (
