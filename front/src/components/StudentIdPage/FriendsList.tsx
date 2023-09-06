@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import FriendId from "./FriendId";
 import "./FriendsList.css";
 import { useRecoilState } from "recoil";
+import { loginuser } from "../../utils/atoms";
 import { isRemittanceModalOpen } from "../../utils/atoms";
 import RemittanceModal from "./RemittanceModal";
 
 const FriendsList = () => {
+  const [userData, setUserData] = useRecoilState(loginuser);
+  const [frindsData, setFrindsData] = useState([]);
   const friends = [
     {
       name: "상익스트라",
@@ -99,6 +102,50 @@ const FriendsList = () => {
     },
   ];
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+
+  // const getFriendList = async () => {
+  //   try {
+  //     const response = await api.get(`/api2/sshh/freinds/${loginuser.student_id}`);
+  //     if (response.status === 200) {
+  //       setFrindsData(response.data);
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const addCategory = async () => {
+  //   try {
+  //     const response = await api.post(`/api2/sshh/category/${loginuser.student_id}`, {categoryName});
+  //     if (response.status === 200) {
+  //
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const changeCategoryName = async () => {
+  //   try {
+  //     const response = await api.put(`/api2/sshh/category/${loginuser.student_id}`, {categoryId, categoryName});
+  //     if (response.status === 200) {
+  //
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const deleteCategory = async () => {
+  //   try {
+  //     const response = await api.delete(`/api2/sshh/category/${loginuser.student_id}`, {categoryId});
+  //     if (response.status === 200) {
+  //
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
 
   return (
     <div>

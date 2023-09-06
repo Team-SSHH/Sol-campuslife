@@ -33,9 +33,23 @@
 }
 
 .front {
+  box-shadow: -2px -2px 8px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
+
   background-color: #fff;
   transform: rotateY(0deg);
 }
+
+/* .square-box {
+  box-shadow: -6px -6px 9px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
+  font-size: 20pt;
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 30px;
+  background: #eee;
+  cursor: pointer;
+} */
+
 .back {
   background-image: url("../../assets/card2.png");
   background-size: cover;

@@ -10,6 +10,11 @@ export const checkFriend = atom<number[]>({
   default: [],
 });
 
+export const loginuser = atom({
+  key: "loginuser",
+  default: [],
+});
+
 export const isRemittanceModalOpen = atom({
   key: "isRemittanceModalOpen",
   default: false,

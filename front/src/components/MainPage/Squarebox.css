@@ -1,17 +1,99 @@
 /* SquareBox.css */
 
-.square-box {
-  background-color: #f0f0f0; /* 박스 배경색 */
-  border-radius: 20px; /* 둥근 모서리 반경 */
+/* .square-box {
+  background-color: #f0f0f0;
+  border-radius: 20px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
     -5px -5px 15px rgba(255, 255, 255, 0.5);
-  /* 내부 그림자와 외부 그림자 정의 */
-  cursor: pointer; /* 포인터 커서 표시 */
-  transition: box-shadow 0.3s ease; /* 그림자 변화 애니메이션 */
-}
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+} */
 
 /* .title {
   margin-top: 10px;
   font-weight: bold;
   font-size: 1.1rem;
+} */
+
+/* .square-box {
+  box-shadow: -6px -6px 9px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
+  font-size: 20pt;
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 30px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.square-box:hover,
+.square-box:active {
+  background: #aaa;
+}
+
+.square-box:active {
+  box-shadow: inset -6px -6px 9px 0px rgba(255, 255, 255, 0.4),
+    inset 6px 6px 9px rgba(0, 0, 0, 0.4);
+}
+
+.opkey {
+  box-shadow: -6px -6px 9px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
+  font-size: 20pt;
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: #aaa;
+}
+
+.opkey:hover,
+.opkey:active {
+  color: #eee;
+  background: #666;
+}
+
+.opkey:active {
+  box-shadow: inset -6px -6px 9px 0px rgba(255, 255, 255, 0.4),
+    inset 6px 6px 9px rgba(0, 0, 0, 0.4);
+}
+
+.eqkey {
+  box-shadow: -6px -6px 9px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
+  font-size: 20pt;
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: darkorange;
+}
+
+.eqkey:hover,
+.eqkey:active {
+  background: orange;
+}
+
+.eqkey:active {
+  box-shadow: inset -6px -6px 9px 0px rgba(255, 255, 255, 0.4),
+    inset 6px 6px 9px rgba(0, 0, 0, 0.4);
+}
+
+main {
+  text-align: center;
+}
+
+input {
+  -webkit-appearance: none;
+  -mox-appearance: none;
+  appearance: none;
+  width: 320px;
+  height: 60px;
+  padding: 16px 32px;
+  text-align: right;
+  border: none;
+  border-radius: 30px;
+  box-shadow: inset -6px -6px 9px 0px rgba(255, 255, 255, 1),
+    inset 6px 6px 9px rgba(0, 0, 0, 0.4);
+  text-shadow: 6px 6px 9px rgba(0, 0, 0, 0.3);
 } */

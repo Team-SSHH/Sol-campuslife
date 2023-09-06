@@ -89,6 +89,8 @@ const Fxrate: React.FC<FxrateProps> = ({ selectedCurrency }) => {
       <div className="fxrate-box card neumorphism">
         Fxrate
         <DatePicker
+          dateFormat="yyyy.MM.dd"
+          className="datepicker"
           selected={startDate}
           onChange={(date) => setStartDate(date)}
         />
