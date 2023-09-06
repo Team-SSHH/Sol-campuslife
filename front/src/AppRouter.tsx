@@ -8,11 +8,14 @@ import FxrequestPage from "./pages/FxrequestPage";
 import FavoritePlacePage from "./pages/FavoritePlacePage";
 import ConsumeLogPage from "./pages/ConsumeLogPage";
 import LoginPage from "./pages/LoginPage";
+import NavBar from "./components/common/NavBar";
+import "./AppRouter.css";
 
 function AppRouter() {
   return (
-    <div>
+    <div className="AppRouter">
       <BrowserRouter>
+        <NavBar />
         <Routes>
           <Route path="/Main" element={<MainPage />}></Route>
           <Route path="/StudentId" element={<StudentIdPage />}></Route>
