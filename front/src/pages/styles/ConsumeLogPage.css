@@ -1,0 +1,19 @@
+.ConsumeLog {
+  color: white;
+}
+
+.CompareCircleWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+.CompareGraphWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10%;
+}
