@@ -14,16 +14,16 @@ public class HistoryDto {
     @NoArgsConstructor
     @Builder
     public static class Response{
-        private int history_id;
+        private long history_id;
 //        private Student student_id;
-        private int student_id;
+        private long student_id;
         private String content;
-        private int deposit;
-        private int pay;
+        private long deposit;
+        private long pay;
 
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime transactionTime;
-        private int balance;
+        private long balance;
         private String content_category;
     }
 }

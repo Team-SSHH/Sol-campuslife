@@ -16,7 +16,7 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id", nullable = false)
-    private Integer history_id;
+    private Long history_id;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
@@ -27,16 +27,16 @@ public class History {
     private String content;
 
     @Column(name = "deposit")
-    private Integer deposit;
+    private Long deposit;
 
     @Column(name = "pay")
-    private Integer pay;
+    private Long pay;
 
     @Column(name = "transaction_time", nullable = false)
     private LocalDateTime transactionTime;
 
     @Column(name = "balance", nullable = false)
-    private Integer balance;
+    private Long balance;
 
     @Column(name = "content_category", nullable = false)
     private String content_category;
