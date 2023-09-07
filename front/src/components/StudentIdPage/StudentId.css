@@ -38,6 +38,12 @@
   background-color: #fff;
   transform: rotateY(0deg);
 }
+.flipment {
+  position: absolute;
+  right: 5%;
+  bottom: 8%;
+  font-size: 0.8rem;
+}
 
 /* .square-box {
   box-shadow: -6px -6px 9px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);

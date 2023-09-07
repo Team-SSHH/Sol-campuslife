@@ -57,7 +57,7 @@
 }
 .remittanceContentTitle {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: bolder;
   z-index: 3;
   position: absolute;
   left: 30%;

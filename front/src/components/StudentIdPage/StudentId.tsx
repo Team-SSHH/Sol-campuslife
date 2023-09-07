@@ -12,7 +12,7 @@ const StudentId = () => {
   return (
     <div
       className={`studentIdWrapper ${isFlipped ? "flipped" : ""}`}
-      onClick={handleClick}
+      // onClick={handleClick}
     >
       <div className="front">
         <div className="studentInfo">
@@ -28,12 +28,18 @@ const StudentId = () => {
             </div>
           </div>
         </div>
+        <div className="flipment" onClick={handleClick}>
+          카드 보기 &gt;
+        </div>
       </div>
 
       <div className="back">
         <div className="cardInfo">
           <div>계좌번호: 93087254624787</div>
           <div>잔액: 500원</div>
+        </div>
+        <div className="flipment" onClick={handleClick}>
+          학생증 앞면 보기 &gt;
         </div>
       </div>
     </div>
