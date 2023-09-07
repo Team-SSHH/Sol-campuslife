@@ -16,20 +16,20 @@ import {
 import "./styles/ConsumeLogPage.css";
 
 const data1 = [
-  { name: "음식", value: 30 },
-  { name: "카페", value: 15 },
-  { name: "의류", value: 10 },
-  { name: "학습", value: 20 },
-  { name: "생활", value: 15 },
-  { name: "기타", value: 10 },
+  { name: "음식", value: 40 },
+  { name: "카페", value: 10 },
+  { name: "문화", value: 15 },
+  { name: "학습", value: 15 },
+  { name: "교통", value: 5 },
+  { name: "기타", value: 15 },
 ];
 
 const data2 = [
-  { name: "음식", value: 25 },
+  { name: "음식", value: 40 },
   { name: "카페", value: 20 },
-  { name: "의류", value: 15 },
+  { name: "문화", value: 20 },
   { name: "학습", value: 15 },
-  { name: "생활", value: 10 },
+  { name: "교통", value: 5 },
   { name: "기타", value: 15 },
 ];
 
