@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
+import "./Kwrate.css";
+import "./kwrate.scss";
 
 interface KwData {
   우대율: string;
@@ -57,14 +59,16 @@ const KrwAmount: React.FC<KrwAmountProps> = ({ selectedCurrency }) => {
 
   return (
     <div>
-      <p>Amount</p>
       <input
+        className="kwinput"
         type="text"
         value={inputAmount}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
-      <button onClick={handleBtnClick}>원화예상금액보기</button>
+      <button className="Kwbtn" onClick={handleBtnClick}>
+        원화예상금액보기
+      </button>
       <p>원화예상금액: {exchangeAmount}</p>
     </div>
   );

@@ -5,45 +5,40 @@ import DiscountRate from "../components/FxratePage/DiscountRate";
 import KrwAmount from "../components/FxratePage/KrwAmount";
 import { fxlist } from "../utils/fxlist";
 import Fxratepush from "../components/FxratePage/Fxratepush";
-
-interface RateData {
-  통화코드: string;
-}
+import "./styles/FxratePage.css";
 
 const FxratePage: React.FC = () => {
-  const [ratesData, setRatesData] = useState<RateData | null>(null);
-
   const [selectedCurrency, setSelectedCurrency] = useState<string>("USD");
-
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const handleCurrencyChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedCurrency(event.target.value);
   };
-
-  const data = {
-    dataHeader: {
-      apikey: "2023_Shinhan_SSAFY_Hackathon",
-    },
-    dataBody: {
-      조회일자: "20230830",
-      통화코드: selectedCurrency,
-    },
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
   };
-
-  // const fxrate = async () => {
-  //   try {
-  //     const response = await api.post("/search/fxrate/day", data);
-  //     console.log(response);
-  //     // setRatesData(response.data.dataBody);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
-    <div>
-      FxratePage{" "}
+    <div className="fxrate-container">
+      <button className="fxratepush Kwbtn" onClick={handleModalToggle}>
+        알림 설정
+      </button>
+      {/* 모달창 */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            {/* 모달 내용 */}
+            <Fxratepush />
+            <button className="close-button" onClick={handleCloseModal}>
+              X
+            </button>
+          </div>
+        </div>
+      )}
+
       <div>
         <label htmlFor="currencySelect">통화 선택:</label>
         <select
@@ -59,18 +54,23 @@ const FxratePage: React.FC = () => {
           ))}
         </select>
       </div>
-      <div>통화별환전조회</div>
-      <Fxrate selectedCurrency={selectedCurrency} />
       <div>
-        <DiscountRate selectedCurrency={selectedCurrency} />
+        <p>Exchange Rate</p>
+        <Fxrate selectedCurrency={selectedCurrency} />
+        <p>나의 우대율</p>
       </div>
-      <div>
-        <KrwAmount selectedCurrency={selectedCurrency} />
+      <div className="card-w">
+        <div className="discount-box card neumorphism">
+          <p>나의 우대율</p>
+          <DiscountRate selectedCurrency={selectedCurrency} />
+          <KrwAmount selectedCurrency={selectedCurrency} />
+        </div>
       </div>
+      <br />
+      <br />
       <Link to={"/Fxrequest"}>
-        <button>환전신청 및 결과 조회</button>
+        <button className="fxratebtn Kwbtn">환전신청 및 결과 조회</button>
       </Link>
-      <Fxratepush />
     </div>
   );
 };

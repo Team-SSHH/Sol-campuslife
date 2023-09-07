@@ -86,12 +86,10 @@ const Fxrequest: React.FC<FxrequestProps> = ({
 
   return (
     <div>
-      <p>환전신청</p>
-      <button onClick={openModal}>수령처 선택</button>
+      <button className="fxbtn" onClick={openModal}>
+        수령처 선택
+      </button>
       <p>{checkBranchData}</p>
-      <button onClick={handleBtnClick}>환전신청하기</button>
-      <p>{requestresult}</p>
-
       {isModalOpen && (
         <div className="fxrequest-modal">
           <div className="fxrequest-modal-content">
@@ -110,6 +108,10 @@ const Fxrequest: React.FC<FxrequestProps> = ({
           </div>
         </div>
       )}
+      <button className="fxbtn" onClick={handleBtnClick}>
+        환전신청하기
+      </button>
+      <p>{requestresult}</p>
     </div>
   );
 };

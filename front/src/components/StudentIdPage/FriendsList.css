@@ -45,8 +45,6 @@
   border: #fff 0.4rem solid;
 }
 
-.friendInfo {
-}
 .firendName {
   position: relative;
   width: 90%;
@@ -63,4 +61,7 @@
   top: 30%;
   left: 5%;
   position: absolute;
+}
+.checkBox {
+  z-index: 10;
 }

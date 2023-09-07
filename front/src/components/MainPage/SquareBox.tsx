@@ -1,4 +1,5 @@
 import React from "react";
+import "./Squarebox.css";
 
 interface SquareBoxProps {
   color: string;
@@ -7,6 +8,11 @@ interface SquareBoxProps {
   width: string;
   height: string;
 }
+
+const titleStyle: React.CSSProperties = {
+  position: "relative",
+  left: "5%",
+};
 
 const SquareBox: React.FC<SquareBoxProps> = ({
   color,
@@ -20,17 +26,23 @@ const SquareBox: React.FC<SquareBoxProps> = ({
     width,
     height,
     borderRadius: "20px",
+    fontWeight: "bold",
+    fontSize: "1.1rem",
+    boxShadow: `-2px -2px 8px 0px ${color}, 6px 6px 9px rgba(0, 0, 0, 0.4)`,
   };
 
-  const imgStyle = {
+  const imgStyle: React.CSSProperties = {
     width: "50px",
     height: "auto",
+    position: "relative",
+    left: "5%",
+    top: "10%",
   };
 
   return (
-    <div style={boxStyle}>
+    <div style={boxStyle} className="square-box">
       <img src={src} alt="" style={imgStyle} />
-      <p>{text}</p>
+      <p style={titleStyle}>{text}</p>
     </div>
   );
 };

@@ -1,0 +1,18 @@
+.fxrate-box {
+  width: 100%;
+  padding: 2%;
+  border: 1px solid white;
+  border-radius: 20px;
+  background-color: aliceblue;
+}
+
+.datepicker {
+  margin: 5%;
+  border-radius: 20px;
+  border: none;
+  text-align: center;
+  box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
+    -6px -6px 10px rgba(255, 255, 255, 0.5),
+    6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
+  background-color: aliceblue;
+}

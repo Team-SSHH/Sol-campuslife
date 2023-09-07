@@ -1,0 +1,99 @@
+.place-con {
+  height: 80%;
+  width: 100%;
+}
+
+.tag-container {
+  height: 30%;
+  margin-top: 10%;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.tag-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 7%; */
+}
+
+.tag-box {
+  border-radius: 20px;
+  padding: 2%;
+  padding-bottom: 5%;
+  background-color: #c6d5ff;
+  width: 90%;
+  height: 40%;
+
+  margin-bottom: 2%;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* overflow: scroll; */
+}
+
+.tag-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag-btn {
+  margin-right: 5%;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+}
+
+.loac-container {
+  margin-top: 6%;
+  height: 60%;
+  background-color: #c6d5ff;
+  border-radius: 20px;
+}
+
+.loac-con1 {
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+.loac-con {
+  height: 35%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+  /* align-items: center; */
+}
+
+.loca-box {
+  border-radius: 20px;
+  height: 90%;
+  width: 90%;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+}
+
+.imgbox {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img {
+  text-align: center;
+  height: 80%;
+  width: 80%;
+}
+
+.imgimg {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.contextbox {
+  width: 50%;
+}

@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import FriendId from "./FriendId";
 import "./FriendsList.css";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../utils/atoms";
+import { isRemittanceModalOpen } from "../../utils/atoms";
+import RemittanceModal from "./RemittanceModal";
 
 const FriendsList = () => {
+  const [userData, setUserData] = useRecoilState(loginuser);
+  const [frindsData, setFrindsData] = useState([]);
   const friends = [
     {
       name: "상익스트라",
@@ -88,25 +94,79 @@ const FriendsList = () => {
       number: 2016357084,
       grade: "3학년",
     },
+    {
+      name: "배고프다",
+      major: "배고파파과",
+      number: 2011057084,
+      grade: "3학년",
+    },
   ];
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+
+  // const getFriendList = async () => {
+  //   try {
+  //     const response = await api.get(`/api2/sshh/freinds/${loginuser.student_id}`);
+  //     if (response.status === 200) {
+  //       setFrindsData(response.data);
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const addCategory = async () => {
+  //   try {
+  //     const response = await api.post(`/api2/sshh/category/${loginuser.student_id}`, {categoryName});
+  //     if (response.status === 200) {
+  //
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const changeCategoryName = async () => {
+  //   try {
+  //     const response = await api.put(`/api2/sshh/category/${loginuser.student_id}`, {categoryId, categoryName});
+  //     if (response.status === 200) {
+  //
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
+
+  // const deleteCategory = async () => {
+  //   try {
+  //     const response = await api.delete(`/api2/sshh/category/${loginuser.student_id}`, {categoryId});
+  //     if (response.status === 200) {
+  //
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
 
   return (
     <div>
-      <div className="frinedsInfo">
-        <div className="friendsCategorySet">
-          {/* 나중에 포문 돌려서 넣기 */}
-          <div className="friendsCategory">전체보기</div>
-          <div className="friendsCategory">그룹 1</div>
-          <div className="friendsCategory">그룹 2</div>
-          <div className="friendsCategory">그룹 3</div>
-          {/* <div className="friendsCategory">그룹 4</div> */}
+      {!isModalOpen && (
+        <div className="frinedsInfo">
+          <div className="friendsCategorySet">
+            {/* 나중에 포문 돌려서 넣기 */}
+            <div className="friendsCategory">전체보기</div>
+            <div className="friendsCategory">그룹 1</div>
+            <div className="friendsCategory">그룹 2</div>
+            <div className="friendsCategory">그룹 3</div>
+            {/* <div className="friendsCategory">그룹 4</div> */}
+          </div>
+          <div className="friendsList">
+            {friends.map((friend, index) => (
+              <FriendId key={index} id={index} friendData={friend} />
+            ))}
+          </div>
         </div>
-        <div className="friendsList">
-          {friends.map((friend, index) => (
-            <FriendId key={index} id={index} friendData={friend} />
-          ))}
-        </div>
-      </div>
+      )}
+      {isModalOpen && <RemittanceModal />}
     </div>
   );
 };
