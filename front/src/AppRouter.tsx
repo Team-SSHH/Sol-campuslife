@@ -9,7 +9,9 @@ import FavoritePlacePage from "./pages/FavoritePlacePage";
 import ConsumeLogPage from "./pages/ConsumeLogPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/common/NavBar";
+
 import "./AppRouter.css";
+import AlertPage from "./pages/AlertPage";
 
 function AppRouter() {
   return (
@@ -25,6 +27,7 @@ function AppRouter() {
           <Route path="/BankLocation" element={<BankLocationPage />}></Route>
           <Route path="/FavoritePlace" element={<FavoritePlacePage />}></Route>
           <Route path="/ConsumeLog" element={<ConsumeLogPage />}></Route>
+          <Route path="/Alert" element={<AlertPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
