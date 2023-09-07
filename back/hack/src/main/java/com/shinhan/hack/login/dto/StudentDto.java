@@ -11,7 +11,7 @@ public class StudentDto {
     @AllArgsConstructor
     @Builder
     public static class Post{
-        private int studentId;
+        private Long studentId;
         private String password;
     }
 
@@ -22,9 +22,9 @@ public class StudentDto {
     @Builder
     @ToString
     public static class Response{
-        private int studentId;
-        private int bankNumber;
-        private int balance;
+        private Long studentId;
+        private Long bankNumber;
+        private Long balance;
         private String phoneId;
     }
 }

@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LoginRepository extends JpaRepository<Student, Integer> {
+public interface LoginRepository extends JpaRepository<Student, Long> {
 
     @Query("select s from student s where s.studentId = :studentId and s.password = :password")
-    Student findStudentByStudentIdAndPassword(Integer studentId,String password);
+    Student findStudentByStudentIdAndPassword(Long studentId,String password);
 }

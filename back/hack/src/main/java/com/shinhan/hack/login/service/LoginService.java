@@ -13,13 +13,8 @@ public class LoginService {
     private final LoginRepository loginRepository;
 
     public Student login(StudentDto.Post student){
-        System.out.println(1);
-        Integer studentId = student.getStudentId();
-        String password = student.getPassword();
-        System.out.println(studentId);
-        System.out.println(password);
-        Student response = loginRepository.findStudentByStudentIdAndPassword(studentId, password);
-        System.out.println(response);
+        Student response = loginRepository.findStudentByStudentIdAndPassword(student.getStudentId(), student.getPassword());
+
         return  response;
     }
 

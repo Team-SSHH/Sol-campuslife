@@ -15,16 +15,16 @@ public class Student {
 
     @Id
     @Column(name = "student_id")
-    private int studentId;
+    private Long studentId;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "bank_number")
-    private int bankNumber;
+    private Long bankNumber;
 
     @Column(name = "balance")
-    private int balance;
+    private Long balance;
 
     @Column(name = "phone_id")
     private String phoneId;
