@@ -22,28 +22,28 @@ const Alarm = [
     date: "2023.09.05 17:05",
     name: "김동현",
     money: 2000,
-    complete: false,
+    complete: true,
+  },
+  {
+    title: "입금",
+    date: "2023.09.05 17:05",
+    name: "최상익",
+    money: 2000,
+    complete: true,
   },
   {
     title: "더치페이",
     date: "2023.09.05 17:05",
     name: "최상익",
     money: 2000,
-    complete: false,
-  },
-  {
-    title: "더치페이",
-    date: "2023.09.05 17:05",
-    name: "최상익",
-    money: 2000,
-    complete: false,
+    complete: true,
   },
   {
     title: "더치페이",
     date: "2023.09.05 17:05",
     name: "최상익",
     money: 1,
-    complete: false,
+    complete: true,
   },
 ];
 

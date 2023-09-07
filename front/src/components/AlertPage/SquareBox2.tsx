@@ -18,23 +18,50 @@ interface Alarm2Props {
 
 const SquareBox2Component = styled.div<SquareBox2Props>`
   width: 96%;
-  height: 16%;
+  height: 18%;
   background-color: #fff;
   position: absolute;
   left: 2%;
   //   padding-left: 4%;
   //   padding-top: 2%;
   border-radius: 20px;
-  top: ${(props) => props.idx * 18 + 2}%;
+  top: ${(props) => props.idx * 20 + 2}%;
 `;
+
+const StyledButton = styled.button`
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-weight: bold;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  z-index: 1;
+
+  height: 2.25rem;
+  width: 6rem;
+  font-size: 1rem;
+  background: #6e96ff;
+`;
+
 const SquareBox2: React.FC<Alarm2Props> = (props) => {
   const alarmData = props.alarmData;
 
   return (
     <SquareBox2Component idx={props.id}>
-      <div className="alertBoxWrapper">
+      {/* {alarmData.complete && <div className="alertBoxWrapperDone"></div>} */}
+      {/* <div className="alertBoxWrapper"> */}
+      <div
+        className={`alertBoxWrapper ${
+          alarmData.complete && alarmData.title === "더치페이"
+            ? "alertBoxWrapperDone"
+            : ""
+        }`}
+      >
         <div>{alarmData.date}</div>
-        {/* <div> */}
         <span className="alertTitle">{alarmData.title}</span>
         <span>
           <span className="alertName">{alarmData.name} </span>
@@ -42,7 +69,16 @@ const SquareBox2: React.FC<Alarm2Props> = (props) => {
             <span>{alarmData.money}</span> 원
           </span>
         </span>
-        {/* </div> */}
+        {!alarmData.complete && (
+          <StyledButton
+            onClick={(e) => {
+              e.stopPropagation();
+              //   remittance();
+            }}
+          >
+            송금하기
+          </StyledButton>
+        )}
       </div>
     </SquareBox2Component>
   );
