@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
-  selectFriend,
   checkFriend,
   isRemittanceModalOpen,
   selectedFriend,
@@ -57,7 +56,8 @@ interface FriendIdProps {
 
 const FriendId: React.FC<FriendIdProps> = (props) => {
   const friendData = props.friendData;
-  const [friend, setFriend] = useRecoilState(selectFriend);
+  const [friend, setFriend] = useState(100);
+  // const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
 
   const [check, setCheck] = useState(false);
