@@ -77,7 +77,6 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
   const remittance = () => {
     setIsModalOpen(true);
     setSelectedFriend(friendData);
-    console.log("돈보내라");
   };
 
   // const deleteFriend = async () => {

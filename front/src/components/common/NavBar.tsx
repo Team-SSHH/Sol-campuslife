@@ -8,14 +8,24 @@ import { useNavigate } from "react-router-dom";
 const NavBar = () => {
   const navigate = useNavigate();
 
-  const handleLogoClick = () => {
-    navigate("/main");
+  const handleLogoClick = (router: string) => {
+    navigate(router);
   };
 
   return (
     <div className="navbar">
-      <img src={logo} alt="" className="logoImg" onClick={handleLogoClick} />
-      <img src={bell} alt="" className="bell" />
+      <img
+        src={logo}
+        alt=""
+        className="logoImg"
+        onClick={() => handleLogoClick("/main")}
+      />
+      <img
+        src={bell}
+        alt=""
+        className="bell"
+        onClick={() => handleLogoClick("/alert")}
+      />
       <img src={menu} alt="" className="menu" />
     </div>
   );

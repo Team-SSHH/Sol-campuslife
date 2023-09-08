@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isRemittanceModalOpen, selectedFriend } from "../../utils/atoms";
 
 interface SquareBox2Props {
   idx: number;
@@ -49,7 +51,15 @@ const StyledButton = styled.button`
 
 const SquareBox2: React.FC<Alarm2Props> = (props) => {
   const alarmData = props.alarmData;
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+  const setSelectedFriend = useSetRecoilState(selectedFriend);
 
+  const remittance = () => {
+    setIsModalOpen(true);
+    console.log(isModalOpen);
+    // setSelectedFriend(friendData);
+    // 데이터 정보 가공해서 다시 보내기
+  };
   return (
     <SquareBox2Component idx={props.id}>
       {/* {alarmData.complete && <div className="alertBoxWrapperDone"></div>} */}
@@ -73,7 +83,7 @@ const SquareBox2: React.FC<Alarm2Props> = (props) => {
           <StyledButton
             onClick={(e) => {
               e.stopPropagation();
-              //   remittance();
+              remittance();
             }}
           >
             송금하기
