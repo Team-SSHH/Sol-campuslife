@@ -17,10 +17,10 @@ public class SmartId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id")
-    private int cardId;
+    private Long cardId;
 
     @OneToOne
-    @JoinColumn(nullable = false, name = "student_id")
+    @JoinColumn(nullable = false, name = "student_id", referencedColumnName= "student_id")
     private Student student;
 
     @Column(name = "name", nullable = false)
@@ -35,7 +35,7 @@ public class SmartId {
     private String major;
 
     @Column(name = "grade", nullable = false)
-    private int grade;
+    private Long grade;
 
     @Column(name = "gender", nullable = false)
     private String gender;
