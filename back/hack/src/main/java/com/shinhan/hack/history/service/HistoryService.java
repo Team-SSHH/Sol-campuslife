@@ -3,6 +3,8 @@ package com.shinhan.hack.history.service;
 import com.shinhan.hack.history.dto.HistoryDto;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.history.repository.HistoryRepository;
+import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.smartId.service.SmartIdService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,17 +23,30 @@ public class HistoryService {
                 .map(this::ResponseDto)
                 .collect(Collectors.toList());
     }
+    public List<HistoryDto.Response> getMyHistory(Long studentId) {
+        // long id로 객체 student 만들어서
+        // student 객체로 탐색하기
+        Student student = new Student();
+        student.setStudentId(studentId);
+        List<History> studentHistories = historyRepository.findByStudent(student);
+        return studentHistories.stream()
+                .map(this::ResponseDto)
+                .collect(Collectors.toList());
+    }
+
+
+
     private HistoryDto.Response ResponseDto(History history) {
         return HistoryDto.Response.builder()
-                .history_id(history.getHistory_id())
+                .historyId(history.getHistoryId())
+                .studentId((history.getStudent().getStudentId()))
 //                .student_id(history.getStudent_id())
-                .student_id(history.getStudent_id().getStudentId())
                 .content(history.getContent())
                 .deposit(history.getDeposit())
                 .pay(history.getPay())
                 .transactionTime(history.getTransactionTime())
                 .balance(history.getBalance())
-                .content_category(history.getContent_category())
+                .contentCategory(history.getContentCategory())
                 .build();
     }
     }

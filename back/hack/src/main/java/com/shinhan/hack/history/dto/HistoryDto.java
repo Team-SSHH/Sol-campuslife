@@ -14,9 +14,9 @@ public class HistoryDto {
     @NoArgsConstructor
     @Builder
     public static class Response{
-        private long history_id;
+        private long historyId;
 //        private Student student_id;
-        private long student_id;
+        private long studentId;
         private String content;
         private long deposit;
         private long pay;
@@ -24,6 +24,6 @@ public class HistoryDto {
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime transactionTime;
         private long balance;
-        private String content_category;
+        private String contentCategory;
     }
 }
