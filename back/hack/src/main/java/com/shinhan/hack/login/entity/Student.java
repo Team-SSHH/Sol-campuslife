@@ -44,7 +44,7 @@ public class Student {
     @OneToMany(mappedBy = "student")
     List<Category> categoryList;
 
-    @OneToMany(mappedBy = "student_id")
+    @OneToMany(mappedBy = "student")
     List<History> historyList;
 
     @OneToMany(mappedBy = "student")
