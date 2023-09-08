@@ -25,9 +25,9 @@ public class HistoryController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
-//    @GetMapping("/history/{student-id}")
-//    public ResponseEntity<List<HistoryDto.Response>> getMyHistory(@PathVariable("student-id") int studentId) {
-//        List<HistoryDto.Response> responses = historyService.getMyHistory(studentId);
-//        return new ResponseEntity<>(responses, HttpStatus.OK);
-//    }
+    @GetMapping("/history/{studentId}")
+    public ResponseEntity<List<HistoryDto.Response>> getMyHistory(@PathVariable Long studentId) {
+        List<HistoryDto.Response> responses = historyService.getMyHistory(studentId);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
 }

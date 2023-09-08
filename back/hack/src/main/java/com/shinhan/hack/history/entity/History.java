@@ -16,12 +16,12 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id", nullable = false)
-    private Long history_id;
+    private Long historyId;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-    private Student student_id;
-    // 여긴 스튜던트 엔터티의 스튜던트
+    private Student student;
+    // 여긴 스튜던트 엔터티의 스튜던트 스튜던트로 받고 탐색할떄 객체 스튜던트로 찾기
 
     @Column(name = "content")
     private String content;
@@ -39,6 +39,6 @@ public class History {
     private Long balance;
 
     @Column(name = "content_category", nullable = false)
-    private String content_category;
+    private String contentCategory;
 
 }
