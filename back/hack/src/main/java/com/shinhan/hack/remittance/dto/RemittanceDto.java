@@ -25,5 +25,6 @@ public class RemittanceDto {
         private Long studentId;
         private Long freindStudentId;
         private Long amount;
+        private String content;
     }
 }
