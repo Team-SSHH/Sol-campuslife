@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { loginuser } from "../utils/atoms";
+import { loginuser } from "../stores/atoms";
 
 import {
   PieChart,

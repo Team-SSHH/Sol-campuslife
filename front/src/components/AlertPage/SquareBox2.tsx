@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { isRemittanceModalOpen, selectedFriend } from "../../utils/atoms";
+import { isRemittanceModalOpen, selectedFriend } from "../../stores/atoms";
 
 interface SquareBox2Props {
   idx: number;

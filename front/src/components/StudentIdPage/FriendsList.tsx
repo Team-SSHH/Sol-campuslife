@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import FriendId from "./FriendId";
 import "./FriendsList.css";
 import { useRecoilState } from "recoil";
-import { loginuser } from "../../utils/atoms";
-import { isRemittanceModalOpen } from "../../utils/atoms";
+import { loginuser } from "../../stores/atoms";
+import { isRemittanceModalOpen } from "../../stores/atoms";
 import RemittanceModal from "./RemittanceModal";
 
 const FriendsList = () => {

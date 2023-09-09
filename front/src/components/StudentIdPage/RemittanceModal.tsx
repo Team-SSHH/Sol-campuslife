@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useRecoilState, useRecoilValue } from "recoil";
-import { isRemittanceModalOpen, selectedFriend } from "../../utils/atoms";
+import { isRemittanceModalOpen, selectedFriend } from "../../stores/atoms";
 import "./RemittanceModal.css";
 import SmartId from "../common/SmartId";
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import api from "../utils/api";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { loginuser } from "../utils/atoms";
+import { loginuser } from "../stores/atoms";
 import "./styles/LoginPage.css";
 import "./styles/LoginPage.scss";
 
