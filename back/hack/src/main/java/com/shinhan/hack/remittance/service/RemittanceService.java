@@ -3,9 +3,12 @@ package com.shinhan.hack.remittance.service;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.history.repository.HistoryRepository;
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.login.repository.LoginRepository;
+import com.shinhan.hack.remittance.dto.DutchPayDetailDto;
 import com.shinhan.hack.remittance.dto.DutchPayDto;
 import com.shinhan.hack.remittance.dto.RemittanceDto;
 import com.shinhan.hack.remittance.entity.DutchPay;
+import com.shinhan.hack.remittance.entity.DutchPayDetail;
 import com.shinhan.hack.remittance.repository.DutchPayRepository;
 import com.shinhan.hack.remittance.repository.RemittanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +28,7 @@ public class RemittanceService {
     private final RemittanceRepository remittanceRepository;
     private final DutchPayRepository dutchPayRepository;
     private final HistoryRepository historyRepository;
+    private final LoginRepository loginRepository;
 
     @Transactional
     public RemittanceDto.Response remittance(RemittanceDto.update remittanceUpdate) {
@@ -81,5 +86,23 @@ public class RemittanceService {
     public List<DutchPay> dutchPay(Long studentId) {
         List<DutchPay> dutchPayList = dutchPayRepository.findByStudentId(studentId);
         return dutchPayList;
+    }
+
+    public List<DutchPayDetailDto.Response> getDutchDetail(Long dutchId){
+        List<DutchPayDetail> dutchPayDetails = dutchPayRepository.findByDutchId(dutchId);
+        List<DutchPayDetailDto.Response> responseList = new ArrayList<>();
+        for (DutchPayDetail detail: dutchPayDetails
+             ) {
+            Optional<Student> freind = loginRepository.findById(detail.getFreindId());
+
+            responseList.add(DutchPayDetailDto.Response.builder()
+                    .dutchDetailId(detail.getDutchDetailId())
+                    .dutchAmount(detail.getDutchAmount())
+                    .remittanceState(detail.getRemittanceState())
+                    .remittanceTime(detail.getRemittanceTime())
+                    .name(freind.get().getName())
+                    .build());
+        }
+        return responseList;
     }
 }
