@@ -26,6 +26,5 @@ public class StudentDto {
         private Long bankNumber;
         private Long balance;
         private String phoneId;
-        private int result;
     }
 }
