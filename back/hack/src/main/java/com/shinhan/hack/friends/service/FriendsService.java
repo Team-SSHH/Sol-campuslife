@@ -56,4 +56,21 @@ public class FriendsService {
         return friendsList;
     }
 
+//    @Transactional
+//    public List<FriendsDto> saveFriend(Long studentId, Long friendStudentId, Long categoryId) {
+//        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
+//        Student friendStudent = studentRepository.findById(friendStudentId).orElseThrow(() -> new RuntimeException("Friend not found"));
+//        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
+//
+//        // 새로운 Friend 엔티티 생성 및 저장
+//        Friends friend = new Friends();
+//        friend.setCategory(category);
+//        friend.setFriendId(friendStudent.getStudentId());
+//
+//        friendsRepository.save(friend);
+//
+//        // 업데이트된 친구 목록 반환
+//        return getFriendsByStudent(studentId);
+//    }
+
 }

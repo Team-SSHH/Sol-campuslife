@@ -33,10 +33,5 @@ public class StudentDto {
         private Long balance;
         private String phoneId;
 
-        public Response(Long studentId, String name, String university) {
-            this.studentId = studentId;
-            this.name = name;
-            this.university = university;
-        }
     }
 }
