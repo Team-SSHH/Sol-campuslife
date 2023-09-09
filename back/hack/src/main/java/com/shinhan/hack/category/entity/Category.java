@@ -1,6 +1,7 @@
 package com.shinhan.hack.category.entity;
 
-import com.shinhan.hack.freinds.entity.Freinds;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.login.entity.Student;
 import lombok.*;
 
@@ -27,6 +28,7 @@ public class Category {
     @Column(name = "category", nullable = false)
     private String category;
 
-    @OneToMany(mappedBy = "category")
-    List<Freinds> freindsList;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "category")
+//    List<Friends> friendsList;
 }
