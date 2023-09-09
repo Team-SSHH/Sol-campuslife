@@ -43,7 +43,7 @@ import java.util.Map;
 
 
     @PutMapping("/{studentid}/update/{friendStudentId}")
-    public ResponseEntity<List<FriendsDto>> deleteFriend(
+    public ResponseEntity<List<FriendsDto>> updateFriend(
             @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId, @RequestBody Map<String, Long> body) {
         Long categoryId = body.get("categoryId");
         List<FriendsDto> friendsList = friendsService.updateFriend(studentid, friendStudentId, categoryId);

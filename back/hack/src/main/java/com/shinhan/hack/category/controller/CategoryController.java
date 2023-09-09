@@ -4,6 +4,8 @@ import com.shinhan.hack.category.dto.CategoryDto;
 import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.category.repository.CategoryRepository;
 import com.shinhan.hack.friends.dto.FriendsDto;
+import com.shinhan.hack.friends.entity.Friends;
+import com.shinhan.hack.friends.repository.FriendsRepository;
 import com.shinhan.hack.login.entity.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryRepository categoryRepository;
+    private final FriendsRepository friendsRepository;
 
     @PostMapping("/{studentid}")
     public ResponseEntity<CategoryDto> addCategory(@PathVariable("studentid") Long studentid, @RequestBody Map<String, String> body) {
@@ -73,5 +76,30 @@ public class CategoryController {
 
         return ResponseEntity.ok(updatedCategroyDto);
     }
+
+
+    @DeleteMapping("/{studentid}")
+    public ResponseEntity<List<FriendsDto>> deleteFriend(
+            @PathVariable("studentid") Long studentid, @RequestBody Map<String, Long> body) {
+        Long categoryId = body.get("categoryId");
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일치하는 카테고리 없음"));
+
+        List<Friends> friends = friendsRepository.findByCategory_CategoryId(categoryId);
+
+        if (!friends.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "카테고리에 친구가 있어 삭제할 수 없습니다");
+        }
+
+        List<Category> studentCategories = categoryRepository.findByStudent_StudentId(studentid);
+        if (studentCategories.size() <= 1 || studentCategories.get(0).equals(category)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유일한 카테고리 또는 첫 번째 카테고리는 삭제할 수 없습니다");
+        }
+
+        categoryRepository.delete(category);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }
