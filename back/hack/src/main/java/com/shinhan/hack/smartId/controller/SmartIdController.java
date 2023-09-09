@@ -1,5 +1,6 @@
 package com.shinhan.hack.smartId.controller;
 
+import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.smartId.dto.SmartIdDto;
 import com.shinhan.hack.smartId.mapper.SmartIdMapper;
 import com.shinhan.hack.smartId.service.SmartIdService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sshh/smartId")
@@ -27,4 +30,13 @@ public class SmartIdController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/{studentId}/friends")
+    public ResponseEntity<SmartIdDto.FriendsResponse> getFriends(
+            @PathVariable("studentId") Long studentId
+    ) {
+        SmartIdDto.FriendsResponse response = smartIdService.getFriends(studentId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
+
+

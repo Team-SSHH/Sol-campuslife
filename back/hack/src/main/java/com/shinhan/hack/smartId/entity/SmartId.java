@@ -1,9 +1,13 @@
 package com.shinhan.hack.smartId.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.login.entity.Student;
+
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,6 +22,7 @@ public class SmartId {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id")
     private Long cardId;
+
 
     @OneToOne
     @JoinColumn(nullable = false, name = "student_id", referencedColumnName= "student_id")
@@ -42,4 +47,8 @@ public class SmartId {
 
     @Column(name = "nationality", nullable = false)
     private String nationality;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "student")
+    List<Friends> friendsList;
 }
