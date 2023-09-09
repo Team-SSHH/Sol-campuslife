@@ -22,13 +22,10 @@ public class Category {
     private Long categoryId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "student_id")
+    @JoinColumn(name = "student_id", nullable = false)
     Student student;
 
     @Column(name = "category", nullable = false)
     private String category;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "category")
-//    List<Friends> friendsList;
 }

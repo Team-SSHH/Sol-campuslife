@@ -5,7 +5,6 @@ import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.remittance.entity.DutchPay;
-import com.shinhan.hack.smartId.entity.SmartId;
 import lombok.*;
 
 import javax.persistence.*;
@@ -54,4 +53,7 @@ public class Student {
 
     @Column(name = "phone_id", nullable = false)
     private String phoneId;
+
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
 }

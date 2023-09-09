@@ -1,7 +1,6 @@
 package com.shinhan.hack.friends.controller;
 
 import com.shinhan.hack.friends.service.FriendsService;
-import com.shinhan.hack.smartId.dto.SmartIdDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

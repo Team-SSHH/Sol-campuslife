@@ -22,12 +22,11 @@ public class Friends {
     @Column(name = "f_id")
     private Long fId;
 
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(nullable = false, name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     Category category;
 
 
-    @Column(name = "freind_id")
+    @Column(name = "freind_id", nullable = false)
     private Long friendId;
 }
