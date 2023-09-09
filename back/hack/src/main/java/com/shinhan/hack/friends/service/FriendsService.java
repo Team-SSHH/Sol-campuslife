@@ -36,18 +36,20 @@ public class FriendsService {
                 Student friendStudent=studentRepository.findById(friend.getFriendId()).orElse(null);  // 추가된 부분
 
                 if(friendStudent!=null){
-                    StudentDto.Response friendInfo=new StudentDto.Response(
-                            friendStudent.getStudentId(),
-                            friendStudent.getName(),
-                            friendStudent.getUniversity(),
-                            friendStudent.getMajor(),
-                            friendStudent.getGrade(),
-                            friendStudent.getGender(),
-                            friendStudent.getNationality(),
-                            friendStudent.getBankNumber(),
-                            friendStudent.getBalance(),
-                            friendStudent.getPhoneId()
-                    );
+                    StudentDto.Response friendInfo= StudentDto.Response.builder()
+                            .studentId(friendStudent.getStudentId())
+                            .name(friendStudent.getName())
+                            .university(friendStudent.getUniversity())
+                            .major(friendStudent.getMajor())
+                            .grade(friendStudent.getGrade())
+                            .gender(friendStudent.getGender())
+                            .nationality(friendStudent.getNationality())
+                            .bankNumber(friendStudent.getBankNumber())
+                            .balance(friendStudent.getBalance())
+                            .phoneId(friendStudent.getPhoneId())
+                            .imageUrl(friendStudent.getImageUrl())
+                            .build();
+
 
                     friendsList.add(new FriendsDto(friend.getFId(),category.getCategoryId(),category.getCategory(),studentid,friendInfo));
                 }
