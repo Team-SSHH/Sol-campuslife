@@ -20,7 +20,7 @@ public class FriendsService {
     private final SmartIdService smartIdService;
     @Transactional
     public void addFriend(Long studentId, Long friendStudentId, Long categoryId) {
-        Category category = categoryService.getCategoryById(1L);
+//        Category category = categoryService.getCategoryById(1L);
 //        SmartId smartID = smartIdService.getSmartID(smartID);
         System.out.println("studentId = " + studentId);
         System.out.println("friendStudentId = " + friendStudentId);
@@ -28,12 +28,12 @@ public class FriendsService {
         SmartId smartID = smartIdService.getSmartId(studentId);
         System.out.println("smartID = " + smartID.getCardId());
 
-        Friends newFriend = Friends.builder()
-                .category(1L)
-                .student(studentId)
-                .friend(friendStudentId)
-                .smartID(smartID)
-                .build();
+//        Friends newFriend = Friends.builder()
+//                .category(1L)
+//                .student(studentId)
+//                .friend(friendStudentId)
+//                .smartID(smartID)
+//                .build();
 
 //        SmartId smartID = smartIdService.getSmartId(student);
 //        Friends newFriend = Friends.builder()

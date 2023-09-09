@@ -1,6 +1,8 @@
 package com.shinhan.hack.history.entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.shinhan.hack.login.entity.Student;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,6 +35,8 @@ public class History {
     private Long pay;
 
     @Column(name = "transaction_time", nullable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime transactionTime;
 
     @Column(name = "balance", nullable = false)

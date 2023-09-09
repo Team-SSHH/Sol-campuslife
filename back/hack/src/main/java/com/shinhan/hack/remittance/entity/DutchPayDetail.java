@@ -22,7 +22,7 @@ public class DutchPayDetail {
     private Long dutchStateId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "ducth_id", referencedColumnName = "dutch_id")
+    @JoinColumn(nullable = false, name = "ducth_id")
     DutchPay dutchPay;
 
     @Column(name = "freind_id", nullable = false)
