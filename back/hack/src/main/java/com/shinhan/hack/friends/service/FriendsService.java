@@ -2,6 +2,7 @@ package com.shinhan.hack.friends.service;
 
 import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.category.service.CategoryService;
+import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.smartId.entity.SmartId;
@@ -18,11 +19,22 @@ public class FriendsService {
     private final CategoryService categoryService;
     private final SmartIdService smartIdService;
     @Transactional
-    public void addFriend(Long studentId, Long friendStudentId) {
-//        Category category = categoryService.getCategoryById(categoryId);
+    public void addFriend(Long studentId, Long friendStudentId, Long categoryId) {
+        Category category = categoryService.getCategoryById(1L);
 //        SmartId smartID = smartIdService.getSmartID(smartID);
         System.out.println("studentId = " + studentId);
         System.out.println("friendStudentId = " + friendStudentId);
+        System.out.println("categoryId = " + categoryId);
+        SmartId smartID = smartIdService.getSmartId(studentId);
+        System.out.println("smartID = " + smartID.getCardId());
+
+        Friends newFriend = Friends.builder()
+                .category(1L)
+                .student(studentId)
+                .friend(friendStudentId)
+                .smartID(smartID)
+                .build();
+
 //        SmartId smartID = smartIdService.getSmartId(student);
 //        Friends newFriend = Friends.builder()
 //                .category(category)

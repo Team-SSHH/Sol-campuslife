@@ -16,7 +16,7 @@ public class FriendsController {
     public ResponseEntity<String> abc(@PathVariable("studentId") Long studentId, @PathVariable("friendStudentId") Long friendStudentId) {
 
 
-        friendsService.addFriend(studentId, friendStudentId);
+        friendsService.addFriend(studentId, friendStudentId, 1L);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 }

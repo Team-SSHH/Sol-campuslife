@@ -35,8 +35,8 @@ public class Friends {
     @JoinColumn(name = "friend_id")
     private Student friend;
 
-//    @JsonIgnore
-    @ManyToOne // or @OneToOne depending on your model.
-    @JoinColumn(nullable = false, name = "smart_id", referencedColumnName = "card_id")
-    SmartId smartId;
+////    @JsonIgnore
+//    @ManyToOne // or @OneToOne depending on your model.
+//    @JoinColumn(nullable = false, name = "smart_id", referencedColumnName = "card_id")
+//    SmartId smartId;
 }
