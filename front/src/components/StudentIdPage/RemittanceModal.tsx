@@ -49,14 +49,12 @@ const RemittanceModal = () => {
   return (
     <div className="remittanceWrapper">
       <div className="remittanceFriend">
-        <div className="remittanceFriend">
-          <SmartId
-            name={friendData.name}
-            major={friendData.major}
-            number={friendData.number}
-            grade={friendData.grade}
-          />
-        </div>
+        <SmartId
+          name={friendData.name}
+          major={friendData.major}
+          number={friendData.number}
+          grade={friendData.grade}
+        />
         {/* <div className="firendName">모바일 학생증 {friendData.name}</div>
         <div className="frinedInfo">
           <div>{friendData.name}의 얼굴</div>
