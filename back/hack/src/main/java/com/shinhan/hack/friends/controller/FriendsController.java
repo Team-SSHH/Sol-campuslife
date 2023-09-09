@@ -50,6 +50,14 @@ import java.util.Map;
         return new ResponseEntity<>(friendsList, HttpStatus.OK);
     }
 
+    @GetMapping("/{studentid}/certify/{friendStudentId}")
+    public ResponseEntity<List<FriendsDto>> getFriends(
+            @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId) {
+        List<FriendsDto> friendsList= friendsService.getFriendsByStudent(studentid);
+        return new ResponseEntity<>(friendsList, HttpStatus.OK);
+    }
+
+
 }
 
 

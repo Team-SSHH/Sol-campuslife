@@ -79,7 +79,7 @@ public class CategoryController {
 
 
     @DeleteMapping("/{studentid}")
-    public ResponseEntity<List<FriendsDto>> deleteFriend(
+    public ResponseEntity<String> deleteFriend(
             @PathVariable("studentid") Long studentid, @RequestBody Map<String, Long> body) {
         Long categoryId = body.get("categoryId");
         Category category = categoryRepository.findById(categoryId)
@@ -98,7 +98,7 @@ public class CategoryController {
 
         categoryRepository.delete(category);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("삭제완료", HttpStatus.OK);
     }
 
 
