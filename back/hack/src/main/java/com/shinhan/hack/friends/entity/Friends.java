@@ -2,7 +2,6 @@ package com.shinhan.hack.friends.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shinhan.hack.category.entity.Category;
-import com.shinhan.hack.login.entity.Student;
 
 import lombok.*;
 
