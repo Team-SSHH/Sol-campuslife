@@ -34,16 +34,12 @@ public class DutchPay {
     @Column(name = "dutch_state", nullable = false)
     private Boolean dutchState;
 
-    static String patternTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    static LocalDateTime time = LocalDateTime.parse(patternTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
     @Column(name = "number", nullable = false)
     private Long number;
 
     @Column(name = "request_time", nullable = false)
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Builder.Default
-    private LocalDateTime requestTime = time;
+    private LocalDateTime requestTime;
 
 }
