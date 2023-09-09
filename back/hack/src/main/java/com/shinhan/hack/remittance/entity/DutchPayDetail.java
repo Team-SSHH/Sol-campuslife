@@ -18,9 +18,9 @@ import java.time.format.DateTimeFormatter;
 public class DutchPayDetail {
 
     @Id
-    @Column(name = "dutch_state_id")
+    @Column(name = "dutch_detail_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dutchStateId;
+    private Long dutchDetailId;
 
     @ManyToOne
     @JoinColumn(name = "ducth_id", nullable = false)
@@ -36,13 +36,7 @@ public class DutchPayDetail {
     @Builder.Default
     private Boolean remittanceState = false;
 
-
-    static String patternTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    static LocalDateTime time = LocalDateTime.parse(patternTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
-    @Column(name = "remittance_time", nullable = false)
-    @CreatedDate
+    @Column(name = "remittance_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Builder.Default
-    private LocalDateTime remittanceTime = time;
+    private LocalDateTime remittanceTime;
 }
