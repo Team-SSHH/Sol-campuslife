@@ -3,7 +3,7 @@ import StudentId from "../components/StudentIdPage/StudentId";
 import FriendsList from "../components/StudentIdPage/FriendsList";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { checkFriend } from "../utils/atoms";
+import { checkFriend } from "../stores/atoms";
 import { Console } from "console";
 
 const CircleButton = styled.div`
@@ -29,7 +29,6 @@ const StudentIdPage = () => {
       setCheckFriend([]);
     };
   }, []);
-  console.log(checkfriend);
 
   const dutchpay = () => {
     // 라우

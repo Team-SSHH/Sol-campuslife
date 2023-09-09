@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/LoginPage.css";
 import "./styles/LoginPage.scss";
 import useLogin from "../hooks/useLogin";
 
