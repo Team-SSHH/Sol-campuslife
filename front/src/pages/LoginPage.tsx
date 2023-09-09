@@ -1,39 +1,11 @@
-import React, { useState } from "react";
-import api1 from "../utils/api1";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { loginuser } from "../utils/atoms";
+import React from "react";
 import "./styles/LoginPage.css";
 import "./styles/LoginPage.scss";
+import useLogin from "../hooks/useLogin";
 
 const LoginPage = () => {
-  const [studentId, setStudentId] = useState("");
-  const [password, setPassword] = useState("");
-  const [userData, setUserData] = useRecoilState(loginuser);
-
-  const navigate = useNavigate();
-
-  // const handleLogin = () => {
-  //   console.log(studentId, password);
-  //   navigate("/Main");
-  // };
-
-  const handleLogin = async () => {
-    try {
-      const response = await api1.post("/api2/sshh/login", {
-        studentId,
-        password,
-      });
-      if (response.status === 200) {
-        setUserData(response.data);
-        console.log(response);
-        localStorage.setItem("user", response.data);
-        navigate("/Main");
-      }
-    } catch (error) {
-      // 에러 처리
-    }
-  };
+  const { studentId, password, setStudentId, setPassword, handleLogin } =
+    useLogin();
 
   return (
     <div className="logincontainer">
@@ -66,7 +38,7 @@ const LoginPage = () => {
             type="button"
             onClick={handleLogin}
           >
-            Log in
+            Log in{" "}
           </button>
         </form>
       </div>
