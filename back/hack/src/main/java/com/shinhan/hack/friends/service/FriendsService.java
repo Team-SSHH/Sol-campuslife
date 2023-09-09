@@ -36,18 +36,20 @@ public class FriendsService {
                 Student friendStudent=studentRepository.findById(friend.getFriendId()).orElse(null);  // 추가된 부분
 
                 if(friendStudent!=null){
-                    StudentDto.Response friendInfo=new StudentDto.Response(
-                            friendStudent.getStudentId(),
-                            friendStudent.getName(),
-                            friendStudent.getUniversity(),
-                            friendStudent.getMajor(),
-                            friendStudent.getGrade(),
-                            friendStudent.getGender(),
-                            friendStudent.getNationality(),
-                            friendStudent.getBankNumber(),
-                            friendStudent.getBalance(),
-                            friendStudent.getPhoneId()
-                    );
+                    StudentDto.Response friendInfo= StudentDto.Response.builder()
+                            .studentId(friendStudent.getStudentId())
+                            .name(friendStudent.getName())
+                            .university(friendStudent.getUniversity())
+                            .major(friendStudent.getMajor())
+                            .grade(friendStudent.getGrade())
+                            .gender(friendStudent.getGender())
+                            .nationality(friendStudent.getNationality())
+                            .bankNumber(friendStudent.getBankNumber())
+                            .balance(friendStudent.getBalance())
+                            .phoneId(friendStudent.getPhoneId())
+                            .imageUrl(friendStudent.getImageUrl())
+                            .build();
+
 
                     friendsList.add(new FriendsDto(friend.getFId(),category.getCategoryId(),category.getCategory(),studentid,friendInfo));
                 }
@@ -55,5 +57,22 @@ public class FriendsService {
         }
         return friendsList;
     }
+
+//    @Transactional
+//    public List<FriendsDto> saveFriend(Long studentId, Long friendStudentId, Long categoryId) {
+//        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
+//        Student friendStudent = studentRepository.findById(friendStudentId).orElseThrow(() -> new RuntimeException("Friend not found"));
+//        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
+//
+//        // 새로운 Friend 엔티티 생성 및 저장
+//        Friends friend = new Friends();
+//        friend.setCategory(category);
+//        friend.setFriendId(friendStudent.getStudentId());
+//
+//        friendsRepository.save(friend);
+//
+//        // 업데이트된 친구 목록 반환
+//        return getFriendsByStudent(studentId);
+//    }
 
 }
