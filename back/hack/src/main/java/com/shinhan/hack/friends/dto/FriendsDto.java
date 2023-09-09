@@ -12,14 +12,14 @@ public class FriendsDto {
     private Long categoryId;
     private String category;
     private Long studentId;
-    private StudentDto.Response friend;  // 변경된 부분
+    private StudentDto.Response friend;
 
     public FriendsDto(Long fId, Long categoryId, String category,
-                      Long studentId, StudentDto.Response friend) {  // 변경된 부분
+                      Long studentId, StudentDto.Response friend) {
         this.fId = fId;
         this.categoryId = categoryId;
         this.category = category;
         this.studentId = studentId;
-        this.friend = friend;  // 변경된 부분
+        this.friend = friend;
     }
 }

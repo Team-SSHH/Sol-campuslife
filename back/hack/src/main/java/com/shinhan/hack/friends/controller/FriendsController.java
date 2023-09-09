@@ -1,5 +1,6 @@
 package com.shinhan.hack.friends.controller;
 
+import com.shinhan.hack.category.dto.CategoryDto;
 import com.shinhan.hack.friends.dto.FriendsDto;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.service.FriendsService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sshh/friends")
@@ -24,12 +26,20 @@ import java.util.List;
         return new ResponseEntity<>(friendsList, HttpStatus.OK);
     }
 
-//    @PostMapping("/{studentid}/store/{friendStudentId}")
-//    public ResponseEntity<List<FriendsDto>> saveFriend(
-//            @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId) {
-//        List<FriendsDto> friendsList= friendsService.saveFriend(studentid,friendStudentId );
-//        return new ResponseEntity<>(friendsList, HttpStatus.OK);
-//    }
+    @PostMapping("/{studentid}/store/{friendStudentId}")
+    public ResponseEntity<List<FriendsDto>> saveFriend(
+            @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId, @RequestBody Map<String, Long> body) {
+        Long categoryId = body.get("categoryId");
+        List<FriendsDto> friendsList= friendsService.saveFriend(studentid,friendStudentId, categoryId );
+        return new ResponseEntity<>(friendsList, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{studentid}/delete/{friendStudentId}")
+    public ResponseEntity<List<FriendsDto>> deleteFriend(
+            @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId) {
+        List<FriendsDto> friendsList= friendsService.deleteFriend(studentid,friendStudentId);
+        return new ResponseEntity<>(friendsList, HttpStatus.OK);
+    }
 
 }
 
