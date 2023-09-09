@@ -19,4 +19,13 @@ public class FriendsController {
         friendsService.addFriend(studentId, friendStudentId, 1L);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
+
+
+//    @GetMapping("/{studentId}/friends")
+//    public ResponseEntity<SmartIdDto.FriendsResponse> getFriends(
+//            @PathVariable("studentId") Long studentId
+//    ) {
+//        SmartIdDto.FriendsResponse response = smartIdService.getFriends(studentId);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 }

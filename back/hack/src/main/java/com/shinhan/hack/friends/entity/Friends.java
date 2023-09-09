@@ -3,7 +3,7 @@ package com.shinhan.hack.friends.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.login.entity.Student;
-import com.shinhan.hack.smartId.entity.SmartId;
+
 import lombok.*;
 
 import javax.persistence.*;
