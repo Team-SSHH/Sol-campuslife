@@ -5,7 +5,7 @@ import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.remittance.entity.DutchPay;
-import com.shinhan.hack.smartId.entity.SmartId;
+//import com.shinhan.hack.smartId.entity.SmartId;
 import lombok.*;
 
 import javax.persistence.*;
