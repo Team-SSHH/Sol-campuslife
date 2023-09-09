@@ -16,10 +16,9 @@ public class DutchPayDto {
     @Builder
     public static class Response{
         private Long dutchId;
-        private Student student;
         private Long amount;
         private Boolean dutchState;
+        private Long number;
         private LocalDateTime requestTime;
-        List<DutchPayDetail> dutchPayDetails;
     }
 }
