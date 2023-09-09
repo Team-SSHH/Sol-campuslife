@@ -37,14 +37,14 @@ const StyledButton = styled.button`
 
 const FriendIdComponent = styled.div<FriendIdComponentProps>`
   width: 96%;
-  height: 30%;
+  height: 34%;
   background-color: #fff;
   position: absolute;
   left: 2%;
   border-radius: 20px;
   border: solid 0.1rem;
   top: ${(props) =>
-    props.idx > props.friend ? 28 + props.idx * 7 : props.idx * 7 + 2}%;
+    props.idx > props.friend ? 32 + props.idx * 7 : props.idx * 7 + 2}%;
 `;
 interface FriendIdProps {
   friendData: {
