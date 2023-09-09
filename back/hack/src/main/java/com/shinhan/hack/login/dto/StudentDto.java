@@ -23,7 +23,7 @@ public class StudentDto {
     @ToString
     public static class Response{
         private Long studentId;
-        private Long name;
+        private String name;
         private String university;
         private String major;
         private Long grade;
