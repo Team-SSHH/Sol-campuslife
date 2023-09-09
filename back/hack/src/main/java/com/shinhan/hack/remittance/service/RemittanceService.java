@@ -3,7 +3,10 @@ package com.shinhan.hack.remittance.service;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.history.repository.HistoryRepository;
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.remittance.dto.DutchPayDto;
 import com.shinhan.hack.remittance.dto.RemittanceDto;
+import com.shinhan.hack.remittance.entity.DutchPay;
+import com.shinhan.hack.remittance.repository.DutchPayRepository;
 import com.shinhan.hack.remittance.repository.RemittanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +22,7 @@ import java.util.Optional;
 public class RemittanceService {
 
     private final RemittanceRepository remittanceRepository;
+    private final DutchPayRepository dutchPayRepository;
     private final HistoryRepository historyRepository;
 
     @Transactional
@@ -25,14 +30,13 @@ public class RemittanceService {
         Long studentId = remittanceUpdate.getStudentId();
         Long freindId = remittanceUpdate.getFreindStudentId();
         Long amount = remittanceUpdate.getAmount();
+        String content = remittanceUpdate.getContent();
         // 학번 유무 확인
         if(!remittanceRepository.existsById(studentId) || !remittanceRepository.existsById(freindId)){
             return new RemittanceDto.Response();
         }
 
         // 송금
-//        student.get().setBalance(student.get().getBalance() - amount);
-//        freind.get().setBalance(freind.get().getBalance() + amount);
         remittanceRepository.send(studentId, amount);
         remittanceRepository.receive(freindId, amount);
         Optional<Student> student = remittanceRepository.findById(studentId);
@@ -45,7 +49,7 @@ public class RemittanceService {
         // 거래내역 추가
         History myHistory = History.builder()
                 .balance(student.get().getBalance())
-                .content("송금")
+                .content(content)
                 .contentCategory("계좌이체")
                 .pay(amount)
                 .transactionTime(time)
@@ -54,7 +58,7 @@ public class RemittanceService {
 
         History fHistory = History.builder()
                 .balance(freind.get().getBalance())
-                .content("입금")
+                .content(content)
                 .contentCategory("계좌이체")
                 .deposit(amount)
                 .transactionTime(time)
@@ -74,4 +78,8 @@ public class RemittanceService {
         return response;
     }
 
+    public List<DutchPay> dutchPay(Long studentId) {
+        List<DutchPay> dutchPayList = dutchPayRepository.findByStudentId(studentId);
+        return dutchPayList;
+    }
 }
