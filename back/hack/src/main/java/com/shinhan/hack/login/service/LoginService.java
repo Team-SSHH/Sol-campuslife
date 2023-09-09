@@ -14,8 +14,6 @@ public class LoginService {
 
     public Student login(StudentDto.Post student){
         Student response = loginRepository.findStudentByStudentIdAndPassword(student.getStudentId(), student.getPassword());
-
-
         return  response;
     }
 

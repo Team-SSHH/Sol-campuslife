@@ -22,7 +22,10 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<StudentDto.Response> login
             (@RequestBody StudentDto.Post requestBody){
+        System.out.println(requestBody.getStudentId());
+        System.out.println(requestBody.getPassword());
         StudentDto.Response response = loginMapper.toResponseDto(service.login(requestBody));
+        System.out.println(response.getGender());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

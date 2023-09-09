@@ -23,6 +23,12 @@ public class StudentDto {
     @ToString
     public static class Response{
         private Long studentId;
+        private Long name;
+        private String university;
+        private String major;
+        private Long grade;
+        private String gender;
+        private String nationality;
         private Long bankNumber;
         private Long balance;
         private String phoneId;

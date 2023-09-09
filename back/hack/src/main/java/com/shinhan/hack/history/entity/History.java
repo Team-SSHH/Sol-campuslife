@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Setter
@@ -34,10 +35,14 @@ public class History {
     @Column(name = "pay")
     private Long pay;
 
+    static String patternTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    static LocalDateTime time = LocalDateTime.parse(patternTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
     @Column(name = "transaction_time", nullable = false)
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime transactionTime;
+    @Builder.Default
+    private LocalDateTime transactionTime = time;
 
     @Column(name = "balance", nullable = false)
     private Long balance;
