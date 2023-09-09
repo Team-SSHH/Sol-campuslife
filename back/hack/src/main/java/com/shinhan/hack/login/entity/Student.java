@@ -27,6 +27,25 @@ public class Student {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "university", nullable = false)
+    @Builder.Default
+    private String university = "건국대학교";
+
+    @Column(name = "major", nullable = false)
+    private String major;
+
+    @Column(name = "grade", nullable = false)
+    private Long grade;
+
+    @Column(name = "gender", nullable = false)
+    private String gender;
+
+    @Column(name = "nationality", nullable = false)
+    private String nationality;
+
     @Column(name = "bank_number", nullable = false)
     private Long bankNumber;
 

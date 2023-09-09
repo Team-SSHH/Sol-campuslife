@@ -22,7 +22,7 @@ public class Category {
     private Long categoryId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "student_id", referencedColumnName = "student_id")
+    @JoinColumn(nullable = false, name = "student_id")
     Student student;
 
     @Column(name = "category", nullable = false)

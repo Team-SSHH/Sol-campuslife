@@ -24,7 +24,7 @@ public class DutchPay {
     private Long dutchId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "student_id", referencedColumnName = "student_id")
+    @JoinColumn(nullable = false, name = "student_id")
     Student student;
 
     @Column(name = "amount", nullable = false)
@@ -38,6 +38,4 @@ public class DutchPay {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime requestTime;
 
-    @OneToMany(mappedBy = "dutchPay")
-    List<DutchPayDetail> dutchPayDetails;
 }

@@ -24,19 +24,9 @@ public class Friends {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(nullable = false, name = "category_id", referencedColumnName = "category_id")
+    @JoinColumn(nullable = false, name = "category_id")
     Category category;
 
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "student_id", referencedColumnName = "student_id")
-    Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "friend_id")
-    private Student friend;
-
-//    @JsonIgnore
-    @ManyToOne // or @OneToOne depending on your model.
-    @JoinColumn(nullable = false, name = "smart_id", referencedColumnName = "card_id")
-    SmartId smartId;
+    @Column(name = "freind_id")
+    private Long friendId;
 }
