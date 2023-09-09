@@ -70,13 +70,13 @@ public class FriendsService {
         if (!friendCategories.isEmpty()) {
             firstCategory = friendCategories.get(0);
         } else {
-            System.out.println("The friend student does not have any categories.");
+            System.out.println("친구가 카테고리에 없다.");
         }
 
         // 이미 있으면 에러
         Optional<Friends> existingFriendship1 = friendsRepository.findByCategory_CategoryIdAndFriendId(category.getCategoryId(), friendStudent.getStudentId());
         if (existingFriendship1.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This friend is already added");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 친구");
         }
 
         // 새로운 Friend 엔티티 생성 및 저장
@@ -90,7 +90,7 @@ public class FriendsService {
         Optional<Friends> existingFriendship2 = friendsRepository.findByCategory_CategoryIdAndFriendId(firstCategory.getCategoryId(), student.getStudentId());
 
         if (existingFriendship2.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This friend is already added");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 친구");
         }
 //
         Friends friendship2 = new Friends();

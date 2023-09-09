@@ -49,4 +49,29 @@ public class CategoryController {
     }
 
 
+    @PutMapping("/{studentid}")
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable("studentid") Long studentid, @RequestBody CategoryDto categoryUpdate) {
+        Long categoryId = categoryUpdate.getCategoryId();
+        String newCategoryName = categoryUpdate.getCategory();
+
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일치하는 카테고리 없음"));
+        System.out.println("category = " + category);
+
+        List<Category> existingCategories = categoryRepository.findByCategory(newCategoryName);
+        System.out.println("existingCategories = " + existingCategories);
+        if (!existingCategories.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 카테고리");
+        }
+
+        category.setCategory(newCategoryName);
+        Category updatedCategroy = categoryRepository.save(category);
+
+        CategoryDto updatedCategroyDto = new CategoryDto();
+        updatedCategroyDto.setCategoryId(updatedCategroy.getCategoryId());
+        updatedCategroyDto.setCategory(updatedCategroy.getCategory());
+
+        return ResponseEntity.ok(updatedCategroyDto);
+    }
+
 }
