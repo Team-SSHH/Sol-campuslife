@@ -1,18 +1,41 @@
+.front,
 .back {
   width: 100%;
   height: 100%;
+
   position: absolute;
+
+  /* 카드 돌리는 효과 */
   transition: transform 0.6s linear;
+
   backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   font-weight: bold;
   font-size: 0.9rem;
+
   border-radius: 20px;
+}
+
+.front {
+  transform: rotateY(0deg);
+  background-color: #fff;
+  border: solid 0.1rem;
+}
+.flipment {
+  position: absolute;
+  right: 5%;
+  bottom: 8%;
+  font-size: 0.8rem;
+}
+
+.back {
   background-image: url("../../assets/card2.png");
   background-size: cover;
   background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(-180deg);
 }
 
 .flipment {
@@ -23,11 +46,11 @@
   font-weight: 100;
 }
 
-.studentIdWrapper.flipped .front {
+.flipped .front {
   transform: rotateY(180deg);
 }
 
-.studentIdWrapper.flipped .back {
+.flipped .back {
   transform: rotateY(0deg);
 }
 

@@ -7,16 +7,12 @@ import styled from "styled-components";
 const StudentIdComponent = styled.div`
   width: 90%;
   height: 20%;
-  background-color: #fff;
+  // background-color: #fff;
   position: absolute;
   left: 5%;
   top: 7%;
   border-radius: 20px;
-  border: solid 0.1rem;
-  // 카드 돌릴 때 필요
-  perspective: 1000px;
-  transition: transform 0.6s linear;
-  backface-visibility: hidden;
+  // border: solid 0.1rem;
 `;
 
 const StudentId = () => {
@@ -34,8 +30,11 @@ const StudentId = () => {
   };
   return (
     <StudentIdComponent>
-      {isFlipped ? (
-        <div>
+      <div
+        className={` ${isFlipped ? "flipped" : ""}`}
+        // onClick={handleClick}
+      >
+        <div className="front">
           <SmartId
             name={lsh.name}
             major={lsh.major}
@@ -46,19 +45,17 @@ const StudentId = () => {
             카드 보기 &gt;
           </div>
         </div>
-      ) : (
-        <div className="flipped">
-          <div className="back">
-            <div className="cardInfo">
-              <div>계좌번호: 93087254624787</div>
-              <div>잔액: 500원</div>
-            </div>
-            <div className="flipment" onClick={handleClick}>
-              학생증 앞면 보기 &gt;
-            </div>
+
+        <div className="back">
+          <div className="cardInfo">
+            <div>계좌번호: 93087254624787</div>
+            <div>잔액: 500원</div>
+          </div>
+          <div className="flipment" onClick={handleClick}>
+            학생증 앞면 보기 &gt;
           </div>
         </div>
-      )}
+      </div>
     </StudentIdComponent>
   );
 };
