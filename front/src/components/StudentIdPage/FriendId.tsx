@@ -6,7 +6,7 @@ import {
   checkFriend,
   isRemittanceModalOpen,
   selectedFriend,
-} from "../../utils/atoms";
+} from "../../stores/atoms";
 import noncheckImg from "../../assets/noncheck.png";
 import checkImg from "../../assets/check.png";
 import SmartId from "../common/SmartId";

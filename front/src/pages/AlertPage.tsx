@@ -1,7 +1,7 @@
 import React from "react";
 import SquareBox2 from "../components/AlertPage/SquareBox2";
 import { useRecoilState } from "recoil";
-import { isRemittanceModalOpen } from "../utils/atoms";
+import { isRemittanceModalOpen } from "../stores/atoms";
 import "./styles/AlertPage.css";
 import RemittanceModal from "../components/StudentIdPage/RemittanceModal";
 

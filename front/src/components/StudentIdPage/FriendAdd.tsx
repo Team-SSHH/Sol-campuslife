@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { loginuser } from "../../utils/atoms";
+import { loginuser } from "../../stores/atoms";
 
 const FriendAdd = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
