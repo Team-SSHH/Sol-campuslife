@@ -1,6 +1,7 @@
 package com.shinhan.hack.smartId.dto;
 
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.smartId.entity.SmartId;
 import lombok.*;
 
 import java.util.List;
@@ -38,11 +39,15 @@ public class SmartIdDto {
     @Setter
     @NoArgsConstructor
     public static class Friend {
-        private Long friendID; // 친구의 ID 등 필요한 정보들
-        private SmartIdDto.Response smartIdInfo;
-        public Friend(Long friendID, SmartIdDto.Response smartIdInfo) {
-            this.friendID = friendID;
-            this.smartIdInfo = smartIdInfo;
+        private Long fId;
+        private String category;
+        private Student friend;
+        private SmartId smartId;  // Add this field
+        public Friend(Long fId, String category, Student friend, SmartId smartId) {
+            this.fId = fId;
+            this.category = category;
+            this.friend = friend;
+            this.smartId = smartId;
         }
         }
     }

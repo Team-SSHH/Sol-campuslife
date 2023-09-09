@@ -33,6 +33,7 @@ public class SmartIdService {
 
         List<Friends> friendsList = friendsRepository.findByStudent(student);
 //        System.out.println("friendsList = " + friendsList);
+
         if (friendsList == null || friendsList.isEmpty()) {
             return null;
         }
@@ -40,17 +41,34 @@ public class SmartIdService {
         List<SmartIdDto.Friend> friendDTOs = new ArrayList<>();
 
         for (Friends friend : friendsList) {
+            Long fID = friend.getFId();
+            String category = friend.getCategory().getCategory();  // Category object to string conversion may vary based on your implementation
+            Student studentFriendInfo = friend.getFriend();
             SmartId friendSmartID = smartIdRepository.findByStudent(friend.getFriend());
-            System.out.println("friendSmartID = " + friendSmartID);
-            if (friendSmartID != null) {
-                // Convert the entity to DTO
-                SmartIdDto.Response response=smartIdMapper.toResponseDto(friendSmartID);
-                System.out.println("response = " + response);
-                // Create a Friend DTO and add it to the list
-                SmartIdDto.Friend friendDTO = new SmartIdDto.Friend(response.getCardId(), response);
-                System.out.println("friendDTO = " + friendDTO);
-                friendDTOs.add(friendDTO);
-            }
+            // Create a Friend DTO and add it to the list
+            SmartIdDto.Friend friendDTO = new SmartIdDto.Friend(fID, category, studentFriendInfo, friendSmartID);
+            friendDTOs.add(friendDTO);
+
+//            System.out.println("friendSmartID = " + friendSmartID);
+//            System.out.println("friend = " + friend);
+//            System.out.println("friend.getFId() = " + friend.getFId());
+//            System.out.println("friend.getCategory() = " + friend.getCategory());
+//
+//            SmartId friendSmartID = smartIdRepository.findByStudent(friend.getFriend());   // 프렌드 학생증
+//            System.out.println("friendSmartID = " + friendSmartID);
+
+
+
+
+//            if (friendSmartID != null) {
+//                // Convert the entity to DTO
+//                SmartIdDto.Response response=smartIdMapper.toResponseDto(friendSmartID);
+////                System.out.println("response = " + response);
+//                // Create a Friend DTO and add it to the list
+//                SmartIdDto.Friend friendDTO = new SmartIdDto.Friend(response.getCardId(), response);
+////                System.out.println("friendDTO = " + friendDTO);
+//                friendDTOs.add(friendDTO);
+//            }
 
 //        SmartId smartId = smartIdRepository.findById(studentId).orElse(null);
 //        if (smartId == null) {
