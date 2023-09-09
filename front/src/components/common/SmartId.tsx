@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import "./SmartId.css";
+import sanghoon from "../../assets/sanghoon.png";
 
 const SmartIdComponent = styled.div`
   // width: 96%;
@@ -19,20 +21,21 @@ interface SmartIdProps {
 const SmartId: React.FC<SmartIdProps> = ({ name, major, number, grade }) => {
   return (
     <SmartIdComponent>
-      {/* <div className="frinedInfo"> */}
-      <div className="firendName">모바일 학생증 {name}</div>
-
-      <div>{name}의 얼굴</div>
-      <div>
-        <span>{major}</span>
-        <span> </span>
-        <span>재학생 ({grade})</span>
+      <div className="smartIdName">모바일 학생증 {name}</div>
+      <div className="smartIdWrppaer">
+        <img src={sanghoon} alt="sang" style={{ width: "70px" }} />
+        <div className="smartIdContent">
+          <div>
+            <span>{major}</span>
+            <span> </span>
+            <span>재학생 ({grade})</span>
+          </div>
+          <div>
+            <span>{name} </span>
+            <span>{number}</span>
+          </div>
+        </div>
       </div>
-      <div>
-        <span>{name} </span>
-        <span>{number}</span>
-      </div>
-      {/* </div> */}
     </SmartIdComponent>
   );
 };
