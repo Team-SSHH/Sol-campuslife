@@ -23,7 +23,7 @@ public class StudentDto {
     @ToString
     public static class Response{
         private Long studentId;
-        private Long name;
+        private String name;
         private String university;
         private String major;
         private Long grade;
@@ -32,5 +32,11 @@ public class StudentDto {
         private Long bankNumber;
         private Long balance;
         private String phoneId;
+
+        public Response(Long studentId, String name, String university) {
+            this.studentId = studentId;
+            this.name = name;
+            this.university = university;
+        }
     }
 }

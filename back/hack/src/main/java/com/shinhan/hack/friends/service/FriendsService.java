@@ -1,63 +1,59 @@
 package com.shinhan.hack.friends.service;
 
 import com.shinhan.hack.category.entity.Category;
+import com.shinhan.hack.category.repository.CategoryRepository;
 import com.shinhan.hack.category.service.CategoryService;
+import com.shinhan.hack.friends.dto.FriendsDto;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
+import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 
+import com.shinhan.hack.login.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class FriendsService {
+
     private final FriendsRepository friendsRepository;
+    private final CategoryRepository categoryRepository;
+    private final LoginRepository studentRepository;
 
-    public List<Friends> getFriendsByStudentId(Long studentId) {
-        return friendsRepository.findByStudentId(studentId);
+    public List<FriendsDto> getFriendsByStudent(Long studentid) {
+        List<Category> categories= categoryRepository.findByStudent_StudentId(studentid);
+        System.out.println("categories= " + categories);
+        List<FriendsDto> friendsList= new ArrayList<>();
+        for (Category category : categories) {
+            System.out.println("categoryId= " + category.getCategoryId());
+            List<Friends> friends=friendsRepository.findByCategory_CategoryId(category.getCategoryId());
+            for(Friends friend: friends){
+                Student friendStudent=studentRepository.findById(friend.getFriendId()).orElse(null);  // 추가된 부분
+
+                if(friendStudent!=null){
+                    StudentDto.Response friendInfo=new StudentDto.Response(
+                            friendStudent.getStudentId(),
+                            friendStudent.getName(),
+                            friendStudent.getUniversity(),
+                            friendStudent.getMajor(),
+                            friendStudent.getGrade(),
+                            friendStudent.getGender(),
+                            friendStudent.getNationality(),
+                            friendStudent.getBankNumber(),
+                            friendStudent.getBalance(),
+                            friendStudent.getPhoneId()
+                    );
+
+                    friendsList.add(new FriendsDto(friend.getFId(),category.getCategoryId(),category.getCategory(),studentid,friendInfo));
+                }
+            }
+        }
+        return friendsList;
     }
+
 }
-
-//
-//@Service
-//@RequiredArgsConstructor
-//public class FriendsService {
-//    private final FriendsRepository friendsRepository;
-//    private final CategoryService categoryService;
-//    private final SmartIdService smartIdService;
-//    @Transactional
-//    public void addFriend(Long studentId, Long friendStudentId, Long categoryId) {
-////        Category category = categoryService.getCategoryById(1L);
-////        SmartId smartID = smartIdService.getSmartID(smartID);
-//        System.out.println("studentId = " + studentId);
-//        System.out.println("friendStudentId = " + friendStudentId);
-//        System.out.println("categoryId = " + categoryId);
-//        SmartId smartID = smartIdService.getSmartId(studentId);
-//        System.out.println("smartID = " + smartID.getCardId());
-//
-////        Friends newFriend = Friends.builder()
-////                .category(1L)
-////                .student(studentId)
-////                .friend(friendStudentId)
-////                .smartID(smartID)
-////                .build();
-//
-////        SmartId smartID = smartIdService.getSmartId(student);
-////        Friends newFriend = Friends.builder()
-////                .category(category)
-////                .student(student)
-////                .friend(friend)
-////                .smartID(smartID)
-////                .build();
-//
-////        friendsRepository.save(newFriend);
-//        // 여기에 친구 등록 로직을 작성하세요.
-//        // 예를 들어, Friends 엔티티 객체를 생성하여 friendsRepository.save() 메서드로 저장할 수 있습니다.
-//    }
-//}
-
-
