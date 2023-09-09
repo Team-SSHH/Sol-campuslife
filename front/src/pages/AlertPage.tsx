@@ -1,6 +1,9 @@
 import React from "react";
 import SquareBox2 from "../components/AlertPage/SquareBox2";
+import { useRecoilState } from "recoil";
+import { isRemittanceModalOpen } from "../stores/atoms";
 import "./styles/AlertPage.css";
+import RemittanceModal from "../components/StudentIdPage/RemittanceModal";
 
 const Alarm = [
   {
@@ -48,11 +51,14 @@ const Alarm = [
 ];
 
 const AlertPage = () => {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+
   return (
     <div className="alertWrapper">
       {Alarm.map((alarm, index) => (
         <SquareBox2 key={index} id={index} alarmData={alarm} />
       ))}
+      {isModalOpen && <RemittanceModal />}
     </div>
   );
 };
