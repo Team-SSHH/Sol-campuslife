@@ -131,4 +131,26 @@ public class FriendsService {
         // 업데이트된 친구 목록 반환
         return getFriendsByStudent(studentId);
     }
+
+
+    @Transactional
+    public List<FriendsDto> updateFriend(Long studentId, Long friendStudentId, Long categoryId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
+        Student friendStudent = studentRepository.findById(friendStudentId).orElseThrow(() -> new RuntimeException("Friend not found"));
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
+
+        List<Friends> friends =  friendsRepository.findByCategory_Student_StudentIdAndFriendId(studentId, friendStudentId);
+
+
+        for (Friends friend : friends) {
+            // Update the category of each Friends object
+            friend.setCategory(category);
+
+            // Save the updated Friends object
+            friendsRepository.save(friend);
+        }
+
+        // 업데이트된 친구 목록 반환
+        return getFriendsByStudent(studentId);
+    }
 }
