@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -24,7 +25,7 @@ public class DutchPay {
     private Long dutchId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "student_id", referencedColumnName = "student_id")
+    @JoinColumn(name = "student_id", nullable = false)
     Student student;
 
     @Column(name = "amount", nullable = false)
@@ -33,11 +34,13 @@ public class DutchPay {
     @Column(name = "dutch_state", nullable = false)
     private Boolean dutchState;
 
+    static String patternTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    static LocalDateTime time = LocalDateTime.parse(patternTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
     @Column(name = "request_time", nullable = false)
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime requestTime;
+    @Builder.Default
+    private LocalDateTime requestTime = time;
 
-    @OneToMany(mappedBy = "dutchPay")
-    List<DutchPayDetail> dutchPayDetails;
 }

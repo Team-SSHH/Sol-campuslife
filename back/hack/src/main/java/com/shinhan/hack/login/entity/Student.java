@@ -1,10 +1,11 @@
 package com.shinhan.hack.login.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shinhan.hack.category.entity.Category;
-import com.shinhan.hack.freinds.entity.Freinds;
+import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.remittance.entity.DutchPay;
-import com.shinhan.hack.smartId.entity.SmartId;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,25 @@ public class Student {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "university", nullable = false)
+    @Builder.Default
+    private String university = "건국대학교";
+
+    @Column(name = "major", nullable = false)
+    private String major;
+
+    @Column(name = "grade", nullable = false)
+    private Long grade;
+
+    @Column(name = "gender", nullable = false)
+    private String gender;
+
+    @Column(name = "nationality", nullable = false)
+    private String nationality;
+
     @Column(name = "bank_number", nullable = false)
     private Long bankNumber;
 
@@ -35,20 +55,6 @@ public class Student {
     @Column(name = "phone_id", nullable = false)
     private String phoneId;
 
-    @OneToOne(mappedBy = "student")
-    SmartId smartId;
-
-    @OneToMany(mappedBy = "student")
-    List<Freinds> freindsList;
-
-    @OneToMany(mappedBy = "student")
-    List<Category> categoryList;
-
-    @OneToMany(mappedBy = "student_id")
-    List<History> historyList;
-
-    @OneToMany(mappedBy = "student")
-    List<DutchPay> dutchPays;
-
-
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
 }

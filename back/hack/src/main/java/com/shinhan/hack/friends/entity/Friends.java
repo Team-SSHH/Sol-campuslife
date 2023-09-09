@@ -1,7 +1,8 @@
-package com.shinhan.hack.freinds.entity;
+package com.shinhan.hack.friends.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shinhan.hack.category.entity.Category;
-import com.shinhan.hack.login.entity.Student;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class Freinds {
+public class Friends {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +22,10 @@ public class Freinds {
     private Long fId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "category_id", referencedColumnName = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     Category category;
 
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "student_id", referencedColumnName = "student_id")
-    Student student;
 
     @Column(name = "freind_id", nullable = false)
-    private Long freindId;
+    private Long friendId;
 }
