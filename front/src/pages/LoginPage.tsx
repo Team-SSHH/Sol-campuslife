@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../utils/api";
+import api1 from "../utils/api1";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../utils/atoms";
@@ -13,26 +13,27 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log(studentId, password);
-    navigate("/Main");
-  };
-
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await api.post("/api2/sshh/login", {
-  //       studentId,
-  //       password,
-  //     });
-  //     if (response.status === 200) {
-  //       setUserData(response.data);
-  //       localStorage.setItem("user", response.data);
-  //       navigate("/Main");
-  //     }
-  //   } catch (error) {
-  //     // 에러 처리
-  //   }
+  // const handleLogin = () => {
+  //   console.log(studentId, password);
+  //   navigate("/Main");
   // };
+
+  const handleLogin = async () => {
+    try {
+      const response = await api1.post("/api2/sshh/login", {
+        studentId,
+        password,
+      });
+      if (response.status === 200) {
+        setUserData(response.data);
+        console.log(response);
+        localStorage.setItem("user", response.data);
+        navigate("/Main");
+      }
+    } catch (error) {
+      // 에러 처리
+    }
+  };
 
   return (
     <div className="logincontainer">
