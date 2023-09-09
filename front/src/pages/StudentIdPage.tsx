@@ -29,7 +29,6 @@ const StudentIdPage = () => {
       setCheckFriend([]);
     };
   }, []);
-  console.log(checkfriend);
 
   const dutchpay = () => {
     // 라우

@@ -1,0 +1,19 @@
+.smartIdName {
+  position: relative;
+  width: 90%;
+  padding-bottom: 5%;
+  padding-top: 3%;
+  /* top: 10%; */
+  font-size: 0.8rem;
+}
+.smartIdWrppaer {
+  display: flex;
+  position: relative;
+  left: 5%;
+}
+
+.smartIdContent {
+  position: relative;
+  left: 15%;
+  padding-top: 3%;
+}

@@ -29,7 +29,7 @@ const StyledButton = styled.button`
   padding-right: 1rem;
   z-index: 1;
 
-  height: 2.25rem;
+  height: 2rem;
   width: 6rem;
   font-size: 1rem;
   background: #6e96ff;
