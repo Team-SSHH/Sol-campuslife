@@ -24,7 +24,7 @@ public class DutchPay {
     private Long dutchId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "student_id", referencedColumnName = "student_id")
+    @JoinColumn(nullable = false, name = "student_id")
     Student student;
 
     @Column(name = "amount", nullable = false)
@@ -32,6 +32,9 @@ public class DutchPay {
 
     @Column(name = "dutch_state", nullable = false)
     private Boolean dutchState;
+
+    @Column(name = "number", nullable = false)
+    private Long number;
 
     @Column(name = "request_time", nullable = false)
     @CreatedDate
