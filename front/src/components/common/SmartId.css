@@ -9,11 +9,11 @@
 .smartIdWrppaer {
   display: flex;
   position: relative;
-  left: 5%;
+  left: 2%;
 }
 
 .smartIdContent {
   position: relative;
-  left: 15%;
+  left: 10%;
   padding-top: 3%;
 }

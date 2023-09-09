@@ -1,67 +1,26 @@
-.studentIdWrapper {
-  width: 90%;
-  height: 20%;
-
-  /* 카드 돌리는데 필요 */
-  perspective: 1000px;
-
-  position: absolute;
-  left: 5%;
-  top: 7%;
-}
-
-.front,
 .back {
   width: 100%;
   height: 100%;
-
   position: absolute;
-
-  /* 카드 돌리는 효과 */
   transition: transform 0.6s linear;
-
   backface-visibility: hidden;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-weight: bold;
   font-size: 0.9rem;
-
   border-radius: 20px;
+  background-image: url("../../assets/card2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.front {
-  box-shadow: -2px -2px 8px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
-
-  background-color: #fff;
-  transform: rotateY(0deg);
-}
 .flipment {
   position: absolute;
   right: 5%;
   bottom: 8%;
   font-size: 0.8rem;
-}
-
-/* .square-box {
-  box-shadow: -6px -6px 9px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
-  font-size: 20pt;
-  width: 60px;
-  height: 60px;
-  border: none;
-  border-radius: 30px;
-  background: #eee;
-  cursor: pointer;
-} */
-
-.back {
-  background-image: url("../../assets/card2.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  transform: rotateY(-180deg);
+  font-weight: 100;
 }
 
 .studentIdWrapper.flipped .front {
@@ -70,17 +29,6 @@
 
 .studentIdWrapper.flipped .back {
   transform: rotateY(0deg);
-}
-
-.studentInfo {
-  position: absolute;
-  left: 5%;
-  display: flex;
-  align-items: center;
-}
-.studentTextInfo {
-  position: relative;
-  left: 5%;
 }
 
 .cardInfo {

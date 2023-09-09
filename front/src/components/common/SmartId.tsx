@@ -4,10 +4,8 @@ import "./SmartId.css";
 import sanghoon from "../../assets/sanghoon.png";
 
 const SmartIdComponent = styled.div`
-  // width: 96%;
   position: absolute;
   left: 5%;
-  // border-radius: 20px;
   font-weight: bold;
 `;
 
@@ -23,12 +21,13 @@ const SmartId: React.FC<SmartIdProps> = ({ name, major, number, grade }) => {
     <SmartIdComponent>
       <div className="smartIdName">모바일 학생증 {name}</div>
       <div className="smartIdWrppaer">
-        <img src={sanghoon} alt="sang" style={{ width: "70px" }} />
+        <img src={sanghoon} alt="sang" style={{ width: "90px" }} />
         <div className="smartIdContent">
           <div>
             <span>{major}</span>
-            <span> </span>
-            <span>재학생 ({grade})</span>
+            <div>
+              <span>재학생 ({grade})</span>
+            </div>
           </div>
           <div>
             <span>{name} </span>
