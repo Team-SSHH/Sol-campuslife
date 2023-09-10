@@ -12,8 +12,10 @@ public class RemittanceDto {
     public static class Response{
         private String phoneId;
         private Long balance;
-        private String freindPhoneId;
-        private Long freindBalance;
+        private String friendPhoneId;
+        private Long friendBalance;
+        private String content;
+        private Long amount;
     }
 
     @Getter
@@ -23,7 +25,7 @@ public class RemittanceDto {
     @Builder
     public static class update{
         private Long studentId;
-        private Long freindStudentId;
+        private Long friendStudentId;
         private Long amount;
         private String content;
     }
