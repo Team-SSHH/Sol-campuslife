@@ -59,7 +59,6 @@ interface FriendIdProps {
 
 const FriendId: React.FC<FriendIdProps> = (props) => {
   const friendData = props.friendData.friend;
-  console.log("프레에에에늗", friendData);
   // const [friend, setFriend] = useState(100);
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
@@ -139,25 +138,7 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
           )}
         </span>
       </div>
-      {/* <div className="firendName"> */}
-      {/* 모바일 학생증 {friendData.name} */}
       {/* 클릭하면 삭제, 카데고리 옮기기 등 옵션 보여주기 */}
-
-      {/* </div> */}
-
-      {/* <div className="frinedInfo">
-        <div>{friendData.name}의 얼굴</div>
-
-        <div>
-          <span>{friendData.major}</span>
-          <span> </span>
-          <span>재학생 ({friendData.grade})</span>
-        </div>
-        <div>
-          <span>{friendData.name} </span>
-          <span>{friendData.number}</span>
-        </div>
-      </div> */}
 
       <div>
         {friend === props.id ? (

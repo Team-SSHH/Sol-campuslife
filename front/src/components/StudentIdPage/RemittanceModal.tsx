@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useRecoilState, useRecoilValue } from "recoil";
-import { isRemittanceModalOpen, selectedFriend } from "../../stores/atoms";
+import {
+  isRemittanceModalOpen,
+  selectedFriend,
+  loginuser,
+} from "../../stores/atoms";
 import "./RemittanceModal.css";
 import SmartId from "../common/SmartId";
 import { FriendType } from "../../types/DataType";
+import api1 from "../../utils/api1";
 
 // interface friendData {
 //   name: string;
@@ -36,14 +41,43 @@ const StyledButton = styled.button`
 const RemittanceModal = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
   const friendData = useRecoilValue<FriendType>(selectedFriend);
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<number>(0);
+  const [userData, setUserData] = useRecoilState(loginuser);
+
+  const putRemittance = async (money: number) => {
+    console.log("돈넣는ㄴ다.");
+    console.log(userData.studentId);
+    console.log("가");
+    console.log(friendData.studentId);
+    console.log("에게");
+
+    try {
+      const response = await api1.put(
+        `/sshh/remittance/${userData.studentId}/send/${friendData.studentId}`,
+        {
+          amount: money,
+          content: "더치페이",
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error);
+      // 에러 처리
+    }
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    const inputValue = parseInt(event.target.value);
+    if (!isNaN(inputValue)) {
+      setValue(inputValue);
+    }
   };
 
   const handleClick = () => {
-    console.log(value);
+    putRemittance(value);
     setIsModalOpen(false);
   };
 

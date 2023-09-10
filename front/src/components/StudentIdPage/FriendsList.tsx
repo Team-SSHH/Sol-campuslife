@@ -6,6 +6,7 @@ import { loginuser } from "../../stores/atoms";
 import { isRemittanceModalOpen } from "../../stores/atoms";
 import RemittanceModal from "./RemittanceModal";
 import axios from "axios";
+import api1 from "../../utils/api1";
 
 const FriendsList = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
@@ -17,11 +18,22 @@ const FriendsList = () => {
     getFriendList();
   }, []);
 
+  // const getFriendList = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://api.solcampuslife.store/sshh/friends/${userData.studentId}`
+  //     );
+  //     if (response.status === 200) {
+  //       setFriendsData(response.data);
+  //       console.log(response.data);
+  //     }
+  //   } catch (error) {
+  //     // 에러 처리
+  //   }
+  // };
   const getFriendList = async () => {
     try {
-      const response = await axios.get(
-        `https://api.solcampuslife.store/sshh/friends/${userData.studentId}`
-      );
+      const response = await api1.get(`/sshh/friends/${userData.studentId}`);
       if (response.status === 200) {
         setFriendsData(response.data);
         console.log(response.data);
