@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles/FavoritePlacePage.css";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import qwe from "../assets/qwe.png";
@@ -28,9 +27,20 @@ const StyledButton = styled.button`
 
 const tag1 = ["월", "화", "수", "목", "금", "토", "일"];
 
-const tag2 = ["맛집", "PC방", "노래방", "마트", "병원", "헬스장"];
+const tag2 = ["음식", "카페", "문화", "학습", "교통", "기타"];
 
-const tag3 = ["12", "14", "16", "18", "20", "22", "24", "02"];
+const tag3 = [
+  "08-10",
+  "10-12",
+  "12-14",
+  "14-16",
+  "16-18",
+  "18-20",
+  "20-22",
+  "22-24",
+  "24-02",
+  "02-04",
+];
 
 const FavoritePlacePage = () => {
   const getPlace = () => {

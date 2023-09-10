@@ -70,13 +70,13 @@ public class FriendsService {
         if (!friendCategories.isEmpty()) {
             firstCategory = friendCategories.get(0);
         } else {
-            System.out.println("The friend student does not have any categories.");
+            System.out.println("친구가 카테고리에 없다.");
         }
 
         // 이미 있으면 에러
         Optional<Friends> existingFriendship1 = friendsRepository.findByCategory_CategoryIdAndFriendId(category.getCategoryId(), friendStudent.getStudentId());
         if (existingFriendship1.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This friend is already added");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 친구");
         }
 
         // 새로운 Friend 엔티티 생성 및 저장
@@ -90,7 +90,7 @@ public class FriendsService {
         Optional<Friends> existingFriendship2 = friendsRepository.findByCategory_CategoryIdAndFriendId(firstCategory.getCategoryId(), student.getStudentId());
 
         if (existingFriendship2.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This friend is already added");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 친구");
         }
 //
         Friends friendship2 = new Friends();
@@ -126,6 +126,28 @@ public class FriendsService {
         }
         for (Friends friend1 : friends1) {
             friendsRepository.delete(friend1);
+        }
+
+        // 업데이트된 친구 목록 반환
+        return getFriendsByStudent(studentId);
+    }
+
+
+    @Transactional
+    public List<FriendsDto> updateFriend(Long studentId, Long friendStudentId, Long categoryId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
+        Student friendStudent = studentRepository.findById(friendStudentId).orElseThrow(() -> new RuntimeException("Friend not found"));
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
+
+        List<Friends> friends =  friendsRepository.findByCategory_Student_StudentIdAndFriendId(studentId, friendStudentId);
+
+
+        for (Friends friend : friends) {
+            // Update the category of each Friends object
+            friend.setCategory(category);
+
+            // Save the updated Friends object
+            friendsRepository.save(friend);
         }
 
         // 업데이트된 친구 목록 반환
