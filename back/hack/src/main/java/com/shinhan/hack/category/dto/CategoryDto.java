@@ -1,5 +1,10 @@
 package com.shinhan.hack.category.dto;
 
+import com.shinhan.hack.login.entity.Student;
+import lombok.*;
+
+import javax.persistence.*;
+
 public class CategoryDto {
     private Long categoryId;
     private String category;
@@ -19,5 +24,17 @@ public class CategoryDto {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @ToString
+    public static class Response{
+        private Long categoryId;
+        Student student;
+        private String category;
     }
 }

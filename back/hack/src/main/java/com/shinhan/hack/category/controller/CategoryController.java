@@ -1,5 +1,6 @@
 package com.shinhan.hack.category.controller;
 
+import com.shinhan.hack.category.CategoryMapper;
 import com.shinhan.hack.category.dto.CategoryDto;
 import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.category.repository.CategoryRepository;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +25,24 @@ import java.util.Map;
         RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
         RequestMethod.PUT })
 public class CategoryController {
+
     private final CategoryRepository categoryRepository;
     private final FriendsRepository friendsRepository;
+    private final CategoryMapper categoryMapper;
+
+    @GetMapping("/{studentId}")
+    public ResponseEntity<List<CategoryDto.Response>> getCategory(
+            @PathVariable("studentId") Long studentId
+    ){
+        List<Category> categories = categoryRepository.findByStudent_StudentId(studentId);
+        List<CategoryDto.Response> categoryList = new ArrayList<>();
+        for (Category category: categories
+             ) {
+            CategoryDto.Response response = categoryMapper.toResponse(category);
+            categoryList.add(response);
+        }
+        return new ResponseEntity<>(categoryList, HttpStatus.OK);
+    }
 
     @PostMapping("/{studentid}")
     public ResponseEntity<CategoryDto> addCategory(@PathVariable("studentid") Long studentid, @RequestBody Map<String, String> body) {
