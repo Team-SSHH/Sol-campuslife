@@ -22,12 +22,18 @@ const StyledButton = styled.button<CarouselBtnProps>`
 interface CarouselButtonProps {
   tag: string | number;
   tagName: string;
+  onTagClick?: (tag: string | number) => void; // 새로운 prop 추가
 }
 
-const CarouselButton = ({ tag, tagName }: CarouselButtonProps) => {
+const CarouselButton = ({ tag, tagName, onTagClick }: CarouselButtonProps) => {
   const [isClicked, setIsClicked] = useState(false);
+
   const handleClick = () => {
     setIsClicked(!isClicked);
+    if (onTagClick) {
+      // 부모 컴포넌트의 함수 호출
+      onTagClick(tag);
+    }
   };
 
   return (
@@ -41,6 +47,7 @@ const CarouselButton = ({ tag, tagName }: CarouselButtonProps) => {
 interface CarouselProps {
   tags: Array<string | number>;
   tagName: string;
+  onTagClick?: (tag: string | number) => void; // 새로운 prop 추가
 }
 
 const settings = {
@@ -52,13 +59,18 @@ const settings = {
   arrows: false,
 };
 
-const Carousel = ({ tags, tagName }: CarouselProps) => {
+const Carousel = ({ tags, tagName, onTagClick }: CarouselProps) => {
   return (
     <div className="tagCon">
       <div className="tagBox">
         <Slider {...settings}>
           {tags.map((tag, index) => (
-            <CarouselButton key={index} tag={tag} tagName={tagName} />
+            <CarouselButton
+              key={index}
+              tag={tag}
+              tagName={tagName}
+              onTagClick={onTagClick}
+            />
           ))}
         </Slider>
       </div>
