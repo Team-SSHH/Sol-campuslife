@@ -20,4 +20,17 @@ public class DutchPayDetailDto {
         private LocalDateTime remittanceTime;
         private String name;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class consent{
+        private String studentName;
+        private List<Student> frindList;
+        private Long dutchAmount;
+        private Long amount;
+        private String content;
+    }
 }
