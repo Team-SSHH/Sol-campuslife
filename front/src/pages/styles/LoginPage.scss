@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 $ruler: 16px;
 $color-red: #ae1100;
 $color-bg: #ebecf0;
@@ -18,8 +26,8 @@ input,
 select,
 textarea,
 button {
-  font-family: "Montserrat", sans-serif;
-  letter-spacing: -0.2px;
+  font-family: "NanumSquareRound";
+  // letter-spacing: -0.2px;
   font-size: $ruler;
 }
 
