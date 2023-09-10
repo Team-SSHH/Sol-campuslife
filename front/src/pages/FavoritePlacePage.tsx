@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/FavoritePlacePage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -43,16 +43,26 @@ const tag3 = [
 ];
 
 const FavoritePlacePage = () => {
+  const [selectedTags, setSelectedTags] = useState<Array<string | number>>([]);
+
+  const handleTagClick = (tag: string | number) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
   const getPlace = () => {
     console.log("장소를 찾아옵니다.");
+    console.log("선택된 태그들:", selectedTags);
   };
+
   return (
     <div className="favoritePlaceWrapper">
       <p className="tagText">키워드를 선택해주세요.</p>
       <div className="tagContainer">
-        <Carousel tags={tag1} tagName="요일" />
-        <Carousel tags={tag2} tagName="" />
-        <Carousel tags={tag3} tagName="시" />
+        <Carousel tags={tag1} tagName="요일" onTagClick={handleTagClick} />
+        <Carousel tags={tag2} tagName="" onTagClick={handleTagClick} />
+        <Carousel tags={tag3} tagName="시" onTagClick={handleTagClick} />
       </div>
       <StyledButton onClick={getPlace}>검색</StyledButton>
       <div className="loac-container">
