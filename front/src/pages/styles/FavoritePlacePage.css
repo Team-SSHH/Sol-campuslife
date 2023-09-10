@@ -1,12 +1,12 @@
-.place-con {
+.favoritePlaceWrapper {
   height: 90%;
   width: 100%;
   font-weight: bold;
-  top: 7%;
+  top: 5%;
   position: absolute;
 }
 
-.tag-container {
+.tagContainer {
   height: 30%;
   /* margin-top: 10%; */
 
@@ -36,7 +36,13 @@
   align-items: center; */
   /* overflow: scroll; */
 }
-
+.tagText {
+  color: #fff;
+  position: relative;
+  left: 5%;
+  font-size: 1.1rem;
+  height: 1rem;
+}
 .tag-div {
   display: flex;
   justify-content: center;
