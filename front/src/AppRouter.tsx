@@ -13,6 +13,7 @@ import Push from "./hooks/push";
 
 import "./AppRouter.css";
 import AlertPage from "./pages/AlertPage";
+import Registerfriend from "./pages/RegisterFriendPage";
 
 function AppRouter() {
   return (
@@ -30,6 +31,7 @@ function AppRouter() {
           <Route path="/Push" element={<Push />}></Route>
           <Route path="/ConsumeLog" element={<ConsumeLogPage />}></Route>
           <Route path="/Alert" element={<AlertPage />}></Route>
+          <Route path="/Registerfriend" element={<Registerfriend />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

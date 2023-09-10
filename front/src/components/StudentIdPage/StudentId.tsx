@@ -3,6 +3,8 @@ import "./StudentId.css";
 import sanghoon from "../../assets/sanghoon.png";
 import SmartId from "../common/SmartId";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../stores/atoms";
 
 const StudentIdComponent = styled.div`
   width: 90%;
@@ -17,17 +19,19 @@ const StudentIdComponent = styled.div`
 
 const StudentId = () => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [userData, setUserData] = useRecoilState(loginuser);
 
   const handleClick = () => {
     setIsFlipped(!isFlipped);
   };
-
   const lsh = {
-    name: "이상훈",
-    major: "금속신소재공학과",
-    grade: "2학년",
-    number: 201403808,
+    name: userData.name,
+    major: `${userData.major}과`,
+    grade: `${userData.grade}학년`,
+    number: userData.studentId,
   };
+  console.log(userData);
+
   return (
     <StudentIdComponent>
       <div

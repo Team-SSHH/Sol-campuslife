@@ -16,18 +16,16 @@ const useLogin = () => {
   //   console.log(studentId, password);
   //   navigate("/Main");
   // };
-  //127.0.0.1:8080/
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://13.124.41.92:8080/sshh/login", {
+      const response = await api1.post("/sshh/login", {
         studentId,
         password,
       });
       if (response.status === 200) {
-        console.log(response);
         setUserData(response.data);
-        localStorage.setItem("user", response.data);
+
         navigate("/Main");
       }
     } catch (error) {

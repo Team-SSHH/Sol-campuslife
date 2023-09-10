@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/sshh/remittance")
@@ -38,11 +39,27 @@ public class RemittanceController {
 
     @PutMapping("/{studentId}/won1")
     public ResponseEntity<RemittanceDto.Response> won1(
-            @PathVariable("studentId") Long studentId,
-            @RequestBody RemittanceDto.update remittanceUpdate
+            @PathVariable("studentId") Long studentId
     ){
-        remittanceUpdate.setStudentId(studentId);
-        RemittanceDto.Response response = remittanceService.won1(remittanceUpdate);
+        RemittanceDto.Response response;
+        try {
+            response = remittanceService.won1(studentId);
+        }catch(NoSuchElementException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/{studentId}/consent")
+    public ResponseEntity<DutchPayDetailDto.consent> sendDutch(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody DutchPayDto.Post dutchPost
+    ){
+        dutchPost.setStudentId(studentId);
+        DutchPayDetailDto.consent response = remittanceService.sendDutch(dutchPost);
+        // 알림
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
