@@ -58,8 +58,27 @@ public class RemittanceController {
             @RequestBody DutchPayDto.Post dutchPost
     ){
         dutchPost.setStudentId(studentId);
-        DutchPayDetailDto.consent response = remittanceService.sendDutch(dutchPost);
+        DutchPayDetailDto.consent response = remittanceService.consentDutch(dutchPost);
         // 알림
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("{studentId}/dutch/{friendId}")
+    public ResponseEntity<RemittanceDto.Response> dutchPaySend(
+            @PathVariable("studentId") Long studentId,
+            @PathVariable("friendId") Long friendId,
+            @RequestBody DutchPayDetailDto.send sendInfo
+    ){
+        sendInfo.setFriendId(friendId);
+        sendInfo.setStudentId(studentId);
+        RemittanceDto.Response response;
+        try{
+            response = remittanceService.dutchSend(sendInfo);
+        }catch (NoSuchElementException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

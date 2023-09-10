@@ -122,7 +122,7 @@ public class RemittanceService {
     }
 
     @Transactional
-    public DutchPayDetailDto.consent sendDutch(
+    public DutchPayDetailDto.consent consentDutch(
             DutchPayDto.Post dutchPost
     ){
         Long number = Long.valueOf(dutchPost.getFriendList().size() + 1);
@@ -134,8 +134,8 @@ public class RemittanceService {
                 .number(number)
                 .student(student)
                 .build();
-
         dutchPayRepository.save(dutchpay);
+        Long dutchId = dutchpay.getDutchId();
 
         // 더치페이 디테일 테이블에 저장
         Long dutchAmount = dutchpay.getAmount()/number;
@@ -158,8 +158,65 @@ public class RemittanceService {
                 .frindList(friendList)
                 .content("더치페이 해주세요")
                 .studentName(studentName)
+                .dutchId(dutchId)
                 .build();
     }
+
+    @Transactional
+    public RemittanceDto.Response dutchSend(DutchPayDetailDto.send sendInfo) {
+        Optional<Student> student = loginRepository.findById(sendInfo.getStudentId());
+        Optional<Student> friend = loginRepository.findById(sendInfo.getFriendId());
+        Long studentId = sendInfo.getStudentId();
+        Long friendId = sendInfo.getFriendId();
+
+        // 거래 내역에 추가
+        History myHistory = History.builder()
+                .balance(student.get().getBalance())
+                .content("더치페이")
+                .contentCategory("계좌이체")
+                .pay(sendInfo.getDutchAmount())
+                .deposit(Long.valueOf(0))
+                .student(Student.builder().studentId(studentId).build())
+                .build();
+
+        History fHistory = History.builder()
+                .balance(friend.get().getBalance())
+                .content("더치페이")
+                .contentCategory("계좌이체")
+                .pay(Long.valueOf(0))
+                .deposit(sendInfo.getDutchAmount())
+                .student(Student.builder().studentId(friendId).build())
+                .build();
+
+        historyRepository.save(myHistory);
+        historyRepository.save(fHistory);
+
+        // 디테일에 상태 변경
+        dutchPayDetailRepository.dutchDetailStateUpdate(studentId, sendInfo.getDutchId());
+
+        // 디테일 조회 후 더치페이 상태 변화
+        List<DutchPayDetail> dutchPayList = dutchPayRepository.findByDutchId(sendInfo.getDutchId());
+        boolean state = true;
+        for (DutchPayDetail dutchDetail:dutchPayList
+             ) {
+            if(!dutchDetail.getRemittanceState()){
+                state = false;
+                break;
+            }
+        }
+        dutchPayRepository.stateUpdate(sendInfo.getDutchId(), state);
+
+        RemittanceDto.Response response = RemittanceDto.Response.builder()
+                .phoneId(student.get().getPhoneId())
+                .balance(student.get().getBalance())
+                .friendPhoneId(friend.get().getPhoneId())
+                .friendBalance(friend.get().getBalance())
+                .content("더치페이")
+                .amount(sendInfo.getDutchAmount())
+                .build();
+        return response;
+    }
+
 
     public List<DutchPay> dutchPay(Long studentId) {
         List<DutchPay> dutchPayList = dutchPayRepository.findByStudentId(studentId);
