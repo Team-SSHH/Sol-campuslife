@@ -5,13 +5,14 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { isRemittanceModalOpen, selectedFriend } from "../../stores/atoms";
 import "./RemittanceModal.css";
 import SmartId from "../common/SmartId";
+import { FriendType } from "../../types/DataType";
 
-interface friendData {
-  name: string;
-  major: string;
-  number: number;
-  grade: string;
-}
+// interface friendData {
+//   name: string;
+//   major: string;
+//   number: number;
+//   grade: number;
+// }
 
 const StyledButton = styled.button`
   position: absolute;
@@ -34,7 +35,7 @@ const StyledButton = styled.button`
 
 const RemittanceModal = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
-  const friendData = useRecoilValue<friendData>(selectedFriend);
+  const friendData = useRecoilValue<FriendType>(selectedFriend);
   const [value, setValue] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,8 +53,9 @@ const RemittanceModal = () => {
         <SmartId
           name={friendData.name}
           major={friendData.major}
-          number={friendData.number}
+          studentId={friendData.studentId}
           grade={friendData.grade}
+          imageUrl={friendData.imageUrl}
         />
         {/* <div className="firendName">모바일 학생증 {friendData.name}</div>
         <div className="frinedInfo">

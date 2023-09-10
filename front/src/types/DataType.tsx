@@ -10,3 +10,16 @@ export interface TransactionHistoryType {
   transactionTime: string;
   day: string;
 }
+export interface FriendType {
+  balance: number;
+  bankNumber: number;
+  gender: string;
+  grade: number;
+  imageUrl: string;
+  major: string;
+  name: string;
+  nationality: string;
+  phoneId: string;
+  studentId: number;
+  university: string;
+}

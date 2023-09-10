@@ -10,7 +10,7 @@ import {
 import noncheckImg from "../../assets/noncheck.png";
 import checkImg from "../../assets/check.png";
 import SmartId from "../common/SmartId";
-
+import { FriendType } from "../../types/DataType";
 interface FriendIdComponentProps {
   idx: number;
   friend: number;
@@ -48,16 +48,18 @@ const FriendIdComponent = styled.div<FriendIdComponentProps>`
 `;
 interface FriendIdProps {
   friendData: {
-    name: string;
-    major: string;
-    number: number;
-    grade: string;
+    category: string;
+    fid: number;
+    categoryId: number;
+    studentId: string;
+    friend: FriendType;
   };
   id: number;
 }
 
 const FriendId: React.FC<FriendIdProps> = (props) => {
-  const friendData = props.friendData;
+  const friendData = props.friendData.friend;
+  console.log("프레에에에늗", friendData);
   // const [friend, setFriend] = useState(100);
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
@@ -113,8 +115,9 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
         <SmartId
           name={friendData.name}
           major={friendData.major}
-          number={friendData.number}
+          studentId={friendData.studentId}
           grade={friendData.grade}
+          imageUrl={friendData.imageUrl}
         />
         <span
           className="checkBox"
