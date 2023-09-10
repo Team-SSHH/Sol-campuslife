@@ -1,25 +1,28 @@
 .place-con {
-  height: 80%;
+  height: 90%;
   width: 100%;
+  font-weight: bold;
+  top: 7%;
+  position: absolute;
 }
 
 .tag-container {
   height: 30%;
-  margin-top: 10%;
+  /* margin-top: 10%; */
 
   /* display: flex;
   justify-content: center;
   align-items: center; */
 }
 
-.tag-con {
+.tagCon {
   display: flex;
   justify-content: center;
   align-items: center;
   /* margin-bottom: 7%; */
 }
 
-.tag-box {
+.tagBox {
   border-radius: 20px;
   padding: 2%;
   padding-bottom: 5%;
@@ -40,15 +43,21 @@
   align-items: center;
 }
 
-.tag-btn {
+.tagBtn {
   margin-right: 5%;
   border-radius: 20px;
   background-color: rgb(255, 255, 255);
+  height: 2.2rem;
+  border: none;
+  left: 20%;
 }
 
 .loac-container {
   margin-top: 6%;
+  position: absolute;
+  bottom: 0;
   height: 60%;
+  width: 100%;
   background-color: #c6d5ff;
   border-radius: 20px;
 }
