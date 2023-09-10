@@ -4,7 +4,9 @@ export interface TransactionHistoryType {
   contentCategory: string;
   deposit: number;
   historyId: number;
+  imgUrl: string;
   pay: number;
   studentId: number;
   transactionTime: string;
+  day: string;
 }

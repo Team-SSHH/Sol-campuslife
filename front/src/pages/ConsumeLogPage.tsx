@@ -60,10 +60,13 @@ const COLORS = [
 const ConsumeLogPage = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
 
-  const { AllData, AllcategorySum } = useAllConsumeData();
-  console.log(AllData);
+  const { AllData, AllcategorySum, getContentWithImgSortedByFrequency } =
+    useAllConsumeData();
   console.log(99999999999999);
-  console.log(AllcategorySum);
+  console.log(AllData);
+  console.log(
+    getContentWithImgSortedByFrequency(["음식", "카페", "14-16", "18-20"])
+  );
 
   //나의 데이터
   const data1 = [
