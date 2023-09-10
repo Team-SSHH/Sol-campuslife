@@ -7,6 +7,7 @@ import dollar from "../assets/dollar.png";
 import dashboard from "../assets/dashboard.png";
 import place from "../assets/place.png";
 import click from "../assets/click.png";
+import friend from "../assets/friend.png";
 
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +22,7 @@ const MainPage = () => {
           color="#C7D6FF"
           text="ID 월렛"
           src={wallet}
-          width="200px"
+          width="210px"
           height="155px"
         />
       </div>
@@ -48,7 +49,7 @@ const MainPage = () => {
           color="#B7FF95"
           text="건국대생이 자주 가는"
           src={place}
-          width="180px"
+          width="190px"
           height="155px"
         />
       </div>
@@ -58,6 +59,15 @@ const MainPage = () => {
           text="가까운 영업점"
           src={click}
           width="195px"
+          height="165px"
+        />
+      </div>
+      <div className="box6" onClick={() => navigate("/RegisterFriend")}>
+        <SquareBox
+          color="rgb(255 180 174)"
+          text="학생증 교환"
+          src={friend}
+          width="150px"
           height="165px"
         />
       </div>
