@@ -20,15 +20,26 @@ public class RemittanceController {
     private final RemittanceMapper remittanceMapper;
 
 
-    @PutMapping("/{studentId}/send/{freindStudentId}")
+    @PutMapping("/{studentId}/send/{friendStudentId}")
     public ResponseEntity<RemittanceDto.Response> remittance(
             @PathVariable("studentId") Long studentId,
-            @PathVariable("freindStudentId") Long freindStudentId,
+            @PathVariable("friendStudentId") Long friendStudentId,
             @RequestBody RemittanceDto.update remittanceUpdate
     ) {
         remittanceUpdate.setStudentId(studentId);
-        remittanceUpdate.setFreindStudentId(freindStudentId);
+        remittanceUpdate.setFriendStudentId(friendStudentId);
         RemittanceDto.Response response = remittanceService.remittance(remittanceUpdate);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/{studentId}/won1")
+    public ResponseEntity<RemittanceDto.Response> won1(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody RemittanceDto.update remittanceUpdate
+    ){
+        remittanceUpdate.setStudentId(studentId);
+        RemittanceDto.Response response = remittanceService.won1(remittanceUpdate);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -37,6 +48,7 @@ public class RemittanceController {
     public ResponseEntity<List<DutchPayDto.Response>> getDutchPay(
             @PathVariable("studentId") Long studentId
     ) {
+
         List<DutchPayDto.Response> response = remittanceMapper.toResponseDto(remittanceService.dutchPay(studentId));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
