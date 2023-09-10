@@ -17,7 +17,8 @@ module.exports = function (app) {
   app.use(
     "/api2",
     createProxyMiddleware({
-      target: "http://13.124.41.92:8080/",
+      // target: "http://13.124.41.92:8080/",
+      target: "https://api.solcampuslife.store",
       changeOrigin: true,
       pathRewrite: {
         "^/api2": "",
