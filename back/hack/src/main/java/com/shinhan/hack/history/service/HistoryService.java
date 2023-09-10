@@ -4,9 +4,7 @@ import com.shinhan.hack.history.dto.HistoryDto;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.history.repository.HistoryRepository;
 import com.shinhan.hack.login.entity.Student;
-import com.shinhan.hack.smartId.service.SmartIdService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

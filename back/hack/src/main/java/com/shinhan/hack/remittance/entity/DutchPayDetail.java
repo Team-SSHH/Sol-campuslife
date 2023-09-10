@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -17,12 +18,12 @@ import java.time.LocalDateTime;
 public class DutchPayDetail {
 
     @Id
-    @Column(name = "dutch_state_id")
+    @Column(name = "dutch_detail_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dutchStateId;
+    private Long dutchDetailId;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "ducth_id", referencedColumnName = "dutch_id")
+    @JoinColumn(name = "ducth_id", nullable = false)
     DutchPay dutchPay;
 
     @Column(name = "freind_id", nullable = false)
@@ -32,10 +33,10 @@ public class DutchPayDetail {
     private Long dutchAmount;
 
     @Column(name = "remittance_state", nullable = false)
-    private Boolean remittanceState;
+    @Builder.Default
+    private Boolean remittanceState = false;
 
     @Column(name = "remittance_time")
-    @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime remittanceTime;
 }
