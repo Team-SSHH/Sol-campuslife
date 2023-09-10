@@ -26,5 +26,6 @@ public class HistoryDto {
         private String day;
         private long balance;
         private String contentCategory;
+        private String imgUrl;
     }
 }
