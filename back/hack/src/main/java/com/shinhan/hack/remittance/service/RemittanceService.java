@@ -5,9 +5,11 @@ import com.shinhan.hack.history.repository.HistoryRepository;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.repository.LoginRepository;
 import com.shinhan.hack.remittance.dto.DutchPayDetailDto;
+import com.shinhan.hack.remittance.dto.DutchPayDto;
 import com.shinhan.hack.remittance.dto.RemittanceDto;
 import com.shinhan.hack.remittance.entity.DutchPay;
 import com.shinhan.hack.remittance.entity.DutchPayDetail;
+import com.shinhan.hack.remittance.repository.DutchPayDetailRepository;
 import com.shinhan.hack.remittance.repository.DutchPayRepository;
 import com.shinhan.hack.remittance.repository.RemittanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class RemittanceService {
     private final DutchPayRepository dutchPayRepository;
     private final HistoryRepository historyRepository;
     private final LoginRepository loginRepository;
+    private final DutchPayDetailRepository dutchPayDetailRepository;
 
     @Transactional
     public RemittanceDto.Response remittance(RemittanceDto.update remittanceUpdate) {
@@ -125,6 +128,46 @@ public class RemittanceService {
                 .amount(amount)
                 .build();
         return response;
+    }
+
+    public DutchPayDetailDto.consent sendDutch(
+            DutchPayDto.Post dutchPost
+    ){
+        Long number = Long.valueOf(dutchPost.getFriendList().size() + 1);
+
+        // 더치페이 테이블에 저장
+        Student student = Student.builder().studentId(dutchPost.getStudentId()).build();
+        DutchPay dutchpay = DutchPay.builder()
+                .amount(dutchPost.getAmount())
+                .number(number)
+                .student(student)
+                .requestTime(LocalDateTime.now())
+                .build();
+
+        dutchPayRepository.save(dutchpay);
+
+        // 더치페이 디테일 테이블에 저장
+        Long dutchAmount = dutchpay.getAmount()/number;
+        List<Student> friendList = new ArrayList<>();
+        String studentName = loginRepository.findById(dutchPost.getStudentId()).get().getName();
+        for (Long friendsId: dutchPost.getFriendList()
+             ) {
+            dutchPayDetailRepository.save(DutchPayDetail.builder()
+                    .dutchPay(dutchpay)
+                    .dutchAmount(dutchAmount)
+                    .friendId(friendsId)
+                    .build());
+            Optional<Student> friend = loginRepository.findById(friendsId);
+            friendList.add(friend.get());
+        }
+
+        return DutchPayDetailDto.consent.builder()
+                .amount(dutchPost.getAmount())
+                .dutchAmount(dutchAmount)
+                .frindList(friendList)
+                .content("더치페이 해주세요")
+                .studentName(studentName)
+                .build();
     }
 
     public List<DutchPay> dutchPay(Long studentId) {

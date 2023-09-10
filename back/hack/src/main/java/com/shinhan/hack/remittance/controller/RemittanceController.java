@@ -47,6 +47,18 @@ public class RemittanceController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/{studentId}/consent")
+    public ResponseEntity<DutchPayDetailDto.consent> sendDutch(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody DutchPayDto.Post dutchPost
+    ){
+        dutchPost.setStudentId(studentId);
+        DutchPayDetailDto.consent response = remittanceService.sendDutch(dutchPost);
+        // 알림
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/{studentId}/dutch")
     public ResponseEntity<List<DutchPayDto.Response>> getDutchPay(
             @PathVariable("studentId") Long studentId

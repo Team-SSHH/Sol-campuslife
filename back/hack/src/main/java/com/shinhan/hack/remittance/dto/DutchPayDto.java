@@ -21,4 +21,15 @@ public class DutchPayDto {
         private Long number;
         private LocalDateTime requestTime;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class Post{
+        private List<Long> friendList;
+        private Long amount;
+        private Long studentId;
+    }
 }
