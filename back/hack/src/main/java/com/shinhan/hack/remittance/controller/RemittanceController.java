@@ -15,6 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/sshh/remittance")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*", methods = {
+        RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
+        RequestMethod.PUT })
 public class RemittanceController {
     private final RemittanceService remittanceService;
     private final RemittanceMapper remittanceMapper;
