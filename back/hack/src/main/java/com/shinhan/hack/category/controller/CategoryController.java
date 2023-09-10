@@ -19,6 +19,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/sshh/category")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*", methods = {
+        RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
+        RequestMethod.PUT })
 public class CategoryController {
     private final CategoryRepository categoryRepository;
     private final FriendsRepository friendsRepository;

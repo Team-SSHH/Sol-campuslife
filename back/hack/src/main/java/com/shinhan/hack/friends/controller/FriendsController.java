@@ -15,6 +15,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/sshh/friends")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*", methods = {
+        RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
+        RequestMethod.PUT })
 @RequiredArgsConstructor public class FriendsController {
 
     private final FriendsService friendsService;

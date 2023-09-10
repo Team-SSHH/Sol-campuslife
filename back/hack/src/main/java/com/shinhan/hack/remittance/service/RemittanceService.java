@@ -5,7 +5,6 @@ import com.shinhan.hack.history.repository.HistoryRepository;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.repository.LoginRepository;
 import com.shinhan.hack.remittance.dto.DutchPayDetailDto;
-import com.shinhan.hack.remittance.dto.DutchPayDto;
 import com.shinhan.hack.remittance.dto.RemittanceDto;
 import com.shinhan.hack.remittance.entity.DutchPay;
 import com.shinhan.hack.remittance.entity.DutchPayDetail;
@@ -14,6 +13,8 @@ import com.shinhan.hack.remittance.repository.RemittanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +25,9 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*", methods = {
+        RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
+        RequestMethod.PUT })
 public class RemittanceService {
 
     private final RemittanceRepository remittanceRepository;

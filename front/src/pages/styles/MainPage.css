@@ -7,7 +7,7 @@
 .box2 {
   position: absolute;
   top: 30%;
-  left: 60%;
+  right: 5%;
 }
 
 .box3 {
@@ -19,11 +19,16 @@
 .box4 {
   position: absolute;
   top: 50%;
-  left: 50%;
+  right: 5%;
 }
 
 .box5 {
   position: absolute;
   top: 70%;
   left: 5%;
+}
+.box6 {
+  position: absolute;
+  top: 70%;
+  right: 5%;
 }
