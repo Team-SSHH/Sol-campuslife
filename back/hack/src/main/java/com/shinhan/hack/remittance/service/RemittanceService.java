@@ -134,8 +134,8 @@ public class RemittanceService {
                 .number(number)
                 .student(student)
                 .build();
-        Long dutchId = dutchpay.getDutchId();
         dutchPayRepository.save(dutchpay);
+        Long dutchId = dutchpay.getDutchId();
 
         // 더치페이 디테일 테이블에 저장
         Long dutchAmount = dutchpay.getAmount()/number;
