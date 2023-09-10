@@ -25,5 +25,6 @@ public class HistoryDto {
         private LocalDateTime transactionTime;
         private long balance;
         private String contentCategory;
+        private String imgUrl;
     }
 }

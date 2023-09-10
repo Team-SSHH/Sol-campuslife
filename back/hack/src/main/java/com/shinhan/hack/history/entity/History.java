@@ -50,4 +50,7 @@ public class History {
     @Column(name = "content_category", nullable = false)
     private String contentCategory;
 
+    @Column(name = "img_url", nullable = false)
+    private String imgUrl;
+
 }
