@@ -9,6 +9,7 @@ import FavoritePlacePage from "./pages/FavoritePlacePage";
 import ConsumeLogPage from "./pages/ConsumeLogPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/common/NavBar";
+import Push from "./hooks/push";
 
 import "./AppRouter.css";
 import AlertPage from "./pages/AlertPage";
@@ -26,6 +27,7 @@ function AppRouter() {
           <Route path="/Fxrequest" element={<FxrequestPage />}></Route>
           <Route path="/BankLocation" element={<BankLocationPage />}></Route>
           <Route path="/FavoritePlace" element={<FavoritePlacePage />}></Route>
+          <Route path="/Push" element={<Push />}></Route>
           <Route path="/ConsumeLog" element={<ConsumeLogPage />}></Route>
           <Route path="/Alert" element={<AlertPage />}></Route>
         </Routes>

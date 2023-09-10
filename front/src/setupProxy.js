@@ -13,15 +13,15 @@ module.exports = function (app) {
     })
   );
 
-  // 프록시2 설정
-  app.use(
-    "/api2",
-    createProxyMiddleware({
-      target: "http://127.0.0.1:8080/",
-      changeOrigin: true,
-      pathRewrite: {
-        "^/api2": "",
-      },
-    })
-  );
+  // // 프록시2 설정
+  // app.use(
+  //   "/api2",
+  //   createProxyMiddleware({
+  //     target: "http://13.124.41.92:8080",
+  //     changeOrigin: true,
+  //     pathRewrite: {
+  //       "^/api2": "",
+  //     },
+  //   })
+  // );
 };

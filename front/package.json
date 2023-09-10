@@ -65,6 +65,7 @@
   },
   "devDependencies": {
     "@types/react-datepicker": "^4.15.0",
-    "@types/react-slick": "^0.23.10"
+    "@types/react-slick": "^0.23.10",
+    "@babel/plugin-proposal-private-property-in-object": "^7.0.0"
   }
 }
