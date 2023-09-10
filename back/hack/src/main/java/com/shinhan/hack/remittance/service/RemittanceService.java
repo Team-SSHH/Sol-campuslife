@@ -25,6 +25,9 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*", methods = {
+        RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
+        RequestMethod.PUT })
 public class RemittanceService {
 
     private final RemittanceRepository remittanceRepository;
@@ -33,9 +36,6 @@ public class RemittanceService {
     private final LoginRepository loginRepository;
 
     @Transactional
-    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*", methods = {
-            RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
-            RequestMethod.PUT })
     public RemittanceDto.Response remittance(RemittanceDto.update remittanceUpdate) {
         Long studentId = remittanceUpdate.getStudentId();
         Long friendId = remittanceUpdate.getFriendStudentId();
