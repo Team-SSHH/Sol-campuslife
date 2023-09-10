@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
 
+import useAllConsumeData from "../hooks/useAllConsumeLogData";
 import {
   PieChart,
   Pie,
@@ -14,24 +15,6 @@ import {
   Tooltip,
 } from "recharts";
 import "./styles/ConsumeLogPage.css";
-
-const data1 = [
-  { name: "음식", value: 40 },
-  { name: "카페", value: 10 },
-  { name: "문화", value: 15 },
-  { name: "학습", value: 15 },
-  { name: "교통", value: 5 },
-  { name: "기타", value: 15 },
-];
-
-const data2 = [
-  { name: "음식", value: 40 },
-  { name: "카페", value: 20 },
-  { name: "문화", value: 20 },
-  { name: "학습", value: 15 },
-  { name: "교통", value: 5 },
-  { name: "기타", value: 15 },
-];
 
 const originalData3 = [
   { name: "1일", Me: 4000, Average: 2400 },
@@ -77,27 +60,30 @@ const COLORS = [
 const ConsumeLogPage = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
 
-  // const allConsumeLog = async () => {
-  //   try {
-  //     const response = await api.get("/api2/sshh/history/"");
-  //     if (response.status === 200) {
-  //    setAllLog(response.data)
-  //     }
-  //   } catch (error) {
-  //     // 에러 처리
-  //   }
-  // };
+  const { AllData, AllcategorySum } = useAllConsumeData();
+  console.log(AllData);
+  console.log(99999999999999);
+  console.log(AllcategorySum);
 
-  // const myConsumeLog = async () => {
-  //   try {
-  //     const response = await api.get(`/api2/sshh/history/${loginuser.student_id}`);
-  //     if (response.status === 200) {
-  //      setMyLog(response.data)
-  //     }
-  //   } catch (error) {
-  //     // 에러 처리
-  //   }
-  // };
+  //나의 데이터
+  const data1 = [
+    { name: "음식", value: 40 },
+    { name: "카페", value: 10 },
+    { name: "문화", value: 15 },
+    { name: "학습", value: 15 },
+    { name: "교통", value: 5 },
+    { name: "기타", value: 90 },
+  ];
+
+  // 평균
+  const data2 = [
+    { name: "음식", value: AllcategorySum.음식 },
+    { name: "카페", value: AllcategorySum.카페 },
+    { name: "문화", value: AllcategorySum.문화 },
+    { name: "학습", value: AllcategorySum.학습 },
+    { name: "교통", value: AllcategorySum.교통 },
+    { name: "기타", value: AllcategorySum.기타 },
+  ];
 
   return (
     <div className="ConsumeLog">
