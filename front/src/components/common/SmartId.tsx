@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import "./SmartId.css";
 import sanghoon from "../../assets/sanghoon.png";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../stores/atoms";
 
 const SmartIdComponent = styled.div`
   position: absolute;
@@ -17,11 +19,17 @@ interface SmartIdProps {
 }
 
 const SmartId: React.FC<SmartIdProps> = ({ name, major, number, grade }) => {
+  const [userData, setUserData] = useRecoilState(loginuser);
+  const URL = "http://13.124.41.92:8080/static/images/";
   return (
     <SmartIdComponent>
       <div className="smartIdName">모바일 학생증 {name}</div>
       <div className="smartIdWrppaer">
-        <img src={sanghoon} alt="sang" style={{ width: "90px" }} />
+        <img
+          src={URL + userData.imageUrl}
+          alt="My image"
+          style={{ width: "90px" }}
+        />
         <div className="smartIdContent">
           <div>
             <span>{major}</span>
