@@ -24,6 +24,10 @@ const useLogin = () => {
       });
       if (response.status === 200) {
         setUserData(response.data);
+        // localStorage.setItem("user", response.data);
+        // console.log(response.data);
+        // console.log(userData);
+        // console.log(11111111);
 
         navigate("/Main");
       }

@@ -10,7 +10,7 @@ import {
 import noncheckImg from "../../assets/noncheck.png";
 import checkImg from "../../assets/check.png";
 import SmartId from "../common/SmartId";
-
+import { FriendType } from "../../types/DataType";
 interface FriendIdComponentProps {
   idx: number;
   friend: number;
@@ -48,16 +48,17 @@ const FriendIdComponent = styled.div<FriendIdComponentProps>`
 `;
 interface FriendIdProps {
   friendData: {
-    name: string;
-    major: string;
-    number: number;
-    grade: string;
+    category: string;
+    fid: number;
+    categoryId: number;
+    studentId: string;
+    friend: FriendType;
   };
   id: number;
 }
 
 const FriendId: React.FC<FriendIdProps> = (props) => {
-  const friendData = props.friendData;
+  const friendData = props.friendData.friend;
   // const [friend, setFriend] = useState(100);
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
@@ -113,8 +114,9 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
         <SmartId
           name={friendData.name}
           major={friendData.major}
-          number={friendData.number}
+          studentId={friendData.studentId}
           grade={friendData.grade}
+          imageUrl={friendData.imageUrl}
         />
         <span
           className="checkBox"
@@ -136,25 +138,7 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
           )}
         </span>
       </div>
-      {/* <div className="firendName"> */}
-      {/* 모바일 학생증 {friendData.name} */}
       {/* 클릭하면 삭제, 카데고리 옮기기 등 옵션 보여주기 */}
-
-      {/* </div> */}
-
-      {/* <div className="frinedInfo">
-        <div>{friendData.name}의 얼굴</div>
-
-        <div>
-          <span>{friendData.major}</span>
-          <span> </span>
-          <span>재학생 ({friendData.grade})</span>
-        </div>
-        <div>
-          <span>{friendData.name} </span>
-          <span>{friendData.number}</span>
-        </div>
-      </div> */}
 
       <div>
         {friend === props.id ? (
