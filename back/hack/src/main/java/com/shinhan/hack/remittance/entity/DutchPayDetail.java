@@ -26,8 +26,8 @@ public class DutchPayDetail {
     @JoinColumn(name = "ducth_id", nullable = false)
     DutchPay dutchPay;
 
-    @Column(name = "freind_id", nullable = false)
-    private Long freindId;
+    @Column(name = "friend_id", nullable = false)
+    private Long friendId;
 
     @Column(name = "dutch_amount", nullable = false)
     private Long dutchAmount;
