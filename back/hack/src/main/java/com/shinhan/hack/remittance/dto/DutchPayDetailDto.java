@@ -34,5 +34,18 @@ public class DutchPayDetailDto {
         private Long dutchAmount;
         private Long amount;
         private String content;
+        private Long dutchId;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class send{
+        private Long dutchId;
+        private Long studentId;
+        private Long friendId;
+        private Long dutchAmount;
     }
 }
