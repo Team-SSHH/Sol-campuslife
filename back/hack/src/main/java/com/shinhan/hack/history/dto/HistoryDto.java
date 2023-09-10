@@ -23,6 +23,7 @@ public class HistoryDto {
 
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime transactionTime;
+        private String day;
         private long balance;
         private String contentCategory;
     }

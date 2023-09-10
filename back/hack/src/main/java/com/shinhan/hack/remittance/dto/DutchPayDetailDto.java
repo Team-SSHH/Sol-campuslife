@@ -1,5 +1,6 @@
 package com.shinhan.hack.remittance.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.shinhan.hack.login.entity.Student;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class DutchPayDetailDto {
         private Long dutchDetailId;
         private Long dutchAmount;
         private boolean remittanceState;
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime remittanceTime;
         private String name;
     }

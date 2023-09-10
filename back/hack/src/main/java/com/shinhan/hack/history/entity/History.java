@@ -5,8 +5,11 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @Entity
 @Setter
@@ -50,4 +53,8 @@ public class History {
     @Column(name = "content_category", nullable = false)
     private String contentCategory;
 
+    static String dayStr = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN);
+    @Column(name = "day", nullable = false)
+    @Builder.Default
+    private String day = dayStr;
 }

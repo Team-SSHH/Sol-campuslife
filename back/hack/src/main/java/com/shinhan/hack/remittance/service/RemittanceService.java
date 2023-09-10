@@ -18,12 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -56,17 +51,13 @@ public class RemittanceService {
             throw new NoSuchElementException("친구 학번이 없습니다.");
         }
 
-
-        String patternTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        LocalDateTime time = LocalDateTime.parse(patternTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
         // 거래내역 추가
         History myHistory = History.builder()
                 .balance(student.get().getBalance())
                 .content(content)
                 .contentCategory("계좌이체")
                 .pay(amount)
-                .transactionTime(time)
+                .deposit(Long.valueOf(0))
                 .student(Student.builder().studentId(studentId).build())
                 .build();
 
@@ -74,8 +65,8 @@ public class RemittanceService {
                 .balance(friend.get().getBalance())
                 .content(content)
                 .contentCategory("계좌이체")
+                .pay(Long.valueOf(0))
                 .deposit(amount)
-                .transactionTime(time)
                 .student(Student.builder().studentId(friendId).build())
                 .build();
 
@@ -105,16 +96,13 @@ public class RemittanceService {
             throw new NoSuchElementException("없는 학번이 입니다.");
         }
 
-        String patternTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        LocalDateTime time = LocalDateTime.parse(patternTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
         // 거래내역 추가
         History history = History.builder()
                 .balance(student.get().getBalance())
                 .content(content)
                 .contentCategory("1원 이체")
-                .pay(amount)
-                .transactionTime(time)
+                .pay(Long.valueOf(0))
+                .deposit(amount)
                 .student(Student.builder().studentId(studentId).build())
                 .build();
 
@@ -141,7 +129,6 @@ public class RemittanceService {
                 .amount(dutchPost.getAmount())
                 .number(number)
                 .student(student)
-                .requestTime(LocalDateTime.now())
                 .build();
 
         dutchPayRepository.save(dutchpay);

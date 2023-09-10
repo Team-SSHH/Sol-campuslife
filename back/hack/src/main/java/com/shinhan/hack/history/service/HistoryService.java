@@ -45,6 +45,7 @@ public class HistoryService {
                 .transactionTime(history.getTransactionTime())
                 .balance(history.getBalance())
                 .contentCategory(history.getContentCategory())
+                .day(history.getDay())
                 .build();
     }
     }
