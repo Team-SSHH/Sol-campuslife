@@ -84,11 +84,14 @@ public class RemittanceService {
                 .build();
         return response;
     }
-    public RemittanceDto.Response won1(RemittanceDto.update remittanceUpdate) {
-        Long studentId = remittanceUpdate.getStudentId();
-        Long amount = Long.valueOf(1);
-        String content = remittanceUpdate.getContent();
 
+    @Transactional
+    public RemittanceDto.Response won1(Long studentId) {
+        Long amount = Long.valueOf(1);
+        String content = "인증번호 : ";
+        int num = new Random().nextInt(9000) + 1000;
+
+        content = content + String.valueOf(num);
         // 송금
         remittanceRepository.receive(studentId, amount);
         Optional<Student> student = remittanceRepository.findById(studentId);
@@ -118,6 +121,7 @@ public class RemittanceService {
         return response;
     }
 
+    @Transactional
     public DutchPayDetailDto.consent sendDutch(
             DutchPayDto.Post dutchPost
     ){
