@@ -24,6 +24,9 @@ public class LoginController {
             (@RequestBody StudentDto.Post requestBody){
 
         StudentDto.Response response = loginMapper.toResponseDto(service.login(requestBody));
+        if(response == null){
+            return new ResponseEntity<>(null , HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
