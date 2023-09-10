@@ -49,15 +49,6 @@
   align-items: center;
 }
 
-.tagBtn {
-  margin-right: 5%;
-  border-radius: 20px;
-  background-color: rgb(255, 255, 255);
-  height: 2.2rem;
-  border: none;
-  left: 20%;
-}
-
 .loac-container {
   margin-top: 6%;
   position: absolute;
