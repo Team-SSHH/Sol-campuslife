@@ -4,6 +4,27 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import qwe from "../assets/qwe.png";
+import styled from "styled-components";
+import Carousel from "../components/FavoritePlacePage/Carousel";
+
+const StyledButton = styled.button`
+  position: absolute;
+  top: 30%;
+  right: 10%;
+  // outline: none;
+  border: none;
+  border-radius: 15px;
+  // color: white;
+  font-weight: bold;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  z-index: 1;
+
+  height: 2.4rem;
+  width: 6rem;
+  font-size: 1rem;
+  background: #c6d5ff;
+`;
 
 const tag1 = ["월", "화", "수", "목", "금", "토", "일"];
 
@@ -16,23 +37,7 @@ const FavoritePlacePage = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    arrows: false,
-  };
-  const settings2 = {
-    dots: true,
-    infinite: false,
-    speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1,
-    arrows: false,
-  };
-  const settings3 = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5,
     slidesToScroll: 1,
     arrows: false,
   };
@@ -40,41 +45,11 @@ const FavoritePlacePage = () => {
   return (
     <div className="place-con">
       <div className="tag-container">
-        <div className="tag-con">
-          <div className="tag-box">
-            <Slider {...settings}>
-              {tag1.map((day, index) => (
-                <button className="tag-btn" key={index}>
-                  {day}요일
-                </button>
-              ))}
-            </Slider>
-          </div>
-        </div>
-        <div className="tag-con">
-          <div className="tag-box">
-            <Slider {...settings2}>
-              {tag2.map((cate, index) => (
-                <button className="tag-btn" key={index}>
-                  {cate}
-                </button>
-              ))}
-            </Slider>
-          </div>
-        </div>
-
-        <div className="tag-con">
-          <div className="tag-box">
-            <Slider {...settings3}>
-              {tag3.map((time, index) => (
-                <button className="tag-btn" key={index}>
-                  {time}시
-                </button>
-              ))}
-            </Slider>
-          </div>
-        </div>
+        <Carousel tags={tag1} tagName="요일" />
+        <Carousel tags={tag2} tagName="" />
+        <Carousel tags={tag3} tagName="시" />
       </div>
+      <StyledButton>검색</StyledButton>
       <div className="loac-container">
         <div className="loac-con1">
           <p>건국대 학생들이 자주 간</p>
