@@ -3,12 +3,14 @@ import api1 from "../utils/api1";
 import { TransactionHistoryType } from "../types/DataType";
 
 const useAllConsumeData = () => {
-  const [AllData, setAllData] = useState<TransactionHistoryType[]>([]);
+  const [AllDataConsumeLog, setAllDataConsumeLog] = useState<
+    TransactionHistoryType[]
+  >([]);
   useEffect(() => {
     const fetchAllConsumeData = async () => {
       try {
         const response = await api1.get("/sshh/history");
-        setAllData(response.data);
+        setAllDataConsumeLog(response.data);
       } catch (error) {
         // 에러 처리 부분 추가 필요.
         console.error(error);
@@ -18,7 +20,7 @@ const useAllConsumeData = () => {
   }, []);
 
   // 카테고리별로 합이 나옵니다.
-  const AllcategorySum = AllData.reduce<{ [key: string]: number }>(
+  const AllcategorySum = AllDataConsumeLog.reduce<{ [key: string]: number }>(
     (acc, cur) => {
       if (!acc[cur.contentCategory]) {
         acc[cur.contentCategory] = cur.pay;
@@ -46,7 +48,7 @@ const useAllConsumeData = () => {
     const frequencyCount: { [key: string]: number } = {};
     let filteredAndSortedData: { content: string; imgUrl: string }[] = [];
 
-    AllData.forEach((data) => {
+    AllDataConsumeLog.forEach((data) => {
       // Check if day matches
       const dayMatched =
         dayFilters.length === 0 || dayFilters.includes(data.day);
@@ -94,7 +96,7 @@ const useAllConsumeData = () => {
   };
 
   return {
-    AllData,
+    AllDataConsumeLog,
     AllcategorySum,
     getContentWithImgSortedByFrequency,
   };
