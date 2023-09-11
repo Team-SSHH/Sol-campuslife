@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("sshh")
@@ -31,4 +32,17 @@ public class HistoryController {
         List<HistoryDto.Response> responses = historyService.getMyHistory(studentId);
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
+
+    @GetMapping("/history/data")
+    public ResponseEntity<Map<Long, Map<String, HistoryDto.Summary>>> getStatistics() {
+        Map<Long, Map<String, HistoryDto.Summary>> statistics = historyService.getStatistics();
+        return new ResponseEntity<>(statistics, HttpStatus.OK);
+    }
+
+    @GetMapping("/history/summary")
+    public ResponseEntity<HistoryDto.StatisticsSummary> getStatisticsSummary() {
+        HistoryDto.StatisticsSummary statistics = historyService.getStatisticsSummary();
+        return new ResponseEntity<>(statistics , HttpStatus.OK);
+    }
+
 }
