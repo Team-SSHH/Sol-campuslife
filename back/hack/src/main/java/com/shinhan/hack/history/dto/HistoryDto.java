@@ -29,6 +29,7 @@ public class HistoryDto {
         private String imgUrl;
     }
 
+
     @Getter
     public static class Summary {
         private long sum;
@@ -48,7 +49,5 @@ public class HistoryDto {
         private long average;
 
     }
-
-
 }
 

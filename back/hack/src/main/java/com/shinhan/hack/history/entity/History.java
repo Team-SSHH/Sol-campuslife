@@ -57,7 +57,6 @@ public class History {
     @Column(name = "img_url")
     private String imgUrl;
 
-
     static String dayStr = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN);
     @Column(name = "day", nullable = false)
     @Builder.Default
