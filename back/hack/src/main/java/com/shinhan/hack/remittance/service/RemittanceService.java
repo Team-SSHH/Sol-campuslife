@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -193,6 +194,7 @@ public class RemittanceService {
 
         // 디테일에 상태 변경
         dutchPayDetailRepository.dutchDetailStateUpdate(studentId, sendInfo.getDutchId());
+        dutchPayDetailRepository.dutchDetailTimeUpdate(studentId, sendInfo.getDutchId(), LocalDateTime.now());
 
         // 디테일 조회 후 더치페이 상태 변화
         List<DutchPayDetail> dutchPayList = dutchPayRepository.findByDutchId(sendInfo.getDutchId());
