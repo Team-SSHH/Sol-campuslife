@@ -1,0 +1,32 @@
+.favortieModalContainer {
+  position: absolute;
+  bottom: 0;
+  height: 60%;
+  width: 100%;
+  background-color: #c6d5ff;
+  border-radius: 20px 20px 0 0;
+}
+.favoriteModalLine {
+  width: 50%;
+  height: 2%;
+  background-color: #6f96ff;
+  position: absolute;
+  left: 25%;
+  top: 3%;
+  border-radius: 40px;
+}
+.favoritePlacesContainer {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  /* background-color: red; */
+}
+.favoriteModalTitle {
+  font-size: 1.2rem;
+  padding-top: 8%;
+  text-align: center;
+}
