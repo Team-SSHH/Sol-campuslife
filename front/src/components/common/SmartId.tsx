@@ -35,7 +35,7 @@ const SmartId: React.FC<SmartIdProps> = ({
         <img src={URL + imageUrl} alt="My image" style={{ width: "90px" }} />
         <div className="smartIdContent">
           <div>
-            <span>{major}</span>
+            <span>{major}과</span>
             <div>
               <span>재학생 ({grade}학년)</span>
             </div>
