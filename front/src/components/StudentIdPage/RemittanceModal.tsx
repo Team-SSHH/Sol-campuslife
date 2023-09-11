@@ -55,7 +55,12 @@ const RemittanceModal = () => {
       );
       console.log(response);
       if (response.status === 200) {
-        console.log(response);
+        let newBalance = response.data.balance;
+
+        setUserData((prevUserData: Object) => ({
+          ...prevUserData,
+          balance: newBalance,
+        }));
       }
     } catch (error) {
       console.log(error);
