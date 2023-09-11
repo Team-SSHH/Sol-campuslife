@@ -47,18 +47,19 @@ const FriendIdComponent = styled.div<FriendIdComponentProps>`
     props.idx > props.friend ? 34 + props.idx * 7 : props.idx * 7 + 2}%;
 `;
 interface FriendIdProps {
-  friendData: {
-    category: string;
-    fid: number;
-    categoryId: number;
-    studentId: string;
-    friend: FriendType;
-  };
+  // friendData: {
+  //   category: string;
+  //   fid: number;
+  //   categoryId: number;
+  //   studentId: string;
+  //   friend: FriendType;
+  // };
+  friendData: FriendType;
   id: number;
 }
 
 const FriendId: React.FC<FriendIdProps> = (props) => {
-  const friendData = props.friendData.friend;
+  const friendData = props.friendData;
   // const [friend, setFriend] = useState(100);
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
