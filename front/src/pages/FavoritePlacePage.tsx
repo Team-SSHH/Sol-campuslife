@@ -6,6 +6,8 @@ import qwe from "../assets/qwe.png";
 import styled from "styled-components";
 import Carousel from "../components/FavoritePlacePage/Carousel";
 import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../stores/atoms";
 
 const StyledButton = styled.button`
   position: absolute;
@@ -45,6 +47,8 @@ const tag3 = [
 
 const FavoritePlacePage = () => {
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
+  const [places, setPlaces] = useState<Array<object>>([]);
+  const [userData, setUserData] = useRecoilState(loginuser);
 
   const handleTagClick = (tag: string) => {
     setSelectedTags((prev) =>
@@ -55,7 +59,7 @@ const FavoritePlacePage = () => {
 
   const getPlace = () => {
     console.log("장소를 찾아옵니다.");
-    getContentWithImgSortedByFrequency(selectedTags);
+    setPlaces(getContentWithImgSortedByFrequency(selectedTags));
     console.log("선택된 태그들:", selectedTags);
   };
 
@@ -70,7 +74,7 @@ const FavoritePlacePage = () => {
       <StyledButton onClick={getPlace}>검색</StyledButton>
       <div className="loac-container">
         <div className="loac-con1">
-          <p>건국대 학생들이 자주 간</p>
+          <p className="loacTitle">{userData.university} 학생들이 자주 간</p>
         </div>
 
         <div className="loac-con">
