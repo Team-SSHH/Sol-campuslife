@@ -17,37 +17,6 @@ import {
 } from "recharts";
 import "./styles/ConsumeLogPage.css";
 
-const originalData3 = [
-  { name: "1일", Me: 4000, Average: 2400 },
-  { name: "2일", Me: 2007, Average: 54200 },
-  { name: "3일", Me: 35447, Average: 11212 },
-  { name: "4일", Me: 3230, Average: 1223 },
-  { name: "5일", Me: 3480, Average: 13111 },
-  { name: "6일", Me: 100, Average: 5555 },
-  { name: "7일", Me: 39821, Average: 13981 },
-  { name: "8일", Me: 100000, Average: 13983 },
-  { name: "9일", Me: 38778, Average: 13981 },
-];
-
-// 누적된 값으로 데이터 변환
-const data3 = originalData3.reduce((acc, cur) => {
-  const last = acc[acc.length - 1]; // 마지막 요소 가져오기
-
-  // 첫 번째 요소인 경우 그대로 추가
-  if (!last) {
-    return [cur];
-  }
-
-  // 이전 요소의 값에 현재 값을 더하여 새 객체 생성
-  const newObj = {
-    name: cur.name,
-    Me: last.Me + cur.Me,
-    Average: last.Average + cur.Average,
-  };
-
-  return [...acc, newObj]; // 새 객체 추가
-}, [] as any);
-
 // 각 섹션별 색상 정의
 const COLORS = [
   "#0088FE",
@@ -67,7 +36,8 @@ const ConsumeLogPage = () => {
     getContentWithImgSortedByFrequency,
   } = useAllConsumeLogData();
 
-  const { MyDataConsumeLog, MycategorySum } = useMyConsumeLogData();
+  const { MyDataConsumeLog, MycategorySum, ConsumeSummary } =
+    useMyConsumeLogData();
 
   //나의 데이터
   const data1 = [
@@ -88,6 +58,25 @@ const ConsumeLogPage = () => {
     { name: "교통", value: AllcategorySum.교통 },
     { name: "기타", value: AllcategorySum.기타 },
   ];
+
+  // 누적된 값으로 데이터 변환
+  const data3 = ConsumeSummary.reduce((acc, cur) => {
+    const last = acc[acc.length - 1]; // 마지막 요소 가져오기
+
+    // 첫 번째 요소인 경우 그대로 추가
+    if (!last) {
+      return [cur];
+    }
+
+    // 이전 요소의 값에 현재 값을 더하여 새 객체 생성
+    const newObj = {
+      name: cur.name.slice(8, 10),
+      me: last.me + cur.me,
+      average: last.average + cur.average,
+    };
+
+    return [...acc, newObj]; // 새 객체 추가
+  }, [] as any);
 
   return (
     <div className="ConsumeLog">
@@ -214,7 +203,7 @@ const ConsumeLogPage = () => {
             {/* 나의 데이터 */}
             <Line
               type="monotone"
-              dataKey="Me"
+              dataKey="me"
               stroke="#FFBB28"
               strokeWidth={3}
             />
@@ -222,7 +211,7 @@ const ConsumeLogPage = () => {
             {/* 평균 데이터 */}
             <Line
               type="monotone"
-              dataKey="Average"
+              dataKey="average"
               stroke="#82ca9d"
               strokeWidth={3}
             />

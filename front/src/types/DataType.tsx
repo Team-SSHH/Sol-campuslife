@@ -23,3 +23,9 @@ export interface FriendType {
   studentId: number;
   university: string;
 }
+
+export interface ConsumeSummary {
+  name: string;
+  me: number;
+  average: number;
+}
