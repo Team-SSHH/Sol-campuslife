@@ -2,7 +2,8 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
 
-import useAllConsumeData from "../hooks/useAllConsumeLogData";
+import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
+import useMyConsumeLogData from "../hooks/useMyConsumeLogData";
 import {
   PieChart,
   Pie,
@@ -60,22 +61,22 @@ const COLORS = [
 const ConsumeLogPage = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
 
-  const { AllData, AllcategorySum, getContentWithImgSortedByFrequency } =
-    useAllConsumeData();
-  console.log(99999999999999);
-  console.log(AllData);
-  console.log(
-    getContentWithImgSortedByFrequency(["음식", "카페", "14-16", "18-20"])
-  );
+  const {
+    AllDataConsumeLog,
+    AllcategorySum,
+    getContentWithImgSortedByFrequency,
+  } = useAllConsumeLogData();
+
+  const { MyDataConsumeLog, MycategorySum } = useMyConsumeLogData();
 
   //나의 데이터
   const data1 = [
-    { name: "음식", value: 40 },
-    { name: "카페", value: 10 },
-    { name: "문화", value: 15 },
-    { name: "학습", value: 15 },
-    { name: "교통", value: 5 },
-    { name: "기타", value: 90 },
+    { name: "음식", value: MycategorySum.음식 },
+    { name: "카페", value: MycategorySum.카페 },
+    { name: "문화", value: MycategorySum.문화 },
+    { name: "학습", value: MycategorySum.학습 },
+    { name: "교통", value: MycategorySum.교통 },
+    { name: "기타", value: MycategorySum.기타 },
   ];
 
   // 평균

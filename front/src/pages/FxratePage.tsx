@@ -11,6 +11,7 @@ import { AppCheckTokenResult } from "@firebase/app-check";
 import { getMessaging, getToken } from "firebase/messaging";
 // import firebase from "firebase/app";
 import axios from "axios";
+import api1 from "../utils/api1";
 
 const FxratePage: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>("USD");
@@ -42,8 +43,8 @@ const FxratePage: React.FC = () => {
 
   const postDeviceToken = async () => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8080/sshh/login/201403808/token",
+      const response = await api1.post(
+        "/sshh/login/201403808/token",
         deviceToken.token
       );
       console.log(response);

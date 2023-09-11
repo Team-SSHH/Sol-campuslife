@@ -27,8 +27,9 @@ const StudentId = () => {
   const lsh = {
     name: userData.name,
     major: `${userData.major}과`,
-    grade: `${userData.grade}학년`,
-    number: userData.studentId,
+    grade: userData.grade,
+    studentId: userData.studentId,
+    imageUrl: userData.imageUrl,
   };
   console.log(userData);
 
@@ -42,8 +43,9 @@ const StudentId = () => {
           <SmartId
             name={lsh.name}
             major={lsh.major}
-            number={lsh.number}
+            studentId={lsh.studentId}
             grade={lsh.grade}
+            imageUrl={lsh.imageUrl}
           />
           <div className="flipment" onClick={handleClick}>
             카드 보기 &gt;
