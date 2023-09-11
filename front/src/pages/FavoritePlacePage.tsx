@@ -57,6 +57,8 @@ const FavoritePlacePage = () => {
     console.log("장소를 찾아옵니다.");
     getContentWithImgSortedByFrequency(selectedTags);
     console.log("선택된 태그들:", selectedTags);
+    console.log("선택된 태그들:", typeof selectedTags);
+    console.log(getContentWithImgSortedByFrequency(selectedTags));
   };
 
   return (
