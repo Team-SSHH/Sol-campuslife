@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api1 from "../utils/api1";
-import { TransactionHistoryType, ConsumeSummary } from "../types/DataType";
+import { TransactionHistoryType, ConsumeSummaryType } from "../types/DataType";
 import { useRecoilValue } from "recoil";
 import { loginuser } from "../stores/atoms";
 
@@ -8,7 +8,9 @@ const useMyConsumeLogData = () => {
   const [MyDataConsumeLog, setMyDataConsumeLog] = useState<
     TransactionHistoryType[]
   >([]);
-  const [ConsumeSummary, setConsumeSummary] = useState<ConsumeSummary[]>([]);
+  const [ConsumeSummary, setConsumeSummary] = useState<ConsumeSummaryType[]>(
+    []
+  );
   const UserData = useRecoilValue(loginuser);
   const StudentId = UserData.studentId;
 

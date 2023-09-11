@@ -27,9 +27,9 @@ export interface FriendType {
 export interface placeType {
   content: string;
   imgUrl: string;
+}
 
-
-export interface ConsumeSummary {
+export interface ConsumeSummaryType {
   name: string;
   me: number;
   average: number;
