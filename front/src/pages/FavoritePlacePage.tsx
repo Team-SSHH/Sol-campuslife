@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import qwe from "../assets/qwe.png";
 import styled from "styled-components";
 import Carousel from "../components/FavoritePlacePage/Carousel";
+import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
 
 const StyledButton = styled.button`
   position: absolute;
@@ -43,16 +44,18 @@ const tag3 = [
 ];
 
 const FavoritePlacePage = () => {
-  const [selectedTags, setSelectedTags] = useState<Array<string | number>>([]);
+  const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
 
-  const handleTagClick = (tag: string | number) => {
+  const handleTagClick = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
+  const { getContentWithImgSortedByFrequency } = useAllConsumeLogData();
 
   const getPlace = () => {
     console.log("장소를 찾아옵니다.");
+    getContentWithImgSortedByFrequency(selectedTags);
     console.log("선택된 태그들:", selectedTags);
   };
 
