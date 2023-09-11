@@ -8,6 +8,8 @@ import Carousel from "../components/FavoritePlacePage/Carousel";
 import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
+import FavortieModal from "../components/FavoritePlacePage/FavortieModal";
+import { placeType } from "../types/DataType";
 
 const StyledButton = styled.button`
   position: absolute;
@@ -47,7 +49,8 @@ const tag3 = [
 
 const FavoritePlacePage = () => {
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
-  const [places, setPlaces] = useState<Array<object>>([]);
+  const [places, setPlaces] = useState<placeType[]>([]);
+
   const [userData, setUserData] = useRecoilState(loginuser);
 
   const handleTagClick = (tag: string) => {
@@ -72,30 +75,17 @@ const FavoritePlacePage = () => {
         <Carousel tags={tag3} tagName="시" onTagClick={handleTagClick} />
       </div>
       <StyledButton onClick={getPlace}>검색</StyledButton>
-      <div className="loac-container">
-        <div className="loac-con1">
-          <p className="loacTitle">{userData.university} 학생들이 자주 간</p>
-        </div>
 
-        <div className="loac-con">
-          <div className="loca-box">
-            <div className="imgbox">
-              <div className="img">
-                <img className="imgimg" src={qwe} alt="" />
-              </div>
-            </div>
-            <div className="contextbox">
-              <div className="img">
-                <p>OO 삼겹</p>
-                <p>7시 맛집</p>
-              </div>
-            </div>
+      <FavortieModal places={places} />
+      {/* <div className="loac-container">
+        <div className="loac-con1">
+          <div className="loacTitle">
+            {userData.university} 학생들이 자주 간
           </div>
+          <FavoritePlace />
+          <FavoritePlace />
         </div>
-        <div className="loac-con">
-          <div className="loca-box"></div>
-        </div>
-      </div>
+      </div> */}
     </div>
   );
 };
