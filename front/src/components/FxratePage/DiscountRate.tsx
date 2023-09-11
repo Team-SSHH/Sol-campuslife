@@ -29,17 +29,17 @@ const DiscountRate: React.FC<DiscountRateProps> = ({ selectedCurrency }) => {
   const discountRate = async (currency: string) => {
     try {
       const response = await api.post("/search/fx/discount-rate", disdata);
-      console.log(response.data.dataBody.리스트);
+      // console.log(response.data.dataBody.리스트);
 
       if (Array.isArray(response.data.dataBody.리스트)) {
         const foundItem = response.data.dataBody.리스트.find(
           (item: DiscountData) => item.통화.includes(currency)
         );
         if (foundItem) {
-          console.log("찾은 S항목:", foundItem);
+          // console.log("찾은 S항목:", foundItem);
           setCheckData(foundItem);
         } else {
-          console.log(`${currency}를 포함한 항목을 찾지 못했습니다.`);
+          // console.log(`${currency}를 포함한 항목을 찾지 못했습니다.`);
           setCheckData(null);
         }
       } else {
