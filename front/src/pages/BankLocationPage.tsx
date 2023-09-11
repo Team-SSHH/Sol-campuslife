@@ -26,48 +26,37 @@ const BankLocationPage = () => {
   const [map, setMap] = useState<null | any>(null);
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.onload = () => {
-      kakao.maps.load(() => {
-        let container = document.getElementById("map");
-        let options = {
-          center: new kakao.maps.LatLng(37.541981, 127.078959),
-          level: 6,
-        };
-
-        const createdMap = new kakao.maps.Map(container, options);
-
-        setMap(createdMap);
-
-        bankLocations.forEach((location) => {
-          // 원하는 위치의 위도와 경도
-          const markerPosition = new kakao.maps.LatLng(
-            location.lat,
-            location.lng
-          );
-
-          // 마커를 생성
-          let marker = new kakao.maps.Marker({
-            position: markerPosition,
-          });
-
-          marker.setMap(createdMap);
-
-          let infowindow = new kakao.maps.InfoWindow({
-            content:
-              '<div style="width :auto; text-align:center;font-size:8px; padding :5px;color:#000;">' +
-              location.name +
-              "</div>",
-            removable: true,
-          });
-
-          infowindow.open(createdMap, marker);
-        });
-      });
+    const container = document.getElementById("map");
+    const options = {
+      center: new kakao.maps.LatLng(37.541981, 127.078959),
+      level: 6,
     };
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9d2f5e313f7480e75807d0e7aa01170d";
-    document.head.appendChild(script);
+
+    const createdMap = new kakao.maps.Map(container, options);
+
+    setMap(createdMap);
+
+    bankLocations.forEach((location) => {
+      // 원하는 위치의 위도와 경도
+      const markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
+
+      // 마커를 생성
+      let marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+
+      marker.setMap(createdMap);
+
+      let infowindow = new kakao.maps.InfoWindow({
+        content:
+          '<div style="width :auto; text-align:center;font-size:8px; padding :5px;color:#000;">' +
+          location.name +
+          "</div>",
+        removable: true,
+      });
+
+      infowindow.open(createdMap, marker);
+    });
   }, []);
 
   function moveTo(name: string) {
