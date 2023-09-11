@@ -89,7 +89,7 @@ const useAllConsumeData = () => {
     filteredAndSortedData.sort(
       (a, b) => frequencyCount[b.content] - frequencyCount[a.content]
     );
-
+    console.log(filteredAndSortedData);
     return filteredAndSortedData;
   };
 

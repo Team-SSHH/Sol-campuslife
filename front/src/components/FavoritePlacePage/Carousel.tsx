@@ -20,9 +20,9 @@ const StyledButton = styled.button<CarouselBtnProps>`
 `;
 
 interface CarouselButtonProps {
-  tag: string | number;
+  tag: string;
   tagName: string;
-  onTagClick?: (tag: string | number) => void; // 새로운 prop 추가
+  onTagClick?: (tag: string) => void; // 새로운 prop 추가
 }
 
 const CarouselButton = ({ tag, tagName, onTagClick }: CarouselButtonProps) => {
@@ -45,9 +45,9 @@ const CarouselButton = ({ tag, tagName, onTagClick }: CarouselButtonProps) => {
 };
 
 interface CarouselProps {
-  tags: Array<string | number>;
+  tags: Array<string>;
   tagName: string;
-  onTagClick?: (tag: string | number) => void; // 새로운 prop 추가
+  onTagClick?: (tag: string) => void; // 새로운 prop 추가
 }
 
 const settings = {
