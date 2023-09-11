@@ -4,21 +4,23 @@ import com.shinhan.hack.history.dto.HistoryDto;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.history.repository.HistoryRepository;
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.login.repository.LoginRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
 public class HistoryService {
     private final HistoryRepository historyRepository;
+    private final LoginRepository loginRepository;
 
-    public HistoryService(HistoryRepository historyRepository) {
+    public HistoryService(HistoryRepository historyRepository, LoginRepository loginRepository) {
         this.historyRepository = historyRepository;
+        this.loginRepository = loginRepository;
     }
     public List<HistoryDto.Response> getAllHistory() {
         List<History> histories = historyRepository.findAll();
@@ -44,8 +46,22 @@ public class HistoryService {
                 .collect(Collectors.toList());
     }
 
+    public List<HistoryDto.Response> getHistoryMonth() {
+        // 현재 - 한달 계산
+        LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
+
+        // 한 달 거래내역 필터링
+        List<History> allHistories = historyRepository.findAll();
+        return allHistories.stream()
+                .filter(history -> history.getTransactionTime().isAfter(oneMonthAgo))
+                .map(this::ResponseDto)
+                .collect(Collectors.toList());
+    }
+
+
     public Map<Long, Map<String, HistoryDto.Summary>> getStatistics() {
-        List<HistoryDto.Response> responses = getHistoryData();
+        List<HistoryDto.Response> responses = getHistoryMonth();
+
 
         return responses.stream()
                 .collect(
@@ -66,6 +82,7 @@ public class HistoryService {
 
     public HistoryDto.StatisticsSummary getStatisticsSummary() {
         Map<Long, Map<String, HistoryDto.Summary>> statistics = getStatistics();
+
 
         long grandTotalSum = 0;
         int studentCount = 0;
@@ -94,6 +111,55 @@ public class HistoryService {
 
         return summary;
     }
+
+
+    public List<HistoryDto.DailyConsumptionDto> getMonthlyConsumption(Long studentId) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime oneMonthAgo = now.minusMonths(1);
+
+        List<Student> allStudents = loginRepository.findAll();
+
+        List<History> allHistories = historyRepository.findAll();
+        Map<String, LongSummaryStatistics> totalStats = allHistories.stream()
+                .filter(history -> history.getTransactionTime().isAfter(oneMonthAgo))
+                .collect(Collectors.groupingBy(
+                        history -> history.getTransactionTime().toLocalDate().toString(),
+                        Collectors.summarizingLong(History::getPay)
+                ));
+
+        Student student = new Student();
+        student.setStudentId(studentId);
+
+        List<History> studentHistories = historyRepository.findByStudent(student);
+        Map<String, LongSummaryStatistics> myStats = studentHistories.stream()
+                .filter(history -> history.getTransactionTime().isAfter(oneMonthAgo))
+                .collect(Collectors.groupingBy(
+                        history -> history.getTransactionTime().toLocalDate().toString(),
+                        Collectors.summarizingLong(History::getPay)
+                ));
+
+        int totalStudentsCount = allStudents.size(); // 전체 학생 수
+
+        List<HistoryDto.DailyConsumptionDto> result = new ArrayList<>();
+
+        LocalDate currentDate = oneMonthAgo.toLocalDate();
+
+        while (!currentDate.isAfter(now.toLocalDate())) {
+            String dayString = currentDate.toString();
+
+            long me = myStats.containsKey(dayString) ? myStats.get(dayString).getSum() : 0;
+            long average =
+                    Math.round(totalStats.containsKey(dayString) ? totalStats.get(dayString).getAverage() / totalStudentsCount : 0);
+
+            result.add(new HistoryDto.DailyConsumptionDto(dayString, me, average));
+
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return result;
+    }
+
+
 
     private HistoryDto.Response ResponseDto(History history) {
         return HistoryDto.Response.builder()

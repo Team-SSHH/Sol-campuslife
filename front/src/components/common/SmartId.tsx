@@ -27,7 +27,7 @@ const SmartId: React.FC<SmartIdProps> = ({
   imageUrl,
 }) => {
   const [userData, setUserData] = useRecoilState(loginuser);
-  const URL = "http://13.124.41.92:8080/static/images/";
+  const URL = "https://api.solcampuslife.store/static/images/";
   return (
     <SmartIdComponent>
       <div className="smartIdName">모바일 학생증 {name}</div>

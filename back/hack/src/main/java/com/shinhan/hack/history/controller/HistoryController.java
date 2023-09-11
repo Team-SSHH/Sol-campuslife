@@ -45,4 +45,10 @@ public class HistoryController {
         return new ResponseEntity<>(statistics , HttpStatus.OK);
     }
 
+    @GetMapping("/history/{studentId}/summary")
+    public ResponseEntity<List<HistoryDto.DailyConsumptionDto>> getMonthlyConsumption(@PathVariable Long studentId) {
+        List<HistoryDto.DailyConsumptionDto> result = historyService.getMonthlyConsumption(studentId);
+        return ResponseEntity.ok(result);
+    }
+
 }

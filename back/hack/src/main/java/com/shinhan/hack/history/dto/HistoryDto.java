@@ -49,5 +49,18 @@ public class HistoryDto {
         private long average;
 
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class DailyConsumptionDto {
+        private String name;
+        private Long me;
+        private Long average;
+    }
+
 }
+
 
