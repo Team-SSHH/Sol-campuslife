@@ -5,8 +5,12 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
+import java.util.function.Supplier;
 
 @Getter
 @Setter
@@ -39,4 +43,8 @@ public class DutchPayDetail {
     @Column(name = "remittance_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime remittanceTime;
+
+    @Column(name = "dutch_detail_day")
+    private String dutchDetailDay;
+
 }

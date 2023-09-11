@@ -33,7 +33,7 @@ const KrwAmount: React.FC<KrwAmountProps> = ({ selectedCurrency }) => {
   const kwtRate = async () => {
     try {
       const response = await api.post("/search/fx/krw-amount", disdata);
-      console.log(response.data.dataBody);
+      // console.log(response.data.dataBody);
       setExchangeAmount(response.data.dataBody.원화예상금액);
     } catch (error) {
       console.log(error);
