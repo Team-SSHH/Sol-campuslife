@@ -66,7 +66,7 @@ const BankLocationPage = () => {
       });
     };
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=9d2f5e313f7480e75807d0e7aa01170d";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9d2f5e313f7480e75807d0e7aa01170d";
     document.head.appendChild(script);
   }, []);
 
