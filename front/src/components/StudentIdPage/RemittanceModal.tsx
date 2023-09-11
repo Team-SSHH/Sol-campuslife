@@ -45,11 +45,6 @@ const RemittanceModal = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
 
   const putRemittance = async (money: number) => {
-    console.log("돈넣는ㄴ다.");
-    console.log(userData.studentId);
-    console.log("가");
-    console.log(friendData.studentId);
-    console.log("에게");
 
     try {
       const response = await api1.put(

@@ -1,13 +1,14 @@
 .favoritePlaceWrapper {
-  height: 90%;
+  height: 95%;
   width: 100%;
   font-weight: bold;
-  top: 5%;
   position: absolute;
 }
 
 .tagContainer {
   height: 30%;
+  position: relative;
+  top: 7%;
   /* margin-top: 10%; */
 
   /* display: flex;
@@ -38,7 +39,7 @@
 }
 .tagText {
   color: #fff;
-  position: relative;
+  position: absolute;
   left: 5%;
   font-size: 1.1rem;
   height: 1rem;
@@ -49,49 +50,12 @@
   align-items: center;
 }
 
-.loac-container {
-  margin-top: 6%;
-  position: absolute;
-  bottom: 0;
-  height: 60%;
-  width: 100%;
-  background-color: #c6d5ff;
-  border-radius: 20px;
-}
-
-.loac-con1 {
-  height: 15%;
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-}
 .loac-con {
   height: 35%;
   display: flex;
   justify-content: center;
   margin-bottom: 5%;
   /* align-items: center; */
-}
-
-.loca-box {
-  border-radius: 20px;
-  height: 90%;
-  width: 90%;
-  background-color: rgb(255, 255, 255);
-  display: flex;
-}
-
-.imgbox {
-  height: 100%;
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.img {
-  text-align: center;
-  height: 80%;
-  width: 80%;
 }
 
 .imgimg {
@@ -102,4 +66,8 @@
 
 .contextbox {
   width: 50%;
+}
+.loacTitle {
+  font-size: 1.2rem;
+  padding-top: 5%;
 }

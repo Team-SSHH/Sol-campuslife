@@ -1,0 +1,33 @@
+.favoritePlaceContianer {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+  padding-top: 2%;
+}
+.favoritePlaceBox {
+  border-radius: 20px;
+  height: 90%;
+  width: 90%;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+}
+.favoritePlaceImgBox {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.favoritePlaceImgBoxContextBox {
+  width: 50%;
+}
+.favoritePlaceContent {
+  text-align: center;
+  height: 80%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
