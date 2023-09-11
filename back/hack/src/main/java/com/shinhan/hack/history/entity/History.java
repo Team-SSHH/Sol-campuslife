@@ -54,7 +54,7 @@ public class History {
     private String contentCategory;
 
 
-    @Column(name = "img_url", nullable = false)
+    @Column(name = "img_url")
     private String imgUrl;
 
 
