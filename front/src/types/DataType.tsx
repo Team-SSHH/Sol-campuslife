@@ -23,7 +23,14 @@ export interface FriendType {
   studentId: number;
   university: string;
 }
+
 export interface placeType {
   content: string;
   imgUrl: string;
+
+
+export interface ConsumeSummary {
+  name: string;
+  me: number;
+  average: number;
 }
