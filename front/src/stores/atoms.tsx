@@ -25,5 +25,17 @@ export const isRemittanceModalOpen = atom({
 
 export const selectedFriend = atom({
   key: "selectedFriend",
-  default: { name: "", major: "", grade: "", number: 0 },
+  default: {
+    balance: 0,
+    bankNumber: 0,
+    gender: "",
+    grade: 0,
+    imageUrl: "",
+    major: "",
+    name: "",
+    nationality: "",
+    phoneId: "",
+    studentId: 0,
+    university: "",
+  },
 });
