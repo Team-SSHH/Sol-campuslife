@@ -25,7 +25,7 @@ public class RemittanceDto {
     @Builder
     public static class update{
         private Long studentId;
-        private Long friendStudentId;
+        private Long friendId;
         private Long amount;
         private String content;
     }

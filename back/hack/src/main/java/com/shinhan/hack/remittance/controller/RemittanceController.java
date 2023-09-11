@@ -1,9 +1,13 @@
 package com.shinhan.hack.remittance.controller;
 
+import com.shinhan.hack.Error.CustomException;
+import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.remittance.dto.DutchPayDetailDto;
 import com.shinhan.hack.remittance.dto.DutchPayDto;
 import com.shinhan.hack.remittance.dto.RemittanceDto;
+import com.shinhan.hack.remittance.entity.DutchPayDetail;
 import com.shinhan.hack.remittance.mapper.RemittanceMapper;
+import com.shinhan.hack.remittance.repository.DutchPayDetailRepository;
 import com.shinhan.hack.remittance.service.RemittanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/sshh/remittance")
@@ -20,8 +23,10 @@ import java.util.NoSuchElementException;
         RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
         RequestMethod.PUT })
 public class RemittanceController {
+
     private final RemittanceService remittanceService;
     private final RemittanceMapper remittanceMapper;
+    private final DutchPayDetailRepository dutchPayDetailRepository;
 
 
     @PutMapping("/{studentId}/send/{friendStudentId}")
@@ -31,23 +36,19 @@ public class RemittanceController {
             @RequestBody RemittanceDto.update remittanceUpdate
     ) {
         remittanceUpdate.setStudentId(studentId);
-        remittanceUpdate.setFriendStudentId(friendStudentId);
+        remittanceUpdate.setFriendId(friendStudentId);
+
         RemittanceDto.Response response = remittanceService.remittance(remittanceUpdate);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    //            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "아이디, 비번 확인해주세요");
     @PutMapping("/{studentId}/won1")
     public ResponseEntity<RemittanceDto.Response> won1(
             @PathVariable("studentId") Long studentId
     ){
-        RemittanceDto.Response response;
-        try {
-            response = remittanceService.won1(studentId);
-        }catch(NoSuchElementException e){
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+
+        RemittanceDto.Response response = remittanceService.won1(studentId);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -58,27 +59,38 @@ public class RemittanceController {
             @RequestBody DutchPayDto.Post dutchPost
     ){
         dutchPost.setStudentId(studentId);
+
         DutchPayDetailDto.consent response = remittanceService.consentDutch(dutchPost);
         // 알림
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("{studentId}/dutch/{friendId}")
+    @PutMapping("{friendId}/dutch/{studentId}")
     public ResponseEntity<RemittanceDto.Response> dutchPaySend(
-            @PathVariable("studentId") Long studentId,
             @PathVariable("friendId") Long friendId,
+            @PathVariable("studentId") Long studentId,
             @RequestBody DutchPayDetailDto.send sendInfo
     ){
+        // 예외 처리
+        DutchPayDetail detail = dutchPayDetailRepository.findByDutchIdAndFriendId(sendInfo.getDutchId(), friendId).orElseThrow(
+                () -> new CustomException(ErrorCode.DUTCH_DETAIL_NOT_FOUND)
+        );
+        if(detail.getRemittanceState()){
+            throw new CustomException(ErrorCode.ALREADY_PAY_MONEY);
+        }
+
         sendInfo.setFriendId(friendId);
         sendInfo.setStudentId(studentId);
-        RemittanceDto.Response response;
-        try{
-            response = remittanceService.dutchSend(sendInfo);
-        }catch (NoSuchElementException e){
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+
+        // 더치페이 송금 및 거래 내역 저장
+        RemittanceDto.update update = remittanceMapper.toUpdateFromSend(sendInfo);
+        update.setContent("더치페이");
+        update.setAmount(sendInfo.getDutchAmount());
+        remittanceService.remittance(update);
+
+        // 더치페이 상태 변경
+        RemittanceDto.Response response = remittanceService.dutchSend(sendInfo);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -88,7 +100,7 @@ public class RemittanceController {
             @PathVariable("studentId") Long studentId
     ) {
 
-        List<DutchPayDto.Response> response = remittanceMapper.toResponseDto(remittanceService.dutchPay(studentId));
+        List<DutchPayDto.Response> response = remittanceMapper.toDutchResponseDto(remittanceService.dutchPay(studentId));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

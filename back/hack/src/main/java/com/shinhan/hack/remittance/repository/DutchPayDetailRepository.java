@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public interface DutchPayDetailRepository extends JpaRepository<DutchPayDetail, Long> {
@@ -21,4 +22,7 @@ public interface DutchPayDetailRepository extends JpaRepository<DutchPayDetail, 
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE DutchPayDetail d SET d.remittanceTime = :now WHERE d.friendId = :studentId and d.dutchPay.dutchId = :dutchId")
     void dutchDetailTimeUpdate(Long studentId, Long dutchId, LocalDateTime now);
+
+    @Query(value = "SELECT d from DutchPayDetail d WHERE d.dutchPay.dutchId = :dutchId and d.friendId = :friendId")
+    Optional<DutchPayDetail> findByDutchIdAndFriendId(Long dutchId, Long friendId);
 }
