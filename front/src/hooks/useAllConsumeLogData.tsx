@@ -88,6 +88,11 @@ const useAllConsumeData = () => {
       }
     });
 
+    filteredAndSortedData = filteredAndSortedData.filter(
+      (item) =>
+        item.imgUrl !== null && item.imgUrl !== undefined && item.imgUrl !== ""
+    );
+
     filteredAndSortedData.sort(
       (a, b) => frequencyCount[b.content] - frequencyCount[a.content]
     );
