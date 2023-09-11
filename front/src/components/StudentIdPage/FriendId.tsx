@@ -18,47 +18,48 @@ interface FriendIdComponentProps {
 
 const StyledButton = styled.button`
   position: absolute;
-  bottom: 10%;
+  bottom: 6%;
   right: 10%;
   outline: none;
   border: none;
   border-radius: 15px;
   color: white;
-  font-weight: bold;
+  // font-weight: bold;
   padding-left: 1rem;
   padding-right: 1rem;
   z-index: 1;
 
-  height: 2rem;
-  width: 6rem;
-  font-size: 1rem;
+  height: 1.6rem;
+  width: 5rem;
+  font-size: 0.8rem;
   background: #6e96ff;
 `;
 
 const FriendIdComponent = styled.div<FriendIdComponentProps>`
   width: 96%;
-  height: 34%;
+  height: 36%;
   background-color: #fff;
   position: absolute;
   left: 2%;
   border-radius: 20px;
   border: solid 0.1rem;
   top: ${(props) =>
-    props.idx > props.friend ? 32 + props.idx * 7 : props.idx * 7 + 2}%;
+    props.idx > props.friend ? 34 + props.idx * 7 : props.idx * 7 + 2}%;
 `;
 interface FriendIdProps {
-  friendData: {
-    category: string;
-    fid: number;
-    categoryId: number;
-    studentId: string;
-    friend: FriendType;
-  };
+  // friendData: {
+  //   category: string;
+  //   fid: number;
+  //   categoryId: number;
+  //   studentId: string;
+  //   friend: FriendType;
+  // };
+  friendData: FriendType;
   id: number;
 }
 
 const FriendId: React.FC<FriendIdProps> = (props) => {
-  const friendData = props.friendData.friend;
+  const friendData = props.friendData;
   // const [friend, setFriend] = useState(100);
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);

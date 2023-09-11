@@ -32,7 +32,7 @@ const SmartId: React.FC<SmartIdProps> = ({
     <SmartIdComponent>
       <div className="smartIdName">모바일 학생증 {name}</div>
       <div className="smartIdWrppaer">
-        <img src={URL + imageUrl} alt="My image" style={{ width: "90px" }} />
+        <img src={URL + imageUrl} alt="My image" style={{ width: "4.5rem" }} />
         <div className="smartIdContent">
           <div>
             <span>{major}과</span>
