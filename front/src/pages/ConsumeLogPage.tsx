@@ -36,8 +36,10 @@ const ConsumeLogPage = () => {
     getContentWithImgSortedByFrequency,
   } = useAllConsumeLogData();
 
+
   const { MyDataConsumeLog, MycategorySum, ConsumeSummary } =
     useMyConsumeLogData();
+
 
   //나의 데이터
   const data1 = [

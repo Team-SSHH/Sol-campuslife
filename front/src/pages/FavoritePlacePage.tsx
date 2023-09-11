@@ -6,10 +6,12 @@ import qwe from "../assets/qwe.png";
 import styled from "styled-components";
 import Carousel from "../components/FavoritePlacePage/Carousel";
 import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
+
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
 import FavortieModal from "../components/FavoritePlacePage/FavortieModal";
 import { placeType } from "../types/DataType";
+
 
 const StyledButton = styled.button`
   position: absolute;
@@ -49,9 +51,11 @@ const tag3 = [
 
 const FavoritePlacePage = () => {
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
+
   const [places, setPlaces] = useState<placeType[]>([]);
 
   const [userData, setUserData] = useRecoilState(loginuser);
+
 
   const handleTagClick = (tag: string) => {
     setSelectedTags((prev) =>
@@ -62,7 +66,9 @@ const FavoritePlacePage = () => {
 
   const getPlace = () => {
     console.log("장소를 찾아옵니다.");
+
     setPlaces(getContentWithImgSortedByFrequency(selectedTags));
+
     console.log("선택된 태그들:", selectedTags);
     console.log("선택된 태그들:", typeof selectedTags);
     console.log(getContentWithImgSortedByFrequency(selectedTags));
