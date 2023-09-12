@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { FriendType } from "../types/DataType";
 const { persistAtom } = recoilPersist();
 
 export const selectFriend = atom({
@@ -7,7 +8,7 @@ export const selectFriend = atom({
   default: 100,
 });
 
-export const checkFriend = atom<number[]>({
+export const checkFriend = atom<Array<FriendType>>({
   key: "checkFriend",
   default: [],
 });
@@ -25,17 +26,19 @@ export const isRemittanceModalOpen = atom({
 
 export const selectedFriend = atom({
   key: "selectedFriend",
-  default: {
-    balance: 0,
-    bankNumber: 0,
-    gender: "",
-    grade: 0,
-    imageUrl: "",
-    major: "",
-    name: "",
-    nationality: "",
-    phoneId: "",
-    studentId: 0,
-    university: "",
-  },
+  default: [
+    {
+      balance: 0,
+      bankNumber: 0,
+      gender: "",
+      grade: 0,
+      imageUrl: "",
+      major: "",
+      name: "",
+      nationality: "",
+      phoneId: "",
+      studentId: 0,
+      university: "",
+    },
+  ],
 });

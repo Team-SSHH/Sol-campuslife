@@ -7,15 +7,33 @@ import { isRemittanceModalOpen } from "../../stores/atoms";
 import RemittanceModal from "./RemittanceModal";
 import axios from "axios";
 import api1 from "../../utils/api1";
+import { FriendType } from "../../types/DataType";
+
+type DataType = {
+  categoryId: number;
+  category: string;
+  studentId: number;
+  friend: FriendType; // 이 부분은 실제 'friend' 객체의 타입으로 교체해야 합니다.
+  fid: number;
+};
 
 const FriendsList = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
-  const [friendsData, setFriendsData] = useState([]);
-
+  const [friendsData, setFriendsData] = useState<Array<FriendType>>([]);
+  const [categoryData, setCategoryData] = useState<
+    {
+      categoryId: number;
+      students: Array<FriendType>;
+      category: string;
+      student: null;
+    }[]
+  >([]);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+  const [nowCategory, setNowCategory] = useState<Number>(0);
 
   useEffect(() => {
     getFriendList();
+    getCategoryList();
   }, []);
 
   // const getFriendList = async () => {
@@ -35,8 +53,23 @@ const FriendsList = () => {
     try {
       const response = await api1.get(`/sshh/friends/${userData.studentId}`);
       if (response.status === 200) {
-        setFriendsData(response.data);
-        console.log(response.data);
+        const extractFriends = (data: DataType[]): FriendType[] => {
+          return data.map((item) => item.friend);
+        };
+
+        const new_frineds: Array<FriendType> = extractFriends(response.data);
+        setFriendsData(new_frineds);
+      }
+    } catch (error) {
+      // 에러 처리
+    }
+  };
+
+  const getCategoryList = async () => {
+    try {
+      const response = await api1.get(`/sshh/category/${userData.studentId}`);
+      if (response.status === 200) {
+        setCategoryData(response.data);
       }
     } catch (error) {
       // 에러 처리
@@ -75,18 +108,40 @@ const FriendsList = () => {
   //     // 에러 처리
   //   }
   // };
+  const seeFrineds = (friends: Array<FriendType>) => {
+    setFriendsData(friends);
+  };
 
   return (
     <div>
       {!isModalOpen && (
         <div className="frinedsInfo">
           <div className="friendsCategorySet">
-            {/* 나중에 포문 돌려서 넣기 */}
-            <div className="friendsCategory">전체보기</div>
-            <div className="friendsCategory">그룹 1</div>
-            <div className="friendsCategory">그룹 2</div>
-            <div className="friendsCategory">그룹 3</div>
-            {/* <div className="friendsCategory">그룹 4</div> */}
+            <div
+              className={`friendsCategory ${
+                nowCategory === 0 ? "nowFriendsCategory" : ""
+              }`}
+              onClick={() => {
+                getFriendList();
+                setNowCategory(0);
+              }}
+            >
+              전체보기
+            </div>
+            {categoryData.map((c) => (
+              <div
+                key={c.categoryId}
+                className={`friendsCategory ${
+                  nowCategory === c.categoryId ? "nowFriendsCategory" : ""
+                }`}
+                onClick={() => {
+                  seeFrineds(c.students);
+                  setNowCategory(c.categoryId);
+                }}
+              >
+                {c.category}
+              </div>
+            ))}
           </div>
           <div className="friendsList">
             {friendsData.map((friend, index) => (

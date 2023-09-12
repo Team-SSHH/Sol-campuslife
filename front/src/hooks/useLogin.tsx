@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
-import api1 from "../utils/api1";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getMessaging, getToken } from "firebase/messaging";
 import { AppCheckTokenResult } from "@firebase/app-check";
 import { registerServiceWorker } from "../utils/notification";
+import { postLogin } from "../services/apiService";
+import api1 from "../utils/api1";
 
 const useLogin = () => {
   const [studentId, setStudentId] = useState("");
@@ -44,22 +45,14 @@ const useLogin = () => {
       console.error(error);
     }
   };
+
   const handleLogin = async () => {
     try {
-      const response = await api1.post("/sshh/login", {
-        studentId,
-        password,
-      });
-      if (response.status === 200) {
-        setUserData(response.data);
-        getDeviceToken(response.data.studentId);
-        // localStorage.setItem("user", response.data);
-        // console.log(response.data);
-        // console.log(userData);
-        // console.log(11111111);
+      const response = await postLogin(studentId, password);
 
-        navigate("/Main");
-      }
+      setUserData(response.data);
+      getDeviceToken(response.data.studentId);
+      navigate("/Main");
     } catch (error) {
       // 에러 처리 부분 추가 필요.
       console.error(error);

@@ -2,9 +2,15 @@ import React, { useEffect } from "react";
 import StudentId from "../components/StudentIdPage/StudentId";
 import FriendsList from "../components/StudentIdPage/FriendsList";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { checkFriend } from "../stores/atoms";
-import { Console } from "console";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  checkFriend,
+  isRemittanceModalOpen,
+  selectedFriend,
+} from "../stores/atoms";
+import { putDutchPay } from "../services/apiService";
+import { loginuser } from "../stores/atoms";
+import { FriendType } from "../types/DataType";
 
 const CircleButton = styled.div`
   position: fixed;
@@ -20,10 +26,16 @@ const CircleButton = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
+  font-size: 0.6rem;
 `;
 
 const StudentIdPage = () => {
-  const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
+  const [checkfriend, setCheckFriend] =
+    useRecoilState<Array<FriendType>>(checkFriend);
+  const [userData, setUserData] = useRecoilState(loginuser);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+  const setSelectedFriend = useSetRecoilState(selectedFriend);
+
   useEffect(() => {
     return () => {
       setCheckFriend([]);
@@ -31,30 +43,20 @@ const StudentIdPage = () => {
   }, []);
 
   const dutchpay = () => {
+    setIsModalOpen(true);
+    setSelectedFriend(checkfriend);
+    setCheckFriend([]);
+
     // 라우
-  };
-  const moveCategory = () => {
-    // 카테고리 이동 api
   };
 
   return (
     <div>
       <StudentId />
       <FriendsList />
-      {checkfriend &&
-        (() => {
-          if (checkfriend.length > 1) {
-            return (
-              <CircleButton onClick={() => dutchpay()}>더치페이</CircleButton>
-            );
-          } else if (checkfriend.length === 1) {
-            return (
-              <CircleButton onClick={() => moveCategory()}>
-                카테고리 이동
-              </CircleButton>
-            );
-          }
-        })()}
+      {checkfriend.length > 1 && (
+        <CircleButton onClick={() => dutchpay()}>더치페이</CircleButton>
+      )}
     </div>
   );
 };

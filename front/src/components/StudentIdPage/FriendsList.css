@@ -18,19 +18,20 @@
   flex-wrap: nowrap;
 }
 .friendsCategory {
-  /* background-color: #c7d6ff; */
-  background-color: #87a7ff;
+  background-color: #c7d6ff;
+  /* background-color: #87a7ff; */
   width: 25%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-align: center;
   color: #fff;
-  border-top: 0.4rem solid;
+
+  border-top: 0.35rem solid #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  font-weight: bold;
+  font-size: 0.8rem;
 }
 .friendsList {
   overflow-y: scroll;
@@ -68,4 +69,9 @@
   position: absolute;
   right: 5%;
   padding-top: 2%;
+}
+.nowFriendsCategory {
+  background-color: #87a7ff;
+  color: black;
+  font-weight: bold;
 }
