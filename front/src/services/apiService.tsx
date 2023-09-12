@@ -19,8 +19,8 @@ export const getFriendList = (studentId: Number) =>
 //친구 추가 인증 알림푸쉬에 쓸거
 export const getFriendAuth = (studentId: Number, friendId: Number) =>
   api1.get(`/sshh/friends/${studentId}/certify/${friendId}`);
-//친구 카테고리 조회
-export const getFriendCategory = (studentId: Number) =>
+//친구들 카테고리 조회
+export const getFriendsCategoryList = (studentId: Number) =>
   api1.get(`/sshh/category/${studentId}`);
 
 //####### post 요청
