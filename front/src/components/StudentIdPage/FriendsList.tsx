@@ -21,7 +21,12 @@ const FriendsList = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
   const [friendsData, setFriendsData] = useState<Array<FriendType>>([]);
   const [categoryData, setCategoryData] = useState<
-    { categoryId: number; student: FriendType; category: string }[]
+    {
+      categoryId: number;
+      students: Array<FriendType>;
+      category: string;
+      student: null;
+    }[]
   >([]);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
   const [nowCategory, setNowCategory] = useState<Number>(0);
@@ -54,7 +59,6 @@ const FriendsList = () => {
 
         const new_frineds: Array<FriendType> = extractFriends(response.data);
         setFriendsData(new_frineds);
-        console.log(response.data);
       }
     } catch (error) {
       // 에러 처리
@@ -65,7 +69,6 @@ const FriendsList = () => {
     try {
       const response = await api1.get(`/sshh/category/${userData.studentId}`);
       if (response.status === 200) {
-        console.log("카테고리", response.data);
         setCategoryData(response.data);
       }
     } catch (error) {
@@ -105,9 +108,8 @@ const FriendsList = () => {
   //     // 에러 처리
   //   }
   // };
-  const seeFrineds = (friends: FriendType) => {
-    console.log(friends);
-    // setFriendsData(friends);
+  const seeFrineds = (friends: Array<FriendType>) => {
+    setFriendsData(friends);
   };
 
   return (
@@ -133,19 +135,13 @@ const FriendsList = () => {
                   nowCategory === c.categoryId ? "nowFriendsCategory" : ""
                 }`}
                 onClick={() => {
-                  seeFrineds(c.student);
+                  seeFrineds(c.students);
                   setNowCategory(c.categoryId);
                 }}
               >
                 {c.category}
               </div>
             ))}
-
-            {/* 
-            <div className="friendsCategory">전체보기</div>
-            <div className="friendsCategory">그룹 1</div>
-            <div className="friendsCategory">그룹 2</div>
-            <div className="friendsCategory">그룹 3</div> */}
           </div>
           <div className="friendsList">
             {friendsData.map((friend, index) => (
