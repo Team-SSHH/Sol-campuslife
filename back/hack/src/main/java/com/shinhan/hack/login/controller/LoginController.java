@@ -49,7 +49,7 @@ public class LoginController {
         System.out.println(token);
 
         String fcmUrl = "https://fcm.googleapis.com/fcm/send";
-        String serverKey = "AAAAse-LWbY:APA91bH8_L2g06SHMdWKrKEnMMz1b2bRfiA1N06Ea4YMF7A9kuPrDdgj2GG1bPjeDyu6DapGFxYjYrWv9lD0bPzeDIgv6KyM0t6W0GMk8j8MVMAXQiL6V7EAoNCTVe9Zozc9g1fhado7";
+        String serverKey ="";
 
         WebClient webClient = WebClient.create();
 
