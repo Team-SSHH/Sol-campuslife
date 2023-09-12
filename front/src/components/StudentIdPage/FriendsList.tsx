@@ -21,9 +21,10 @@ const FriendsList = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
   const [friendsData, setFriendsData] = useState<Array<FriendType>>([]);
   const [categoryData, setCategoryData] = useState<
-    { categoryId: string; student: FriendType; category: string }[]
+    { categoryId: number; student: FriendType; category: string }[]
   >([]);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+  const [nowCategory, setNowCategory] = useState<Number>(0);
 
   useEffect(() => {
     getFriendList();
@@ -114,17 +115,32 @@ const FriendsList = () => {
       {!isModalOpen && (
         <div className="frinedsInfo">
           <div className="friendsCategorySet">
-            <div className="friendsCategory" onClick={() => getFriendList()}>
+            <div
+              className={`friendsCategory ${
+                nowCategory === 0 ? "nowFriendsCategory" : ""
+              }`}
+              onClick={() => {
+                getFriendList();
+                setNowCategory(0);
+              }}
+            >
               전체보기
             </div>
             {categoryData.map((c) => (
               <div
-                className="friendsCategory"
-                onClick={() => seeFrineds(c.student)}
+                key={c.categoryId}
+                className={`friendsCategory ${
+                  nowCategory === c.categoryId ? "nowFriendsCategory" : ""
+                }`}
+                onClick={() => {
+                  seeFrineds(c.student);
+                  setNowCategory(c.categoryId);
+                }}
               >
                 {c.category}
               </div>
             ))}
+
             {/* 
             <div className="friendsCategory">전체보기</div>
             <div className="friendsCategory">그룹 1</div>

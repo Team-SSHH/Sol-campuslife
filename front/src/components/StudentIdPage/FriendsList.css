@@ -18,8 +18,8 @@
   flex-wrap: nowrap;
 }
 .friendsCategory {
-  /* background-color: #c7d6ff; */
-  background-color: #87a7ff;
+  background-color: #c7d6ff;
+  /* background-color: #87a7ff; */
   width: 25%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -68,4 +68,7 @@
   position: absolute;
   right: 5%;
   padding-top: 2%;
+}
+.nowFriendsCategory {
+  background-color: #87a7ff;
 }
