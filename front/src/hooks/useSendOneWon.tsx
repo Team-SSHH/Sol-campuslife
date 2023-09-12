@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-// import api1 from "../utils/api1";
-import axios from "axios";
+import { putSendOneWon } from "../services/apiService";
 
 const useSendOneWon = () => {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -24,6 +23,7 @@ const useSendOneWon = () => {
 
         setIsSuccess(!isSuccess);
       }
+
     } catch (error) {
       console.error(error);
     }

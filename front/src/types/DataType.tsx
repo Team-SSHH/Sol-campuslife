@@ -30,7 +30,7 @@ export interface placeType {
   imgUrl: string;
 }
 
-export interface ConsumeSummary {
+export interface ConsumeSummaryType {
   name: string;
   me: number;
   average: number;
