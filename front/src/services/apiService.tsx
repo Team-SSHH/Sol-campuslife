@@ -26,6 +26,16 @@ export const getFriendCategory = (studentId: Number) =>
 //####### post 요청
 export const postLogin = (studentId: string, password: string) =>
   api1.post("/sshh/login", { studentId, password });
+// 더치페이 신청(요청하는거)
+export const postRemittance = (
+  friendList: Array<Number>,
+  amount: Number,
+  studentId: Number
+) =>
+  api1.post(`/sshh/remittance/${studentId}/consent`, {
+    friendList,
+    amount,
+  });
 
 //####### put 요청
 // 1원이체
@@ -43,7 +53,7 @@ export const putRemittance = (
     content,
   });
 
-// 더치페이
+// 더치페이 알림오면 보내는거
 export const putDutchPay = (
   studentId: Number,
   friendId: Number,
