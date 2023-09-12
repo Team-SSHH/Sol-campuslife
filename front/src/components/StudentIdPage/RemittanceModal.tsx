@@ -45,6 +45,7 @@ const RemittanceModal = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
 
   const putRemittance = async (money: number) => {
+
     try {
       const response = await api1.put(
         `/sshh/remittance/${userData.studentId}/send/${friendData.studentId}`,
