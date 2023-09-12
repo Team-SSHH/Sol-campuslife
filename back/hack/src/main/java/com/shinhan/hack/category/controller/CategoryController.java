@@ -1,5 +1,7 @@
 package com.shinhan.hack.category.controller;
 
+import com.shinhan.hack.Error.CustomException;
+import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.category.CategoryMapper;
 import com.shinhan.hack.category.dto.CategoryDto;
 import com.shinhan.hack.category.entity.Category;
@@ -9,6 +11,7 @@ import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
 import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.login.mapper.LoginMapper;
 import com.shinhan.hack.login.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,13 +28,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000", "https://sh.solcampuslife.store"}, allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
-        RequestMethod.PUT })
+        RequestMethod.PUT})
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
     private final FriendsRepository friendsRepository;
     private final LoginRepository studentRepository;
     private final CategoryMapper categoryMapper;
+    private final LoginMapper studentMapper;
 
 
     @GetMapping("/{studentId}")
@@ -54,24 +58,13 @@ public class CategoryController {
             List<StudentDto.Response> studentsInCategory = new ArrayList<>();
 
             for (Friends friend : friendsInCategory) {
-                Student friendStudent = studentRepository.findById(friend.getFriendId()).orElse(null);
-                if (friendStudent != null) {
-                    StudentDto.Response friendInfo = StudentDto.Response.builder()
-                            .studentId(friendStudent.getStudentId())
-                            .name(friendStudent.getName())
-                            .university(friendStudent.getUniversity())
-                            .major(friendStudent.getMajor())
-                            .grade(friendStudent.getGrade())
-                            .gender(friendStudent.getGender())
-                            .nationality(friendStudent.getNationality())
-                            .bankNumber(friendStudent.getBankNumber())
-                            .balance(friendStudent.getBalance())
-                            .phoneId(friendStudent.getPhoneId())
-                            .imageUrl(friendStudent.getImageUrl())
-                            .build();
 
-                    studentsInCategory.add(friendInfo);
-                }
+                Student friendStudent = studentRepository.findById(friend.getFriendId()).orElseThrow(
+                        () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
+                );
+
+                StudentDto.Response friendInfo = studentMapper.toResponseDto(friendStudent);
+                studentsInCategory.add(friendInfo);
             }
 
             categoryResponse.setStudents(studentsInCategory);
@@ -80,7 +73,6 @@ public class CategoryController {
 
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
-
 
 
     @PostMapping("/{studentid}")

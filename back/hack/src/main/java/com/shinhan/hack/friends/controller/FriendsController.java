@@ -31,9 +31,8 @@ import java.util.Map;
 
     @PostMapping("/{studentid}/store/{friendStudentId}")
     public ResponseEntity<List<FriendsDto>> saveFriend(
-            @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId, @RequestBody Map<String, Long> body) {
-        Long categoryId = body.get("categoryId");
-        List<FriendsDto> friendsList= friendsService.saveFriend(studentid,friendStudentId, categoryId );
+            @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId) {
+        List<FriendsDto> friendsList= friendsService.saveFriend(studentid,friendStudentId);
         return new ResponseEntity<>(friendsList, HttpStatus.OK);
     }
 
