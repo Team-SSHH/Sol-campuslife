@@ -12,7 +12,6 @@ import { loginuser } from "../stores/atoms";
 import FavortieModal from "../components/FavoritePlacePage/FavortieModal";
 import { placeType } from "../types/DataType";
 
-
 const StyledButton = styled.button`
   position: absolute;
   top: 33%;
@@ -55,8 +54,7 @@ const FavoritePlacePage = () => {
   const [places, setPlaces] = useState<placeType[]>([]);
 
   const [userData, setUserData] = useRecoilState(loginuser);
-
-
+  const [modalVisible, setModalVisible] = useState(false);
   const handleTagClick = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
@@ -65,13 +63,8 @@ const FavoritePlacePage = () => {
   const { getContentWithImgSortedByFrequency } = useAllConsumeLogData();
 
   const getPlace = () => {
-    console.log("장소를 찾아옵니다.");
-
     setPlaces(getContentWithImgSortedByFrequency(selectedTags));
-
-    console.log("선택된 태그들:", selectedTags);
-    console.log("선택된 태그들:", typeof selectedTags);
-    console.log(getContentWithImgSortedByFrequency(selectedTags));
+    setModalVisible(true); // 검색 버튼 클릭 시 모달 보이기
   };
 
   return (
@@ -84,7 +77,7 @@ const FavoritePlacePage = () => {
       </div>
       <StyledButton onClick={getPlace}>검색</StyledButton>
 
-      <FavortieModal places={places} />
+      {modalVisible && <FavortieModal places={places} />}
       {/* <div className="loac-container">
         <div className="loac-con1">
           <div className="loacTitle">
