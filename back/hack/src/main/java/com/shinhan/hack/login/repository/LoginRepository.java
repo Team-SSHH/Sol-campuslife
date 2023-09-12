@@ -20,5 +20,5 @@ public interface LoginRepository extends JpaRepository<Student, Long> {
     Optional<Student> findStudentByStudentId(Long studentId);
 
     @Query("select s from student s where s.studentId = :studentId and s.password = :password")
-    Student findStudentByStudentIdAndPassword(Long studentId,String password);
+    Optional<Student> findStudentByStudentIdAndPassword(Long studentId, String password);
 }
