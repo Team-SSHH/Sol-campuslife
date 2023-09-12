@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -10,119 +10,55 @@ import {
 import "./RemittanceModal.css";
 import SmartId from "../common/SmartId";
 import { FriendType } from "../../types/DataType";
-import api1 from "../../utils/api1";
+import Envelop from "./Envelop";
 
-// interface friendData {
-//   name: string;
-//   major: string;
-//   number: number;
-//   grade: number;
-// }
-
-const StyledButton = styled.button`
+interface FriendIdComponentProps {
+  idx: number;
+}
+const FriendIdComponent = styled.div<FriendIdComponentProps>`
+  width: 99%;
+  height: 100%;
+  background-color: #fff;
   position: absolute;
-  bottom: 10%;
-  right: 10%;
-  outline: none;
-  border: none;
-  border-radius: 15px;
-  color: white;
-  font-weight: bold;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  z-index: 1;
-
-  height: 3rem;
-  width: 6rem;
-  font-size: 1.2rem;
-  background: #6e96ff;
+  // left: 2%;
+  border-radius: 20px;
+  border: solid 0.1rem;
+  top: ${(props) => props.idx * 15}%;
 `;
 
+const EnvelopData = [
+  { text1: "간편송금", text2: "송금하기" },
+  { text1: "더치페이", text2: "알림보내기" },
+];
+
 const RemittanceModal = () => {
-  const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
-  const friendData = useRecoilValue<FriendType>(selectedFriend);
-  const [value, setValue] = useState<number>(0);
-  const [userData, setUserData] = useRecoilState(loginuser);
-
-  const putRemittance = async (money: number) => {
-
-    try {
-      const response = await api1.put(
-        `/sshh/remittance/${userData.studentId}/send/${friendData.studentId}`,
-        {
-          amount: money,
-          content: "더치페이",
-        }
-      );
-      console.log(response);
-      if (response.status === 200) {
-        console.log(response);
-      }
-    } catch (error) {
-      console.log(error);
-      // 에러 처리
-    }
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = parseInt(event.target.value);
-    if (!isNaN(inputValue)) {
-      setValue(inputValue);
-    }
-  };
-
-  const handleClick = () => {
-    putRemittance(value);
-    setIsModalOpen(false);
-  };
+  const friendData = useRecoilValue<Array<FriendType>>(selectedFriend);
 
   return (
     <div className="remittanceWrapper">
       <div className="remittanceFriend">
-        <SmartId
-          name={friendData.name}
-          major={friendData.major}
-          studentId={friendData.studentId}
-          grade={friendData.grade}
-          imageUrl={friendData.imageUrl}
-        />
-        {/* <div className="firendName">모바일 학생증 {friendData.name}</div>
-        <div className="frinedInfo">
-          <div>{friendData.name}의 얼굴</div>
-
-          <div>
-            <span>{friendData.major}</span>
-            <span> </span>
-            <span>재학생 ({friendData.grade})</span>
-          </div>
-          <div>
-            <span>{friendData.name} </span>
-            <span>{friendData.number}</span>
-          </div>
-        </div> */}
-      </div>
-      <div className="remittanceEnvelope">
-        <div className="triangle-left"></div>
-        <div className="triangle-right"></div>
-        <div className="remittanceContentTitle">간편 송금</div>
-
-        <StyledButton onClick={handleClick}>송금</StyledButton>
-      </div>
-      <div className="remittanceContent">
-        <br />
-        <br />
-        <div className="remittanceContentMoney">
-          <span>
-            <input
-              type="text"
-              value={value}
-              onChange={handleInputChange}
-              placeholder="금액을 입력하시오"
+        {friendData.map((friend, index) => (
+          <FriendIdComponent idx={index} key={index}>
+            <SmartId
+              key={index}
+              name={friend.name}
+              major={friend.major}
+              studentId={friend.studentId}
+              grade={friend.grade}
+              imageUrl={friend.imageUrl}
             />
-          </span>{" "}
-          원
-        </div>
+          </FriendIdComponent>
+        ))}
       </div>
+      <Envelop
+        isdutch={friendData.length > 1 ? true : false}
+        text1={
+          friendData.length > 1 ? EnvelopData[1].text1 : EnvelopData[0].text1
+        }
+        text2={
+          friendData.length > 1 ? EnvelopData[1].text2 : EnvelopData[0].text2
+        }
+      />
     </div>
   );
 };

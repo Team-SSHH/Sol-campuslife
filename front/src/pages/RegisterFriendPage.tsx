@@ -12,11 +12,13 @@ interface PageProps {
 const RegisterFriendPage = () => {
   const [step, setStep] = useState(0);
 
-  const { isSuccess, handleSendOneWon } = useSendOneWon();
-  useEffect(() => {
-    console.log("여기");
-    handleSendOneWon(201403808);
-  }, []);
+  const { isSuccess, password, handleSendOneWon } = useSendOneWon();
+
+  const registerFriend = (value: string) => {
+    if (value === password) {
+      console.log("일치합니다. 친구가 되셨습니다.");
+    }
+  };
 
   const pages: PageProps[] = [
     {
@@ -30,12 +32,11 @@ const RegisterFriendPage = () => {
       },
     },
     {
-      text: "친구에게 전송된 입금자명을 알려주세요",
+      text: "친구에게 전송된 인증번호를 알려주세요",
       height: 40,
       onConfirm: (value) => {
         console.log(`입금자명은 ${value} 입니다.`);
-        setStep((prevStep) => prevStep + 1);
-        // 여기에 두 번째 단계에서 수행할 로직을 작성합니다.
+        registerFriend(value);
       },
     },
   ];
