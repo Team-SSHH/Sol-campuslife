@@ -28,4 +28,39 @@ public class HistoryDto {
         private String contentCategory;
         private String imgUrl;
     }
+
+
+    @Getter
+    public static class Summary {
+        private long sum;
+        private long count;
+
+        public Summary(long sum, long count) {
+            this.sum = sum;
+            this.count = count;
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class StatisticsSummary {
+        private long totalSum;
+        private int studentCount;
+        private long average;
+
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class DailyConsumptionDto {
+        private String name;
+        private Long me;
+        private Long average;
+    }
+
 }
+
+

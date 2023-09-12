@@ -24,6 +24,7 @@ export interface FriendType {
   university: string;
 }
 
+
 export interface placeType {
   content: string;
   imgUrl: string;
@@ -34,3 +35,4 @@ export interface ConsumeSummaryType {
   me: number;
   average: number;
 }
+

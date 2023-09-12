@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface FriendsRepository extends JpaRepository<Friends, Long> {
     List<Friends> findByCategory_CategoryId(Long categoryId);
+//    List<Friends> findByfriendId_CategoryId(Long categoryId);
     List<Friends> findByCategory_Student_StudentIdAndFriendId(Long studentId, Long friendStudentId);
     Optional<Friends> findByCategory_CategoryIdAndFriendId(Long categoryId, Long friendId);
 }

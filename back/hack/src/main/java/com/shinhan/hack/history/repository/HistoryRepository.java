@@ -12,4 +12,5 @@ import java.util.List;
 public interface HistoryRepository extends JpaRepository<History, Long> {
 
     List<History>findByStudent(Student student);
+    List<History>findAll();
 }

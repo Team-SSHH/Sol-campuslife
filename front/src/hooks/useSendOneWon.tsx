@@ -3,20 +3,19 @@ import { putSendOneWon } from "../services/apiService";
 
 const useSendOneWon = () => {
   const [isSuccess, setIsSuccess] = useState(false);
-
+  const [password, setPassword] = useState<string>();
   const handleSendOneWon = async (studentId: Number) => {
     console.log("여깅ㅂ니더");
     console.log(studentId);
     try {
       const response = await putSendOneWon(studentId);
-      console.log(response);
-      console.log("success");
       setIsSuccess(!isSuccess);
+      setPassword(response.data.content.split(" : ")[1]);
     } catch (error) {
       console.error(error);
     }
   };
-  return { isSuccess, handleSendOneWon };
+  return { isSuccess, handleSendOneWon, password };
 };
 
 export default useSendOneWon;

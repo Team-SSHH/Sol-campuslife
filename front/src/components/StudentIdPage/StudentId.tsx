@@ -25,6 +25,7 @@ const StudentId = () => {
     setIsFlipped(!isFlipped);
   };
 
+
   return (
     <StudentIdComponent>
       <div
@@ -33,11 +34,13 @@ const StudentId = () => {
       >
         <div className="front">
           <SmartId
+
             name={userData.name}
             major={userData.major}
             studentId={userData.studentId}
             grade={userData.grade}
             imageUrl={userData.imageUrl}
+
           />
           <div className="flipment" onClick={handleClick}>
             카드 보기 &gt;
