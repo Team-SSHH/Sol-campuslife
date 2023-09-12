@@ -262,6 +262,9 @@ public class RemittanceService {
 
 
     public List<DutchPayDetailDto.Response> getDutchDetailAll(Long studentId) {
+        loginRepository.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
         List<DutchPayDetail> dutchPayDetails = dutchPayDetailRepository.findByFriendId(studentId);
 
         if (dutchPayDetails.isEmpty()) {

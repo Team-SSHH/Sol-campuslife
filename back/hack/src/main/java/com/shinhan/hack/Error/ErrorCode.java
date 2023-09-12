@@ -12,6 +12,9 @@ public enum ErrorCode {
     MEMBER_DONT_HAVE_MONEY(HttpStatus.BAD_REQUEST, "계좌 잔액 부족"),
     ALREADY_PAY_MONEY(HttpStatus.BAD_REQUEST, "이미 더치페이 하셨습니다."),
     ALREADY_FRIEND(HttpStatus.BAD_REQUEST, "이미 친구입니다."),
+    ALREADY_CATEGORY(HttpStatus.BAD_REQUEST, "이미 존재하는 카테고리입니다."),
+    BASIC_CATEGORY(HttpStatus.BAD_REQUEST, "기본 카테고리입니다."),
+
 
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
     LOGIN_FAIL(HttpStatus.UNAUTHORIZED, "로그인 실패, 아이디와 비밀번호를 확인해 주세요."),
