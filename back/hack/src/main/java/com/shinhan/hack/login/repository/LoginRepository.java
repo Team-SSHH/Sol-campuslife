@@ -9,12 +9,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LoginRepository extends JpaRepository<Student, Long> {
 
 
     List<Student> findAll();
+
+    Optional<Student> findStudentByStudentId(Long studentId);
+
     @Query("select s from student s where s.studentId = :studentId and s.password = :password")
     Student findStudentByStudentIdAndPassword(Long studentId,String password);
 }
