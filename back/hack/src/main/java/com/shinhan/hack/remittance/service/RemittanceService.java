@@ -16,6 +16,7 @@ import com.shinhan.hack.remittance.repository.DutchPayDetailRepository;
 import com.shinhan.hack.remittance.repository.DutchPayRepository;
 import com.shinhan.hack.remittance.repository.RemittanceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -238,7 +239,7 @@ public class RemittanceService {
         // 더치페이 상세 내역 확인 예외 처리
         List<DutchPayDetail> dutchPayDetails = dutchPayRepository.findByDutchId(dutchId);
 
-        if (dutchPayDetails.size() == 0) {
+        if (dutchPayDetails.isEmpty()) {
             throw new CustomException(ErrorCode.DUTCH_DETAIL_NOT_FOUND);
         }
 
@@ -259,4 +260,27 @@ public class RemittanceService {
     }
 
 
+    public List<DutchPayDetailDto.Response> getDutchDetailAll(Long studentId) {
+        List<DutchPayDetail> dutchPayDetails = dutchPayDetailRepository.findByFriendId(studentId);
+
+        if (dutchPayDetails.isEmpty()) {
+            throw new CustomException(ErrorCode.DUTCH_DETAIL_NOT_FOUND);
+        }
+
+        List<DutchPayDetailDto.Response> responseList = new ArrayList<>();
+
+        for (DutchPayDetail detail: dutchPayDetails
+        ) {
+            // 친구 없을 경우 예외처리
+            Student friend = loginRepository.findById(detail.getDutchPay().getStudent().getStudentId()).orElseThrow(
+                    () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
+            );
+
+            DutchPayDetailDto.Response response = remittanceMapper.toDetailResponseDto(detail);
+            response.setName(friend.getName());
+            responseList.add(response);
+        }
+
+        return responseList;
+    }
 }

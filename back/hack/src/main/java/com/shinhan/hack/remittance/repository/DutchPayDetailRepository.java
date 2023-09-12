@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,4 +26,6 @@ public interface DutchPayDetailRepository extends JpaRepository<DutchPayDetail, 
 
     @Query(value = "SELECT d from DutchPayDetail d WHERE d.dutchPay.dutchId = :dutchId and d.friendId = :friendId")
     Optional<DutchPayDetail> findByDutchIdAndFriendId(Long dutchId, Long friendId);
+
+    List<DutchPayDetail> findByFriendId(Long friendId);
 }
