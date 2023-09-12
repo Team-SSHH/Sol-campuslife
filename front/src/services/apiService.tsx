@@ -31,6 +31,29 @@ export const postLogin = (studentId: string, password: string) =>
 // 1원이체
 export const putSendOneWon = (studentId: Number) =>
   api1.put(`/sshh/remittance/${studentId}/won1`);
+// 송금
+export const putRemittance = (
+  studentId: Number,
+  friendId: Number,
+  amount: Number,
+  content: String
+) =>
+  api1.put(`/sshh/remittance/${studentId}/send/${friendId}`, {
+    amount,
+    content,
+  });
+
+// 더치페이
+export const putDutchPay = (
+  studentId: Number,
+  friendId: Number,
+  dutchId: String,
+  dutchAmount: String
+) =>
+  api1.put(`/sshh/remittance/${studentId}/dutch/${friendId}`, {
+    dutchId,
+    dutchAmount,
+  });
 
 // 친구 학생증 카테고리 변경
 export const putFriendCategory = (
@@ -38,3 +61,10 @@ export const putFriendCategory = (
   friendId: Number,
   categoryId: Number
 ) => api1.put(`/sshh/friends/${studentId}/update/${friendId}`, { categoryId });
+
+// 카테고리 이름 변경
+export const putCategoryName = (
+  studentId: Number,
+  categoryId: Number,
+  category: String
+) => api1.put(`/sshh/category/${studentId}`, { categoryId, category });
