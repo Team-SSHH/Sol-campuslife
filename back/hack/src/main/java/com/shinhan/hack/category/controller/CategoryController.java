@@ -7,7 +7,9 @@ import com.shinhan.hack.category.repository.CategoryRepository;
 import com.shinhan.hack.friends.dto.FriendsDto;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
+import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.login.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +30,58 @@ public class CategoryController {
 
     private final CategoryRepository categoryRepository;
     private final FriendsRepository friendsRepository;
+    private final LoginRepository studentRepository;
     private final CategoryMapper categoryMapper;
+
 
     @GetMapping("/{studentId}")
     public ResponseEntity<List<CategoryDto.Response>> getCategory(
             @PathVariable("studentId") Long studentId
-    ){
+    ) {
         List<Category> categories = categoryRepository.findByStudent_StudentId(studentId);
         List<CategoryDto.Response> categoryList = new ArrayList<>();
-        for (Category category: categories
-             ) {
-            CategoryDto.Response response = categoryMapper.toResponse(category);
-            categoryList.add(response);
+        for (Category category : categories
+        ) {
+//            System.out.println("category = " + category);
+            CategoryDto.Response categoryResponse = new CategoryDto.Response();
+            categoryResponse.setCategoryId(category.getCategoryId());
+            categoryResponse.setCategory(category.getCategory());
+            categoryResponse.setStudentId(studentId); // 내 학생 ID 설정
+            System.out.println("categoryResponse = " + categoryResponse);
+            List<Friends> friendsInCategory = friendsRepository.findByCategory_CategoryId(category.getCategoryId());
+//            System.out.println("friends = " + friendsInCategory);
+
+            List<StudentDto.Response> studentsInCategory = new ArrayList<>();
+
+            for (Friends friend : friendsInCategory) {
+                Student friendStudent = studentRepository.findById(friend.getFriendId()).orElse(null);
+                if (friendStudent != null) {
+                    StudentDto.Response friendInfo = StudentDto.Response.builder()
+                            .studentId(friendStudent.getStudentId())
+                            .name(friendStudent.getName())
+                            .university(friendStudent.getUniversity())
+                            .major(friendStudent.getMajor())
+                            .grade(friendStudent.getGrade())
+                            .gender(friendStudent.getGender())
+                            .nationality(friendStudent.getNationality())
+                            .bankNumber(friendStudent.getBankNumber())
+                            .balance(friendStudent.getBalance())
+                            .phoneId(friendStudent.getPhoneId())
+                            .imageUrl(friendStudent.getImageUrl())
+                            .build();
+
+                    studentsInCategory.add(friendInfo);
+                }
+            }
+
+            categoryResponse.setStudents(studentsInCategory);
+            categoryList.add(categoryResponse);
         }
+
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
+
+
 
     @PostMapping("/{studentid}")
     public ResponseEntity<CategoryDto> addCategory(@PathVariable("studentid") Long studentid, @RequestBody Map<String, String> body) {
