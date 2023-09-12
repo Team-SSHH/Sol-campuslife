@@ -25,7 +25,8 @@
   border-top-right-radius: 5px;
   text-align: center;
   color: #fff;
-  border-top: 0.35rem solid;
+
+  border-top: 0.35rem solid #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,4 +72,6 @@
 }
 .nowFriendsCategory {
   background-color: #87a7ff;
+  color: black;
+  font-weight: bold;
 }

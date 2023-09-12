@@ -26,6 +26,24 @@ export const getFriendCategory = (studentId: Number) =>
 //####### post 요청
 export const postLogin = (studentId: string, password: string) =>
   api1.post("/sshh/login", { studentId, password });
+// 더치페이 신청(요청하는거)
+export const postDutchPay = (
+  studentId: Number,
+  friendList: Array<Number>,
+  amount: Number
+) =>
+  api1
+    .post(`/sshh/remittance/${studentId}/consent`, {
+      friendList,
+      amount,
+    })
+    .then((response) => {
+      console.log("여기");
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
 //####### put 요청
 // 1원이체
@@ -43,7 +61,7 @@ export const putRemittance = (
     content,
   });
 
-// 더치페이
+// 더치페이 알림오면 보내는거
 export const putDutchPay = (
   studentId: Number,
   friendId: Number,
@@ -51,8 +69,8 @@ export const putDutchPay = (
   dutchAmount: String
 ) =>
   api1.put(`/sshh/remittance/${studentId}/dutch/${friendId}`, {
-    dutchId,
     dutchAmount,
+    dutchId,
   });
 
 // 친구 학생증 카테고리 변경
