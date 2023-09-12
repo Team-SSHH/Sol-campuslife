@@ -13,11 +13,14 @@ public enum ErrorCode {
     ALREADY_PAY_MONEY(HttpStatus.BAD_REQUEST, "이미 더치페이 하셨습니다."),
 
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
+    LOGIN_FAIL(HttpStatus.UNAUTHORIZED, "로그인 실패, 아이디와 비밀번호를 확인해 주세요."),
 
     /* 404 NOT_FOUND : Resource를 찾을 수 없음 */
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 학생 정보를 찾을 수 없습니다."),
     FRIEND_NOT_FOUNT(HttpStatus.NOT_FOUND, "해당 친구 정보를 찾을 수 없습니다."),
     DUTCH_DETAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "더치페이 내역이 없습니다."),
+
+
     /* 409 CONFLICT : Response의 현재 상태와 충돌. 보통 중복된 데이터 존재 */
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "데이터가 이미 존재합니다")
     ;
