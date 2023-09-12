@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./FavoriteModal.css";
 import FavoritePlace from "./FavoritePlace";
 import { useRecoilState } from "recoil";
@@ -11,6 +11,14 @@ interface FavortieModalProps {
 
 const FavortieModal: React.FC<FavortieModalProps> = (props) => {
   const [userData, setUserData] = useRecoilState(loginuser);
+  useEffect(() => {
+    const modalElement = document.querySelector(".favortieModalContainer");
+    if (modalElement) {
+      setTimeout(() => {
+        modalElement.classList.add("show");
+      }, 0);
+    }
+  }, []);
 
   return (
     <div className="favortieModalContainer">
