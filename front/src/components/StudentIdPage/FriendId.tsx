@@ -64,9 +64,6 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
 
-  const [check, setCheck] = useState(false);
-  const [resultData, setResultData] = useState("");
-
   const [isCheck, setIsCheck] = useState(false);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
   const setSelectedFriend = useSetRecoilState(selectedFriend);
@@ -80,7 +77,7 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
   };
   const remittance = () => {
     setIsModalOpen(true);
-    setSelectedFriend(friendData);
+    setSelectedFriend([friendData]);
   };
 
   // const deleteFriend = async () => {
@@ -126,9 +123,9 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
             setIsCheck(!isCheck);
 
             if (isCheck) {
-              setCheckFriend(checkfriend.filter((f) => f !== props.id));
+              setCheckFriend(checkfriend.filter((f) => f !== props.friendData));
             } else {
-              setCheckFriend([...checkfriend, props.id]);
+              setCheckFriend([...checkfriend, props.friendData]);
             }
           }}
         >
