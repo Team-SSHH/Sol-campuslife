@@ -20,6 +20,7 @@ const CircleButton = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
+  font-size: 0.6rem;
 `;
 
 const StudentIdPage = () => {
