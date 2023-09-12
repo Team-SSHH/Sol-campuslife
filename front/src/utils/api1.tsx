@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios 인스턴스 생성
 const api1 = axios.create({
-  baseURL: "https://api.solcampuslife.store", // API의 기본 URL
+  baseURL: "/api2", // API의 기본 URL
 });
 
 // 요청 인터셉터 설정

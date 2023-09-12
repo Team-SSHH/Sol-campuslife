@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -28,8 +29,8 @@ public class FCMNotificationApiController {
 
     @PostMapping("/login/{studentid}/token")
     public Mono<ResponseEntity<Void>> postToken(@PathVariable("studentid") Long studentid,
-                                                @RequestBody String token) {
-        System.out.println(token);
+                                                @RequestBody Map<String, String> body) {
+        String token = body.get("token");
         Optional<Student> optionalStudent = loginRepository.findStudentByStudentId(studentid);
         if (optionalStudent.isPresent()) {
             Student student = optionalStudent.get();

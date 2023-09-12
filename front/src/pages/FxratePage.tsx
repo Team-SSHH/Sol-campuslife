@@ -42,6 +42,7 @@ const FxratePage: React.FC = () => {
   }
 
   const postDeviceToken = async () => {
+    console.log(deviceToken);
     try {
       const response = await api1.post(
         "/sshh/login/201403808/token",
@@ -112,6 +113,7 @@ const FxratePage: React.FC = () => {
       </div>
       <br />
       <br />
+      <button>친구추가</button>
       <Link to={"/Fxrequest"}>
         <button className="fxratebtn Kwbtn">환전신청 및 결과 조회</button>
       </Link>

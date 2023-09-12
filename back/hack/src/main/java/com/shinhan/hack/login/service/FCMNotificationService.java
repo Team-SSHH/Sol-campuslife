@@ -51,7 +51,5 @@ public class FCMNotificationService {
         } else {
             return "해당 유저가 존재하지 않습니다. targetUserId=" + requestDto.getStudentId();
         }
-
-
     }
 }

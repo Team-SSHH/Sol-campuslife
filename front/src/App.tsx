@@ -9,6 +9,7 @@ import {
   useRecoilState,
   useRecoilValue,
 } from "recoil";
+// import "../src/utils/fcm";
 
 function App() {
   return (
