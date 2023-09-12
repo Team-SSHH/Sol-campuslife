@@ -1,22 +1,27 @@
 import { useState, useEffect } from "react";
-import api1 from "../utils/api1";
-import { TransactionHistoryType, ConsumeSummary } from "../types/DataType";
+import { TransactionHistoryType, ConsumeSummaryType } from "../types/DataType";
 import { useRecoilValue } from "recoil";
 import { loginuser } from "../stores/atoms";
+import {
+  getMyConsumeData,
+  getMyConsumeDataSummary,
+} from "../services/apiService";
 
 const useMyConsumeLogData = () => {
   const [MyDataConsumeLog, setMyDataConsumeLog] = useState<
     TransactionHistoryType[]
   >([]);
-  const [ConsumeSummary, setConsumeSummary] = useState<ConsumeSummary[]>([]);
+  const [ConsumeSummary, setConsumeSummary] = useState<ConsumeSummaryType[]>(
+    []
+  );
   const UserData = useRecoilValue(loginuser);
   const StudentId = UserData.studentId;
 
   useEffect(() => {
     const fetchMyConsumeData = async () => {
       try {
-        const response = await api1.get(`/sshh/history/${StudentId}`);
-        const response1 = await api1.get(`/sshh/history/${StudentId}/summary`);
+        const response = await getMyConsumeData(StudentId);
+        const response1 = await getMyConsumeDataSummary(StudentId);
         setMyDataConsumeLog(response.data);
         setConsumeSummary(response1.data);
       } catch (error) {
