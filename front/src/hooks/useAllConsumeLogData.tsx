@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
-import api1 from "../utils/api1";
 import { TransactionHistoryType } from "../types/DataType";
+import { getAllConsumeData } from "../services/apiService";
 
 const useAllConsumeData = () => {
   const [AllDataConsumeLog, setAllDataConsumeLog] = useState<
     TransactionHistoryType[]
   >([]);
   useEffect(() => {
-    const fetchAllConsumeData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api1.get("/sshh/history");
+        const response = await getAllConsumeData();
         setAllDataConsumeLog(response.data);
       } catch (error) {
         // 에러 처리 부분 추가 필요.
         console.error(error);
       }
     };
-    fetchAllConsumeData();
+    fetchData();
   }, []);
 
   // 카테고리별로 합이 나옵니다.
