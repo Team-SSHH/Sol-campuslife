@@ -254,6 +254,7 @@ public class RemittanceService {
 
             DutchPayDetailDto.Response response = remittanceMapper.toDetailResponseDto(detail);
             response.setName(friend.getName());
+            response.setFriendId(friend.getStudentId());
             responseList.add(response);
         }
         return responseList;
@@ -278,6 +279,7 @@ public class RemittanceService {
 
             DutchPayDetailDto.Response response = remittanceMapper.toDetailResponseDto(detail);
             response.setName(friend.getName());
+            response.setFriendId(friend.getStudentId());
             responseList.add(response);
         }
 
