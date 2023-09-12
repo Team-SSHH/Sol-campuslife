@@ -112,4 +112,11 @@ public class RemittanceController {
         List<DutchPayDetailDto.Response> response = remittanceService.getDutchDetail(dutchId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/{studentId}/dutchDetail")
+    public ResponseEntity<List<DutchPayDetailDto.Response>> getDutchPayDetailAll(
+            @PathVariable("studentId") Long studentId
+    ){
+        return new ResponseEntity<>(remittanceService.getDutchDetailAll(studentId), HttpStatus.OK);
+    }
 }
