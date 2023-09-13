@@ -23,6 +23,10 @@ export const isRemittanceModalOpen = atom({
   key: "isRemittanceModalOpen",
   default: false,
 });
+export const isCategoryModalOpen = atom<boolean | object>({
+  key: "isCategoryModalOpen",
+  default: false,
+});
 
 export const selectedFriend = atom({
   key: "selectedFriend",
@@ -39,6 +43,13 @@ export const selectedFriend = atom({
       phoneId: "",
       studentId: 0,
       university: "",
+      categoryId: 0,
+      categoryName: "",
     },
   ],
+});
+
+export const friendCategory = atom<{ categoryId: number; category: string }[]>({
+  key: "friendCategoryState",
+  default: [],
 });

@@ -22,8 +22,9 @@ export interface FriendType {
   phoneId: string;
   studentId: number;
   university: string;
+  categoryId: number;
+  categoryName: string;
 }
-
 
 export interface placeType {
   content: string;
@@ -35,4 +36,3 @@ export interface ConsumeSummaryType {
   me: number;
   average: number;
 }
-
