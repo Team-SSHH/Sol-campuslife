@@ -5,6 +5,7 @@ const useFriendPush = () => {
     try {
       const response = await postMakeFriendAlarm(studentId, friendId);
       console.log(response.data);
+      console.log("머야머야");
     } catch (error) {
       console.log(error);
     }
