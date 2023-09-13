@@ -16,12 +16,14 @@ const useFriendListData = (studentId: Number) => {
   const fetchFriendList = async () => {
     try {
       const response = await getFriendList(studentId);
+
       const extractFriends = (data: DataType[]): FriendType[] => {
         return data.map((item) => item.friend);
       };
 
       const new_friends: Array<FriendType> = extractFriends(response.data);
       setFriendsData(new_friends);
+      // setFriendsData(response.data);
     } catch (error) {
       // 에러 처리
     }
