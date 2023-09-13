@@ -5,8 +5,6 @@ const useSendOneWon = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [password, setPassword] = useState<string>();
   const handleSendOneWon = async (studentId: Number) => {
-    console.log("여깅ㅂ니더");
-    console.log(studentId);
     try {
       const response = await putSendOneWon(studentId);
       setIsSuccess(!isSuccess);
