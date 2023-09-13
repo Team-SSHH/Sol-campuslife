@@ -24,6 +24,7 @@ public enum ErrorCode {
     FRIEND_NOT_FOUNT(HttpStatus.NOT_FOUND, "해당 친구 정보를 찾을 수 없습니다."),
     DUTCH_DETAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "더치페이 내역이 없습니다."),
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "카테고리를 찾을 수 없습니다."),
+    MEMBER_IS_EMPTY(HttpStatus.NOT_FOUND, "학생이 존재하지 않습니다."),
 
 
     /* 409 CONFLICT : Response의 현재 상태와 충돌. 보통 중복된 데이터 존재 */

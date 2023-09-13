@@ -19,6 +19,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -51,6 +53,15 @@ public class LoginController {
                         () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
                 )).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/login/studentId")
+    public ResponseEntity<List<Long>> getStudentId(){
+        List<Long> studentIdList = studentRepository.findStudentId();
+        if(studentIdList.isEmpty()){
+            throw new CustomException(ErrorCode.MEMBER_IS_EMPTY);
+        }
+        return new ResponseEntity<>(studentIdList, HttpStatus.OK);
     }
 
     @PostMapping("/login/{studentid}/token")
