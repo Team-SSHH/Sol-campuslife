@@ -25,4 +25,7 @@ public interface LoginRepository extends JpaRepository<Student, Long> {
 
     @Query("select s.balance from student s where s.studentId = :studentId")
     Optional<Long> findBalanceByStudentId(Long studentId);
+
+    @Query("select s.studentId from student s")
+    List<Long> findStudentId();
 }

@@ -178,12 +178,7 @@ public class RemittanceService {
                         .build();
             }
         } else {
-            return RemittanceDto.Response.builder()
-                    .phoneId("실패")
-                    .balance(Long.valueOf(123))
-                    .content("해당 유저가 존재하지 않습니다")
-                    .amount(Long.valueOf(123))
-                    .build();
+            throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
         }
     }
 
@@ -191,7 +186,7 @@ public class RemittanceService {
     @Transactional
     public DutchPayDetailDto.consent consentDutch(
             DutchPayDto.Post dutchPost
-    ){
+    ) {
         // 더치페이 테이블에 저장
         Long number = Long.valueOf(dutchPost.getFriendList().size() + 1);
         Long studentId = dutchPost.getStudentId();
@@ -210,34 +205,53 @@ public class RemittanceService {
         dutchPayRepository.save(dutchpay);
 
         // 더치페이 디테일 테이블에 저장
-        Long dutchAmount = dutchpay.getAmount()/number;
+        Long dutchAmount = dutchpay.getAmount() / number;
         List<Student> friendList = new ArrayList<>();
 
-        for (Long friendsId: dutchPost.getFriendList()
-             ) {
+        for (Long friendsId : dutchPost.getFriendList()
+        ) {
             Student friend = loginRepository.findById(friendsId).orElseThrow(
                     () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
             );
-            dutchPayDetailRepository.save(DutchPayDetail.builder()
-                    .dutchPay(dutchpay)
-                    .dutchAmount(dutchAmount)
-                    .friendId(friendsId)
-                    .build());
-            friendList.add(friend);
+
+            // 알림 푸시 설정
+            Notification notification = Notification.builder()
+                    .setTitle("더치페이 요청")
+                    .setBody("더치페이 해주세요")
+                    .build();
+
+            Message message = Message.builder()
+                    .setToken(friend.getToken())  // 친구의 FCM 토큰 설정
+                    .setNotification(notification)
+                    .putData("click_action", "OPEN_DUTCHPAY_PAGE")  // 클릭 동작 설정
+                    .build();
+            try {
+                firebaseMessaging.send(message);
+
+                dutchPayDetailRepository.save(DutchPayDetail.builder()
+                        .dutchPay(dutchpay)
+                        .dutchAmount(dutchAmount)
+                        .friendId(friendsId)
+                        .build());
+                friendList.add(friend);
+
+                String studentName = student.getName();
+                Long dutchId = dutchpay.getDutchId();
+
+                return DutchPayDetailDto.consent.builder()
+                        .amount(dutchPost.getAmount())
+                        .dutchAmount(dutchAmount)
+                        .frindList(friendList)
+                        .content("더치페이 해주세요")
+                        .studentName(studentName)
+                        .dutchId(dutchId)
+                        .build();
+            } catch (FirebaseMessagingException e) {
+                throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
+            }
+
         }
-
-        // response 값
-        String studentName = student.getName();
-        Long dutchId = dutchpay.getDutchId();
-
-        return DutchPayDetailDto.consent.builder()
-                .amount(dutchPost.getAmount())
-                .dutchAmount(dutchAmount)
-                .frindList(friendList)
-                .content("더치페이 해주세요")
-                .studentName(studentName)
-                .dutchId(dutchId)
-                .build();
+        throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
     }
 
     @Transactional
