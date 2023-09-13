@@ -9,8 +9,11 @@ const useSendOneWon = () => {
       const response = await putSendOneWon(studentId);
       setIsSuccess(!isSuccess);
       setPassword(response.data.content.split(" : ")[1]);
+      return true;
     } catch (error) {
-      console.error(error);
+      console.log(9999);
+      console.log("dfdfd111111");
+      return false;
     }
   };
   return { isSuccess, handleSendOneWon, password };
