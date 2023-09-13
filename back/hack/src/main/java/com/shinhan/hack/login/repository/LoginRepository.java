@@ -14,8 +14,11 @@ import java.util.Optional;
 @Repository
 public interface LoginRepository extends JpaRepository<Student, Long> {
 
-
     List<Student> findAll();
+
     @Query("select s from student s where s.studentId = :studentId and s.password = :password")
     Optional<Student> findStudentByStudentIdAndPassword(Long studentId, String password);
+
+    @Query("select s.balance from student s where s.studentId = :studentId")
+    Optional<Long> findBalanceByStudentId(Long studentId);
 }
