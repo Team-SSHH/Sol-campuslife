@@ -12,7 +12,7 @@ const useSendOneWon = () => {
       setIsSuccess(!isSuccess);
       setPassword(response.data.content.split(" : ")[1]);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
   return { isSuccess, handleSendOneWon, password };

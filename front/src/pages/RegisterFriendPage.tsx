@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import StudentId from "../components/StudentIdPage/StudentId";
 import MessageBox from "../components/RegisterFriendPage/MessageBox";
 import useSendOneWon from "../hooks/useSendOneWon";
+import useFriendPush from "../hooks/useFriendPush";
+import { useRecoilValue } from "recoil";
+import { loginuser } from "../stores/atoms";
 
 interface PageProps {
   text: string;
@@ -12,7 +15,10 @@ interface PageProps {
 const RegisterFriendPage = () => {
   const [step, setStep] = useState(0);
 
+  const userData = useRecoilValue(loginuser);
+
   const { isSuccess, password, handleSendOneWon } = useSendOneWon();
+  const { handleSendAlarm } = useFriendPush();
 
   const registerFriend = (value: string) => {
     if (value === password) {
@@ -26,6 +32,7 @@ const RegisterFriendPage = () => {
       height: 30,
       onConfirm: (value) => {
         handleSendOneWon(Number(value));
+        handleSendAlarm(userData.studentId, Number(value));
         // console.log(`학번은 ${value} 입니다.`);
         setStep((prevStep) => prevStep + 1);
         // 여기에 첫 번째 단계에서 수행할 로직을 작성합니다.
@@ -36,6 +43,8 @@ const RegisterFriendPage = () => {
       height: 40,
       onConfirm: (value) => {
         console.log(`입금자명은 ${value} 입니다.`);
+        console.log("패스와드는" + password);
+        console.log(value);
         registerFriend(value);
       },
     },
