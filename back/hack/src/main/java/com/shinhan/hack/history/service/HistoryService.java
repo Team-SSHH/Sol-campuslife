@@ -25,9 +25,10 @@ public class HistoryService {
     public List<HistoryDto.Response> getAllHistory() {
         List<History> histories = historyRepository.findAll();
         return histories.stream()
-                .map(this::ResponseDto)
+                .map(this::Response1Dto)
                 .collect(Collectors.toList());
     }
+
     public List<HistoryDto.Response> getMyHistory(Long studentId) {
         // long id로 객체 student 만들어서
         // student 객체로 탐색하기
@@ -176,4 +177,22 @@ public class HistoryService {
                 .day(history.getDay())
                 .build();
     }
+    private HistoryDto.Response Response1Dto(History history) {
+        return HistoryDto.Response.builder()
+                .historyId(history.getHistoryId())
+                .studentId((history.getStudent().getStudentId()))
+                .content(history.getContent())
+                .deposit(history.getDeposit())
+                .pay(history.getPay())
+                .transactionTime(history.getTransactionTime())
+                .balance(history.getBalance())
+                .contentCategory(history.getContentCategory())
+                .imgUrl(history.getImgUrl())
+                .day(history.getDay())
+                .lat(history.getLat())
+                .lon(history.getLon())
+                .userScore(history.getUserScore())
+                .build();
+    }
+
     }

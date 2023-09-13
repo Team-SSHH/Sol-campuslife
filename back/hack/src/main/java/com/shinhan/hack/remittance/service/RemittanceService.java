@@ -1,5 +1,9 @@
 package com.shinhan.hack.remittance.service;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
 import com.shinhan.hack.Error.CustomException;
 import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.history.entity.History;
@@ -33,6 +37,8 @@ public class RemittanceService {
     private final LoginRepository loginRepository;
     private final DutchPayDetailRepository dutchPayDetailRepository;
     private final RemittanceMapper remittanceMapper;
+    private final FirebaseMessaging firebaseMessaging;
+
 
     @Transactional
     public RemittanceDto.Response remittance(RemittanceDto.update remittanceUpdate) {
@@ -103,38 +109,84 @@ public class RemittanceService {
 
     @Transactional
     public RemittanceDto.Response won1(Long studentId) {
+        Optional<Student> user = loginRepository.findStudentByStudentId(studentId);
         Long amount = Long.valueOf(1);
         int num = new Random().nextInt(9000) + 1000;
         String content = "인증번호 : " + String.valueOf(num);
+        String randomNumberString = Integer.toString(num);
+        String studentIdString = studentId.toString();
 
-        // 송금
-        remittanceRepository.receive(studentId, amount);
-        Student student = remittanceRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
+        if (user.isPresent()) {
+            if (user.get().getToken() != null) {
+                Notification notification = Notification.builder()
+                        .setTitle("친구 추가 인증")
+                        .setBody(randomNumberString)
+                        .build();
 
-        // 거래내역 추가
-        History history = History.builder()
-                .balance(student.getBalance())
-                .content(content)
-                .contentCategory("1원 이체")
-                .pay(Long.valueOf(0))
-                .deposit(amount)
-                .student(Student.builder().studentId(studentId).build())
-                .build();
+                Message message = Message.builder()
+                        .setToken(user.get().getToken())
+                        .setNotification(notification)
+                        .putData("click_action", "OPEN_MAIN_PAGE")
+                        .build();  // Message 객체 생성을 완료합니다.
 
-        historyRepository.save(history);
+                try {
+                    firebaseMessaging.send(message);
 
-        // 정보 반환
-        RemittanceDto.Response response = RemittanceDto.Response.builder()
-                .phoneId(student.getPhoneId())
-                .balance(student.getBalance())
-                .content(content)
-                .amount(amount)
-                .build();
+                    // 송금
+                    remittanceRepository.receive(studentId, amount);
+                    Student student = remittanceRepository.findById(studentId).orElseThrow(
+                            () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+                    );
 
-        return response;
+                    // 거래내역 추가
+                    History history = History.builder()
+                            .balance(student.getBalance())
+                            .content(content)
+                            .contentCategory("1원 이체")
+                            .pay(Long.valueOf(0))
+                            .deposit(amount)
+                            .student(Student.builder().studentId(studentId).build())
+                            .build();
+
+                    historyRepository.save(history);
+
+                    // 정보 반환
+                    RemittanceDto.Response response = RemittanceDto.Response.builder()
+                            .phoneId(student.getPhoneId())
+                            .balance(student.getBalance())
+                            .content(content)
+                            .amount(amount)
+                            .build();
+
+                    return response;
+                } catch (FirebaseMessagingException e) {
+                    e.printStackTrace();
+
+                    return RemittanceDto.Response.builder()
+                            .phoneId("실패")
+                            .balance(Long.valueOf(123))
+                            .content("알림 보내기 실패")
+                            .amount(Long.valueOf(123))
+                            .build();
+                }
+            } else {
+                return RemittanceDto.Response.builder()
+                        .phoneId("실패")
+                        .balance(Long.valueOf(123))
+                        .content("서버에 해당 유저의 토큰이 존재하지 않습니다")
+                        .amount(Long.valueOf(123))
+                        .build();
+            }
+        } else {
+            return RemittanceDto.Response.builder()
+                    .phoneId("실패")
+                    .balance(Long.valueOf(123))
+                    .content("해당 유저가 존재하지 않습니다")
+                    .amount(Long.valueOf(123))
+                    .build();
+        }
     }
+
 
     @Transactional
     public DutchPayDetailDto.consent consentDutch(

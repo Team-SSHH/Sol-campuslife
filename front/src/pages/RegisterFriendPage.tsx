@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import StudentId from "../components/StudentIdPage/StudentId";
 import MessageBox from "../components/RegisterFriendPage/MessageBox";
 import useSendOneWon from "../hooks/useSendOneWon";
+import api1 from "../utils/api1";
 
 interface PageProps {
   text: string;

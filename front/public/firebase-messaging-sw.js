@@ -66,4 +66,17 @@ messaging.onBackgroundMessage(function (payload) {
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+
+  self.addEventListener("notificationclick", function (event) {
+    event.notification.close(); // 알림 닫기
+
+    var clickAction = event.notification.data.click_action;
+
+    if (clickAction === "OPEN_MAIN_PAGE") {
+      // OPEN_MAIN_PAGE 값인 경우 Main 페이지로 이동
+      event.waitUntil(
+        clients.openWindow("/") // 리액트 PWA의 Main 페이지 URL
+      );
+    }
+  });
 });

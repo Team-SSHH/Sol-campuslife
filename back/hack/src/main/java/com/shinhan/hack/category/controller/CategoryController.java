@@ -9,6 +9,7 @@ import com.shinhan.hack.category.repository.CategoryRepository;
 import com.shinhan.hack.friends.dto.FriendsDto;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
+import com.shinhan.hack.login.dto.StudentCategoryDto;
 import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.mapper.LoginMapper;
@@ -46,16 +47,14 @@ public class CategoryController {
         List<CategoryDto.Response> categoryList = new ArrayList<>();
         for (Category category : categories
         ) {
-//            System.out.println("category = " + category);
             CategoryDto.Response categoryResponse = new CategoryDto.Response();
             categoryResponse.setCategoryId(category.getCategoryId());
             categoryResponse.setCategory(category.getCategory());
             categoryResponse.setStudentId(studentId); // 내 학생 ID 설정
             System.out.println("categoryResponse = " + categoryResponse);
             List<Friends> friendsInCategory = friendsRepository.findByCategory_CategoryId(category.getCategoryId());
-//            System.out.println("friends = " + friendsInCategory);
 
-            List<StudentDto.Response> studentsInCategory = new ArrayList<>();
+            List<StudentCategoryDto.Response> studentsInCategory = new ArrayList<>();
 
             for (Friends friend : friendsInCategory) {
 
@@ -63,7 +62,25 @@ public class CategoryController {
                         () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
                 );
 
-                StudentDto.Response friendInfo = studentMapper.toResponseDto(friendStudent);
+                StudentCategoryDto.Response friendInfo = new StudentCategoryDto.Response();
+
+
+                friendInfo.setCategoryId(category.getCategoryId());
+                friendInfo.setCategoryName(category.getCategory());
+
+                friendInfo.setStudentId(friendStudent.getStudentId());
+                friendInfo.setName(friendStudent.getName());
+                friendInfo.setUniversity(friendStudent.getUniversity());
+
+                friendInfo.setMajor(friendStudent.getMajor());
+                friendInfo.setGrade(friendStudent.getGrade());
+                friendInfo.setGender(friendStudent.getGender());
+                friendInfo.setNationality(friendStudent.getNationality());
+                friendInfo.setBankNumber(friendStudent.getBankNumber());
+                friendInfo.setBalance(friendStudent.getBalance());
+                friendInfo.setPhoneId(friendStudent.getPhoneId());
+                friendInfo.setImageUrl(friendStudent.getImageUrl());
+
                 studentsInCategory.add(friendInfo);
             }
 

@@ -30,6 +30,11 @@ public class FCMNotificationApiController {
         return fcmNotificationService.sendNotificationByToken(requestDto);
     }
 
+    @PostMapping("/push/{studentid}/friend/{friendStudentId}")
+    public String sendNotificationByToken( @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId) {
+        return fcmNotificationService.sendFriend(studentid, friendStudentId);
+    }
+
     @PostMapping("/login/{studentid}/token")
     public Mono<ResponseEntity<Void>> postToken(@PathVariable("studentid") Long studentid,
                                                 @RequestBody Map<String, String> body) {

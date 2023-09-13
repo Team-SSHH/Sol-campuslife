@@ -1,6 +1,7 @@
 package com.shinhan.hack.history.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.login.entity.Student;
 import lombok.*;
 
@@ -27,6 +28,13 @@ public class HistoryDto {
         private long balance;
         private String contentCategory;
         private String imgUrl;
+
+        private String lat;
+
+        private String lon;
+        private String userScore;
+
+
     }
 
 

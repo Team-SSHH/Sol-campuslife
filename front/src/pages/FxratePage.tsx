@@ -55,6 +55,20 @@ const FxratePage: React.FC = () => {
     }
   };
 
+  const push = async () => {
+    console.log(deviceToken);
+    try {
+      const response = await api1.post(
+        "/sshh/login/201403808/token",
+        deviceToken.token
+      );
+      console.log(response);
+    } catch (error) {
+      // 에러 처리 부분 추가 필요.
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     console.log("token", deviceToken);
     if (deviceToken.token) {
