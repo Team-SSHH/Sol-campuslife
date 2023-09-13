@@ -46,7 +46,11 @@ const useAllConsumeData = () => {
 
     // Count the frequency of each content and filter data at the same time
     const frequencyCount: { [key: string]: number } = {};
-    let filteredAndSortedData: { content: string; imgUrl: string }[] = [];
+    let filteredAndSortedData: {
+      content: string;
+      imgUrl: string;
+      userScore: string;
+    }[] = [];
 
     AllDataConsumeLog.forEach((data) => {
       // Check if day matches
@@ -77,21 +81,19 @@ const useAllConsumeData = () => {
         timeMatched = true;
       }
 
-      if (dayMatched && categoryMatched && timeMatched) {
+      if (dayMatched && categoryMatched && timeMatched && data.imgUrl) {
         filteredAndSortedData.push({
           content: data.content,
           imgUrl: data.imgUrl,
+          userScore: data.userScore,
         });
         frequencyCount[data.content]
           ? frequencyCount[data.content]++
           : (frequencyCount[data.content] = 1);
       }
     });
-
-    filteredAndSortedData = filteredAndSortedData.filter(
-      (item) =>
-        item.imgUrl !== null && item.imgUrl !== undefined && item.imgUrl !== ""
-    );
+    console.log(filteredAndSortedData);
+    console.log("ddddddddddddddddddddddddddddddddddd");
 
     filteredAndSortedData.sort(
       (a, b) => frequencyCount[b.content] - frequencyCount[a.content]
