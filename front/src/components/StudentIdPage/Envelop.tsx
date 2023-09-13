@@ -6,9 +6,9 @@ import {
   selectedFriend,
   loginuser,
 } from "../../stores/atoms";
-import { putRemittance, postDutchPay } from "../../services/apiService";
 import { FriendType } from "../../types/DataType";
-
+import useRemittance from "../../hooks/useRemittance";
+import useAlertDutchPay from "../../hooks/useAlertDutchPay";
 const StyledButton = styled.button`
   position: absolute;
   bottom: 10%;
@@ -39,6 +39,9 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
   const friendData = useRecoilValue<Array<FriendType>>(selectedFriend);
   const [value, setValue] = useState<number>(0);
 
+  const { handleRemittance } = useRemittance();
+
+  const { handleAlertDutchPay } = useAlertDutchPay();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseInt(event.target.value);
     if (!isNaN(inputValue)) {
@@ -54,13 +57,17 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
 
     //더치페이일때
     if (props.isdutch) {
-      postDutchPay(userData.studentId, new_friends, value);
-      setIsModalOpen(false);
+      handleAlertDutchPay(userData.studentId, new_friends, value);
     } else {
-      //더치페이아니고 송금일 떄
-      putRemittance(userData.studentId, friendData[0].studentId, value, "송금");
-      setIsModalOpen(false);
+      handleRemittance(
+        userData.studentId,
+        friendData[0].studentId,
+        value,
+        "더치페이"
+      );
     }
+
+    setIsModalOpen(false);
   };
 
   return (
