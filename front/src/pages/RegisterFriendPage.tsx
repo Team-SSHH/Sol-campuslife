@@ -51,7 +51,7 @@ const RegisterFriendPage = () => {
         } else {
           const isSuccessful = await handleSendOneWon(Number(value));
           if (isSuccessful) {
-            handleSendAlarm(userData.studentId, Number(value));
+            // handleSendAlarm(userData.studentId, Number(value));
             console.log("여기몇번찍히냐~~~~");
             setStep((prevStep) => prevStep + 1);
           } else {
