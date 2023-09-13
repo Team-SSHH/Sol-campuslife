@@ -47,7 +47,9 @@ public class RemittanceController {
     public ResponseEntity<RemittanceDto.Response> won1(
             @PathVariable("studentId") Long studentId
     ){
+
         RemittanceDto.Response response = remittanceService.won1(studentId);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

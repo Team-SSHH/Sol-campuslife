@@ -33,6 +33,18 @@ public class StudentDto {
         private Long balance;
         private String phoneId;
         private String imageUrl;
+
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @ToString
+    public static class getBalance{
+        private Long balance;
+
     }
 
 }

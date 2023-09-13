@@ -9,7 +9,11 @@ import com.shinhan.hack.category.repository.CategoryRepository;
 import com.shinhan.hack.friends.dto.FriendsDto;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
+
 import com.shinhan.hack.login.dto.StudentCategoryDto;
+
+import com.shinhan.hack.friends.service.FriendsService;
+
 import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.mapper.LoginMapper;
@@ -20,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +37,7 @@ import java.util.Map;
         RequestMethod.PUT})
 public class CategoryController {
 
+    private final FriendsService friendsService;
     private final CategoryRepository categoryRepository;
     private final FriendsRepository friendsRepository;
     private final LoginRepository studentRepository;
@@ -92,13 +98,13 @@ public class CategoryController {
     }
 
 
-    @PostMapping("/{studentid}")
-    public ResponseEntity<CategoryDto> addCategory(@PathVariable("studentid") Long studentid, @RequestBody Map<String, String> body) {
+    @PostMapping("/{studentId}")
+    public ResponseEntity<CategoryDto> addCategory(@PathVariable("studentId") Long studentId, @RequestBody Map<String, String> body) {
         String categoryName = body.get("categoryName");
 
         List<Category> existingCategories = categoryRepository.findByCategory(categoryName);
         if (!existingCategories.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A category with this name already exists");
+            throw new CustomException(ErrorCode.ALREADY_CATEGORY);
         }
 
         // 새 카테고리 생성
@@ -107,7 +113,7 @@ public class CategoryController {
                 .build();
 
         Student student = new Student();
-        student.setStudentId(studentid);
+        student.setStudentId(studentId);
         newCategory.setStudent(student);
 
         Category savedCategory = categoryRepository.save(newCategory);
@@ -121,19 +127,21 @@ public class CategoryController {
     }
 
 
-    @PutMapping("/{studentid}")
-    public ResponseEntity<CategoryDto> updateCategory(@PathVariable("studentid") Long studentid, @RequestBody CategoryDto categoryUpdate) {
+    @PutMapping("/{studentId}")
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable("studentId") Long studentId, @RequestBody CategoryDto categoryUpdate) {
         Long categoryId = categoryUpdate.getCategoryId();
         String newCategoryName = categoryUpdate.getCategory();
 
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일치하는 카테고리 없음"));
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
+        );
+
         System.out.println("category = " + category);
 
         List<Category> existingCategories = categoryRepository.findByCategory(newCategoryName);
         System.out.println("existingCategories = " + existingCategories);
         if (!existingCategories.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 카테고리");
+            throw new CustomException(ErrorCode.ALREADY_CATEGORY);
         }
 
         category.setCategory(newCategoryName);
@@ -147,24 +155,46 @@ public class CategoryController {
     }
 
 
-    @DeleteMapping("/{studentid}")
+    @Transactional
+    @DeleteMapping("/{studentId}/{categoryId}")
     public ResponseEntity<String> deleteFriend(
-            @PathVariable("studentid") Long studentid, @RequestBody Map<String, Long> body) {
-        Long categoryId = body.get("categoryId");
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일치하는 카테고리 없음"));
+            @PathVariable("studentId") Long studentId, @PathVariable("categoryId") Long categoryId) {
+        // 학번 예외 처리
+        Student student = studentRepository.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
+        // 카테고리 존재 유무 및 예외 처리
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
+        );
 
+        // 카테고리 친구를 모두 기본으로 옮기고 삭제
+        // 학생의 카테고리가 존재하지 않을경우 예외 처리
+        List<Category> friendCategories = categoryRepository.findByStudent_StudentId(studentId);
+        if(friendCategories.isEmpty()){
+            throw new CustomException(ErrorCode.CATEGORY_NOT_FOUND);
+        }
+        // 기본 카테고리 지정
+        Category fristCategory = friendCategories.get(0);
+
+        // 기본 카테고리는 삭제 못함
+        if (friendCategories.size() <= 1 || fristCategory.equals(category)) {
+            throw new CustomException(ErrorCode.BASIC_CATEGORY);
+        }
+
+        // 삭제할 카테고리의 친구 List
         List<Friends> friends = friendsRepository.findByCategory_CategoryId(categoryId);
 
-        if (!friends.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "카테고리에 친구가 있어 삭제할 수 없습니다");
+        // 삭제할 카테고리에 친구 존재할 경우
+        // 기본 카테고리로 모두 이동
+        if(!friends.isEmpty()){
+            for (Friends friend:friends
+                 ) {
+                friendsService.updateFriend(studentId, friend.getFriendId(), fristCategory.getCategoryId());
+            }
         }
 
-        List<Category> studentCategories = categoryRepository.findByStudent_StudentId(studentid);
-        if (studentCategories.size() <= 1 || studentCategories.get(0).equals(category)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유일한 카테고리 또는 첫 번째 카테고리는 삭제할 수 없습니다");
-        }
-
+        // 카테고리 삭제
         categoryRepository.delete(category);
 
         return new ResponseEntity<>("삭제완료", HttpStatus.OK);
