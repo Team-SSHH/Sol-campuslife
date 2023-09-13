@@ -53,10 +53,16 @@ public class CategoryController {
     ) {
         // 학생 존재 여부 예외 처리
         studentService.isStudent(studentId);
-        // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
-        categoryService.isCategoryByNameAndStudentId(categoryDtoPost.getCategoryName(), studentId);
+        String categoryName = categoryDtoPost.getCategoryName();
 
-        CategoryDto.Update savedCategoryDto = categoryService.addCategory(categoryDtoPost.getCategoryName(), studentId);
+        // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
+        List<Category> existingCategories = categoryRepository.findByCategoryAndStudent_StudentId(categoryName, studentId);
+
+        if (!existingCategories.isEmpty()) {
+            throw new CustomException(ErrorCode.ALREADY_CATEGORY);
+        }
+
+        CategoryDto.Update savedCategoryDto = categoryService.addCategory(categoryName, studentId);
 
         return ResponseEntity.ok(savedCategoryDto);
     }
@@ -75,7 +81,11 @@ public class CategoryController {
         String newCategoryName = categoryUpdate.getCategory();
 
         // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
-        categoryService.isCategoryByNameAndStudentId(newCategoryName, studentId);
+        List<Category> existingCategories = categoryRepository.findByCategoryAndStudent_StudentId(newCategoryName, studentId);
+
+        if (!existingCategories.isEmpty()) {
+            throw new CustomException(ErrorCode.ALREADY_CATEGORY);
+        }
 
         CategoryDto.Update update = categoryService.updateCategory(categoryId, newCategoryName);
 
@@ -91,10 +101,16 @@ public class CategoryController {
         studentService.isStudent(studentId);
 
         // 카테고리 존재 유무 및 예외 처리
-        Category category = categoryService.isCategoryById(categoryId);
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
+        );
 
-        // 학생의 카테고리가 존재하지 않을경우 예외 처리
-        List<Category> friendCategories = categoryService.isCategoryListByStudentId(studentId);
+        // 학생 아이디로 카테고리 리스트 확인 -> 적어도 하나는 있어야 함.
+        List<Category> friendCategories = categoryRepository.findByStudent_StudentId(studentId);
+
+        if (friendCategories.isEmpty()) {
+            throw new CustomException(ErrorCode.CATEGORY_NOT_FOUND);
+        }
 
         // 기본 카테고리 지정
         Category fristCategory = friendCategories.get(0);

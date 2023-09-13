@@ -14,6 +14,7 @@ public enum ErrorCode {
     ALREADY_FRIEND(HttpStatus.BAD_REQUEST, "이미 친구입니다."),
     ALREADY_CATEGORY(HttpStatus.BAD_REQUEST, "이미 존재하는 카테고리입니다."),
     BASIC_CATEGORY(HttpStatus.BAD_REQUEST, "기본 카테고리입니다."),
+    DIFFERENT_STUDENT_CATEGORY(HttpStatus.BAD_REQUEST, "다른 학생의 카테고리입니다."),
 
 
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */

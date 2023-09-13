@@ -86,7 +86,9 @@ public class CategoryService {
     @Transactional
     public CategoryDto.Update updateCategory(Long categoryId, String CategoryName) {
         // 변경할 카테고리
-        Category category = this.isCategoryById(categoryId);
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
+        );
         category.setCategory(CategoryName);
 
         categoryRepository.save(category);
@@ -97,38 +99,4 @@ public class CategoryService {
                 .build();
     }
 
-
-    @Transactional
-    public Category deleteCategory(Long studentId, Long categoryId) {
-
-        return null;
-    }
-
-    // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
-    public void isCategoryByNameAndStudentId(String categoryName, Long studentId) {
-
-        List<Category> existingCategories = categoryRepository.findByCategoryAndStudent_StudentId(categoryName, studentId);
-
-        if (!existingCategories.isEmpty()) {
-            throw new CustomException(ErrorCode.ALREADY_CATEGORY);
-        }
-    }
-
-    // 카테고리 아이디로 존재 유무 파악 및 반환
-    public Category isCategoryById(Long categoryId) {
-        return categoryRepository.findById(categoryId).orElseThrow(
-                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
-        );
-    }
-
-    // 학생 아이디로 카테고리 리스트 확인 -> 적어도 하나는 있어야 함.
-    public List<Category> isCategoryListByStudentId(Long studentId) {
-
-        List<Category> friendCategories = categoryRepository.findByStudent_StudentId(studentId);
-
-        if (friendCategories.isEmpty()) {
-            throw new CustomException(ErrorCode.CATEGORY_NOT_FOUND);
-        }
-        return friendCategories;
-    }
 }

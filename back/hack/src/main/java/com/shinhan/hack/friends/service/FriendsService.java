@@ -61,11 +61,16 @@ public class FriendsService {
 
         // 내가 친구를 저장
         // 내 카테고리들을 꺼내와서 첫번째 카테고리(기본)을 저장
-        List<Category> myFriendCategories = categoryService.isCategoryListByStudentId(studentId);
-        Category myFirstCategory = myFriendCategories.get(0);
+        // 학생 아이디로 카테고리 리스트 확인 -> 적어도 하나는 있어야 함.
+        List<Category> friendCategories = categoryRepository.findByStudent_StudentId(studentId);
+
+        if (friendCategories.isEmpty()) {
+            throw new CustomException(ErrorCode.CATEGORY_NOT_FOUND);
+        }
+        Category myFirstCategory = friendCategories.get(0);
 
         // 모든 카테고리에서 친구를 검색하고 이미 있으면 에러
-        for (Category cate : myFriendCategories
+        for (Category cate : friendCategories
         ) {
             if (friendsRepository.findByCategory_CategoryIdAndFriendId(cate.getCategoryId(), friendStudentId).isPresent()) {
                 throw new CustomException(ErrorCode.ALREADY_FRIEND);
@@ -106,11 +111,21 @@ public class FriendsService {
     public List<FriendsDto> updateFriend(Long studentId, Long friendStudentId, Long categoryId) {
         studentService.isStudent(studentId);
         studentService.isFriend(friendStudentId);
-        Category category = categoryService.isCategoryById(categoryId);
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
+        );
 
+        // 친구관계가 존재하는지 확인.
         List<Friends> friends = friendsRepository.findByCategory_Student_StudentIdAndFriendId(studentId, friendStudentId);
 
+        if(friends.isEmpty()){
+            throw new CustomException(ErrorCode.FRIEND_NOT_FOUNT);
+        }
+
         for (Friends friend : friends) {
+            if(friend.getCategory().getStudent().getStudentId() != category.getStudent().getStudentId()) {
+                throw new CustomException(ErrorCode.DIFFERENT_STUDENT_CATEGORY);
+            }
             // Update the category of each Friends object
             friend.setCategory(category);
 
