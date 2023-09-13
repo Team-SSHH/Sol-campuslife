@@ -9,24 +9,19 @@ import javax.persistence.*;
 import java.util.List;
 
 public class CategoryDto {
-    private Long categoryId;
-    private String category;
 
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @ToString
+    public static class Response {
+        private Long categoryId;
+        private Student student;
+        private String category;
+        private List<StudentCategoryDto.Response> students;
+        private Long studentId;
     }
 
     @Getter
@@ -35,11 +30,22 @@ public class CategoryDto {
     @AllArgsConstructor
     @Builder
     @ToString
-    public static class Response{
+    public static class Post {
+        private String categoryName;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @ToString
+    public static class Update {
         private Long categoryId;
-        Student student;
         private String category;
+
         private List<StudentCategoryDto.Response> students;
         private Long studentId;
+
     }
 }

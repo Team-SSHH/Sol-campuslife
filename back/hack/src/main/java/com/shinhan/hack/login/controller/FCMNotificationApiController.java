@@ -25,15 +25,15 @@ public class FCMNotificationApiController {
     private final LoginRepository loginRepository;
 
 //    @Operation(summary = "알림 보내기")
-    @PostMapping("/push")
-    public String sendNotificationByToken(@RequestBody FCMNotificationRequestDto requestDto) {
-        return fcmNotificationService.sendNotificationByToken(requestDto);
-    }
+//    @PostMapping("/push")
+//    public String sendNotificationByToken(@RequestBody FCMNotificationRequestDto requestDto) {
+//        return fcmNotificationService.sendNotificationByToken(requestDto);
+//    }
 
-    @PostMapping("/push/{studentid}/friend/{friendStudentId}")
-    public String sendNotificationByToken( @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId) {
-        return fcmNotificationService.sendFriend(studentid, friendStudentId);
-    }
+//    @PostMapping("/push/{studentid}/friend/{friendStudentId}")
+//    public String sendNotificationByToken( @PathVariable("studentid") Long studentid, @PathVariable("friendStudentId") Long friendStudentId) {
+//        return fcmNotificationService.sendFriend(studentid, friendStudentId);
+//    }
 
     @PostMapping("/login/{studentid}/token")
     public Mono<ResponseEntity<Void>> postToken(@PathVariable("studentid") Long studentid,

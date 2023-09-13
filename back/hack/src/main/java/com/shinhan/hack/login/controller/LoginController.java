@@ -45,43 +45,6 @@ public class LoginController {
     }
 
 
-//    @PostMapping("/login/{studentid}/token")
-//    public Mono<ResponseEntity<Void>> postToken(@PathVariable("studentid") Long studentid,
-//                                                @RequestBody String token) {
-//        System.out.println(token);
-//
-//        String fcmUrl = "https://fcm.googleapis.com/fcm/send";
-//        String serverKey ="AAAAse-LWbY:APA91bH8_L2g06SHMdWKrKEnMMz1b2bRfiA1N06Ea4YMF7A9kuPrDdgj2GG1bPjeDyu6DapGFxYjYrWv9lD0bPzeDIgv6KyM0t6W0GMk8j8MVMAXQiL6V7EAoNCTVe9Zozc9g1fhado7";
-//
-//        WebClient webClient = WebClient.create();
-//
-//        String notificationPayload = "{"
-//                + "\"to\":\"" + token + "\","
-//                + "\"notification\":{"
-//                + "\"title\":\"친구인증\","
-//                + "\"body\":\"1234\""
-//                + "}"
-//                + "}"; // Construct your FCM notification payload here
-//
-//        Mono<ClientResponse> responseMono =
-//                webClient.post()
-//                        .uri(URI.create(fcmUrl))
-//                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-//                        .header(HttpHeaders.AUTHORIZATION, "key=" + serverKey)
-//                        .body(BodyInserters.fromValue(notificationPayload))
-//                        .exchange();
-//
-//        return responseMono.flatMap(response -> {
-//            if (response.statusCode().is2xxSuccessful()) {
-//                System.out.println("Notification sent successfully");
-//                return Mono.just(ResponseEntity.ok().<Void>build());
-//            } else {
-//                System.out.println("Failed to send the notification");
-//                return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).<Void>build());
-//            }
-//        });
-//    }
-
     @GetMapping("/login/{studentId}/balance")
     public ResponseEntity<StudentDto.getBalance> getBalance(
             @PathVariable("studentId") Long studentId
@@ -93,43 +56,6 @@ public class LoginController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
-//    @PostMapping("/login/{studentid}/token")
-//    public Mono<ResponseEntity<Void>> postToken(@PathVariable("studentid") Long studentid,
-//                                                @RequestBody String token) {
-//        System.out.println(token);
-//
-//        String fcmUrl = "https://fcm.googleapis.com/fcm/send";
-//        String serverKey = "";
-//
-//        WebClient webClient = WebClient.create();
-//
-//        String notificationPayload = "{"
-//                + "\"to\":\"" + token + "\","
-//                + "\"notification\":{"
-//                + "\"title\":\"Notification Title\","
-//                + "\"body\":\"This is the body of the notification\""
-//                + "}"
-//                + "}"; // Construct your FCM notification payload here
-//
-//        Mono<ClientResponse> responseMono =
-//                webClient.post()
-//                        .uri(URI.create(fcmUrl))
-//                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-//                        .header(HttpHeaders.AUTHORIZATION, "key=" + serverKey)
-//                        .body(BodyInserters.fromValue(notificationPayload))
-//                        .exchange();
-//
-//        return responseMono.flatMap(response -> {
-//            if (response.statusCode().is2xxSuccessful()) {
-//                System.out.println("Notification sent successfully");
-//                return Mono.just(ResponseEntity.ok().<Void>build());
-//            } else {
-//                System.out.println("Failed to send the notification");
-//                return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).<Void>build());
-//            }
-//        });
-//    }
 
     @GetMapping("/login/studentId")
     public ResponseEntity<List<Long>> getStudentId(){
