@@ -1,9 +1,9 @@
 .frinedsInfo {
   position: absolute;
   /* background-color: #fff; */
-  width: 90%;
+  width: 94%;
   height: 60%;
-  left: 5%;
+  left: 3%;
   top: 30%;
   border-radius: 20px;
 }
@@ -49,6 +49,7 @@
   height: 95%;
   border-radius: 30px;
   border: #fff 0.4rem solid;
+  box-sizing: border-box;
 }
 
 .firendName {

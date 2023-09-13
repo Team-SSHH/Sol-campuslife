@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import FriendId from "./FriendId";
 import "./FriendsList.css";
 import { useRecoilState } from "recoil";
-import { loginuser } from "../../stores/atoms";
-import { isRemittanceModalOpen } from "../../stores/atoms";
+import { friendCategory, loginuser } from "../../stores/atoms";
+import { isRemittanceModalOpen, isCategoryModalOpen } from "../../stores/atoms";
 import RemittanceModal from "./RemittanceModal";
 import { FriendType } from "../../types/DataType";
 import useFriendListData from "../../hooks/useFriendListData";
 import useFriendsCategoryList from "../../hooks/useFriendsCategoryList";
+import BasicBox from "./BasicBox";
 
 const FriendsList = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
@@ -18,11 +19,16 @@ const FriendsList = () => {
   const { categoryData, fetchFriendsCategoryList, setCategoryData } =
     useFriendsCategoryList(userData.studentId);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+  const [categoryModalOpen, setCategoryModalOpen] =
+    useRecoilState(isCategoryModalOpen);
   const [nowCategory, setNowCategory] = useState<Number>(0);
+  const [totalCategory, setTotalCategory] = useRecoilState(friendCategory);
 
   const seeFriends = (friends: Array<FriendType>) => {
     setFriendsData(friends);
   };
+
+  const addCategory = () => {};
 
   return (
     <div>
@@ -54,6 +60,9 @@ const FriendsList = () => {
                 {c.category}
               </div>
             ))}
+            <div className="friendsCategory" onClick={() => addCategory()}>
+              추가
+            </div>
           </div>
           <div className="friendsList">
             {friendsData.map((friend, index) => (
@@ -63,6 +72,7 @@ const FriendsList = () => {
         </div>
       )}
       {isModalOpen && <RemittanceModal />}
+      {categoryModalOpen && <BasicBox category={totalCategory} />}
     </div>
   );
 };

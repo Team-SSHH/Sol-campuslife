@@ -6,31 +6,38 @@ import {
   checkFriend,
   isRemittanceModalOpen,
   selectedFriend,
+  friendCategory,
+  isCategoryModalOpen,
 } from "../../stores/atoms";
 import noncheckImg from "../../assets/noncheck.png";
 import checkImg from "../../assets/check.png";
 import SmartId from "../common/SmartId";
 import { FriendType } from "../../types/DataType";
+import { loginuser } from "../../stores/atoms";
+
 interface FriendIdComponentProps {
   idx: number;
   friend: number;
 }
 
-const StyledButton = styled.button`
+interface StyledButtonProps {
+  right: number;
+  width: number;
+}
+const StyledButton = styled.button<StyledButtonProps>`
   position: absolute;
   bottom: 6%;
-  right: 10%;
+  right: ${(props) => props.right}%;
   outline: none;
   border: none;
   border-radius: 15px;
   color: white;
-  // font-weight: bold;
   padding-left: 1rem;
   padding-right: 1rem;
   z-index: 1;
 
   height: 1.6rem;
-  width: 5rem;
+  width: ${(props) => props.width}%;
   font-size: 0.8rem;
   background: #6e96ff;
 `;
@@ -63,10 +70,18 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
   // const [friend, setFriend] = useState(100);
   const [friend, setFriend] = useRecoilState(selectFriend);
   const [checkfriend, setCheckFriend] = useRecoilState(checkFriend);
+  const [userData, setUserData] = useRecoilState(loginuser);
 
   const [isCheck, setIsCheck] = useState(false);
+  // 송금모달
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
   const setSelectedFriend = useSetRecoilState(selectedFriend);
+
+  const [newFriendCategory, setNewFriendCategory] =
+    useRecoilState(friendCategory);
+
+  const [categoryModalOpen, setCategoryModalOpen] =
+    useRecoilState(isCategoryModalOpen);
 
   const saveFriend = () => {
     if (friend === props.id) {
@@ -80,27 +95,11 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
     setSelectedFriend([friendData]);
   };
 
-  // const deleteFriend = async () => {
-  //   try {
-  //     const response = await api.delete(`/api2/sshh/freinds/${loginuser.student_id}/delete/${freindStudentId}`);
-  //     if (response.status === 200) {
-  //       setResultData(`${freindStudentId}님과 친구 삭제에 성공했습니다`)
-  //     }
-  //   } catch (error) {
-  //     // 에러 처리
-  //   }
-  // };
-
-  // const deleteFriend = async () => {
-  //   try {
-  //     const response = await api.put(`/api2/sshh/freinds/${loginuser.student_id}/update/${freindStudentId}`, {categoryName});
-  //     if (response.status === 200) {
-  //       setResultData(`${freindStudentId}님의 카테고리 변경 완료`)
-  //     }
-  //   } catch (error) {
-  //     // 에러 처리
-  //   }
-  // };
+  const moveCategory = () => {
+    console.log(newFriendCategory);
+    setCategoryModalOpen(newFriendCategory);
+    console.log(categoryModalOpen);
+  };
 
   return (
     <FriendIdComponent
@@ -140,14 +139,29 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
 
       <div>
         {friend === props.id ? (
-          <StyledButton
-            onClick={(e) => {
-              e.stopPropagation();
-              remittance();
-            }}
-          >
-            송금하기
-          </StyledButton>
+          <>
+            <StyledButton
+              right={5}
+              width={24}
+              onClick={(e) => {
+                e.stopPropagation();
+                remittance();
+              }}
+            >
+              송금하기
+            </StyledButton>
+            <StyledButton
+              right={30}
+              width={32}
+              onClick={(e) => {
+                e.stopPropagation();
+                moveCategory();
+                // openModal();
+              }}
+            >
+              카테고리변경
+            </StyledButton>
+          </>
         ) : (
           ""
         )}
