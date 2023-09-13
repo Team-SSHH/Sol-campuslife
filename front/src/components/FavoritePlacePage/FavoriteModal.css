@@ -1,10 +1,25 @@
 .favortieModalContainer {
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
   height: 60%;
   width: 100%;
   background-color: #c6d5ff;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px 20px 0 0; */
+  position: absolute;
+  bottom: -60%;
+  height: 60%;
+  width: 100%;
+  background-color: #c6d5ff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  /* Transition 설정 */
+  transition-property: bottom;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+.favortieModalContainer.show {
+  bottom: 0; /* 최종 위치를 위로 설정 */
 }
 .favoriteModalLine {
   width: 50%;

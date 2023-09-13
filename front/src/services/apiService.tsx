@@ -1,6 +1,7 @@
+import StudentId from "../components/StudentIdPage/StudentId";
 import api1 from "../utils/api1";
 
-//####### get 요청
+//####### get 요청###############
 //전체 거래로그 조회
 export const getAllConsumeData = () => api1.get("/sshh/history");
 //단일 거래로그 조회
@@ -23,7 +24,20 @@ export const getFriendAuth = (studentId: Number, friendId: Number) =>
 export const getFriendsCategoryList = (studentId: Number) =>
   api1.get(`/sshh/category/${studentId}`);
 
-//####### post 요청
+// 더치페이 조회
+export const getDutchPay = (studentId: Number) =>
+  api1.get(`/sshh/remittance/${studentId}/dutch`);
+// 더치페이 상세조회
+export const getDutchPayDetail = (studentId: Number, dutchId: Number) =>
+  api1.get(`/sshh/remittance//${studentId}/dutch/${dutchId}`);
+
+// 요청받은 더치페이 조회
+
+export const getReceiveDutchPayDetail = (studentId: Number) =>
+  api1.get(`/sshh/remittance/${studentId}/dutchDetail`);
+
+//####### post 요청##################
+//로그인
 export const postLogin = (studentId: string, password: string) =>
   api1.post("/sshh/login", { studentId, password });
 // 더치페이 신청(요청하는거)
@@ -32,20 +46,23 @@ export const postDutchPay = (
   friendList: Array<Number>,
   amount: Number
 ) =>
-  api1
-    .post(`/sshh/remittance/${studentId}/consent`, {
-      friendList,
-      amount,
-    })
-    .then((response) => {
-      console.log("여기");
-      console.log(response);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  api1.post(`/sshh/remittance/${studentId}/consent`, {
+    friendList,
+    amount,
+  });
+// 카테고리 추가
+export const postAddCategory = (studentId: Number, categoryName: String) =>
+  api1.post(`/sshh/category/${studentId}`, { categoryName });
 
-//####### put 요청
+// 친구 학생증 저장
+
+export const postMakeFriend = (studentId: Number, friendId: Number) =>
+  api1.post(`/sshh/friends/${studentId}/store/${friendId}`);
+//친구 푸쉬알림
+export const postMakeFriendAlarm = (studentId: Number, friendId: Number) =>
+  api1.post(`/sshh/push/${studentId}/friend/${friendId}`);
+
+//####### put 요청#####################
 // 1원이체
 export const putSendOneWon = (studentId: Number) =>
   api1.put(`/sshh/remittance/${studentId}/won1`);
@@ -86,3 +103,13 @@ export const putCategoryName = (
   categoryId: Number,
   category: String
 ) => api1.put(`/sshh/category/${studentId}`, { categoryId, category });
+
+//############ DEl 요청################
+// 친구학생증 삭제
+
+export const delFriend = (studentId: Number, friendId: Number) =>
+  api1.delete(`/sshh/friends/${studentId}/delete/${friendId}`);
+
+//카테고리 삭제
+export const delCategory = (studentId: Number, categoryId: Number) =>
+  api1.delete(`/sshh/category/${studentId}/${categoryId}`);

@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import FriendId from "./FriendId";
 import "./FriendsList.css";
 import { useRecoilState } from "recoil";
-import { loginuser } from "../../stores/atoms";
-import { isRemittanceModalOpen } from "../../stores/atoms";
+import { friendCategory, loginuser } from "../../stores/atoms";
+import { isRemittanceModalOpen, isCategoryModalOpen } from "../../stores/atoms";
 import RemittanceModal from "./RemittanceModal";
 import { FriendType } from "../../types/DataType";
 import useFriendListData from "../../hooks/useFriendListData";
 import useFriendsCategoryList from "../../hooks/useFriendsCategoryList";
+import BasicBox from "./BasicBox";
+import MessageBox from "../RegisterFriendPage/MessageBox";
+import useMakeNewCategory from "../../hooks/useMakeNewCategory";
 
 const FriendsList = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
@@ -18,10 +21,19 @@ const FriendsList = () => {
   const { categoryData, fetchFriendsCategoryList, setCategoryData } =
     useFriendsCategoryList(userData.studentId);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
+  const [categoryModalOpen, setCategoryModalOpen] =
+    useRecoilState(isCategoryModalOpen);
   const [nowCategory, setNowCategory] = useState<Number>(0);
-
+  const [totalCategory, setTotalCategory] = useRecoilState(friendCategory);
+  const [isOpenMessageBox, setIsOpenMessageBox] = useState<boolean>(false);
+  const [newCategoryName, setNewCategoryName] = useState<string>();
+  const { handleMakeNewCategory, isSuccess } = useMakeNewCategory();
   const seeFriends = (friends: Array<FriendType>) => {
     setFriendsData(friends);
+  };
+
+  const addCategory = () => {
+    setIsOpenMessageBox(true);
   };
 
   return (
@@ -54,6 +66,9 @@ const FriendsList = () => {
                 {c.category}
               </div>
             ))}
+            <div className="friendsCategory" onClick={() => addCategory()}>
+              추가
+            </div>
           </div>
           <div className="friendsList">
             {friendsData.map((friend, index) => (
@@ -63,6 +78,18 @@ const FriendsList = () => {
         </div>
       )}
       {isModalOpen && <RemittanceModal />}
+      {categoryModalOpen && <BasicBox category={totalCategory} />}
+      {isOpenMessageBox && (
+        <MessageBox
+          height={40}
+          text="카테고리 이름을 정해주세요!"
+          onConfirm={(value) => {
+            // setNewCategoryName(value)
+            handleMakeNewCategory(userData.studentId, value);
+            window.location.reload();
+          }}
+        />
+      )}
     </div>
   );
 };
