@@ -3,6 +3,7 @@ import StudentId from "../components/StudentIdPage/StudentId";
 import MessageBox from "../components/RegisterFriendPage/MessageBox";
 import useSendOneWon from "../hooks/useSendOneWon";
 import useFriendPush from "../hooks/useFriendPush";
+import useMakeFriend from "../hooks/useMakeFriend";
 import { useRecoilValue } from "recoil";
 import { loginuser } from "../stores/atoms";
 
@@ -19,9 +20,11 @@ const RegisterFriendPage = () => {
 
   const { isSuccess, password, handleSendOneWon } = useSendOneWon();
   const { handleSendAlarm } = useFriendPush();
+  const { handleMakeFriend } = useMakeFriend();
 
   const registerFriend = (value: string) => {
     if (value === password) {
+      handleMakeFriend(userData.studentId, Number(value));
       console.log("일치합니다. 친구가 되셨습니다.");
     }
   };
