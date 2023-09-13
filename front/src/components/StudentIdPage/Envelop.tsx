@@ -53,9 +53,11 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     const extractFriends = (data: FriendType[]): number[] => {
       return data.map((item) => item.studentId);
     };
-    const new_frineds = extractFriends(friendData);
+    const new_friends = extractFriends(friendData);
 
+    //더치페이일때
     if (props.isdutch) {
+
       handleAlertDutchPay(userData.studentId, new_frineds, value);
     } else {
       handleRemittance(
@@ -67,7 +69,9 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     }
 
     setIsModalOpen(false);
+
   };
+
   return (
     <div>
       <div className="remittanceEnvelope">
