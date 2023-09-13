@@ -58,6 +58,9 @@ export const postAddCategory = (studentId: Number, categoryName: String) =>
 
 export const postMakeFriend = (studentId: Number, friendId: Number) =>
   api1.post(`/sshh/friends/${studentId}/store/${friendId}`);
+//친구 푸쉬알림
+export const postMakeFriendAlarm = (studentId: Number, friendId: Number) =>
+  api1.post(`/sshh/push/${studentId}/friend/${friendId}`);
 
 //####### put 요청#####################
 // 1원이체

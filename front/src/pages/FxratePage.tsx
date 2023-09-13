@@ -8,7 +8,7 @@ import Fxratepush from "../components/FxratePage/Fxratepush";
 import "./styles/FxratePage.css";
 import { registerServiceWorker } from "../utils/notification";
 import { AppCheckTokenResult } from "@firebase/app-check";
-import { getMessaging, getToken } from "firebase/messaging";
+// import { getMessaging, getToken } from "firebase/messaging";
 // import firebase from "firebase/app";
 import axios from "axios";
 import api1 from "../utils/api1";
@@ -19,7 +19,7 @@ const FxratePage: React.FC = () => {
   const [deviceToken, setDeviceToken] = useState<AppCheckTokenResult>({
     token: "",
   });
-  const messaging = getMessaging();
+  // const messaging = getMessaging();
 
   const handleCurrencyChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -32,49 +32,49 @@ const FxratePage: React.FC = () => {
     registerServiceWorker();
     setIsModalOpen(!isModalOpen);
   }
-  async function getDeviceToken() {
-    const token = await getToken(messaging, {
-      vapidKey: process.env.REACT_APP_VAPID_KEY,
-    });
-    setDeviceToken({
-      token: token,
-    });
-  }
+  // async function getDeviceToken() {
+  //   const token = await getToken(messaging, {
+  //     vapidKey: process.env.REACT_APP_VAPID_KEY,
+  //   });
+  //   setDeviceToken({
+  //     token: token,
+  //   });
+  // }
 
-  const postDeviceToken = async () => {
-    console.log(deviceToken);
-    try {
-      const response = await api1.post(
-        "/sshh/login/201403808/token",
-        deviceToken.token
-      );
-      console.log(response);
-    } catch (error) {
-      // 에러 처리 부분 추가 필요.
-      console.error(error);
-    }
-  };
+  // const postDeviceToken = async () => {
+  //   console.log(deviceToken);
+  //   try {
+  //     const response = await api1.post(
+  //       "/sshh/login/201403808/token",
+  //       deviceToken.token
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     // 에러 처리 부분 추가 필요.
+  //     console.error(error);
+  //   }
+  // };
 
-  const push = async () => {
-    console.log(deviceToken);
-    try {
-      const response = await api1.post(
-        "/sshh/login/201403808/token",
-        deviceToken.token
-      );
-      console.log(response);
-    } catch (error) {
-      // 에러 처리 부분 추가 필요.
-      console.error(error);
-    }
-  };
+  // const push = async () => {
+  //   console.log(deviceToken);
+  //   try {
+  //     const response = await api1.post(
+  //       "/sshh/login/201403808/token",
+  //       deviceToken.token
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     // 에러 처리 부분 추가 필요.
+  //     console.error(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    console.log("token", deviceToken);
-    if (deviceToken.token) {
-      postDeviceToken();
-    }
-  }, [deviceToken]);
+  // useEffect(() => {
+  //   console.log("token", deviceToken);
+  //   if (deviceToken.token) {
+  //     postDeviceToken();
+  //   }
+  // }, [deviceToken]);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -90,7 +90,6 @@ const FxratePage: React.FC = () => {
           <div className="modal-content">
             {/* 모달 내용 */}
             <Fxratepush />
-            <button onClick={getDeviceToken}>디바이스 토큰받기</button>
             <button className="close-button" onClick={handleCloseModal}>
               X
             </button>
