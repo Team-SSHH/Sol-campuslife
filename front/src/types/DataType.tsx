@@ -9,6 +9,7 @@ export interface TransactionHistoryType {
   studentId: number;
   transactionTime: string;
   day: string;
+  userScore: string;
 }
 export interface FriendType {
   balance: number;
