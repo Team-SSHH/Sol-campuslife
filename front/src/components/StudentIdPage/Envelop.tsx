@@ -50,19 +50,19 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     const extractFriends = (data: FriendType[]): number[] => {
       return data.map((item) => item.studentId);
     };
-    const new_frineds = extractFriends(friendData);
+    const new_friends = extractFriends(friendData);
 
+    //더치페이일때
     if (props.isdutch) {
-      postDutchPay(userData.studentId, new_frineds, value);
+      postDutchPay(userData.studentId, new_friends, value);
+      setIsModalOpen(false);
+    } else {
+      //더치페이아니고 송금일 떄
+      putRemittance(userData.studentId, friendData[0].studentId, value, "송금");
+      setIsModalOpen(false);
     }
-    putRemittance(
-      userData.studentId,
-      friendData[0].studentId,
-      value,
-      "더치페이"
-    );
-    setIsModalOpen(false);
   };
+
   return (
     <div>
       <div className="remittanceEnvelope">

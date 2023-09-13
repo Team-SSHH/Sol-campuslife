@@ -36,6 +36,10 @@ export const getDutchPayDetail = (studentId: Number, dutchId: Number) =>
 export const getReceiveDutchPayDetail = (studentId: Number) =>
   api1.get(`/sshh/remittance/${studentId}/dutchDetail`);
 
+// 내 잔액 조회
+export const getMyMoney = (studentId: Number) =>
+  api1.get(`/sshh/login/${studentId}/balance`);
+
 //####### post 요청##################
 //로그인
 export const postLogin = (studentId: string, password: string) =>
