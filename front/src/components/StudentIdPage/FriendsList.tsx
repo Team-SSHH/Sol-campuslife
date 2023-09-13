@@ -9,6 +9,8 @@ import { FriendType } from "../../types/DataType";
 import useFriendListData from "../../hooks/useFriendListData";
 import useFriendsCategoryList from "../../hooks/useFriendsCategoryList";
 import BasicBox from "./BasicBox";
+import MessageBox from "../RegisterFriendPage/MessageBox";
+import useMakeNewCategory from "../../hooks/useMakeNewCategory";
 
 const FriendsList = () => {
   const [userData, setUserData] = useRecoilState(loginuser);
@@ -23,12 +25,16 @@ const FriendsList = () => {
     useRecoilState(isCategoryModalOpen);
   const [nowCategory, setNowCategory] = useState<Number>(0);
   const [totalCategory, setTotalCategory] = useRecoilState(friendCategory);
-
+  const [isOpenMessageBox, setIsOpenMessageBox] = useState<boolean>(false);
+  const [newCategoryName, setNewCategoryName] = useState<string>();
+  const { handleMakeNewCategory, isSuccess } = useMakeNewCategory();
   const seeFriends = (friends: Array<FriendType>) => {
     setFriendsData(friends);
   };
 
-  const addCategory = () => {};
+  const addCategory = () => {
+    setIsOpenMessageBox(true);
+  };
 
   return (
     <div>
@@ -73,6 +79,17 @@ const FriendsList = () => {
       )}
       {isModalOpen && <RemittanceModal />}
       {categoryModalOpen && <BasicBox category={totalCategory} />}
+      {isOpenMessageBox && (
+        <MessageBox
+          height={40}
+          text="카테고리 이름을 정해주세요!"
+          onConfirm={(value) => {
+            // setNewCategoryName(value)
+            handleMakeNewCategory(userData.studentId, value);
+            window.location.reload();
+          }}
+        />
+      )}
     </div>
   );
 };
