@@ -60,21 +60,21 @@ public class RemittanceService {
         Long friendBalance = friend.getBalance();
 
         // 잔고 확인 예외 처리
-        if(friendBalance < amount){
+        if(myBalance < amount){
             throw new CustomException(ErrorCode.MEMBER_DONT_HAVE_MONEY);
         }
 
         // 거래 DB 저장
-        remittanceRepository.send(friendId, amount);
-        remittanceRepository.receive(studentId, amount);
+        remittanceRepository.send(studentId, amount);
+        remittanceRepository.receive(friendId, amount);
 
         // 학생 잔고 update
-        student.setBalance(friendBalance - amount);
-        friend.setBalance(myBalance + amount);
+        student.setBalance(myBalance - amount);
+        friend.setBalance(friendBalance + amount);
 
         // 거래내역 추가
         History myHistory = History.builder()
-                .balance(friendBalance - amount)
+                .balance(myBalance - amount)
                 .content(content)
                 .contentCategory("계좌이체")
                 .pay(amount)
@@ -83,7 +83,7 @@ public class RemittanceService {
                 .build();
 
         History fHistory = History.builder()
-                .balance(myBalance + amount)
+                .balance(friendBalance + amount)
                 .content(content)
                 .contentCategory("계좌이체")
                 .pay(Long.valueOf(0))
