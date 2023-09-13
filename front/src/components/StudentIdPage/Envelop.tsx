@@ -54,6 +54,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
       return data.map((item) => item.studentId);
     };
     const new_friends = extractFriends(friendData);
+    console.log(new_friends);
 
     //더치페이일때
     if (props.isdutch) {

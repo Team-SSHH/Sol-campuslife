@@ -10,6 +10,7 @@ const useAlertDutchPay = () => {
   ) => {
     try {
       const response = await postDutchPay(studentId, friendList, amount);
+      console.log(response);
       setIsSuccess(!isSuccess);
       return true;
     } catch (error) {
