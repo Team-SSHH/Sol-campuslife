@@ -1,7 +1,13 @@
-import React from "react";
-import { useRecoilState } from "recoil";
+import React, { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { isCategoryModalOpen } from "../../stores/atoms";
+import {
+  isCategoryModalOpen,
+  loginuser,
+  selectedFriend,
+} from "../../stores/atoms";
+import { FriendType } from "../../types/DataType";
+import useCategoryChange from "../../hooks/useCategoryChange";
 
 const BasicBoxWraper = styled.div`
   display: flex;
@@ -18,11 +24,14 @@ const BasicBoxWraper = styled.div`
   border-radius: 40px;
   border: 1px solid #000;
 `;
-const BasicBoxComponent = styled.div`
+
+interface BasicBoxComponentProps {
+  selected?: boolean; // 선택된 상태 여부를 나타내는 속성
+}
+
+const BasicBoxComponent = styled.div<BasicBoxComponentProps>`
   position: relative;
 
-  // top: 10%;
-  // right: 20%;
   height: 10%;
   width: 60%;
 
@@ -34,15 +43,12 @@ const BasicBoxComponent = styled.div`
   padding-right: 1rem;
 
   font-size: 0.8rem;
-  background: #6e96ff;
+  background: ${(props) => (props.selected ? "#6e96ff" : "#c7d6ff")};
+  color: ${(props) => (props.selected ? "#fff" : "#000")};
 
-  // text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  // justify-self: center;
-  // align-items: center;
 `;
 
 const StyledButton = styled.button`
@@ -51,14 +57,13 @@ const StyledButton = styled.button`
   outline: none;
   border: none;
   border-radius: 15px;
-  // color: white;
   padding-left: 1rem;
   padding-right: 1rem;
   z-index: 1;
 
   height: 1.6rem;
-  font-size: 1rem;
-  background: #c7d6ff;
+  font-size: 0.8rem;
+  background: #6e96ff;
 `;
 
 const Ptag = styled.div`
@@ -74,16 +79,49 @@ interface categoryData {
 interface BasicBoxProps {
   category: Array<categoryData>;
 }
+
 const BasicBox: React.FC<BasicBoxProps> = (props) => {
   const [categoryModalOpen, setCategoryModalOpen] =
     useRecoilState(isCategoryModalOpen);
+  const [clickCategoryId, setClickCategoryId] = useState<number>(0);
+  const friendData = useRecoilValue<Array<FriendType>>(selectedFriend);
+  const [userData, setUserData] = useRecoilState(loginuser);
+  const { handleChangeCategory } = useCategoryChange();
+
+  const isclick = (props: number) => {
+    if (clickCategoryId !== props) {
+      setClickCategoryId(props);
+    } else {
+      setClickCategoryId(0);
+    }
+  };
+
+  const onConfirm = () => {
+    handleChangeCategory(
+      userData.studentId,
+      friendData[0].studentId,
+      clickCategoryId
+    );
+    setCategoryModalOpen(false);
+    window.location.reload();
+  };
+
   return (
     <BasicBoxWraper>
       <Ptag>카테고리를 선택해주세요</Ptag>
-      {props.category.map((c, index) => (
-        <BasicBoxComponent key={index}>{c.category}</BasicBoxComponent>
-      ))}
-      <StyledButton>선택</StyledButton>
+      {props.category.map(
+        (c, index) =>
+          c.categoryId !== friendData[0].categoryId && (
+            <BasicBoxComponent
+              key={index}
+              selected={clickCategoryId === c.categoryId}
+              onClick={() => isclick(c.categoryId)}
+            >
+              {c.category}
+            </BasicBoxComponent>
+          )
+      )}
+      <StyledButton onClick={() => onConfirm()}>선택</StyledButton>
     </BasicBoxWraper>
   );
 };

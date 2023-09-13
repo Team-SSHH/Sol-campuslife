@@ -83,6 +83,10 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
   const [categoryModalOpen, setCategoryModalOpen] =
     useRecoilState(isCategoryModalOpen);
 
+  useEffect(() => {
+    setFriend(100);
+  }, []);
+
   const saveFriend = () => {
     if (friend === props.id) {
       setFriend(100);
@@ -97,7 +101,9 @@ const FriendId: React.FC<FriendIdProps> = (props) => {
 
   const moveCategory = () => {
     console.log(newFriendCategory);
-    setCategoryModalOpen(newFriendCategory);
+    setCategoryModalOpen(true);
+    setSelectedFriend([friendData]);
+
     console.log(categoryModalOpen);
   };
 

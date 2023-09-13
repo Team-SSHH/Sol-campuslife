@@ -23,7 +23,7 @@ export const isRemittanceModalOpen = atom({
   key: "isRemittanceModalOpen",
   default: false,
 });
-export const isCategoryModalOpen = atom<boolean | object>({
+export const isCategoryModalOpen = atom<boolean>({
   key: "isCategoryModalOpen",
   default: false,
 });

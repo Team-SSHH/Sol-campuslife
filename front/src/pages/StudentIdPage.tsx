@@ -46,8 +46,6 @@ const StudentIdPage = () => {
     setIsModalOpen(true);
     setSelectedFriend(checkfriend);
     setCheckFriend([]);
-
-    // 라우
   };
 
   return (
