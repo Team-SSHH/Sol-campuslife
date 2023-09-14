@@ -52,7 +52,7 @@
 
 .my-calendar .scrollable-table {
   max-height: 200px; /* 원하는 높이로 조절하세요 */
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .my-calendar table {
