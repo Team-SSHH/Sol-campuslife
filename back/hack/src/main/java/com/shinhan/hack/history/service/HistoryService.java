@@ -192,6 +192,7 @@ public class HistoryService {
                 .lat(history.getLat())
                 .lon(history.getLon())
                 .userScore(history.getUserScore())
+                .address(history.getAddress())
                 .build();
     }
 

@@ -22,6 +22,8 @@ public class DutchPayDto {
         private Long number;
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime requestTime;
+        private List<DutchPayDetailDto.Response> details;
+
     }
 
     @Getter
@@ -34,4 +36,9 @@ public class DutchPayDto {
         private Long amount;
         private Long studentId;
     }
+
+
+
+
+
 }

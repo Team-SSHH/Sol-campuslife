@@ -71,5 +71,8 @@ public class History {
     @Column(name = "user_score")
     private String userScore;
 
+    @Column(name = "address")
+    private String address;
+
 
 }

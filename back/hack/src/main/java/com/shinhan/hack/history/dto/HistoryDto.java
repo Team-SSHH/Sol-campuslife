@@ -30,10 +30,9 @@ public class HistoryDto {
         private String imgUrl;
 
         private String lat;
-
         private String lon;
         private String userScore;
-
+        private String address;
 
     }
 
