@@ -33,19 +33,18 @@ const BasicBoxComponent = styled.div<BasicBoxComponentProps>`
   position: relative;
 
   height: 10%;
-  width: 60%;
-
+  // width: %;
+  margin-bottom: 3%;
   outline: none;
   border: none;
   border-radius: 15px;
   color: white;
-  padding-left: 1rem;
-  padding-right: 1rem;
 
   font-size: 0.8rem;
   background: ${(props) => (props.selected ? "#6e96ff" : "#c7d6ff")};
   color: ${(props) => (props.selected ? "#fff" : "#000")};
 
+  overflow-y: scroll;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +63,10 @@ const StyledButton = styled.button`
   height: 1.6rem;
   font-size: 0.8rem;
   background: #6e96ff;
+`;
+const CategoryBox = styled.div`
+  overflow-y: scroll;
+  width: 70%;
 `;
 
 const Ptag = styled.div`
@@ -109,18 +112,21 @@ const BasicBox: React.FC<BasicBoxProps> = (props) => {
   return (
     <BasicBoxWraper>
       <Ptag>카테고리를 선택해주세요</Ptag>
-      {props.category.map(
-        (c, index) =>
-          c.categoryId !== friendData[0].categoryId && (
-            <BasicBoxComponent
-              key={index}
-              selected={clickCategoryId === c.categoryId}
-              onClick={() => isclick(c.categoryId)}
-            >
-              {c.category}
-            </BasicBoxComponent>
-          )
-      )}
+      <CategoryBox>
+        {props.category.map(
+          (c, index) =>
+            c.categoryId !== friendData[0].categoryId && (
+              <BasicBoxComponent
+                key={index}
+                selected={clickCategoryId === c.categoryId}
+                onClick={() => isclick(c.categoryId)}
+              >
+                {c.category}
+              </BasicBoxComponent>
+            )
+        )}
+      </CategoryBox>
+
       <StyledButton onClick={() => onConfirm()}>선택</StyledButton>
     </BasicBoxWraper>
   );

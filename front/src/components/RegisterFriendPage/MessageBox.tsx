@@ -8,7 +8,7 @@ const StyledButton = styled.button`
   outline: none;
   border: none;
   border-radius: 15px;
-  color: white;
+  // color: white;
   font-weight: bold;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -16,12 +16,12 @@ const StyledButton = styled.button`
 
   height: 2.2rem;
   width: 5rem;
-  background: #6e96ff;
+  background: #c6d5ff;
 `;
 const BoxDiv = styled.div<BoxDivProps>`
   margin-right: 5%;
   border-radius: 20px;
-  background-color: #c6d5ff;
+  background-color: #6e96ff;
   width: 90%;
   position: absolute;
   height: ${(props) => props.height}%;
