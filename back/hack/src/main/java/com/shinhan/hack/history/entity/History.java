@@ -62,4 +62,17 @@ public class History {
     @Builder.Default
     private String day = dayStr;
 
+    @Column(name = "lat")
+    private String lat;
+
+    @Column(name = "lon")
+    private String lon;
+
+    @Column(name = "user_score")
+    private String userScore;
+
+    @Column(name = "address")
+    private String address;
+
+
 }

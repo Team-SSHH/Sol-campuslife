@@ -47,10 +47,15 @@ public class RemittanceController {
     public ResponseEntity<RemittanceDto.Response> won1(
             @PathVariable("studentId") Long studentId
     ){
-
-        RemittanceDto.Response response = remittanceService.won1(studentId);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try {
+            RemittanceDto.Response response = remittanceService.won1(studentId);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (CustomException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/{studentId}/consent")
@@ -101,7 +106,13 @@ public class RemittanceController {
     ) {
 
         List<DutchPayDto.Response> response = remittanceMapper.toDutchResponseDto(remittanceService.dutchPay(studentId));
+        for (DutchPayDto.Response dutchResponse : response) {
+            List<DutchPayDetailDto.Response> detailResponses = remittanceService.getDutchDetail(dutchResponse.getDutchId());
+            dutchResponse.setDetails(detailResponses);
+        }
+
         return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
     @GetMapping("/{studentId}/dutch/{dutchId}")
@@ -110,6 +121,7 @@ public class RemittanceController {
             @PathVariable("dutchId") Long dutchId
     ){
         List<DutchPayDetailDto.Response> response = remittanceService.getDutchDetail(dutchId);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

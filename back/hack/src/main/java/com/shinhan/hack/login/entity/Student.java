@@ -57,4 +57,7 @@ public class Student {
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
+
+    @Column(name = "token")
+    private String token;
 }

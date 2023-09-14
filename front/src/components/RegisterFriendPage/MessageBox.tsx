@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { loginuser } from "../../stores/atoms";
+import { useRecoilState } from "recoil";
+import api1 from "../../utils/api1";
 
 interface BoxDivProps {
   height: number;
@@ -42,14 +45,28 @@ interface MessageBoxProps {
 }
 
 const MessageBox = (props: MessageBoxProps) => {
+  const [userData, setUserData] = useRecoilState(loginuser);
+
   const [value, setValue] = useState<string>("");
   const { height, text } = props;
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-
+  const friendPush = async () => {
+    // console.log(deviceToken);
+    try {
+      const response = await api1.post(
+        `/sshh/friends/${userData.studentId}/friend/${value}`
+      );
+      console.log(response);
+    } catch (error) {
+      // 에러 처리 부분 추가 필요.
+      console.error(error);
+    }
+  };
   const handleClick = () => {
     console.log(value);
+    friendPush();
     // 친구추가 로직 추가
     props.onConfirm(value);
   };

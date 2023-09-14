@@ -7,6 +7,7 @@ import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.category.repository.CategoryRepository;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
+import com.shinhan.hack.login.dto.StudentCategoryDto;
 import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.mapper.LoginMapper;
@@ -47,15 +48,18 @@ public class CategoryService {
             // 카테고리에 있는 친구 목록
             List<Friends> friendsInCategory = friendsRepository.findByCategory_CategoryId(category.getCategoryId());
 
-            List<StudentDto.Response> studentsInCategory = new ArrayList<>();
+            List<StudentCategoryDto.Response> studentsInCategory = new ArrayList<>();
 
             for (Friends friend : friendsInCategory) {
 
                 // 친구 존재 예외 처리 및 결과 반환
+
+
                 Student friendStudent = studentRepository.findById(friend.getFriendId()).orElseThrow(
                         () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
                 );
                 StudentDto.Response friendInfo = studentMapper.toResponseDto(friendStudent);
+
                 studentsInCategory.add(friendInfo);
             }
 

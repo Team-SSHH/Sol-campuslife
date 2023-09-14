@@ -2,26 +2,15 @@ package com.shinhan.hack.login.dto;
 
 import lombok.*;
 
-import javax.persistence.Column;
-
-public class StudentDto {
+public class StudentCategoryDto {
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
-    public static class Post{
-        private Long studentId;
-        private String password;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
     @ToString
-    public static class Response{
+    public static class Response extends StudentDto.Response {
+        private Long categoryId;
+        private String categoryName;
         private Long studentId;
         private String name;
         private String university;
@@ -33,21 +22,6 @@ public class StudentDto {
         private Long balance;
         private String phoneId;
         private String imageUrl;
-
     }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    @ToString
-    public static class getBalance{
-        private Long balance;
-
-    }
-
 }
-
-
 
