@@ -15,7 +15,7 @@ public class DutchPayDetailDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Response{
+    public static class Response implements Comparable<Response>{
         private Long dutchDetailId;
         private Long dutchAmount;
         private boolean remittanceState;
@@ -24,6 +24,12 @@ public class DutchPayDetailDto {
         private String name;
         private Long friendId;
         private Long dutchId;
+
+        @Override
+        public int compareTo(DutchPayDetailDto.Response p) {
+            if(p.remittanceState)return 1;
+            return (int)(this.getDutchDetailId() - p.getDutchDetailId());
+        }
     }
 
     @Getter
