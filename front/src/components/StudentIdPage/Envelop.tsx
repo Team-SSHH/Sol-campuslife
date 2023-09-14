@@ -32,7 +32,9 @@ interface EnvelopProps {
   text1: string;
   text2: string;
 }
-
+const StyledInput = styled.input`
+  text-align: right;
+`;
 const Envelop: React.FC<EnvelopProps> = (props) => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
   const [userData, setUserData] = useRecoilState(loginuser);
@@ -85,7 +87,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
         <br />
         <div className="remittanceContentMoney">
           <span>
-            <input
+            <StyledInput
               type="text"
               value={value}
               onChange={handleInputChange}
