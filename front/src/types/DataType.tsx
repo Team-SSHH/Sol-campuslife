@@ -10,6 +10,7 @@ export interface TransactionHistoryType {
   transactionTime: string;
   day: string;
   userScore: string;
+  address: string;
 }
 export interface FriendType {
   balance: number;
@@ -31,6 +32,7 @@ export interface placeType {
   content: string;
   imgUrl: string;
   userScore: string;
+  address: string;
 }
 
 export interface ConsumeSummaryType {
