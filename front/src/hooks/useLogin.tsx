@@ -15,12 +15,9 @@ const useLogin = () => {
   const [deviceToken, setDeviceToken] = useState<AppCheckTokenResult>({
     token: "",
   });
+
   const navigate = useNavigate();
 
-  // const handleLogin = () => {
-  //   console.log(studentId, password);
-  //   navigate("/Main");
-  // };
   async function getDeviceToken(studentId: any) {
     const token = await getToken(messaging, {
       vapidKey: process.env.REACT_APP_VAPID_KEY,

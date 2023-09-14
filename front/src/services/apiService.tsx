@@ -29,7 +29,7 @@ export const getDutchPay = (studentId: Number) =>
   api1.get(`/sshh/remittance/${studentId}/dutch`);
 // 더치페이 상세조회
 export const getDutchPayDetail = (studentId: Number, dutchId: Number) =>
-  api1.get(`/sshh/remittance//${studentId}/dutch/${dutchId}`);
+  api1.get(`/sshh/remittance/${studentId}/dutch/${dutchId}`);
 
 // 요청받은 더치페이 조회
 
