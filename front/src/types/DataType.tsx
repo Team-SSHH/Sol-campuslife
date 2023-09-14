@@ -40,3 +40,22 @@ export interface ConsumeSummaryType {
   me: number;
   average: number;
 }
+
+export interface DutchType {
+  dutchDetailId: number;
+  dutchId: number;
+  dutchAmount: number;
+  remittanceState: boolean;
+  remittanceTime: string | null;
+  name: string;
+  friendId: number;
+}
+
+export interface GetDutchType {
+  dutchId: number;
+  amount: number;
+  dutchState: boolean;
+  number: number;
+  requestTime: string;
+  details: DutchType[];
+}
