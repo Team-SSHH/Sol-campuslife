@@ -15,7 +15,7 @@ interface Alarm2Props {
 
 const SquareBox2Component = styled.div<SquareBox2Props>`
   width: 96%;
-  height: 60%;
+  height: 38%;
   padding-top: 3%;
   padding-bottom: 5%;
   margin-bottom: 5%;
