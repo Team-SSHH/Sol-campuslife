@@ -10,7 +10,6 @@ import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
 import com.shinhan.hack.friends.service.FriendsService;
 import com.shinhan.hack.login.repository.LoginRepository;
-import com.shinhan.hack.login.service.LoginService;
 import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,6 @@ import java.util.List;
         RequestMethod.PUT})
 public class CategoryController {
 
-    private final LoginService studentService;
     private final FriendsService friendsService;
     private final CategoryService categoryService;
 

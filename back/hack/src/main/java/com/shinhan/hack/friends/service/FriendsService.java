@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class FriendsService {
 
     private final FriendsRepository friendsRepository;
     private final CategoryRepository categoryRepository;
-    private LoginRepository studentRepository;
+    private final LoginRepository studentRepository;
 
     private final LoginMapper studentMapper;
 
@@ -100,7 +101,7 @@ public class FriendsService {
 
         // 모든 일치하는 친구 정보 삭제
         for (Friends friend : friends) {
-            friendsRepository.delete(friend);
+            friendsRepository.deleteALL(friend);
         }
 
         // 업데이트된 친구 목록 반환
@@ -128,7 +129,7 @@ public class FriendsService {
         }
 
         for (Friends friend : friends) {
-            if(friend.getCategory().getStudent().getStudentId() != category.getStudent().getStudentId()) {
+            if(!Objects.equals(friend.getCategory().getStudent().getStudentId(), category.getStudent().getStudentId())) {
                 throw new CustomException(ErrorCode.DIFFERENT_STUDENT_CATEGORY);
             }
             // Update the category of each Friends object

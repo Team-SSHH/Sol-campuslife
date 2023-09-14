@@ -15,9 +15,8 @@ public class LoginService {
     private final LoginRepository loginRepository;
 
     public Student login(StudentDto.Post student) {
-        Student response = loginRepository.findStudentByStudentIdAndPassword(student.getStudentId(), student.getPassword()).orElseThrow(
+        return loginRepository.findStudentByStudentIdAndPassword(student.getStudentId(), student.getPassword()).orElseThrow(
                 () -> new CustomException(ErrorCode.LOGIN_FAIL)
         );
-        return response;
     }
 }

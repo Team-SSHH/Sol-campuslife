@@ -5,7 +5,6 @@ import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.friends.dto.FriendsDto;
 import com.shinhan.hack.friends.service.FriendsService;
 import com.shinhan.hack.login.repository.LoginRepository;
-import com.shinhan.hack.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,6 @@ import java.util.Map;
 @RequiredArgsConstructor public class FriendsController {
 
     private final FriendsService friendsService;
-    private final LoginService loginService;
 
     private final LoginRepository studentRepository;
 

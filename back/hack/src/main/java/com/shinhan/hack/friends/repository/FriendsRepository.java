@@ -16,4 +16,6 @@ public interface FriendsRepository extends JpaRepository<Friends, Long> {
     Optional<Friends> findByCategory_CategoryIdAndFriendId(Long categoryId, Long friendId);
 
     List<Friends> findByFriendId(Long friendStudentId);
+
+    void deleteALL(Friends friend);
 }
