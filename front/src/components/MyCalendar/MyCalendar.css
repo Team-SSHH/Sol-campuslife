@@ -1,0 +1,76 @@
+.my-calendar {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.my-calendar h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.my-calendar .react-calendar {
+  border: 1px solid black;
+  font-size: 20px;
+  color: black;
+}
+
+.my-calendar .react-calendar__month-view__days__day {
+  font-size: 8px; /* 원하는 크기로 조절하세요 */
+}
+
+.my-calendar .react-calendar button {
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+}
+
+.my-calendar .react-calendar button:enabled:hover,
+.my-calendar .react-calendar button:enabled:focus {
+  background: #f0f0f0;
+}
+
+.my-calendar .react-calendar__tile--active:enabled,
+.my-calendar .react-calendar__tile--now:enabled {
+  background: #f7f726;
+}
+
+.my-calendar .react-calendar__tile--hover:enabled {
+  background: #ff6659;
+  color: #fff;
+}
+
+.my-calendar h2 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.my-calendar .scrollable-table {
+  max-height: 200px; /* 원하는 높이로 조절하세요 */
+  overflow-y: auto;
+}
+
+.my-calendar table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  white-space: nowrap;
+}
+
+.my-calendar th,
+.my-calendar td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  vertical-align: top;
+}
+
+.my-calendar th {
+  background-color: #f0f0f0;
+  color: #333;
+}

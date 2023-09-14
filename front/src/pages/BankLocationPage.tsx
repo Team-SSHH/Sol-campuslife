@@ -80,14 +80,16 @@ const BankLocationPage = () => {
   return (
     <div className="BankLocationPage">
       <div className="mapCard">
-        <h2>가까운 영업점</h2>
+        <h2 className="title">가까운 영업점</h2>
         <div
           id="map"
           style={{ width: "90%", height: "300px", margin: "auto" }}
         ></div>
       </div>
       <div className="bankName">
-        <h2 style={{ color: "white" }}>건국대학교에서 가까운 지점입니다.</h2>
+        <h2 className="title" style={{ color: "white" }}>
+          건국대학교에서 가까운 지점입니다.
+        </h2>
 
         <div className="bankCard">
           {bankLocations.map((location, index) => (

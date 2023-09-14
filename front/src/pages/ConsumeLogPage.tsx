@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
 
@@ -15,6 +15,8 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+
+import MyCalendar from "../components/MyCalendar/MyCalendar";
 import "./styles/ConsumeLogPage.css";
 
 // 각 섹션별 색상 정의
@@ -36,10 +38,12 @@ const ConsumeLogPage = () => {
     getContentWithImgSortedByFrequency,
   } = useAllConsumeLogData();
 
-
-  const { MyDataConsumeLog, MycategorySum, ConsumeSummary } =
-    useMyConsumeLogData();
-
+  const {
+    MyDataConsumeLog,
+    MycategorySum,
+    ConsumeSummary,
+    dateWiseConsumption,
+  } = useMyConsumeLogData();
 
   //나의 데이터
   const data1 = [
@@ -80,146 +84,160 @@ const ConsumeLogPage = () => {
     return [...acc, newObj]; // 새 객체 추가
   }, [] as any);
 
+  ///
+  const [showCalendar, setShowCalendar] = useState(false);
+
   return (
     <div className="ConsumeLog">
-      <div className="CompareCircleWrapper">
-        <h2>나와 건국대생의 한 달</h2>
-        <div className="CompareCircle">
-          <PieChart width={400} height={200}>
-            {/* 첫 번째 반원형 그래프 */}
-            <Pie
-              dataKey="value"
-              startAngle={180}
-              endAngle={0}
-              data={data1}
-              cx="50%"
-              cy="100%"
-              innerRadius={70}
-              outerRadius={120}
-              labelLine={false}
-            >
-              {data1.map((entry, index) => (
-                // 여기서 각 섹션에 대한 색상을 지정합니다.
-                // COLORS 배열에서 순서대로 색상을 가져옵니다.
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <text
-              x="50%"
-              y="85%"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill="#000"
-              fontWeight="bold"
-            >
-              Me
-            </text>
+      {!showCalendar && (
+        <>
+          <div className="CompareCircleWrapper">
+            <h2>나와 건국대생의 한 달</h2>
+            <div className="CompareCircle">
+              <PieChart width={400} height={200}>
+                {/* 첫 번째 반원형 그래프 */}
+                <Pie
+                  dataKey="value"
+                  startAngle={180}
+                  endAngle={0}
+                  data={data1}
+                  cx="50%"
+                  cy="100%"
+                  innerRadius={70}
+                  outerRadius={120}
+                  labelLine={false}
+                >
+                  {data1.map((entry, index) => (
+                    // 여기서 각 섹션에 대한 색상을 지정합니다.
+                    // COLORS 배열에서 순서대로 색상을 가져옵니다.
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <text
+                  x="50%"
+                  y="85%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="#000"
+                  fontWeight="bold"
+                >
+                  Me
+                </text>
 
-            {/* 두 번째 반원형 그래프 */}
-            <Pie
-              dataKey="value"
-              startAngle={180}
-              endAngle={0}
-              data={data2}
-              cx="50%"
-              cy="100%"
-              innerRadius={120}
-              outerRadius={170}
-            >
-              {data2.map((entry, index) => (
-                // 여기서 각 섹션에 대한 색상을 지정합니다.
-                // COLORS 배열에서 순서대로 색상을 가져옵니다.
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <text
-              x="50%"
-              y="5%"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill="#000"
-              fontWeight="bold"
-            >
-              average
-            </text>
-          </PieChart>
-        </div>
-        <br />
-        <div
-          className="Legend"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          {data1.map((entry, index) => (
+                {/* 두 번째 반원형 그래프 */}
+                <Pie
+                  dataKey="value"
+                  startAngle={180}
+                  endAngle={0}
+                  data={data2}
+                  cx="50%"
+                  cy="100%"
+                  innerRadius={120}
+                  outerRadius={170}
+                >
+                  {data2.map((entry, index) => (
+                    // 여기서 각 섹션에 대한 색상을 지정합니다.
+                    // COLORS 배열에서 순서대로 색상을 가져옵니다.
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <text
+                  x="50%"
+                  y="5%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="#000"
+                  fontWeight="bold"
+                >
+                  average
+                </text>
+              </PieChart>
+            </div>
+            <br />
             <div
-              key={`item-${index}`}
+              className="Legend"
               style={{
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center", // <- 여기를 추가하였습니다.
-                marginBottom: "10px",
-                width: "33.33%", // 부모 컨테이너의 1/3 너비를 차지하도록 설정
+                flexWrap: "wrap",
+                justifyContent: "center",
               }}
             >
-              <div
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  backgroundColor: COLORS[index],
-                  marginRight: "10px",
-                }}
-              ></div>
-              {entry.name}
+              {data1.map((entry, index) => (
+                <div
+                  key={`item-${index}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center", // <- 여기를 추가하였습니다.
+                    marginBottom: "10px",
+                    width: "33.33%", // 부모 컨테이너의 1/3 너비를 차지하도록 설정
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      backgroundColor: COLORS[index],
+                      marginRight: "10px",
+                    }}
+                  ></div>
+                  {entry.name}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+          <div className="CompareGraphWrapper">
+            <h2>한 달 간 얼마를 썼을까</h2>
+            <div className="CompareGraph">
+              <LineChart
+                width={400}
+                height={300}
+                data={data3}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" tick={{ fill: "white" }} />
+                <YAxis tick={{ fill: "white" }} />
+                <Tooltip />
+                {/* 나의 데이터 */}
+                <Line
+                  type="monotone"
+                  dataKey="me"
+                  stroke="#FFBB28"
+                  strokeWidth={3}
+                />
 
-      <div className="CompareGraphWrapper">
-        <h2>한 달 간 얼마를 썼을까</h2>
-        <div className="CompareGraph">
-          <LineChart
-            width={400}
-            height={300}
-            data={data3}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" tick={{ fill: "white" }} />
-            <YAxis tick={{ fill: "white" }} />
-            <Tooltip />
-            {/* 나의 데이터 */}
-            <Line
-              type="monotone"
-              dataKey="me"
-              stroke="#FFBB28"
-              strokeWidth={3}
-            />
-
-            {/* 평균 데이터 */}
-            <Line
-              type="monotone"
-              dataKey="average"
-              stroke="#82ca9d"
-              strokeWidth={3}
-            />
-          </LineChart>
-        </div>
-      </div>
+                {/* 평균 데이터 */}
+                <Line
+                  type="monotone"
+                  dataKey="average"
+                  stroke="#82ca9d"
+                  strokeWidth={3}
+                />
+              </LineChart>
+            </div>
+          </div>
+        </>
+      )}
+      <br />
+      {showCalendar && <MyCalendar dateWiseConsumption={dateWiseConsumption} />}
+      <button
+        className="ShowCalendarButton"
+        onClick={() => setShowCalendar(!showCalendar)}
+      >
+        {!showCalendar ? "달력" : "뒤로"}
+      </button>
     </div>
   );
 };
