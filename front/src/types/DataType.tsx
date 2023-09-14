@@ -30,6 +30,7 @@ export interface FriendType {
 export interface placeType {
   content: string;
   imgUrl: string;
+  userScore: string;
 }
 
 export interface ConsumeSummaryType {

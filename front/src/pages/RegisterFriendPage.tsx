@@ -46,12 +46,14 @@ const RegisterFriendPage = () => {
       height: 30,
       onConfirm: async (value) => {
         setInputID(value);
+        console.log(MyfriendStudentIds);
+        console.log("MyfrssssssiendStudentIds");
         if (MyfriendStudentIds.includes(Number(value))) {
           alert("이미 깐부깐부입니다이");
         } else {
           const isSuccessful = await handleSendOneWon(Number(value));
           if (isSuccessful) {
-            handleSendAlarm(userData.studentId, Number(value));
+            // handleSendAlarm(userData.studentId, Number(value));
             console.log("여기몇번찍히냐~~~~");
             setStep((prevStep) => prevStep + 1);
           } else {
