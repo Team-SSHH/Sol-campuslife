@@ -9,6 +9,8 @@ import {
 import { FriendType } from "../../types/DataType";
 import useRemittance from "../../hooks/useRemittance";
 import useAlertDutchPay from "../../hooks/useAlertDutchPay";
+import { useNavigate } from "react-router-dom";
+
 const StyledButton = styled.button`
   position: absolute;
   bottom: 10%;
@@ -39,6 +41,8 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
   const friendData = useRecoilValue<Array<FriendType>>(selectedFriend);
   const [value, setValue] = useState<number>(0);
 
+  const navigate = useNavigate();
+
   const { handleRemittance } = useRemittance();
 
   const { handleAlertDutchPay } = useAlertDutchPay();
@@ -54,6 +58,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
       return data.map((item) => item.studentId);
     };
     const new_friends = extractFriends(friendData);
+    console.log(new_friends);
 
     //더치페이일때
     if (props.isdutch) {
@@ -68,6 +73,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     }
 
     setIsModalOpen(false);
+    navigate("/main");
   };
 
   return (
