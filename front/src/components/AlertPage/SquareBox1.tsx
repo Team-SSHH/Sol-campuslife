@@ -70,8 +70,10 @@ const SquareBox1: React.FC<Alarm2Props> = (props) => {
       alarmData.dutchAmount.toString()
     );
     if (isSuccessful) {
-      alert("송금이 완료됬습니다.");
+      alert("송금이 완료됐습니다.");
       window.location.reload();
+    } else {
+      alert("계좌잔액 부족입니다.");
     }
 
     // setIsModalOpen(true);
