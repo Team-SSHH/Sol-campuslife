@@ -17,3 +17,14 @@
   flex-direction: column;
   margin-top: 10%;
 }
+
+.ShowCalendarButton {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+}

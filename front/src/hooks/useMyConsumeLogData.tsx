@@ -46,10 +46,33 @@ const useMyConsumeLogData = () => {
     {}
   );
 
+  // 날짜별 소비 내역 정리
+  const dateWiseConsumption = MyDataConsumeLog.reduce<{
+    [key: string]: { [key: string]: number };
+  }>((acc, cur) => {
+    if (cur.pay > 0) {
+      // pay가 0보다 큰 경우만 처리
+      const date = cur.transactionTime.split(" ")[0]; // YYYY-MM-DD 형태의 날짜 추출
+      if (!acc[date]) {
+        acc[date] = { [cur.content]: cur.pay };
+      } else {
+        if (!acc[date][cur.content]) {
+          acc[date][cur.content] = cur.pay;
+        } else {
+          acc[date][cur.content] += cur.pay;
+        }
+      }
+    }
+
+    return acc;
+  }, {});
+
+  // console.log(MyDataConsumeLog);
+  console.log(dateWiseConsumption);
   return {
     MyDataConsumeLog,
     MycategorySum,
-
+    dateWiseConsumption,
     ConsumeSummary,
   };
 };

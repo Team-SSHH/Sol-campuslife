@@ -47,9 +47,10 @@ const RegisterFriendPage = () => {
       onConfirm: async (value) => {
         setInputID(value);
         console.log(MyfriendStudentIds);
-        console.log("MyfrssssssiendStudentIds");
         if (MyfriendStudentIds.includes(Number(value))) {
           alert("이미 깐부깐부입니다이");
+        } else if (Number(value) === userData.studentId) {
+          alert("내 학번입니데이");
         } else {
           const isSuccessful = await handleSendOneWon(Number(value));
           if (isSuccessful) {
