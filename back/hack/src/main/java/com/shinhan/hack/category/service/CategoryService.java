@@ -10,7 +10,7 @@ import com.shinhan.hack.friends.repository.FriendsRepository;
 import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.mapper.LoginMapper;
-import com.shinhan.hack.login.service.LoginService;
+import com.shinhan.hack.login.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +22,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryService {
 
-    private final LoginService studentService;
-
     private final FriendsRepository friendsRepository;
     private final CategoryRepository categoryRepository;
+    private final LoginRepository studentRepository;
 
     private final LoginMapper studentMapper;
 
@@ -53,8 +52,9 @@ public class CategoryService {
             for (Friends friend : friendsInCategory) {
 
                 // 친구 존재 예외 처리 및 결과 반환
-                Student friendStudent = studentService.isFriend(friend.getFriendId());
-
+                Student friendStudent = studentRepository.findById(friend.getFriendId()).orElseThrow(
+                        () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
+                );
                 StudentDto.Response friendInfo = studentMapper.toResponseDto(friendStudent);
                 studentsInCategory.add(friendInfo);
             }

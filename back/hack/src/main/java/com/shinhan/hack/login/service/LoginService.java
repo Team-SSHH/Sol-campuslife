@@ -20,17 +20,4 @@ public class LoginService {
         );
         return response;
     }
-
-    public Student isStudent(Long studentId) {
-        return loginRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
-    }
-
-    public Student isFriend(Long friendId){
-        return loginRepository.findById(friendId).orElseThrow(
-                () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
-        );
-    }
-
 }
