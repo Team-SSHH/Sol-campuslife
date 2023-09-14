@@ -101,7 +101,7 @@ public class FriendsService {
 
         // 모든 일치하는 친구 정보 삭제
         for (Friends friend : friends) {
-            friendsRepository.deleteALL(friend);
+            friendsRepository.delete(friend);
         }
 
         // 업데이트된 친구 목록 반환

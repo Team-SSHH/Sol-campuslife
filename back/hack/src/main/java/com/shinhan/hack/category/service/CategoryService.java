@@ -58,7 +58,10 @@ public class CategoryService {
                 Student friendStudent = studentRepository.findById(friend.getFriendId()).orElseThrow(
                         () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
                 );
-                StudentDto.Response friendInfo = studentMapper.toResponseDto(friendStudent);
+                StudentCategoryDto.Response friendInfo = studentMapper.toCategoryResponseDto(friendStudent);
+
+                friendInfo.setCategoryId(category.getCategoryId());
+                friendInfo.setCategoryName(category.getCategory());
 
                 studentsInCategory.add(friendInfo);
             }
