@@ -43,7 +43,7 @@ public class History {
 
     @Column(name = "transaction_time", nullable = false)
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Builder.Default
     private LocalDateTime transactionTime = time;
 
