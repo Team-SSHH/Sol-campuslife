@@ -14,12 +14,79 @@ import org.springframework.web.client.RestTemplate;
         RequestMethod.PUT })
 public class ProxyController {
 
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final HttpHeaders headers = new HttpHeaders();
+
     @PostMapping("/shinhan/fxrate/number")
-    public ResponseEntity<?> proxyRequest(@RequestBody String requestBody) {
-        RestTemplate restTemplate = new RestTemplate();
+    public ResponseEntity<?> getFxrate(@RequestBody String requestBody) {
+
         String apiUrl = "https://shbhack.shinhan.com/v1/search/fxrate/number";
 
-        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+
+        return ResponseEntity.ok(response.getBody());
+    }
+    @PostMapping("/branch/city")
+    public ResponseEntity<?> getCity(@RequestBody String requestBody) {
+
+        String apiUrl = "https://shbhack.shinhan.com/v1/search/branch/city";
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+
+        return ResponseEntity.ok(response.getBody());
+    }
+    @PostMapping("/fx/discount-rate")
+    public ResponseEntity<?> getDiscount(@RequestBody String requestBody) {
+
+        String apiUrl = "https://shbhack.shinhan.com/v1/search/fx/discount-rate";
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+
+        return ResponseEntity.ok(response.getBody());
+    }
+    @PostMapping("/fx/krw-amount")
+    public ResponseEntity<?> getKrw(@RequestBody String requestBody) {
+
+        String apiUrl = "https://shbhack.shinhan.com/v1/search/fx/krw-amount";
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+
+        return ResponseEntity.ok(response.getBody());
+    }
+    @PostMapping("/fx/request-list")
+    public ResponseEntity<?> getRequestList(@RequestBody String requestBody) {
+
+        String apiUrl = "https://shbhack.shinhan.com/v1/search/fx/request-list";
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+
+        return ResponseEntity.ok(response.getBody());
+    }
+    @PostMapping("/request/fx")
+    public ResponseEntity<?> getRequest(@RequestBody String requestBody) {
+
+        String apiUrl = "https://shbhack.shinhan.com/v1/request/fx";
+
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
