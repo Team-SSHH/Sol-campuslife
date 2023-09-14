@@ -17,6 +17,7 @@ const useDutchPay = () => {
         dutchAmount
       );
       setIsSuccess(!isSuccess);
+
       return true;
     } catch (error) {
       console.log(error);
