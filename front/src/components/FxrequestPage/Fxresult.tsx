@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../stores/atoms";
+import api1 from "../../utils/api1";
 
 const Fxresult: React.FC = ({}) => {
   const [resultData, setResultData] = useState<any[]>([]);
+  const [userDate] = useRecoilState(loginuser);
   const data = {
     dataHeader: {
       apikey: "2023_Shinhan_SSAFY_Hackathon",
     },
     dataBody: {
       serviceCode: "T0512",
-      신청인명: "김신한",
-      신청인휴대폰번호: "01011111111",
+      신청인명: userDate.name,
+      신청인휴대폰번호: userDate.phoneId,
       신청인생년월일: "980415",
     },
   };
 
   const fxresult = async () => {
     try {
-      const response = await api.post("/search/fx/request-list", data);
+      const response = await api1.post("/sshh/fx/request-list", data);
       console.log(response.data);
       setResultData(response.data.dataBody.리스트);
     } catch (error) {
