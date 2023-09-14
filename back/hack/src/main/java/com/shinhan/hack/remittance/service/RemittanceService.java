@@ -16,6 +16,7 @@ import com.shinhan.hack.remittance.repository.DutchPayDetailRepository;
 import com.shinhan.hack.remittance.repository.DutchPayRepository;
 import com.shinhan.hack.remittance.repository.RemittanceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,21 +54,21 @@ public class RemittanceService {
         Long friendBalance = friend.getBalance();
 
         // 잔고 확인 예외 처리
-        if(friendBalance < amount){
+        if(myBalance < amount){
             throw new CustomException(ErrorCode.MEMBER_DONT_HAVE_MONEY);
         }
 
         // 거래 DB 저장
-        remittanceRepository.send(friendId, amount);
-        remittanceRepository.receive(studentId, amount);
+        remittanceRepository.send(studentId, amount);
+        remittanceRepository.receive(friendId, amount);
 
         // 학생 잔고 update
-        student.setBalance(friendBalance - amount);
-        friend.setBalance(myBalance + amount);
+        student.setBalance(myBalance - amount);
+        friend.setBalance(friendBalance + amount);
 
         // 거래내역 추가
         History myHistory = History.builder()
-                .balance(friendBalance - amount)
+                .balance(myBalance - amount)
                 .content(content)
                 .contentCategory("계좌이체")
                 .pay(amount)
@@ -76,7 +77,7 @@ public class RemittanceService {
                 .build();
 
         History fHistory = History.builder()
-                .balance(myBalance + amount)
+                .balance(friendBalance + amount)
                 .content(content)
                 .contentCategory("계좌이체")
                 .pay(Long.valueOf(0))
@@ -238,7 +239,7 @@ public class RemittanceService {
         // 더치페이 상세 내역 확인 예외 처리
         List<DutchPayDetail> dutchPayDetails = dutchPayRepository.findByDutchId(dutchId);
 
-        if (dutchPayDetails.size() == 0) {
+        if (dutchPayDetails.isEmpty()) {
             throw new CustomException(ErrorCode.DUTCH_DETAIL_NOT_FOUND);
         }
 
@@ -253,10 +254,38 @@ public class RemittanceService {
 
             DutchPayDetailDto.Response response = remittanceMapper.toDetailResponseDto(detail);
             response.setName(friend.getName());
+            response.setFriendId(friend.getStudentId());
             responseList.add(response);
         }
         return responseList;
     }
 
 
+    public List<DutchPayDetailDto.Response> getDutchDetailAll(Long studentId) {
+        loginRepository.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
+        List<DutchPayDetail> dutchPayDetails = dutchPayDetailRepository.findByFriendId(studentId);
+
+        if (dutchPayDetails.isEmpty()) {
+            throw new CustomException(ErrorCode.DUTCH_DETAIL_NOT_FOUND);
+        }
+
+        List<DutchPayDetailDto.Response> responseList = new ArrayList<>();
+
+        for (DutchPayDetail detail: dutchPayDetails
+        ) {
+            // 친구 없을 경우 예외처리
+            Student friend = loginRepository.findById(detail.getDutchPay().getStudent().getStudentId()).orElseThrow(
+                    () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
+            );
+
+            DutchPayDetailDto.Response response = remittanceMapper.toDetailResponseDto(detail);
+            response.setName(friend.getName());
+            response.setFriendId(friend.getStudentId());
+            responseList.add(response);
+        }
+
+        return responseList;
+    }
 }

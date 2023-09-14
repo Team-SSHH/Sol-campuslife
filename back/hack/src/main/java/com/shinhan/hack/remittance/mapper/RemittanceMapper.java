@@ -18,5 +18,4 @@ public interface RemittanceMapper {
     RemittanceDto.update toUpdateFromSend(DutchPayDetailDto.send send);
     DutchPayDetailDto.Response toDetailResponseDto(DutchPayDetail dutchPayDetail);
 
-
 }

@@ -1,7 +1,10 @@
 package com.shinhan.hack.login.controller;
 
+import com.shinhan.hack.Error.CustomException;
+import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.mapper.LoginMapper;
+import com.shinhan.hack.login.repository.LoginRepository;
 import com.shinhan.hack.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -16,6 +19,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -23,24 +28,40 @@ import java.net.URI;
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000", "https://sh.solcampuslife.store"}, allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
-        RequestMethod.PUT })
+        RequestMethod.PUT})
 public class LoginController {
-
-
-
 
     private final LoginService service;
     private final LoginMapper loginMapper;
+    private final LoginRepository studentRepository;
 
     @PostMapping("/login")
     public ResponseEntity<StudentDto.Response> login
-            (@RequestBody StudentDto.Post requestBody){
+            (@RequestBody StudentDto.Post requestBody) {
 
         StudentDto.Response response = loginMapper.toResponseDto(service.login(requestBody));
-        if(response == null){
-            return new ResponseEntity<>(null , HttpStatus.NOT_FOUND);
-        }
+
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/login/{studentId}/balance")
+    public ResponseEntity<StudentDto.getBalance> getBalance(
+            @PathVariable("studentId") Long studentId
+    ) {
+        StudentDto.getBalance response = StudentDto.getBalance.builder()
+                .balance(studentRepository.findBalanceByStudentId(studentId).orElseThrow(
+                        () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+                )).build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/login/studentId")
+    public ResponseEntity<List<Long>> getStudentId(){
+        List<Long> studentIdList = studentRepository.findStudentId();
+        if(studentIdList.isEmpty()){
+            throw new CustomException(ErrorCode.MEMBER_IS_EMPTY);
+        }
+        return new ResponseEntity<>(studentIdList, HttpStatus.OK);
     }
 
     @PostMapping("/login/{studentid}/token")
@@ -49,7 +70,7 @@ public class LoginController {
         System.out.println(token);
 
         String fcmUrl = "https://fcm.googleapis.com/fcm/send";
-        String serverKey ="";
+        String serverKey = "";
 
         WebClient webClient = WebClient.create();
 
