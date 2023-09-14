@@ -78,6 +78,7 @@ const RegisterFriendPage = () => {
     <div>
       <StudentId />
       <MessageBox
+        key={step}
         height={pages[step].height}
         text={pages[step].text}
         onConfirm={pages[step].onConfirm}
