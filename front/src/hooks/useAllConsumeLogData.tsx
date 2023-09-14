@@ -50,8 +50,11 @@ const useAllConsumeData = () => {
       content: string;
       imgUrl: string;
       userScore: string;
+      address: string;
     }[] = [];
 
+    console.log(AllDataConsumeLog);
+    console.log("ddddddddddddddAllDataConsumeLog");
     AllDataConsumeLog.forEach((data) => {
       // Check if day matches
       const dayMatched =
@@ -86,6 +89,7 @@ const useAllConsumeData = () => {
           content: data.content,
           imgUrl: data.imgUrl,
           userScore: data.userScore,
+          address: data.address,
         });
         frequencyCount[data.content]
           ? frequencyCount[data.content]++

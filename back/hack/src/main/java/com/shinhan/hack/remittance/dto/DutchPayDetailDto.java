@@ -21,6 +21,7 @@ public class DutchPayDetailDto {
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private LocalDateTime remittanceTime;
         private String name;
+        private Long friendId;
     }
 
     @Getter

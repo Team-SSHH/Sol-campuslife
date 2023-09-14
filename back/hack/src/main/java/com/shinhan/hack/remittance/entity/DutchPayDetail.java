@@ -44,7 +44,9 @@ public class DutchPayDetail {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime remittanceTime;
 
-    @Column(name = "dutch_detail_day")
-    private String dutchDetailDay;
+    static String dayStr = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN);
+    @Column(name = "dutch_day", nullable = false)
+    @Builder.Default
+    private String dutchDetailDay = dayStr;
 
 }

@@ -1,164 +1,149 @@
 package com.shinhan.hack.category.controller;
 
-import com.shinhan.hack.category.CategoryMapper;
+import com.shinhan.hack.Error.CustomException;
+import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.category.dto.CategoryDto;
 import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.category.repository.CategoryRepository;
-import com.shinhan.hack.friends.dto.FriendsDto;
+import com.shinhan.hack.category.service.CategoryService;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
-import com.shinhan.hack.login.dto.StudentDto;
-import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.friends.service.FriendsService;
 import com.shinhan.hack.login.repository.LoginRepository;
+import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/sshh/category")
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000", "https://sh.solcampuslife.store"}, allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
-        RequestMethod.PUT })
+        RequestMethod.PUT})
 public class CategoryController {
 
-    private final CategoryRepository categoryRepository;
-    private final FriendsRepository friendsRepository;
-    private final LoginRepository studentRepository;
-    private final CategoryMapper categoryMapper;
+    private final FriendsService friendsService;
+    private final CategoryService categoryService;
 
+    private final FriendsRepository friendsRepository;
+    private final CategoryRepository categoryRepository;
+    private final LoginRepository  studentRepoaitory;
 
     @GetMapping("/{studentId}")
     public ResponseEntity<List<CategoryDto.Response>> getCategory(
             @PathVariable("studentId") Long studentId
     ) {
-        List<Category> categories = categoryRepository.findByStudent_StudentId(studentId);
-        List<CategoryDto.Response> categoryList = new ArrayList<>();
-        for (Category category : categories
-        ) {
-//            System.out.println("category = " + category);
-            CategoryDto.Response categoryResponse = new CategoryDto.Response();
-            categoryResponse.setCategoryId(category.getCategoryId());
-            categoryResponse.setCategory(category.getCategory());
-            categoryResponse.setStudentId(studentId); // 내 학생 ID 설정
-            System.out.println("categoryResponse = " + categoryResponse);
-            List<Friends> friendsInCategory = friendsRepository.findByCategory_CategoryId(category.getCategoryId());
-//            System.out.println("friends = " + friendsInCategory);
+        // 학생 존재 여부 예외 처리
+        studentRepoaitory.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
 
-            List<StudentDto.Response> studentsInCategory = new ArrayList<>();
+        List<CategoryDto.Response> categoryList = categoryService.getCategoryList(studentId);
 
-            for (Friends friend : friendsInCategory) {
-                Student friendStudent = studentRepository.findById(friend.getFriendId()).orElse(null);
-                if (friendStudent != null) {
-                    StudentDto.Response friendInfo = StudentDto.Response.builder()
-                            .studentId(friendStudent.getStudentId())
-                            .name(friendStudent.getName())
-                            .university(friendStudent.getUniversity())
-                            .major(friendStudent.getMajor())
-                            .grade(friendStudent.getGrade())
-                            .gender(friendStudent.getGender())
-                            .nationality(friendStudent.getNationality())
-                            .bankNumber(friendStudent.getBankNumber())
-                            .balance(friendStudent.getBalance())
-                            .phoneId(friendStudent.getPhoneId())
-                            .imageUrl(friendStudent.getImageUrl())
-                            .build();
-
-                    studentsInCategory.add(friendInfo);
-                }
-            }
-
-            categoryResponse.setStudents(studentsInCategory);
-            categoryList.add(categoryResponse);
-        }
-
-        return new ResponseEntity<>(categoryList, HttpStatus.OK);
+        return ResponseEntity.ok(categoryList);
     }
 
 
+    @PostMapping("/{studentId}")
+    public ResponseEntity<CategoryDto.Update> addCategory(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody CategoryDto.Post categoryDtoPost
+    ) {
+        // 학생 존재 여부 예외 처리
+        studentRepoaitory.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
+        String categoryName = categoryDtoPost.getCategoryName();
 
-    @PostMapping("/{studentid}")
-    public ResponseEntity<CategoryDto> addCategory(@PathVariable("studentid") Long studentid, @RequestBody Map<String, String> body) {
-        String categoryName = body.get("categoryName");
+        // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
+        List<Category> existingCategories = categoryRepository.findByCategoryAndStudent_StudentId(categoryName, studentId);
 
-        List<Category> existingCategories = categoryRepository.findByCategory(categoryName);
         if (!existingCategories.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A category with this name already exists");
+            throw new CustomException(ErrorCode.ALREADY_CATEGORY);
         }
 
-        // 새 카테고리 생성
-        Category newCategory = Category.builder()
-                .category(categoryName)
-                .build();
-
-        Student student = new Student();
-        student.setStudentId(studentid);
-        newCategory.setStudent(student);
-
-        Category savedCategory = categoryRepository.save(newCategory);
-
-        // Convert the saved category to DTO
-        CategoryDto savedCategoryDto = new CategoryDto();
-        savedCategoryDto.setCategoryId(savedCategory.getCategoryId());
-        savedCategoryDto.setCategory(savedCategory.getCategory());
+        CategoryDto.Update savedCategoryDto = categoryService.addCategory(categoryName, studentId);
 
         return ResponseEntity.ok(savedCategoryDto);
     }
 
 
-    @PutMapping("/{studentid}")
-    public ResponseEntity<CategoryDto> updateCategory(@PathVariable("studentid") Long studentid, @RequestBody CategoryDto categoryUpdate) {
+    @PutMapping("/{studentId}")
+    public ResponseEntity<CategoryDto.Update> updateCategory(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody @NotNull CategoryDto.Update categoryUpdate
+    ) {
+        // 학생 존재 여부 예외 처리
+        studentRepoaitory.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
+
+        // 받아온 값 저장
         Long categoryId = categoryUpdate.getCategoryId();
         String newCategoryName = categoryUpdate.getCategory();
 
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일치하는 카테고리 없음"));
-        System.out.println("category = " + category);
+        // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
+        List<Category> existingCategories = categoryRepository.findByCategoryAndStudent_StudentId(newCategoryName, studentId);
 
-        List<Category> existingCategories = categoryRepository.findByCategory(newCategoryName);
-        System.out.println("existingCategories = " + existingCategories);
         if (!existingCategories.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 카테고리");
+            throw new CustomException(ErrorCode.ALREADY_CATEGORY);
         }
 
-        category.setCategory(newCategoryName);
-        Category updatedCategroy = categoryRepository.save(category);
+        CategoryDto.Update update = categoryService.updateCategory(categoryId, newCategoryName);
 
-        CategoryDto updatedCategroyDto = new CategoryDto();
-        updatedCategroyDto.setCategoryId(updatedCategroy.getCategoryId());
-        updatedCategroyDto.setCategory(updatedCategroy.getCategory());
-
-        return ResponseEntity.ok(updatedCategroyDto);
+        return ResponseEntity.ok(update);
     }
 
 
-    @DeleteMapping("/{studentid}")
+    @Transactional
+    @DeleteMapping("/{studentId}/{categoryId}")
     public ResponseEntity<String> deleteFriend(
-            @PathVariable("studentid") Long studentid, @RequestBody Map<String, Long> body) {
-        Long categoryId = body.get("categoryId");
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일치하는 카테고리 없음"));
+            @PathVariable("studentId") Long studentId, @PathVariable("categoryId") Long categoryId) {
+        // 학번 예외 처리
+        studentRepoaitory.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
 
+        // 카테고리 존재 유무 및 예외 처리
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
+        );
+
+        // 학생 아이디로 카테고리 리스트 확인 -> 적어도 하나는 있어야 함.
+        List<Category> friendCategories = categoryRepository.findByStudent_StudentId(studentId);
+
+        if (friendCategories.isEmpty()) {
+            throw new CustomException(ErrorCode.CATEGORY_NOT_FOUND);
+        }
+
+        // 기본 카테고리 지정
+        Category fristCategory = friendCategories.get(0);
+
+        // 카테고리 친구를 모두 기본으로 옮기고 삭제
+        // 기본 카테고리는 삭제 못함
+        if (friendCategories.size() <= 1 || fristCategory.equals(category)) {
+            throw new CustomException(ErrorCode.BASIC_CATEGORY);
+        }
+        // 삭제할 카테고리의 친구 List
         List<Friends> friends = friendsRepository.findByCategory_CategoryId(categoryId);
 
+        // 삭제할 카테고리에 친구 존재할 경우
+        // 기본 카테고리로 모두 이동
         if (!friends.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "카테고리에 친구가 있어 삭제할 수 없습니다");
+            for (Friends friend : friends
+            ) {
+                friendsService.updateFriend(studentId, friend.getFriendId(), fristCategory.getCategoryId());
+            }
         }
 
-        List<Category> studentCategories = categoryRepository.findByStudent_StudentId(studentid);
-        if (studentCategories.size() <= 1 || studentCategories.get(0).equals(category)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유일한 카테고리 또는 첫 번째 카테고리는 삭제할 수 없습니다");
-        }
-
+        // 카테고리 삭제
         categoryRepository.delete(category);
 
-        return new ResponseEntity<>("삭제완료", HttpStatus.OK);
+        return ResponseEntity.ok("삭제완료");
     }
 
 
