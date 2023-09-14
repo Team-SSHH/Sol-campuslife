@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import StudentId from "../components/StudentIdPage/StudentId";
 import MessageBox from "../components/RegisterFriendPage/MessageBox";
 import useSendOneWon from "../hooks/useSendOneWon";
-import useFriendPush from "../hooks/useFriendPush";
+// import useFriendPush from "../hooks/useFriendPush";
 import useMakeFriend from "../hooks/useMakeFriend";
 import useFriendListData from "../hooks/useFriendListData";
 import { useRecoilValue } from "recoil";
@@ -24,7 +24,7 @@ const RegisterFriendPage = () => {
   const navigate = useNavigate();
 
   const { isSuccess, password, handleSendOneWon } = useSendOneWon();
-  const { handleSendAlarm } = useFriendPush();
+  // const { handleSendAlarm } = useFriendPush();
   const { handleMakeFriend } = useMakeFriend();
   const { MyfriendStudentIds, fetchFriendList } = useFriendListData(
     userData.studentId

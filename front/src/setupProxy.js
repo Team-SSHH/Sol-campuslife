@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.use(
     "/api1",
     createProxyMiddleware({
-      target: "https://shbhack.shinhan.com",
+      target: "http://127.0.0.1:8080",
       changeOrigin: true,
       pathRewrite: {
         "^/api1": "",

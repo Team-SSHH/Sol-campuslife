@@ -64,7 +64,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
         userData.studentId,
         friendData[0].studentId,
         value,
-        "더치페이"
+        "계좌이체"
       );
     }
 
