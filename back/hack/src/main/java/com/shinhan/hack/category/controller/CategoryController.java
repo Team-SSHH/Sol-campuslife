@@ -2,11 +2,10 @@ package com.shinhan.hack.category.controller;
 
 import com.shinhan.hack.Error.CustomException;
 import com.shinhan.hack.Error.ErrorCode;
-import com.shinhan.hack.category.CategoryMapper;
 import com.shinhan.hack.category.dto.CategoryDto;
 import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.category.repository.CategoryRepository;
-import com.shinhan.hack.friends.dto.FriendsDto;
+import com.shinhan.hack.category.service.CategoryService;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
 
@@ -18,16 +17,17 @@ import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.mapper.LoginMapper;
 import com.shinhan.hack.login.repository.LoginRepository;
+
+import com.shinhan.hack.login.service.LoginService;
+import com.sun.istack.NotNull;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/sshh/category")
@@ -37,22 +37,20 @@ import java.util.Map;
         RequestMethod.PUT})
 public class CategoryController {
 
+    private final LoginService studentService;
     private final FriendsService friendsService;
-    private final CategoryRepository categoryRepository;
-    private final FriendsRepository friendsRepository;
+    private final CategoryService categoryService;
     private final LoginRepository studentRepository;
-    private final CategoryMapper categoryMapper;
-    private final LoginMapper studentMapper;
-
+    private final FriendsRepository friendsRepository;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping("/{studentId}")
     public ResponseEntity<List<CategoryDto.Response>> getCategory(
             @PathVariable("studentId") Long studentId
     ) {
         // 학생 존재 여부 예외 처리
-        studentRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
+        studentService.isStudent(studentId);
+
 
         // 학생의 카테고리 리스트
         List<Category> categories = categoryRepository.findByStudent_StudentId(studentId);
@@ -107,6 +105,9 @@ public class CategoryController {
             categoryList.add(categoryResponse);
         }
 
+//        List<CategoryDto.Response> categoryList = categoryService.getCategoryList(studentId);
+
+
         return ResponseEntity.ok(categoryList);
     }
 
@@ -116,13 +117,8 @@ public class CategoryController {
             @PathVariable("studentId") Long studentId,
             @RequestBody CategoryDto.Post categoryDtoPost
     ) {
-
         // 학생 존재 여부 예외 처리
-        studentRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
-
-        // 추가할 카테고리명
+        studentService.isStudent(studentId);
         String categoryName = categoryDtoPost.getCategoryName();
 
         // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
@@ -132,21 +128,7 @@ public class CategoryController {
             throw new CustomException(ErrorCode.ALREADY_CATEGORY);
         }
 
-        // 새 카테고리 생성
-        Category newCategory = Category.builder()
-                .category(categoryName)
-                .student(Student.builder()
-                        .studentId(studentId)
-                        .build())
-                .build();
-
-        categoryRepository.save(newCategory);
-
-        // Convert the saved category to DTO
-        CategoryDto.Update savedCategoryDto = CategoryDto.Update.builder()
-                .categoryId(newCategory.getCategoryId())
-                .category(newCategory.getCategory())
-                .build();
+        CategoryDto.Update savedCategoryDto = categoryService.addCategory(categoryName, studentId);
 
         return ResponseEntity.ok(savedCategoryDto);
     }
@@ -155,36 +137,25 @@ public class CategoryController {
     @PutMapping("/{studentId}")
     public ResponseEntity<CategoryDto.Update> updateCategory(
             @PathVariable("studentId") Long studentId,
-            @RequestBody CategoryDto.Update categoryUpdate
+            @RequestBody @NotNull CategoryDto.Update categoryUpdate
     ) {
         // 학생 존재 여부 예외 처리
-        studentRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
+        studentService.isStudent(studentId);
 
         // 받아온 값 저장
         Long categoryId = categoryUpdate.getCategoryId();
         String newCategoryName = categoryUpdate.getCategory();
 
-        // 변경할 카테고리
-        Category category = categoryRepository.findById(categoryId).orElseThrow(
-                () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
-        );
-
-        // 변경할 카테고리가 존재하는 지 여부
+        // 추가할 카테고리명이 학생의 카테고리 중에 있는지 확인 및 예외처리
         List<Category> existingCategories = categoryRepository.findByCategoryAndStudent_StudentId(newCategoryName, studentId);
 
         if (!existingCategories.isEmpty()) {
             throw new CustomException(ErrorCode.ALREADY_CATEGORY);
         }
 
-        category.setCategory(newCategoryName);
-        categoryRepository.save(category);
+        CategoryDto.Update update = categoryService.updateCategory(categoryId, newCategoryName);
 
-        return ResponseEntity.ok(CategoryDto.Update.builder()
-                .categoryId(category.getCategoryId())
-                .category(category.getCategory())
-                .build());
+        return ResponseEntity.ok(update);
     }
 
 
@@ -193,28 +164,28 @@ public class CategoryController {
     public ResponseEntity<String> deleteFriend(
             @PathVariable("studentId") Long studentId, @PathVariable("categoryId") Long categoryId) {
         // 학번 예외 처리
-        Student student = studentRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
+        studentService.isStudent(studentId);
+
         // 카테고리 존재 유무 및 예외 처리
         Category category = categoryRepository.findById(categoryId).orElseThrow(
                 () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
         );
 
-        // 카테고리 친구를 모두 기본으로 옮기고 삭제
-        // 학생의 카테고리가 존재하지 않을경우 예외 처리
+        // 학생 아이디로 카테고리 리스트 확인 -> 적어도 하나는 있어야 함.
         List<Category> friendCategories = categoryRepository.findByStudent_StudentId(studentId);
+
         if (friendCategories.isEmpty()) {
             throw new CustomException(ErrorCode.CATEGORY_NOT_FOUND);
         }
+
         // 기본 카테고리 지정
         Category fristCategory = friendCategories.get(0);
 
+        // 카테고리 친구를 모두 기본으로 옮기고 삭제
         // 기본 카테고리는 삭제 못함
         if (friendCategories.size() <= 1 || fristCategory.equals(category)) {
             throw new CustomException(ErrorCode.BASIC_CATEGORY);
         }
-
         // 삭제할 카테고리의 친구 List
         List<Friends> friends = friendsRepository.findByCategory_CategoryId(categoryId);
 

@@ -187,6 +187,7 @@ public class RemittanceService {
     public DutchPayDetailDto.consent consentDutch(
             DutchPayDto.Post dutchPost
     ) {
+        System.out.println("dutchPost = " + dutchPost.getFriendList());
         // 더치페이 테이블에 저장
         Long number = Long.valueOf(dutchPost.getFriendList().size() + 1);
         Long studentId = dutchPost.getStudentId();
@@ -195,13 +196,13 @@ public class RemittanceService {
         Student student = loginRepository.findById(studentId).orElseThrow(
                 () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
         );
-
+        System.out.println("student = " + student);
         DutchPay dutchpay = DutchPay.builder()
                 .amount(dutchPost.getAmount())
                 .number(number)
                 .student(student)
                 .build();
-
+        System.out.println("dutchpay = " + dutchpay);
         dutchPayRepository.save(dutchpay);
 
         // 더치페이 디테일 테이블에 저장
@@ -213,7 +214,7 @@ public class RemittanceService {
             Student friend = loginRepository.findById(friendsId).orElseThrow(
                     () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
             );
-
+            System.out.println("friend = " + friend);
             // 알림 푸시 설정
             Notification notification = Notification.builder()
                     .setTitle("더치페이 요청")
@@ -235,23 +236,25 @@ public class RemittanceService {
                         .build());
                 friendList.add(friend);
 
-                String studentName = student.getName();
-                Long dutchId = dutchpay.getDutchId();
 
-                return DutchPayDetailDto.consent.builder()
-                        .amount(dutchPost.getAmount())
-                        .dutchAmount(dutchAmount)
-                        .frindList(friendList)
-                        .content("더치페이 해주세요")
-                        .studentName(studentName)
-                        .dutchId(dutchId)
-                        .build();
+
             } catch (FirebaseMessagingException e) {
+                System.out.println(" = " + "오류");
                 throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
             }
 
         }
-        throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
+        String studentName = student.getName();
+        Long dutchId = dutchpay.getDutchId();
+
+        return DutchPayDetailDto.consent.builder()
+                .amount(dutchPost.getAmount())
+                .dutchAmount(dutchAmount)
+                .frindList(friendList)
+                .content("더치페이 해주세요")
+                .studentName(studentName)
+                .dutchId(dutchId)
+                .build();
     }
 
     @Transactional

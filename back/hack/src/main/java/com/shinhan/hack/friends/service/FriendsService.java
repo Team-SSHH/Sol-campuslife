@@ -12,43 +12,42 @@ import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 
 import com.shinhan.hack.login.mapper.LoginMapper;
-import com.shinhan.hack.login.repository.LoginRepository;
+import com.shinhan.hack.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class FriendsService {
 
+    private final LoginService studentService;
+    private final CategoryService categoryService;
+
     private final FriendsRepository friendsRepository;
     private final CategoryRepository categoryRepository;
-    private final LoginRepository studentRepository;
     private final LoginMapper studentMapper;
 
     @Transactional
-    public List<FriendsDto> getFriendsByStudent(Long studentid) {
-        List<Category> categories = categoryRepository.findByStudent_StudentId(studentid);
+    public List<FriendsDto> getFriendsByStudent(Long studentId) {
+        List<Category> categories = categoryRepository.findByStudent_StudentId(studentId);
         List<FriendsDto> friendsList = new ArrayList<>();
 
         for (Category category : categories) {
             List<Friends> friends = friendsRepository.findByCategory_CategoryId(category.getCategoryId());
             for (Friends friend : friends) {
-                Student friendStudent = studentRepository.findById(friend.getFriendId()).orElseThrow(
-                        () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
-                );  // 추가된 부분
+
+                Student friendStudent = studentService.isFriend(friend.getFriendId());// 추가된 부분
                 StudentDto.Response friendInfo = studentMapper.toResponseDto(friendStudent);
+
                 friendsList.add(FriendsDto.builder()
                         .fId(friend.getFId())
                         .categoryId(category.getCategoryId())
                         .category(category.getCategory())
-                        .studentId(studentid)
+                        .studentId(studentId)
                         .friend(friendInfo)
                         .build()
                 );
@@ -58,82 +57,49 @@ public class FriendsService {
     }
 
     @Transactional
-    public List<FriendsDto> saveFriend(Long studentId, Long friendStudentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
-        Student friendStudent = studentRepository.findById(friendStudentId).orElseThrow(
-                () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
-        );
+    public void saveFriend(Long studentId, Long friendStudentId) {
 
         // 내가 친구를 저장
         // 내 카테고리들을 꺼내와서 첫번째 카테고리(기본)을 저장
-        List<Category> myFriendCategories = categoryRepository.findByStudent_StudentId(studentId);
-        Category myFirstCategory = null;
-        if (!myFriendCategories.isEmpty()) {
-            myFirstCategory = myFriendCategories.get(0);
+        // 학생 아이디로 카테고리 리스트 확인 -> 적어도 하나는 있어야 함.
+        List<Category> friendCategories = categoryRepository.findByStudent_StudentId(studentId);
+
+        if (friendCategories.isEmpty()) {
+            throw new CustomException(ErrorCode.CATEGORY_NOT_FOUND);
         }
+        Category myFirstCategory = friendCategories.get(0);
 
         // 모든 카테고리에서 친구를 검색하고 이미 있으면 에러
-        for (Category cate : myFriendCategories
+        for (Category cate : friendCategories
         ) {
-            if (friendsRepository.findByCategory_CategoryIdAndFriendId(cate.getCategoryId(), friendStudent.getStudentId()).isPresent()) {
+            if (friendsRepository.findByCategory_CategoryIdAndFriendId(cate.getCategoryId(), friendStudentId).isPresent()) {
                 throw new CustomException(ErrorCode.ALREADY_FRIEND);
             }
         }
 
-        // 새로운 Friend 엔티티 생성 및 저장
+        // 새로운 Friend 엔티티 생성
         Friends friendship1 = Friends.builder()
                 .category(myFirstCategory)
-                .friendId(friendStudent.getStudentId())
+                .friendId(friendStudentId)
                 .build();
+
+        // 저장
         friendsRepository.save(friendship1);
 
-        // 친구가 나를 저장
-        List<Category> friendsCategories = categoryRepository.findByStudent_StudentId(friendStudentId);
-        Category frindsFirstCategory = null;
-        if (!friendsCategories.isEmpty()) {
-            frindsFirstCategory = friendsCategories.get(0);
-        }
-
-        for (Category cate : friendsCategories
-        ) {
-            if (friendsRepository.findByCategory_CategoryIdAndFriendId(frindsFirstCategory.getCategoryId(), student.getStudentId()).isPresent()) {
-                throw new CustomException(ErrorCode.ALREADY_FRIEND);
-            }
-        }
-
-        Friends friendship2 = new Friends();
-        friendship2.setCategory(frindsFirstCategory);  // Assuming that both friends are in the same category
-        friendship2.setFriendId(student.getStudentId());
-        System.out.println("friendship2 = " + friendship2);
-
-        friendsRepository.save(friendship2);
-
-        // 업데이트된 친구 목록 반환
-        return getFriendsByStudent(studentId);
     }
-
 
     @Transactional
     public List<FriendsDto> deleteFriend(Long studentId, Long friendStudentId) {
         // 친구 정보 찾기
         List<Friends> friends = friendsRepository.findByCategory_Student_StudentIdAndFriendId(studentId, friendStudentId);
-        List<Friends> friends1 = friendsRepository.findByCategory_Student_StudentIdAndFriendId(friendStudentId, studentId);
 
         if (friends.isEmpty()) {
-            throw new CustomException(ErrorCode.FRIEND_NOT_FOUNT);
-        }
-        if (friends1.isEmpty()) {
             throw new CustomException(ErrorCode.FRIEND_NOT_FOUNT);
         }
 
         // 모든 일치하는 친구 정보 삭제
         for (Friends friend : friends) {
             friendsRepository.delete(friend);
-        }
-        for (Friends friend1 : friends1) {
-            friendsRepository.delete(friend1);
         }
 
         // 업데이트된 친구 목록 반환
@@ -143,20 +109,23 @@ public class FriendsService {
 
     @Transactional
     public List<FriendsDto> updateFriend(Long studentId, Long friendStudentId, Long categoryId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
-        Student friendStudent = studentRepository.findById(friendStudentId).orElseThrow(
-                () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
-        );
+        studentService.isStudent(studentId);
+        studentService.isFriend(friendStudentId);
         Category category = categoryRepository.findById(categoryId).orElseThrow(
                 () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
         );
 
+        // 친구관계가 존재하는지 확인.
         List<Friends> friends = friendsRepository.findByCategory_Student_StudentIdAndFriendId(studentId, friendStudentId);
 
+        if(friends.isEmpty()){
+            throw new CustomException(ErrorCode.FRIEND_NOT_FOUNT);
+        }
 
         for (Friends friend : friends) {
+            if(friend.getCategory().getStudent().getStudentId() != category.getStudent().getStudentId()) {
+                throw new CustomException(ErrorCode.DIFFERENT_STUDENT_CATEGORY);
+            }
             // Update the category of each Friends object
             friend.setCategory(category);
 
