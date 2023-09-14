@@ -2,6 +2,7 @@ package com.shinhan.hack.remittance.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.remittance.entity.DutchPay;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ public class DutchPayDetailDto {
         private LocalDateTime remittanceTime;
         private String name;
         private Long friendId;
+        private Long dutchId;
     }
 
     @Getter
