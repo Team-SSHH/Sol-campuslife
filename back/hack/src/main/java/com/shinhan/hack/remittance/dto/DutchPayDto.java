@@ -26,7 +26,7 @@ public class DutchPayDto {
 
         @Override
         public int compareTo(Response o) {
-            if(o.dutchState)return 1;
+            if(this.dutchState)return -1;
             return (int)(this.getDutchId() - o.getDutchId());
         }
     }

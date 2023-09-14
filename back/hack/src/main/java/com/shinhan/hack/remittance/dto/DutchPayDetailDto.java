@@ -27,7 +27,7 @@ public class DutchPayDetailDto {
 
         @Override
         public int compareTo(DutchPayDetailDto.Response p) {
-            if(p.remittanceState)return 1;
+            if(this.remittanceState)return -1;
             return (int)(this.getDutchDetailId() - p.getDutchDetailId());
         }
     }

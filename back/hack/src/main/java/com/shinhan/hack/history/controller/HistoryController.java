@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +32,7 @@ public class HistoryController {
     @GetMapping("/history/{studentId}")
     public ResponseEntity<List<HistoryDto.Response>> getMyHistory(@PathVariable Long studentId) {
         List<HistoryDto.Response> responses = historyService.getMyHistory(studentId);
+        responses.sort(Collections.reverseOrder());
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
