@@ -7,6 +7,8 @@ import "./SquareBox2.css";
 import { loginuser } from "../../stores/atoms";
 import DetailModal from "./DetailModal";
 import useGetDutchDetail from "../../hooks/useGetDutchDetail";
+import { formatCurrency } from "../common/formatCurrency";
+
 interface SquareBox2Props {}
 
 interface Alarm2Props {
@@ -78,7 +80,7 @@ const SquareBox2: React.FC<Alarm2Props> = (props) => {
         <div className="squarebox2Me">
           <span>{userData.name} </span>
           <span className="squarebox2Amount">
-            {Math.ceil(alarmData.amount / alarmData.number)}
+            {formatCurrency(Math.ceil(alarmData.amount / alarmData.number))}
           </span>{" "}
           원
         </div>
@@ -87,13 +89,17 @@ const SquareBox2: React.FC<Alarm2Props> = (props) => {
             alarmData.details.map((data, index) => (
               <div key={index}>
                 <span>{data.name} </span>
-                <span className="squarebox2Amount"> {data.dutchAmount}</span> 원
+                <span className="squarebox2Amount">
+                  {" "}
+                  {formatCurrency(data.dutchAmount)}
+                </span>{" "}
+                원
               </div>
             ))}
         </div>
         <hr />
         <div className="squarebox2Total">
-          {alarmData.amount} <span>원</span>
+          {formatCurrency(alarmData.amount)} <span>원</span>
         </div>
         <StyledButton onClick={() => getDetail()}>상세보기</StyledButton>
       </div>

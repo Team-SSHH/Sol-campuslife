@@ -63,8 +63,9 @@ const AlertPage = () => {
   const [haveToData, setHaveToData] = useState<Array<DutchType>>();
 
   useEffect(() => {
-    handleGetDutchPayload();
+    handleGetHaveToDutchPay();
   }, []);
+
   useEffect(() => {
     setData(getLoadData);
   }, [getLoadData]);
@@ -89,33 +90,31 @@ const AlertPage = () => {
     <div className="alertWrapper">
       <StyledButton
         left={20}
-        $activate={isClicked}
-        onClick={() => handleGetDutchPayload()}
-      >
-        발신함
-      </StyledButton>
-      <StyledButton
-        right={20}
         $activate={!isClicked}
         onClick={() => handleGetHaveToDutchPay()}
       >
         수신함
       </StyledButton>
+      <StyledButton
+        right={20}
+        $activate={isClicked}
+        onClick={() => handleGetDutchPayload()}
+      >
+        발신함
+      </StyledButton>
       {isClicked && (
         <Box>
           {data &&
-            [...data]
-              .reverse()
-              .map((d, index) => <SquareBox2 key={index} alarmData={d} />)}
+            data.map((d, index) => <SquareBox2 key={index} alarmData={d} />)}
         </Box>
       )}
 
       {!isClicked && (
         <Box>
           {haveToData &&
-            [...haveToData]
-              .reverse()
-              .map((d, index) => <SquareBox1 key={index} alarmData={d} />)}
+            haveToData.map((d, index) => (
+              <SquareBox1 key={index} alarmData={d} />
+            ))}
         </Box>
       )}
 

@@ -55,7 +55,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const extractFriends = (data: FriendType[]): number[] => {
       return data.map((item) => item.studentId);
     };
@@ -66,12 +66,18 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     if (props.isdutch) {
       handleAlertDutchPay(userData.studentId, new_friends, value);
     } else {
-      handleRemittance(
+      const successful = await handleRemittance(
         userData.studentId,
         friendData[0].studentId,
         value,
         "송금"
       );
+
+      if (successful) {
+        alert("송금완료되었습니다.");
+      } else {
+        alert("잔액 부족으로 실패했습니다.");
+      }
     }
 
     setIsModalOpen(false);

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { DutchType } from "../../types/DataType";
 import "./DetailModal.css";
+import { formatCurrency } from "../common/formatCurrency";
+
 interface DetailModalProps {
   detailInfo: DutchType[];
   onClose: () => void;
@@ -56,8 +58,11 @@ const DetailModal: React.FC<DetailModalProps> = ({ detailInfo, onClose }) => {
         {detailInfo.map((info, index) => (
           <div key={index} className="detailModalBox">
             <span className="detailModalName">{info.name} </span>
-            <span className="detailModalAmount"> {info.dutchAmount}</span>원
-            <span> </span>
+            <span className="detailModalAmount">
+              {" "}
+              {formatCurrency(info.dutchAmount)}
+            </span>
+            원<span> </span>
             <span className="detailModalTime">
               {info.remittanceState ? info.remittanceTime : "기다리는 중"}
             </span>
