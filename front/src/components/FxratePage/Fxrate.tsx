@@ -70,32 +70,40 @@ const Fxrate: React.FC<FxrateProps> = ({ selectedCurrency }) => {
   const renderRates = () => {
     if (!ratesData) return null;
     return (
-      <div>
-        <h2>
+      <div className="fxrateRender">
+        <div className="fxrateRenderTitle">
           {ratesData.통화CODE_DISPLAY}({ratesData.통화CODE})
-        </h2>
-        <p>
-          <strong>대미환산환율:</strong> {ratesData.대미환산환율} $
-        </p>
-        <p>
-          <strong>매매기준환율:</strong> {ratesData.매매기준환율} 원
-        </p>
+        </div>
+        <div className="fxrateRenderContent">
+          <p>
+            <span>대미환산환율 </span>
+            <span className="fxrateRenderResult">
+              {ratesData.대미환산환율} $
+            </span>
+          </p>
+
+          <p>
+            <span>매매기준환율 </span>
+            <span className="fxrateRenderResult">
+              {ratesData.매매기준환율}
+              <span> 원</span>
+            </span>
+          </p>
+        </div>
       </div>
     );
   };
 
   return (
-    <div className="card-w">
-      <div className="fxrate-box card neumorphism">
-        Fxrate
-        <DatePicker
-          dateFormat="yyyy.MM.dd"
-          className="datepicker"
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
-        {renderRates()}
-      </div>
+    <div className="fxrateBox">
+      날짜 선택
+      <DatePicker
+        dateFormat="yyyy.MM.dd"
+        className="datepicker"
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+      />
+      {renderRates()}
     </div>
   );
 };

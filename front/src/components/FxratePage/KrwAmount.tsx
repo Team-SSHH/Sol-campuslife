@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
 import "./Kwrate.css";
-import "./kwrate.scss";
+import styled from "styled-components";
 
 interface KwData {
   우대율: string;
 }
+const StyledButton = styled.button`
+  // position: relative;
+  // top: 2%;
+  // right: 5%;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  margin-left: 5%;
+  color: #fff;
+  height: 2rem;
+  width: 8rem;
+  font-size: 0.8rem;
+  background: #6e96ff;
+`;
 
 interface KrwAmountProps {
   selectedCurrency: string;
@@ -58,18 +72,17 @@ const KrwAmount: React.FC<KrwAmountProps> = ({ selectedCurrency }) => {
   }, [selectedCurrency]);
 
   return (
-    <div>
+    <div className="krwAmountWrapper">
       <input
-        className="kwinput"
+        className="krwInput"
         type="text"
+        placeholder=" 금액을 입력하세요."
         value={inputAmount}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
-      <button className="Kwbtn" onClick={handleBtnClick}>
-        원화예상금액보기
-      </button>
-      <p>원화예상금액: {exchangeAmount}</p>
+      <StyledButton onClick={handleBtnClick}>원화예상금액보기</StyledButton>
+      <p className="fxrateTitle">원화예상금액 {exchangeAmount}</p>
     </div>
   );
 };
