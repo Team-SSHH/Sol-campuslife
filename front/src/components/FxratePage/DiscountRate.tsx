@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
+import styled from "styled-components";
 
 interface DiscountData {
   통화: string;
@@ -53,7 +54,7 @@ const DiscountRate: React.FC<DiscountRateProps> = ({ selectedCurrency }) => {
   };
 
   return (
-    <div>
+    <div className="fxratePreferential">
       {checkData
         ? `${selectedCurrency} 우대율: ${checkData.우대율}`
         : "우대율이 없습니다"}
