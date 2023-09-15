@@ -42,6 +42,7 @@ public class History {
     static LocalDateTime time = LocalDateTime.parse(patternTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     @Column(name = "transaction_time", nullable = false)
+    @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Builder.Default
     private LocalDateTime transactionTime = LocalDateTime.now();

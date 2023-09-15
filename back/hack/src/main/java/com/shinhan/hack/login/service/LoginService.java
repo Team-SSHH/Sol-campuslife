@@ -15,22 +15,8 @@ public class LoginService {
     private final LoginRepository loginRepository;
 
     public Student login(StudentDto.Post student) {
-        Student response = loginRepository.findStudentByStudentIdAndPassword(student.getStudentId(), student.getPassword()).orElseThrow(
+        return loginRepository.findStudentByStudentIdAndPassword(student.getStudentId(), student.getPassword()).orElseThrow(
                 () -> new CustomException(ErrorCode.LOGIN_FAIL)
         );
-        return response;
     }
-
-    public Student isStudent(Long studentId) {
-        return loginRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
-        );
-    }
-
-    public Student isFriend(Long friendId){
-        return loginRepository.findById(friendId).orElseThrow(
-                () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
-        );
-    }
-
 }

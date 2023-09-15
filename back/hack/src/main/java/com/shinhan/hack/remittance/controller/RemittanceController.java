@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -110,7 +112,7 @@ public class RemittanceController {
             List<DutchPayDetailDto.Response> detailResponses = remittanceService.getDutchDetail(dutchResponse.getDutchId());
             dutchResponse.setDetails(detailResponses);
         }
-
+        response.sort(Collections.reverseOrder());
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
@@ -129,6 +131,9 @@ public class RemittanceController {
     public ResponseEntity<List<DutchPayDetailDto.Response>> getDutchPayDetailAll(
             @PathVariable("studentId") Long studentId
     ){
-        return new ResponseEntity<>(remittanceService.getDutchDetailAll(studentId), HttpStatus.OK);
+        List<DutchPayDetailDto.Response> response = remittanceService.getDutchDetailAll(studentId);
+
+        response.sort(Comparator.reverseOrder());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -4,7 +4,6 @@ import com.shinhan.hack.Error.CustomException;
 import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.category.entity.Category;
 import com.shinhan.hack.category.repository.CategoryRepository;
-import com.shinhan.hack.category.service.CategoryService;
 import com.shinhan.hack.friends.dto.FriendsDto;
 import com.shinhan.hack.friends.entity.Friends;
 import com.shinhan.hack.friends.repository.FriendsRepository;
@@ -12,23 +11,23 @@ import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 
 import com.shinhan.hack.login.mapper.LoginMapper;
-import com.shinhan.hack.login.service.LoginService;
+import com.shinhan.hack.login.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class FriendsService {
 
-    private final LoginService studentService;
-    private final CategoryService categoryService;
-
     private final FriendsRepository friendsRepository;
     private final CategoryRepository categoryRepository;
+    private final LoginRepository studentRepository;
+
     private final LoginMapper studentMapper;
 
     @Transactional
@@ -40,7 +39,10 @@ public class FriendsService {
             List<Friends> friends = friendsRepository.findByCategory_CategoryId(category.getCategoryId());
             for (Friends friend : friends) {
 
-                Student friendStudent = studentService.isFriend(friend.getFriendId());// 추가된 부분
+                Student friendStudent = studentRepository.findById(friend.getFriendId()).orElseThrow(
+                        () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
+                );
+
                 StudentDto.Response friendInfo = studentMapper.toResponseDto(friendStudent);
 
                 friendsList.add(FriendsDto.builder()
@@ -109,8 +111,12 @@ public class FriendsService {
 
     @Transactional
     public List<FriendsDto> updateFriend(Long studentId, Long friendStudentId, Long categoryId) {
-        studentService.isStudent(studentId);
-        studentService.isFriend(friendStudentId);
+        studentRepository.findById(studentId).orElseThrow(
+                () -> new CustomException(ErrorCode.MEMBER_NOT_FOUND)
+        );
+        studentRepository.findById(friendStudentId).orElseThrow(
+                () -> new CustomException(ErrorCode.FRIEND_NOT_FOUNT)
+        );
         Category category = categoryRepository.findById(categoryId).orElseThrow(
                 () -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND)
         );
@@ -123,7 +129,7 @@ public class FriendsService {
         }
 
         for (Friends friend : friends) {
-            if(friend.getCategory().getStudent().getStudentId() != category.getStudent().getStudentId()) {
+            if(!Objects.equals(friend.getCategory().getStudent().getStudentId(), category.getStudent().getStudentId())) {
                 throw new CustomException(ErrorCode.DIFFERENT_STUDENT_CATEGORY);
             }
             // Update the category of each Friends object

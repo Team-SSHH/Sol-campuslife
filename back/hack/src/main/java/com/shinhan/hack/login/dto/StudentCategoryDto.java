@@ -5,10 +5,11 @@ import lombok.*;
 public class StudentCategoryDto {
     @Getter
     @Setter
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     @ToString
-    public static class Response extends StudentDto.Response {
+    public static class Response{
         private Long categoryId;
         private String categoryName;
         private Long studentId;
