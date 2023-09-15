@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atoms";
 import { getMyMoney } from "../../services/apiService";
+import { formatCurrency } from "../common/formatCurrency";
 
 const StudentIdComponent = styled.div`
   width: 90%;
@@ -62,7 +63,7 @@ const StudentId = () => {
         <div className="back">
           <div className="cardInfo">
             <div>계좌번호 : {userData.bankNumber}</div>
-            <div>잔액 : {balance}원</div>
+            <div>잔액 : {formatCurrency(balance)} 원</div>
           </div>
           <div className="flipment" onClick={handleClick}>
             학생증 앞면 보기 &gt;

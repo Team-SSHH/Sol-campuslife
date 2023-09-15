@@ -32,7 +32,7 @@ interface BasicBoxComponentProps {
 const BasicBoxComponent = styled.div<BasicBoxComponentProps>`
   position: relative;
 
-  height: 10%;
+  height: 15%;
   // width: %;
   margin-bottom: 3%;
   outline: none;
@@ -44,7 +44,7 @@ const BasicBoxComponent = styled.div<BasicBoxComponentProps>`
   background: ${(props) => (props.selected ? "#6e96ff" : "#c7d6ff")};
   color: ${(props) => (props.selected ? "#fff" : "#000")};
 
-  overflow-y: scroll;
+  // overflow-y: scroll;
   display: flex;
   align-items: center;
   justify-content: center;

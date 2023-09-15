@@ -9,6 +9,7 @@ import {
   selectedFriend,
 } from "../../stores/atoms";
 import useDutchPay from "../../hooks/useDutchPay";
+import { formatCurrency } from "../common/formatCurrency";
 
 interface SquareBox1Props {}
 
@@ -70,8 +71,10 @@ const SquareBox1: React.FC<Alarm2Props> = (props) => {
       alarmData.dutchAmount.toString()
     );
     if (isSuccessful) {
-      alert("송금이 완료됬습니다.");
+      alert("송금이 완료됐습니다.");
       window.location.reload();
+    } else {
+      alert("계좌잔액 부족입니다.");
     }
 
     // setIsModalOpen(true);
@@ -101,7 +104,9 @@ const SquareBox1: React.FC<Alarm2Props> = (props) => {
         <div></div>
         <DetailBox>
           <span>{alarmData.name} </span>
-          <span className="squarebox2Amount">{alarmData.dutchAmount}</span>
+          <span className="squarebox2Amount">
+            {formatCurrency(alarmData.dutchAmount)}
+          </span>
           <span>원</span>
         </DetailBox>
       </div>
