@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./MyCalendar.css";
-
+import { formatCurrency } from "../common/formatCurrency";
 interface DateWiseConsumption {
   [date: string]: {
     [content: string]: number;
@@ -38,7 +38,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ dateWiseConsumption }) => {
 
     return (
       <p style={{ fontSize: "10px", margin: "0", padding: "0", color: "red" }}>
-        -{totalSpent}
+        -{formatCurrency(totalSpent)}
       </p>
     );
   };
@@ -70,7 +70,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ dateWiseConsumption }) => {
                   ([content, pay]) => (
                     <tr key={content}>
                       <td>{content}</td>
-                      <td>{pay}</td>
+                      <td>{formatCurrency(pay)}</td>
                     </tr>
                   )
                 )}

@@ -9,6 +9,7 @@ import {
   selectedFriend,
 } from "../../stores/atoms";
 import useDutchPay from "../../hooks/useDutchPay";
+import { formatCurrency } from "../common/formatCurrency";
 
 interface SquareBox1Props {}
 
@@ -103,7 +104,9 @@ const SquareBox1: React.FC<Alarm2Props> = (props) => {
         <div></div>
         <DetailBox>
           <span>{alarmData.name} </span>
-          <span className="squarebox2Amount">{alarmData.dutchAmount}</span>
+          <span className="squarebox2Amount">
+            {formatCurrency(alarmData.dutchAmount)}
+          </span>
           <span>원</span>
         </DetailBox>
       </div>
