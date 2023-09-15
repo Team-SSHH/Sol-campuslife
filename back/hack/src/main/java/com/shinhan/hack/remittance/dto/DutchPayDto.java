@@ -20,7 +20,7 @@ public class DutchPayDto {
         private Long amount;
         private Boolean dutchState;
         private Long number;
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime requestTime;
         private List<DutchPayDetailDto.Response> details;
 

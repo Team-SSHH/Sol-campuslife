@@ -62,6 +62,7 @@ public class HistoryService {
 
     public Map<Long, Map<String, HistoryDto.Summary>> getStatistics() {
         List<HistoryDto.Response> responses = getHistoryMonth();
+        System.out.println("responses = " + responses);
 
 
         return responses.stream()
@@ -83,7 +84,7 @@ public class HistoryService {
 
     public HistoryDto.StatisticsSummary getStatisticsSummary() {
         Map<Long, Map<String, HistoryDto.Summary>> statistics = getStatistics();
-
+        System.out.println("statistics = " + statistics);
 
         long grandTotalSum = 0;
         int studentCount = 0;

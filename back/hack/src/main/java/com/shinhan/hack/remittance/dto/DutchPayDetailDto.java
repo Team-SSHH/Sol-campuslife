@@ -6,7 +6,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+import com.shinhan.hack.remittance.entity.DutchPay;
 public class DutchPayDetailDto {
 
     @Getter
@@ -18,10 +18,11 @@ public class DutchPayDetailDto {
         private Long dutchDetailId;
         private Long dutchAmount;
         private boolean remittanceState;
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Seoul")
         private LocalDateTime remittanceTime;
         private String name;
         private Long friendId;
+        private Long dutchId;
     }
 
     @Getter
