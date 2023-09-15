@@ -43,10 +43,10 @@
   border-radius: 10px;
 }
 
-.modal {
+.fxrateModal {
   width: 100%;
   height: 15%;
-  background-color: #ffffff;
+  background-color: #6f96ff;
   position: fixed;
   top: 0;
   left: 0;
@@ -58,9 +58,11 @@
   justify-content: center; */
 }
 
-.modal-content {
+.fxrateModalContent {
+  padding-left: 5%;
   width: 100%;
-  display: flex;
+  /* display: flex; */
+
   justify-content: center;
   margin-top: 5%;
   animation-name: slide-down;
@@ -86,4 +88,9 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.fxrateLink {
+  display: flex;
+  justify-content: center;
 }

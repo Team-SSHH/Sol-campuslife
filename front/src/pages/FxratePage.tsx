@@ -13,10 +13,17 @@ import { getMessaging, getToken } from "firebase/messaging";
 import api1 from "../utils/api1";
 import styled from "styled-components";
 
-const StyledButton = styled.button`
+interface ButtonProps {
+  top?: string;
+  right?: string;
+  width: string;
+  height?: number;
+  fontSize?: number;
+}
+const StyledButton = styled.button<ButtonProps>`
   position: absolute;
-  top: 2%;
-  right: 5%;
+  top: ${(props) => props.top};
+  right: ${(props) => props.right};
   outline: none;
   border: none;
   border-radius: 15px;
@@ -24,9 +31,9 @@ const StyledButton = styled.button`
   padding-right: 1rem;
   font-weight: bold;
 
-  height: 2rem;
-  width: 20%;
-  font-size: 0.8rem;
+  height: ${(props) => props.height}rem;
+  width: ${(props) => props.width};
+  font-size: ${(props) => props.fontSize}rem;
   background: #fac109;
 `;
 
@@ -83,15 +90,26 @@ const FxratePage: React.FC = () => {
   };
   return (
     <div className="fxrateContainer">
-      <StyledButton onClick={handleModalToggle}>알림 설정</StyledButton>
+      <StyledButton
+        top="2%"
+        right="5%"
+        width="20%"
+        height={2}
+        fontSize={0.8}
+        onClick={handleModalToggle}
+      >
+        알림 설정
+      </StyledButton>
       {/* <button className="fxratepush">
         알림 설정
       </button> */}
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="fxrateModal">
+          <div className="fxrateModalContent">
             <Fxratepush />
-            <button onClick={getDeviceToken}>디바이스 토큰받기</button>
+            {/* <StyledButton width="26%" height={2} right="2%" top="50%">
+              알림신청
+            </StyledButton> */}
             <button className="close-button" onClick={handleCloseModal}>
               X
             </button>
@@ -126,8 +144,11 @@ const FxratePage: React.FC = () => {
       </div>
       {/* <br />
       <br /> */}
-      <Link to={"/Fxrequest"}>
-        <button className="fxratebtn Kwbtn">환전신청 및 결과 조회</button>
+      <Link to={"/Fxrequest"} className="fxrateLink">
+        <StyledButton width="50%" height={3} fontSize={1.2}>
+          환전신청 및 결과 조회
+        </StyledButton>
+        {/* <button className="fxratebtn Kwbtn"></button> */}
       </Link>
     </div>
   );
