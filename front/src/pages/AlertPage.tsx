@@ -105,18 +105,16 @@ const AlertPage = () => {
       {isClicked && (
         <Box>
           {data &&
-            [...data]
-              .reverse()
-              .map((d, index) => <SquareBox2 key={index} alarmData={d} />)}
+            data.map((d, index) => <SquareBox2 key={index} alarmData={d} />)}
         </Box>
       )}
 
       {!isClicked && (
         <Box>
           {haveToData &&
-            [...haveToData]
-              .reverse()
-              .map((d, index) => <SquareBox1 key={index} alarmData={d} />)}
+            haveToData.map((d, index) => (
+              <SquareBox1 key={index} alarmData={d} />
+            ))}
         </Box>
       )}
 
