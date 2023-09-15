@@ -45,7 +45,7 @@ public class History {
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Builder.Default
-    private LocalDateTime transactionTime = time;
+    private LocalDateTime transactionTime = LocalDateTime.now();
 
     @Column(name = "balance", nullable = false)
     private Long balance;

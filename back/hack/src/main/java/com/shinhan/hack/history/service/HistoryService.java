@@ -62,6 +62,7 @@ public class HistoryService {
 
     public Map<Long, Map<String, HistoryDto.Summary>> getStatistics() {
         List<HistoryDto.Response> responses = getHistoryMonth();
+        System.out.println("responses = " + responses);
 
 
         return responses.stream()
@@ -83,7 +84,7 @@ public class HistoryService {
 
     public HistoryDto.StatisticsSummary getStatisticsSummary() {
         Map<Long, Map<String, HistoryDto.Summary>> statistics = getStatistics();
-
+        System.out.println("statistics = " + statistics);
 
         long grandTotalSum = 0;
         int studentCount = 0;
@@ -119,8 +120,10 @@ public class HistoryService {
         LocalDateTime oneMonthAgo = now.minusMonths(1);
 
         List<Student> allStudents = loginRepository.findAll();
+        System.out.println("allStudents = " + allStudents);
 
         List<History> allHistories = historyRepository.findAll();
+        System.out.println("allHistories = " + allHistories);
         Map<String, LongSummaryStatistics> totalStats = allHistories.stream()
                 .filter(history -> history.getTransactionTime().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(
@@ -140,6 +143,7 @@ public class HistoryService {
                 ));
 
         int totalStudentsCount = allStudents.size(); // 전체 학생 수
+        System.out.println("totalStudentsCount = " + totalStudentsCount);
 
         List<HistoryDto.DailyConsumptionDto> result = new ArrayList<>();
 
@@ -150,8 +154,8 @@ public class HistoryService {
 
             long me = myStats.containsKey(dayString) ? myStats.get(dayString).getSum() : 0;
             long average =
-                    Math.round(totalStats.containsKey(dayString) ? totalStats.get(dayString).getAverage() / totalStudentsCount : 0);
-
+                    Math.round(totalStats.containsKey(dayString) ? totalStats.get(dayString).getSum()/ totalStudentsCount : 0);
+            System.out.println("average = " + average);
             result.add(new HistoryDto.DailyConsumptionDto(dayString, me, average));
 
             currentDate = currentDate.plusDays(1);

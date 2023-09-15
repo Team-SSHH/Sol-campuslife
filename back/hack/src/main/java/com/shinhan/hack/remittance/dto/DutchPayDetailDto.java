@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+import com.shinhan.hack.remittance.entity.DutchPay;
 public class DutchPayDetailDto {
 
     @Getter
@@ -29,6 +29,7 @@ public class DutchPayDetailDto {
         public int compareTo(DutchPayDetailDto.Response p) {
             return (int)(this.getDutchDetailId() - p.getDutchDetailId());
         }
+
     }
 
     @Getter
