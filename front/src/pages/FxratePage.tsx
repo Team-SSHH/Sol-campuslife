@@ -10,8 +10,25 @@ import { registerServiceWorker } from "../utils/notification";
 import { AppCheckTokenResult } from "@firebase/app-check";
 import { getMessaging, getToken } from "firebase/messaging";
 // import firebase from "firebase/app";
-import axios from "axios";
 import api1 from "../utils/api1";
+import styled from "styled-components";
+
+const StyledButton = styled.button`
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: bold;
+
+  height: 2rem;
+  width: 20%;
+  font-size: 0.8rem;
+  background: #fac109;
+`;
 
 const FxratePage: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>("USD");
@@ -65,15 +82,14 @@ const FxratePage: React.FC = () => {
     setIsModalOpen(false);
   };
   return (
-    <div className="fxrate-container">
-      <button className="fxratepush Kwbtn" onClick={handleModalToggle}>
+    <div className="fxrateContainer">
+      <StyledButton onClick={handleModalToggle}>알림 설정</StyledButton>
+      {/* <button className="fxratepush">
         알림 설정
-      </button>
-      {/* 모달창 */}
+      </button> */}
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            {/* 모달 내용 */}
             <Fxratepush />
             <button onClick={getDeviceToken}>디바이스 토큰받기</button>
             <button className="close-button" onClick={handleCloseModal}>
@@ -83,8 +99,9 @@ const FxratePage: React.FC = () => {
         </div>
       )}
 
-      <div>
-        <label htmlFor="currencySelect">통화 선택:</label>
+      <div className="fxrateBox1">
+        <div className="fxrateTitle">환율</div>
+        <label htmlFor="currencySelect">통화 선택</label>
         <select
           id="currencySelect"
           name="currencySelect"
@@ -97,21 +114,18 @@ const FxratePage: React.FC = () => {
             </option>
           ))}
         </select>
-      </div>
-      <div>
-        <p>Exchange Rate</p>
         <Fxrate selectedCurrency={selectedCurrency} />
-        <p>나의 우대율</p>
       </div>
-      <div className="card-w">
-        <div className="discount-box card neumorphism">
-          <p>나의 우대율</p>
+
+      <div className="fxrateBox1">
+        <div className="discountBox">
+          <div className="fxrateTitle">나의 우대율</div>
           <DiscountRate selectedCurrency={selectedCurrency} />
           <KrwAmount selectedCurrency={selectedCurrency} />
         </div>
       </div>
-      <br />
-      <br />
+      {/* <br />
+      <br /> */}
       <Link to={"/Fxrequest"}>
         <button className="fxratebtn Kwbtn">환전신청 및 결과 조회</button>
       </Link>
