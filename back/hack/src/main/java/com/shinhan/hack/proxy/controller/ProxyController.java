@@ -95,4 +95,18 @@ public class ProxyController {
 
         return ResponseEntity.ok(response.getBody());
     }
+    @PostMapping("/branch/list")
+    public ResponseEntity<?> getBranch(@RequestBody String requestBody) {
+
+        String apiUrl = "https://shbhack.shinhan.com/v1/search/branch/list";
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+
+        return ResponseEntity.ok(response.getBody());
+    }
+
 }
