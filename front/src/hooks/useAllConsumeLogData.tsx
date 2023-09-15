@@ -83,19 +83,26 @@ const useAllConsumeData = () => {
       } else {
         timeMatched = true;
       }
-
       if (dayMatched && categoryMatched && timeMatched && data.imgUrl) {
-        filteredAndSortedData.push({
-          content: data.content,
-          imgUrl: data.imgUrl,
-          userScore: data.userScore,
-          address: data.address,
-        });
+        const existingPlace = filteredAndSortedData.find(
+          (item) => item.address === data.address
+        );
+
+        if (!existingPlace) {
+          filteredAndSortedData.push({
+            content: data.content,
+            imgUrl: data.imgUrl,
+            userScore: data.userScore,
+            address: data.address,
+          });
+        }
         frequencyCount[data.content]
           ? frequencyCount[data.content]++
           : (frequencyCount[data.content] = 1);
       }
     });
+    console.log(frequencyCount);
+    console.log("frequencnve");
     console.log(filteredAndSortedData);
     console.log("ddddddddddddddddddddddddddddddddddd");
 
