@@ -31,9 +31,9 @@ public class HistoryController {
 
     @GetMapping("/history/{studentId}")
     public ResponseEntity<List<HistoryDto.Response>> getMyHistory(@PathVariable Long studentId) {
-        List<HistoryDto.Response> responses = historyService.getMyHistory(studentId);
-        responses.sort(Collections.reverseOrder());
-        return new ResponseEntity<>(responses, HttpStatus.OK);
+        List<HistoryDto.Response> response = historyService.getMyHistory(studentId);
+        response.sort(Collections.reverseOrder());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/history/data")

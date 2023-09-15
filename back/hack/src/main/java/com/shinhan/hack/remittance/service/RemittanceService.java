@@ -298,9 +298,22 @@ public class RemittanceService {
         return response;
     }
 
-    public List<DutchPay> dutchPay(Long studentId) {
-        List<DutchPay> dutchPayList = dutchPayRepository.findByStudentId(studentId);
-        return dutchPayList;
+    public List<DutchPayDto.Response> dutchPay(Long studentId) {
+        List<DutchPayDto.Response> response = remittanceMapper.toDutchResponseDto(dutchPayRepository.findByStudentId(studentId));
+        for (DutchPayDto.Response dutchResponse : response) {
+            List<DutchPayDetailDto.Response> detailResponses = this.getDutchDetail(dutchResponse.getDutchId());
+            dutchResponse.setDetails(detailResponses);
+        }
+        response.sort(Collections.reverseOrder());
+        List<DutchPayDto.Response> listTrue = new ArrayList<>();
+        List<DutchPayDto.Response> result = new ArrayList<>();
+        for (DutchPayDto.Response res: response
+        ) {
+            if(res.getDutchState()) listTrue.add(res);
+            else result.add(res);
+        }
+        result.addAll(listTrue);
+        return result;
     }
 
     public List<DutchPayDetailDto.Response> getDutchDetail(Long dutchId){
@@ -357,6 +370,16 @@ public class RemittanceService {
             responseList.add(response);
         }
 
-        return responseList;
+        responseList.sort(Comparator.reverseOrder());
+        List<DutchPayDetailDto.Response> listTrue = new ArrayList<>();
+        List<DutchPayDetailDto.Response> result = new ArrayList<>();
+        for (DutchPayDetailDto.Response res: responseList
+        ) {
+            if(res.getRemittanceState()) listTrue.add(res);
+            else result.add(res);
+        }
+        result.addAll(listTrue);
+
+        return result;
     }
 }
