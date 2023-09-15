@@ -18,7 +18,7 @@ public class DutchPayDetailDto {
     public static class Response implements Comparable<Response>{
         private Long dutchDetailId;
         private Long dutchAmount;
-        private boolean remittanceState;
+        private Boolean remittanceState;
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Seoul")
         private LocalDateTime remittanceTime;
         private String name;
@@ -27,7 +27,6 @@ public class DutchPayDetailDto {
 
         @Override
         public int compareTo(DutchPayDetailDto.Response p) {
-            if(this.remittanceState)return -1;
             return (int)(this.getDutchDetailId() - p.getDutchDetailId());
         }
 
