@@ -19,14 +19,21 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ dateWiseConsumption }) => {
 
   const onClickDay = (date: Date): void => {
     setValue(date);
-    setSelectedDate(date.toISOString().split("T")[0]); // 선택된 날짜를 yyyy-mm-dd 형식으로 저장
+    const offset = date.getTimezoneOffset() * 60000;
+    const localISOTime = new Date(date.getTime() - offset)
+      .toISOString()
+      .split("T")[0];
+    setSelectedDate(localISOTime); // 선택된 날짜를 yyyy-mm-dd 형식으로 저장
   };
 
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
     // month view에서만 총 소비 금액을 표시합니다.
     if (view !== "month") return null;
 
-    const dateString = date.toISOString().split("T")[0];
+    const offset = date.getTimezoneOffset() * 60000;
+    const dateString = new Date(date.getTime() - offset)
+      .toISOString()
+      .split("T")[0];
 
     if (!dateWiseConsumption[dateString]) return null;
 
@@ -43,6 +50,8 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ dateWiseConsumption }) => {
     );
   };
 
+  console.log(dateWiseConsumption);
+  console.log("ddddddddasssssddddddddddd");
   return (
     <div className="my-calendar">
       <h1>나의 소비 달력</h1>
@@ -54,6 +63,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ dateWiseConsumption }) => {
         tileContent={tileContent}
       />
       {/* 선택된 날짜의 소비 내역을 보여줍니다. */}
+
       {selectedDate && dateWiseConsumption[selectedDate] && (
         <div style={{ color: "black" }}>
           <h2>{selectedDate}</h2>
