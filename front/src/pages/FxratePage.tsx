@@ -10,8 +10,32 @@ import "./styles/FxratePage.css";
 // import { AppCheckTokenResult } from "@firebase/app-check";
 // import { getMessaging, getToken } from "firebase/messaging";
 // import firebase from "firebase/app";
-import axios from "axios";
 import api1 from "../utils/api1";
+import styled from "styled-components";
+
+interface ButtonProps {
+  top?: string;
+  right?: string;
+  width: string;
+  height?: number;
+  fontSize?: number;
+}
+const StyledButton = styled.button<ButtonProps>`
+  position: absolute;
+  top: ${(props) => props.top};
+  right: ${(props) => props.right};
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: bold;
+
+  height: ${(props) => props.height}rem;
+  width: ${(props) => props.width};
+  font-size: ${(props) => props.fontSize}rem;
+  background: #fac109;
+`;
 
 const FxratePage: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>("USD");
@@ -65,28 +89,34 @@ const FxratePage: React.FC = () => {
     setIsModalOpen(false);
   };
   return (
-    <div className="fxrate-container">
-      <button
-        className="fxratepush Kwbtn"
-        // onClick={handleModalToggle}
+    <div className="fxrateContainer">
+      {/* <StyledButton
+        top="2%"
+        right="5%"
+        width="20%"
+        height={2}
+        fontSize={0.8}
+        onClick={handleModalToggle}
       >
         알림 설정
-      </button>
-      {/* 모달창 */}
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            {/* 모달 내용 */}
+      </StyledButton> */}
+      {/* <button className="fxratepush">
+        알림 설정
+      </button> */}
+      {/* {isModalOpen && (
+        <div className="fxrateModal">
+          <div className="fxrateModalContent">
             <Fxratepush />
             <button className="close-button" onClick={handleCloseModal}>
               X
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
-      <div>
-        <label htmlFor="currencySelect">통화 선택:</label>
+      <div className="fxrateBox1">
+        <div className="fxrateTitle">환율</div>
+        <label htmlFor="currencySelect">통화 선택</label>
         <select
           id="currencySelect"
           name="currencySelect"
@@ -99,23 +129,23 @@ const FxratePage: React.FC = () => {
             </option>
           ))}
         </select>
-      </div>
-      <div>
-        <p>Exchange Rate</p>
         <Fxrate selectedCurrency={selectedCurrency} />
-        <p>나의 우대율</p>
       </div>
-      <div className="card-w">
-        <div className="discount-box card neumorphism">
-          <p>나의 우대율</p>
+
+      <div className="fxrateBox1">
+        <div className="discountBox">
+          <div className="fxrateTitle">나의 우대율</div>
           <DiscountRate selectedCurrency={selectedCurrency} />
           <KrwAmount selectedCurrency={selectedCurrency} />
         </div>
       </div>
-      <br />
-      <br />
-      <Link to={"/Fxrequest"}>
-        <button className="fxratebtn Kwbtn">환전신청 및 결과 조회</button>
+      {/* <br />
+      <br /> */}
+      <Link to={"/Fxrequest"} className="fxrateLink">
+        <StyledButton width="50%" height={3} fontSize={1.2}>
+          환전신청 및 결과 조회
+        </StyledButton>
+        {/* <button className="fxratebtn Kwbtn"></button> */}
       </Link>
     </div>
   );

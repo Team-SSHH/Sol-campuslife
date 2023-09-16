@@ -70,6 +70,21 @@ registerRoute(
   })
 );
 
+self.addEventListener("notificationclick", function (event) {
+  var clickAction = event.notification.data.clickAction;
+  console.log(clickAction);
+  console.log(event);
+  if (clickAction === "OPEN_MAIN_PAGE") {
+    // OPEN_MAIN_PAGE 값인 경우 Main 페이지로 이동
+    event.waitUntil(
+      self.clients.openWindow("/") // 리액트 PWA의 Main 페이지 URL
+    );
+  } else if (clickAction === "OPEN_DUTCHPAY_PAGE") {
+    self.clients.openWindow("/Alert");
+  }
+  event.notification.close(); // 알림 닫기
+});
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 // self.addEventListener("message", (event) => {
