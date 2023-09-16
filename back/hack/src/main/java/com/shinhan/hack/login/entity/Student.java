@@ -60,13 +60,14 @@ public class Student {
 
     @Column(name = "token")
     private String token;
-//
-//    @Column(name = "location_state")
-//    private Boolean locationState;
-//
-//    @Column(name = "latitude")
-//    private Double latitude;
-//
-//    @Column(name = "longitude")
-//    private Double longitude;
+
+    @Builder.Default
+    @Column(name = "location_state", nullable = false)
+    private Boolean locationState = false;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 }
