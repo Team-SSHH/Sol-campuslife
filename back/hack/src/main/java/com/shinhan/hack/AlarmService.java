@@ -77,7 +77,7 @@ public class AlarmService {
 
 
 //    @Scheduled(fixedRate = 180000)
-    @Scheduled(cron = "0 0 8,12,18 * * *")
+    @Scheduled(cron = "0 0 23,3,9 * * *")
     public void sendAlarm() {
         List<String> tokenList = studentRepository.findTokenAll();
 
