@@ -1,49 +1,21 @@
 /* Constants */
-:root {
+/* :root {
   --bkg-color: #e0e5ec;
   --dark-box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
     -9px -9px 16px rgba(255, 255, 255, 0.5);
   --light-box-shadow-hover: 9px 9px 16px rgba(163, 177, 198, 0.6),
     -9px -9px 16px rgba(255, 255, 255, 0.5),
     inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
-}
-
-.fxbtn {
-  margin: 1em;
-  padding: 1em;
-  /* background: #efefef; */
-  background: #c6d5ff;
-  border: none;
-  border-radius: 0.5rem;
-  color: #444;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.2rem;
-  text-align: center;
-  outline: none;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-  box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
-    -6px -6px 10px rgba(255, 255, 255, 0.5),
-    6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
-}
-/* button:hover {
-  box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6),
-    -2px -2px 4px rgba(255, 255, 255, 0.4),
-    2px 2px 2px rgba(255, 255, 255, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-button:active {
-  box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.7),
-    inset -2px -2px 4px rgba(255, 255, 255, 0.5),
-    inset 2px 2px 2px rgba(255, 255, 255, 0.075),
-    inset 2px 2px 4px rgba(0, 0, 0, 0.15);
 } */
 
-.fxrequest-container {
-  height: 80vh;
-  margin-top: 5%;
-  padding: 5%;
-  border-radius: 20px;
+.fxrequestContainer {
+  position: absolute;
+  height: 92%;
+  width: 100%;
+  bottom: 0;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  /* background-color: #c6d5ff; */
   background-color: #c6d5ff;
 }
 
@@ -51,7 +23,7 @@ button:active {
   padding: 2%;
   width: 100%;
   border-radius: 20px;
-  background-color: aliceblue;
+  background-color: #fff;
 }
 
 .requset-box {
@@ -61,57 +33,79 @@ button:active {
   background-color: aliceblue;
 }
 
-.neumorphism {
-  background-color: var(--bkg-color);
-  box-shadow: var(--dark-box-shadow);
-  transition: all 250ms ease-in-out;
-}
-
-.neumorphism:hover {
-  box-shadow: var(--light-box-shadow-hover);
-}
-
-.card-w {
+.fxrequestWrppaer {
   display: flex;
-  margin-top: 5%;
-  margin-bottom: 5%;
-}
-
-.card-w .card {
-  /* display: flex; */
   flex-direction: column;
   align-items: center;
-  padding: 2%;
-  border-radius: 30px;
-  position: relative;
-  background-color: #e5ebfd;
-  background: transparent;
+  border: #fff solid 0.4rem;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5%;
+}
+.fxrequestResult {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-bottom: 5%;
 }
 
-.card-w .card .card__text {
+.fxrequestModal {
+  background-color: #fff;
+  border: #6f96ff solid 0.3rem;
+  border-radius: 20px;
+  width: 80%;
+  padding: 5%;
+  font-size: 1.1rem;
+}
+
+.fxrateHr {
+  background: #6e96ff;
+  height: 3px;
+  width: 100%;
+  left: 0;
+  top: 36%;
+  /* margin-top: 5%; */
+  position: absolute;
+}
+.selected {
+  background-color: #c6d5ff;
+  font-size: 1rem;
+}
+
+.fxrequestModalContent {
+  padding-top: 5%;
+}
+
+.fxbtn {
+  background: #6f96ff;
+  color: #fff;
+  border: none;
+  /* letter-spacing: 0.2rem; */
   text-align: center;
+
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  margin-left: 5%;
+  color: #fff;
+  height: 2rem;
+  width: 9rem;
+  font-size: 1rem;
 }
 
-/* inset */
-.card.inset {
-  box-shadow: inset 3px 3px 7px rgba(136, 165, 191, 0.48),
-    inset -3px -3px 7px #ffffff;
-  transition: all 250ms ease-in-out;
+.fxresultWrapper {
+  display: flex;
+  justify-content: center;
 }
 
-.card.inset i {
-  text-shadow: 1px 1px 1px #d6e1ef99, 0 0 0 #000, 1px 1px 1px #d6e1ef00;
+.fxresultBox {
+  font-size: 1.1rem;
+  padding: 5%;
+  font-weight: bold;
 }
-
-.card.active {
-  box-shadow: var(--dark-box-shadow),
-    inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
-  background: linear-gradient(
-    318.32deg,
-    rgba(163, 177, 198, 0.1) 0%,
-    rgba(163, 177, 198, 0.1) 55%,
-    rgba(163, 177, 198, 0.25) 100%
-  );
+.fxresultBox div {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2%;
+}
+.fxresultBox span {
+  font-weight: 100;
 }

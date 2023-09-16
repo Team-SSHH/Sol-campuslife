@@ -90,7 +90,7 @@ const FxratePage: React.FC = () => {
   };
   return (
     <div className="fxrateContainer">
-      <StyledButton
+      {/* <StyledButton
         top="2%"
         right="5%"
         width="20%"
@@ -99,23 +99,21 @@ const FxratePage: React.FC = () => {
         onClick={handleModalToggle}
       >
         알림 설정
-      </StyledButton>
+      </StyledButton> */}
       {/* <button className="fxratepush">
         알림 설정
       </button> */}
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <div className="fxrateModal">
           <div className="fxrateModalContent">
             <Fxratepush />
-            {/* <StyledButton width="26%" height={2} right="2%" top="50%">
-              알림신청
-            </StyledButton> */}
+
             <button className="close-button" onClick={handleCloseModal}>
               X
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       <div className="fxrateBox1">
         <div className="fxrateTitle">환율</div>

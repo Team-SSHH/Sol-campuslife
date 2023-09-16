@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
-import "./Kwrate.css";
 import styled from "styled-components";
-
+import { formatCurrency } from "../common/formatCurrency";
 interface KwData {
   우대율: string;
 }
@@ -48,7 +47,7 @@ const KrwAmount: React.FC<KrwAmountProps> = ({ selectedCurrency }) => {
     try {
       const response = await api.post("/search/fx/krw-amount", disdata);
       // console.log(response.data.dataBody);
-      setExchangeAmount(response.data.dataBody.원화예상금액);
+      setExchangeAmount(response.data.dataBody.원화예상금액 + "원");
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +81,10 @@ const KrwAmount: React.FC<KrwAmountProps> = ({ selectedCurrency }) => {
         onKeyPress={handleKeyPress}
       />
       <StyledButton onClick={handleBtnClick}>원화예상금액보기</StyledButton>
-      <p className="fxrateTitle">원화예상금액 {exchangeAmount}</p>
+      <p className="fxrateTitle">
+        원화예상금액
+        <span> {exchangeAmount}</span>
+      </p>
     </div>
   );
 };
