@@ -1,0 +1,52 @@
+.alertWrapper {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  padding-top: 5%;
+  overflow-y: scroll;
+}
+.alertTitle {
+  color: #6f96ff;
+  position: relative;
+  width: 50%;
+  height: 30%;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.alertBoxWrapper {
+  position: absolute;
+  padding-left: 5%;
+  /* top: 2%; */
+  width: 95%;
+  height: 100%;
+  line-height: 3rem;
+}
+.alertBoxWrapperDone {
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 100%;
+  border-radius: 20px;
+  color: black;
+}
+
+.alertBoxWrapperDone .alertTitle,
+.alertBoxWrapperDone .alertName,
+.alertBoxWrapperDone .alertMoney,
+.alertBoxWrapperDone .alertMoney span {
+  color: black;
+}
+
+.alertName {
+  position: absolute;
+  left: 45%;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.alertMoney {
+  position: absolute;
+  right: 5%;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.alertMoney span {
+  color: red;
+}

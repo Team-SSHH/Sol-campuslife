@@ -1,0 +1,112 @@
+/* Constants */
+/* :root {
+  --bkg-color: #e0e5ec;
+  --dark-box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
+    -9px -9px 16px rgba(255, 255, 255, 0.5);
+  --light-box-shadow-hover: 9px 9px 16px rgba(163, 177, 198, 0.6),
+    -9px -9px 16px rgba(255, 255, 255, 0.5),
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
+} */
+
+.fxrequestContainer {
+  position: absolute;
+  height: 92%;
+  width: 100%;
+  bottom: 0;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  /* background-color: #c6d5ff; */
+  background-color: #c6d5ff;
+}
+
+.kwbox {
+  padding: 2%;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.requset-box {
+  padding: 2%;
+  width: 100%;
+  border-radius: 20px;
+  background-color: aliceblue;
+}
+
+.fxrequestWrppaer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: #fff solid 0.4rem;
+  border-radius: 20px;
+  padding: 5%;
+}
+.fxrequestResult {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-bottom: 5%;
+  padding-top: 5%;
+}
+
+.fxrequestModal {
+  background-color: #fff;
+  border: #6f96ff solid 0.3rem;
+  border-radius: 20px;
+  width: 80%;
+  padding: 5%;
+  font-size: 1.1rem;
+}
+
+.fxrateHr {
+  background: #6e96ff;
+  height: 3px;
+  width: 100%;
+  left: 0;
+  top: 36%;
+  /* margin-top: 5%; */
+  position: absolute;
+}
+.selected {
+  background-color: #c6d5ff;
+  font-size: 1rem;
+}
+
+.fxrequestModalContent {
+  padding-top: 5%;
+}
+
+.fxbtn {
+  background: #6f96ff;
+  color: #fff;
+  border: none;
+  /* letter-spacing: 0.2rem; */
+  text-align: center;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  margin-left: 5%;
+  margin-top: 5%;
+  color: #fff;
+  height: 2rem;
+  width: 9rem;
+  font-size: 1rem;
+}
+
+.fxresultWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.fxresultBox {
+  font-size: 1.1rem;
+  padding: 5%;
+  font-weight: bold;
+}
+.fxresultBox div {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2%;
+}
+.fxresultBox span {
+  font-weight: 100;
+}

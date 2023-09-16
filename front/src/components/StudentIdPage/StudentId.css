@@ -1,0 +1,92 @@
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  /* 카드 돌리는 효과 */
+  transition: transform 0.6s linear;
+
+  backface-visibility: hidden;
+
+  font-weight: bold;
+  font-size: 0.9rem;
+
+  border-radius: 20px;
+}
+
+.front {
+  transform: rotateY(0deg);
+  background-color: #fff;
+  border: solid 0.1rem;
+}
+.flipment {
+  position: absolute;
+  right: 5%;
+  bottom: 8%;
+  font-size: 0.8rem;
+}
+
+.back {
+  background-image: url("../../assets/card2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(-180deg);
+}
+
+.flipment {
+  position: absolute;
+  right: 5%;
+  bottom: 8%;
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+
+.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.flipped .back {
+  transform: rotateY(0deg);
+}
+
+.cardInfo {
+  position: absolute;
+  left: 30%;
+  align-items: center;
+  font-size: large;
+}
+.toggle-button {
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  z-index: 10;
+}
+
+.toggle-button.toggled {
+  background-color: #6f96ff;
+}
+
+.toggle-circle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.2s;
+}
+
+.toggle-button.toggled .toggle-circle {
+  left: 22px;
+}

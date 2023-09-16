@@ -1,0 +1,19 @@
+#currencySelect {
+  border-radius: 10px;
+  text-align: center;
+  background-color: #fff;
+  margin: 2%;
+  height: 2rem;
+  width: 40%;
+  overflow-y: scroll;
+  border: none;
+  width: 10.3rem;
+}
+
+#currencySelect option {
+  width: 10%;
+  height: 1%;
+  font-size: 0.5rem;
+  padding: 0;
+  min-height: 0.5em;
+}

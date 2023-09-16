@@ -1,0 +1,44 @@
+.fxrateBox {
+  width: 100%;
+}
+.fxrateRender {
+  position: relative;
+  text-align: center;
+  border: 0.5rem solid #6f96ff;
+  border-radius: 20px;
+  background-color: #fff;
+  width: 87%;
+  /* color: #fff; */
+  padding: 2%;
+  margin-top: 1rem;
+  /* display: flex; */
+}
+.fxrateRenderTitle {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+/* .fxrateRenderContent {
+  font-size: 1.2rem;
+} */
+.fxrateRenderContent span {
+  font-size: 1.2rem;
+}
+.fxrateRenderResult {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.fxratePreferential {
+  font-size: 1.1rem;
+  /* color: #fac109; */
+  /* border: #fff solid 0.4rem; */
+}
+
+.datepicker {
+  margin: 5%;
+  border-radius: 10px;
+  height: 2rem;
+  border: none;
+  text-align: center;
+  width: 10rem;
+}

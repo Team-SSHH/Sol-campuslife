@@ -1,0 +1,12 @@
+.findGganbuPage {
+  position: relative;
+  height: 92%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-size: 120%; */
+  /* background: url("../../assets/radar.png") center center no-repeat; */
+}
+.raderImg {
+  scale: 1.2;
+}

@@ -1,0 +1,22 @@
+.navbar {
+  position: sticky;
+  /* display: flex; */
+  width: 100%;
+  top: 2%;
+  height: 5%;
+  /* justify-content: space-between; */
+}
+.logoImg {
+  left: 2%;
+  position: absolute;
+}
+.bell {
+  position: absolute;
+  right: 8%;
+}
+.menu {
+  right: 2%;
+  position: absolute;
+  top: 17%;
+  /* right: 0; */
+}

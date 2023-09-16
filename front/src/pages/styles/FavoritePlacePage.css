@@ -1,0 +1,73 @@
+.favoritePlaceWrapper {
+  height: 95%;
+  width: 100%;
+  font-weight: bold;
+  position: absolute;
+}
+
+.tagContainer {
+  height: 30%;
+  position: relative;
+  top: 8%;
+  /* margin-top: 10%; */
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.tagCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 7%; */
+}
+
+.tagBox {
+  border-radius: 20px;
+  padding: 2%;
+  padding-bottom: 5%;
+  background-color: #c6d5ff;
+  width: 90%;
+  height: 40%;
+
+  margin-bottom: 2%;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* overflow: scroll; */
+}
+.tagText {
+  color: #fff;
+  position: absolute;
+  left: 5%;
+  height: 1rem;
+  /* padding-bottom: 5%; */
+}
+.tag-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loac-con {
+  height: 35%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+  /* align-items: center; */
+}
+
+.imgimg {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.contextbox {
+  width: 50%;
+}
+.loacTitle {
+  font-size: 1.2rem;
+  padding-top: 5%;
+}
