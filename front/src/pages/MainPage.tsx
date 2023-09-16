@@ -74,7 +74,7 @@ const MainPage = () => {
           text="ID 월렛"
           src={wallet}
           width="210px"
-          height="155px"
+          height="150px"
         />
       </div>
       <div className="box2" onClick={() => navigate("/Fxrate")}>
@@ -83,7 +83,7 @@ const MainPage = () => {
           text="환전 신청"
           src={dollar}
           width="140px"
-          height="155px"
+          height="150px"
         />
       </div>
       <div className="box3" onClick={() => navigate("/ConsumeLog")}>
@@ -92,7 +92,7 @@ const MainPage = () => {
           text="소비 로그"
           src={dashboard}
           width="160px"
-          height="155px"
+          height="150px"
         />
       </div>
       <div className="box4" onClick={() => navigate("/FavoritePlace")}>
@@ -101,7 +101,7 @@ const MainPage = () => {
           text="건국대생이 자주 가는"
           src={place}
           width="190px"
-          height="155px"
+          height="150px"
         />
       </div>
       <div className="box5" onClick={() => navigate("/BankLocation")}>
@@ -110,7 +110,7 @@ const MainPage = () => {
           text="가까운 영업점"
           src={click}
           width="195px"
-          height="165px"
+          height="150px"
         />
       </div>
       <div className="box6" onClick={() => navigate("/RegisterFriend")}>
@@ -119,7 +119,7 @@ const MainPage = () => {
           text="학생증 교환"
           src={friend}
           width="150px"
-          height="165px"
+          height="150px"
         />
       </div>
     </div>

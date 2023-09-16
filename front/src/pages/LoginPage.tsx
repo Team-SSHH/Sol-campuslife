@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/LoginPage.scss";
+import "./styles/LoginPage.css";
 import useLogin from "../hooks/useLogin";
 
 const LoginPage = () => {
@@ -17,14 +18,14 @@ const LoginPage = () => {
       <div className="Login">
         <form className="loginform">
           <div className="loginsegment logindiv">
-            <h1>Login</h1>
+            <h1>LOGIN</h1>
           </div>
 
           <label className="loginlabel">
             <input
               className="logininput"
               type="text"
-              placeholder="Student ID"
+              placeholder="학번을 입력해주세요."
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
             />
@@ -33,7 +34,7 @@ const LoginPage = () => {
             <input
               className="logininput"
               type="password"
-              placeholder="Password"
+              placeholder="비밀번호를 입력해주세요."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -43,7 +44,7 @@ const LoginPage = () => {
             type="button"
             onClick={handleLogin}
           >
-            Log in{" "}
+            로그인{" "}
           </button>
         </form>
       </div>

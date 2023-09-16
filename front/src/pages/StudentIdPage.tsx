@@ -16,17 +16,19 @@ const CircleButton = styled.div`
   position: fixed;
   bottom: 10%;
   right: 5%;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 4rem;
-  background-color: #6f96ff;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 5.5rem;
+  // background-color: #6f96ff;
+  background-color: #fac109;
   z-index: 10;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-size: 0.6rem;
+  // color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
 `;
 
 const StudentIdPage = () => {
@@ -53,7 +55,11 @@ const StudentIdPage = () => {
       <StudentId />
       <FriendsList />
       {checkfriend.length > 1 && (
-        <CircleButton onClick={() => dutchpay()}>더치페이</CircleButton>
+        <CircleButton onClick={() => dutchpay()}>
+          더치페이
+          <br />
+          알림보내기
+        </CircleButton>
       )}
     </div>
   );
