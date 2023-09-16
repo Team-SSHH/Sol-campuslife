@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./FavoriteModal.css";
 import FavoritePlace from "./FavoritePlace";
 import { useRecoilState } from "recoil";
@@ -11,6 +11,8 @@ interface FavortieModalProps {
 
 const FavortieModal: React.FC<FavortieModalProps> = (props) => {
   const [userData, setUserData] = useRecoilState(loginuser);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
   useEffect(() => {
     const modalElement = document.querySelector(".favortieModalContainer");
     if (modalElement) {
@@ -19,10 +21,15 @@ const FavortieModal: React.FC<FavortieModalProps> = (props) => {
       }, 0);
     }
   }, []);
+  const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
 
   return (
-    <div className="favortieModalContainer">
-      <div className="favoriteModalLine"></div>
+    <div
+      className={`favortieModalContainer ${
+        isFullScreen ? "fullScreen" : "favortieModalContainerMiddle"
+      }`}
+    >
+      <div className="favoriteModalLine" onClick={toggleFullScreen}></div>
       <div className="favoriteModalTitle">
         {userData.university} 학생들이 자주 가는
       </div>
@@ -31,6 +38,17 @@ const FavortieModal: React.FC<FavortieModalProps> = (props) => {
           <FavoritePlace key={index} place={place} />
         ))}
       </div>
+      {isFullScreen ? (
+        <div
+          style={{ position: "absolute", right: "5%" }}
+          className="favoriteModalMore"
+          // onClick={} // 다음페이지 만들고 이동시키기
+        >
+          더보기 &gt;&gt;
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

@@ -25,8 +25,10 @@ const FavoritePlace: React.FC<FavoritePlaceProps> = ({ place }) => {
         <div className="favoritePlaceImgBoxContextBox">
           <div className="favoritePlaceContent">
             <p>⭐ {place.userScore} 점</p>
-            <p>🏠{place.content}</p>
-            <p className="address">🚩{place.address}</p>
+            <p>🏠 {place.content}</p>
+            <p>
+              🚩 <span className="address">{place.address}</span>
+            </p>
           </div>
         </div>
       </div>
