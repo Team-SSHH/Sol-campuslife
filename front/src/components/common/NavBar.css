@@ -17,4 +17,6 @@
 .menu {
   right: 2%;
   position: absolute;
+  top: 17%;
+  /* right: 0; */
 }
