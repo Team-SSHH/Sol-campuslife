@@ -45,6 +45,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   padding-bottom: 5%;
+  padding-top: 5%;
 }
 
 .fxrequestModal {
@@ -80,11 +81,11 @@
   border: none;
   /* letter-spacing: 0.2rem; */
   text-align: center;
-
   outline: none;
   border: none;
   border-radius: 15px;
   margin-left: 5%;
+  margin-top: 5%;
   color: #fff;
   height: 2rem;
   width: 9rem;

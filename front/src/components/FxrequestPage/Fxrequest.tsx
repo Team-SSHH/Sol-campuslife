@@ -109,7 +109,6 @@ const Fxrequest: React.FC<FxrequestProps> = ({
       <button className="fxbtn" onClick={openModal}>
         수령처 선택하기
       </button>
-      <hr />
       <div className="fxrequestResult">{checkBranchData}</div>
       {isModalOpen && (
         <div className="fxrequestModal">
@@ -127,15 +126,17 @@ const Fxrequest: React.FC<FxrequestProps> = ({
           <StyledButton onClick={closeModal}>닫기</StyledButton>
         </div>
       )}
-      <hr />
-      <hr />
 
-      {requestresult ? (
-        <div className="fxrequestResult">{requestresult}</div>
-      ) : (
-        <button className="fxbtn" onClick={handleBtnClick}>
-          환전신청하기
-        </button>
+      {checkBranchData && (
+        <>
+          {requestresult ? (
+            <div className="fxrequestResult">{requestresult}</div>
+          ) : (
+            <button className="fxbtn" onClick={handleBtnClick}>
+              환전신청하기
+            </button>
+          )}
+        </>
       )}
     </div>
   );
