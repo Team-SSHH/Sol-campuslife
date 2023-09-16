@@ -1,5 +1,19 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
+import styled from "styled-components";
+
+const StyledButton = styled.button`
+  position: relative;
+
+  left: 35%;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  margin-top: 5%;
+  width: 30%;
+  background: #c6d5ff;
+`;
 
 interface FxrequestProps {
   selectedCurrency: string;
@@ -85,33 +99,38 @@ const Fxrequest: React.FC<FxrequestProps> = ({
   }, []);
 
   return (
-    <div>
+    <div className="fxrequestWrppaer">
       <button className="fxbtn" onClick={openModal}>
-        수령처 선택
+        수령처 선택하기
       </button>
-      <p>{checkBranchData}</p>
+      <hr />
+      <div className="fxrequestResult">{checkBranchData}</div>
       {isModalOpen && (
-        <div className="fxrequest-modal">
-          <div className="fxrequest-modal-content">
-            <ul>
-              {branchData.map((branch, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleBranchClick(branch.지역명)}
-                  className={checkBranchData === branch ? "selected" : ""}
-                >
-                  {branch.지역명}
-                </li>
-              ))}
-            </ul>
-            <button onClick={closeModal}>닫기</button>
+        <div className="fxrequestModal">
+          <div className="fxrequestModalContent">
+            {branchData.map((branch, index) => (
+              <div
+                key={index}
+                onClick={() => handleBranchClick(branch.지역명)}
+                className={checkBranchData === branch.지역명 ? "selected" : ""}
+              >
+                {branch.지역명}
+              </div>
+            ))}
           </div>
+          <StyledButton onClick={closeModal}>닫기</StyledButton>
         </div>
       )}
-      <button className="fxbtn" onClick={handleBtnClick}>
-        환전신청하기
-      </button>
-      <p>{requestresult}</p>
+      <hr />
+      <hr />
+
+      {requestresult ? (
+        <div className="fxrequestResult">{requestresult}</div>
+      ) : (
+        <button className="fxbtn" onClick={handleBtnClick}>
+          환전신청하기
+        </button>
+      )}
     </div>
   );
 };

@@ -19,10 +19,10 @@ const FxrequestPage: React.FC = () => {
     setInputAmount(e.target.value);
   };
   return (
-    <div className="fxrequest-container">
-      <p>환전신청 페이지</p>
-      <div>
-        <label htmlFor="currencySelect">통화 선택:</label>
+    <div className="fxrequestContainer">
+      <div className="fxrateBox1">
+        <div className="fxrateTitle">환전신청</div>
+        <label htmlFor="currencySelect">통화 선택</label>
         <select
           id="currencySelect"
           name="currencySelect"
@@ -36,31 +36,28 @@ const FxrequestPage: React.FC = () => {
           ))}
         </select>
       </div>
-      <div className="card-w">
-        <div className="kwbox card neumorphism">
-          <p>원화예상금액보기</p>
-          <input
-            className="kwinput"
-            type="text"
-            value={inputAmount}
-            onChange={handleInputChange}
-          />
-          <KrwAmountRequest
-            selectedCurrency={selectedCurrency}
-            inputAmount={inputAmount}
-          />
-        </div>
+      {/* <StyledButton onClick={handleBtnClick}>원화예상금액보기</StyledButton> */}
+      <div className="fxrateBox1">
+        <div className="fxrateTitle">환전할 금액을 입력해주세요</div>
+        <input
+          className="krwInput"
+          type="text"
+          placeholder="금액을 입력하세요."
+          value={inputAmount}
+          onChange={handleInputChange}
+        />
+        <KrwAmountRequest
+          selectedCurrency={selectedCurrency}
+          inputAmount={inputAmount}
+        />
+        {/* <hr className="fxrateHr" /> */}
+
+        <Fxrequest
+          selectedCurrency={selectedCurrency}
+          inputAmount={inputAmount}
+        />
       </div>
-      <div className="card-w">
-        <div className="requset-box card neumorphism">
-          <p>환전신청</p>
-          <Fxrequest
-            selectedCurrency={selectedCurrency}
-            inputAmount={inputAmount}
-          />
-        </div>
-      </div>
-      <div>
+      <div className="fxrateBox1">
         <Fxresult />
       </div>
     </div>
