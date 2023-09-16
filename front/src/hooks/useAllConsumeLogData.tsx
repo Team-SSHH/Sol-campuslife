@@ -22,7 +22,7 @@ const useAllConsumeData = () => {
   ///////////// 평균구하기
   // 카테고리별로 합이 나옵니다.
   const categoryCounts: { [key: string]: number } = {}; // 카테고리별 학생 수를 저장할 객체
-  const categoryStudentCounts: { [key: string]: Set<any> } = {}; // 카테고리별 학생 ID 집합을 저장할 객체
+  const categoryStudentCounts: { [key: string]: Set<number> } = {}; // 카테고리별 학생 ID 집합을 저장할 객체
 
   const AllcategorySum = AllDataConsumeLog.reduce<{ [key: string]: number }>(
     (acc, cur) => {
@@ -42,7 +42,8 @@ const useAllConsumeData = () => {
     },
     {}
   );
-
+  console.log(categoryStudentCounts);
+  console.log("dddddddddddddcategoryStudentCounts");
   const categoryAverages: { [key: string]: number } = {};
 
   // 각 카테고리의 평균 값 계산
@@ -76,8 +77,6 @@ const useAllConsumeData = () => {
       address: string;
     }[] = [];
 
-    console.log(AllDataConsumeLog);
-    console.log("ddddddddddddddAllDataConsumeLog");
     AllDataConsumeLog.forEach((data) => {
       // Check if day matches
       const dayMatched =

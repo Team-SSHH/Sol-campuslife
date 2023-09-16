@@ -24,12 +24,10 @@ const MainPage = () => {
   });
 
   const postDeviceToken = async (studentId: any, token: any) => {
-    console.log(deviceToken);
     try {
       const response = await api1.post(`/sshh/login/${studentId}/token`, {
         token,
       });
-      console.log(response);
     } catch (error) {
       // 에러 처리 부분 추가 필요.
       console.error(error);

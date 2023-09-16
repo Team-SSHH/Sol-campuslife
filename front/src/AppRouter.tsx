@@ -10,10 +10,10 @@ import ConsumeLogPage from "./pages/ConsumeLogPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/common/NavBar";
 import Push from "./hooks/push";
-
 import "./AppRouter.css";
 import AlertPage from "./pages/AlertPage";
 import Registerfriend from "./pages/RegisterFriendPage";
+import FindMyGganbuPage from "./pages/FindMyGganbuPage";
 
 function AppRouter() {
   return (
@@ -32,6 +32,7 @@ function AppRouter() {
           <Route path="/ConsumeLog" element={<ConsumeLogPage />}></Route>
           <Route path="/Alert" element={<AlertPage />}></Route>
           <Route path="/Registerfriend" element={<Registerfriend />}></Route>
+          <Route path="/FindMyGganbu" element={<FindMyGganbuPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
