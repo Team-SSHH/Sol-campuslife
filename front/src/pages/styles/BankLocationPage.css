@@ -18,3 +18,7 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.title {
+  margin-left: 1rem;
+}

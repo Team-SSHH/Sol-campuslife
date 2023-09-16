@@ -1,0 +1,41 @@
+/* .detailModalBox {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-left: 5%;
+  padding-bottom: 3%;
+}
+.detailModalTime {
+  font-size: 0.8rem;
+  text-align: right;
+}
+.detailModalName {
+  text-align: right;
+}
+.detailModalAmount {
+  color: red;
+} */
+.detailModalBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-left: 5%;
+  padding-bottom: 3%;
+}
+
+.detailModalName {
+  flex-grow: 1;
+}
+
+.detailModalAmount {
+  color: red;
+  flex-basis: auto;
+  text-align: right;
+}
+
+.detailModalTime {
+  font-size: 0.8rem;
+  flex-grow: 1;
+  text-align: right;
+}

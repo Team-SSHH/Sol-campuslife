@@ -1,0 +1,50 @@
+.squarebox2Wrapper {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.squarebox2Date {
+  font-size: 0.8rem;
+}
+.squarebox2Title {
+  color: #6e96ff;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  padding-bottom: 2%;
+  justify-content: space-between;
+}
+.squarebox2detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.squarebox2Me {
+  position: relative;
+  direction: rtl;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.squarebox2Amount {
+  color: red;
+}
+hr {
+  background: #6e96ff;
+  height: 1px;
+}
+
+.squarebox2Total {
+  font-size: 1.3rem;
+  color: red;
+  position: relative;
+  font-weight: bold;
+  text-align: right;
+}
+.squarebox2Total span {
+  color: black;
+}
+.squarebox2NotDone {
+  color: red;
+}

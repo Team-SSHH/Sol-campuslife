@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import StudentId from "../components/StudentIdPage/StudentId";
 import MessageBox from "../components/RegisterFriendPage/MessageBox";
 import useSendOneWon from "../hooks/useSendOneWon";
-import useFriendPush from "../hooks/useFriendPush";
+// import useFriendPush from "../hooks/useFriendPush";
 import useMakeFriend from "../hooks/useMakeFriend";
 import useFriendListData from "../hooks/useFriendListData";
 import { useRecoilValue } from "recoil";
@@ -24,7 +24,7 @@ const RegisterFriendPage = () => {
   const navigate = useNavigate();
 
   const { isSuccess, password, handleSendOneWon } = useSendOneWon();
-  const { handleSendAlarm } = useFriendPush();
+  // const { handleSendAlarm } = useFriendPush();
   const { handleMakeFriend } = useMakeFriend();
   const { MyfriendStudentIds, fetchFriendList } = useFriendListData(
     userData.studentId
@@ -46,8 +46,11 @@ const RegisterFriendPage = () => {
       height: 30,
       onConfirm: async (value) => {
         setInputID(value);
+        console.log(MyfriendStudentIds);
         if (MyfriendStudentIds.includes(Number(value))) {
           alert("이미 깐부깐부입니다이");
+        } else if (Number(value) === userData.studentId) {
+          alert("내 학번입니데이");
         } else {
           const isSuccessful = await handleSendOneWon(Number(value));
           if (isSuccessful) {
@@ -76,6 +79,7 @@ const RegisterFriendPage = () => {
     <div>
       <StudentId />
       <MessageBox
+        key={step}
         height={pages[step].height}
         text={pages[step].text}
         onConfirm={pages[step].onConfirm}

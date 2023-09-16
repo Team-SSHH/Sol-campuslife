@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 .CompareGraphWrapper {
@@ -15,5 +15,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 10%;
+  margin-top: 0%;
+}
+
+.ShowCalendarButton {
+  display: block;
+  margin: 0 auto;
+  padding: 5px 10px;
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  cursor: pointer;
 }

@@ -9,6 +9,8 @@ import {
 import { FriendType } from "../../types/DataType";
 import useRemittance from "../../hooks/useRemittance";
 import useAlertDutchPay from "../../hooks/useAlertDutchPay";
+import { useNavigate } from "react-router-dom";
+
 const StyledButton = styled.button`
   position: absolute;
   bottom: 10%;
@@ -32,12 +34,16 @@ interface EnvelopProps {
   text1: string;
   text2: string;
 }
-
+const StyledInput = styled.input`
+  text-align: right;
+`;
 const Envelop: React.FC<EnvelopProps> = (props) => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isRemittanceModalOpen);
   const [userData, setUserData] = useRecoilState(loginuser);
   const friendData = useRecoilValue<Array<FriendType>>(selectedFriend);
   const [value, setValue] = useState<number>(0);
+
+  const navigate = useNavigate();
 
   const { handleRemittance } = useRemittance();
 
@@ -49,7 +55,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const extractFriends = (data: FriendType[]): number[] => {
       return data.map((item) => item.studentId);
     };
@@ -60,15 +66,22 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
     if (props.isdutch) {
       handleAlertDutchPay(userData.studentId, new_friends, value);
     } else {
-      handleRemittance(
+      const successful = await handleRemittance(
         userData.studentId,
         friendData[0].studentId,
         value,
-        "더치페이"
+        "송금"
       );
+
+      if (successful) {
+        alert("송금완료되었습니다.");
+      } else {
+        alert("잔액 부족으로 실패했습니다.");
+      }
     }
 
     setIsModalOpen(false);
+    navigate("/main");
   };
 
   return (
@@ -85,7 +98,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
         <br />
         <div className="remittanceContentMoney">
           <span>
-            <input
+            <StyledInput
               type="text"
               value={value}
               onChange={handleInputChange}
