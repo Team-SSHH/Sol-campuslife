@@ -34,6 +34,8 @@
 
 .locationWrapper a {
   text-decoration: none;
-  font-size: 2.2rem;
-  margin-top: 0.3rem;
+}
+
+.locationWrapper img {
+  margin-top: 30%;
 }

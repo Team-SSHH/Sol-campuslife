@@ -5,6 +5,8 @@ import { BankLocationType } from "../types/DataType";
 import { useRecoilValue } from "recoil";
 import { loginuser } from "../stores/atoms";
 import useGPSLocation from "../hooks/useGPSLocation";
+import call from "../assets/call.png";
+
 declare const kakao: any;
 
 const BankLocationPage = () => {
@@ -108,10 +110,10 @@ const BankLocationPage = () => {
   return (
     <div className="BankLocationPage">
       <div className="mapCard">
-        <h2 className="title">
+        <h3 className="title">
           {cityName === "서울" ? UserData.university : "현재 위치에서"}에서
           가까운 영업점
-        </h2>
+        </h3>
         <button className="Mybutton" onClick={handleButtonClick}>
           눌러
         </button>
@@ -121,10 +123,10 @@ const BankLocationPage = () => {
         style={{ width: "90%", height: "300px", margin: "auto" }}
       ></div>
       <div className="bankName">
-        <h2 className="title" style={{ color: "white" }}>
+        <h3 className="title" style={{ color: "white" }}>
           {cityName === "서울" ? UserData.university : "현재 위치에서"}에서
           가까운 지점입니다.
-        </h2>
+        </h3>
 
         <div className="bankCard">
           {(cityName === "서울" ? BanknearbyKonKuk : BanknearbyMyLocation).map(
@@ -137,7 +139,9 @@ const BankLocationPage = () => {
                 >
                   신한은행 {location.지점명} 지점
                 </h3>
-                <a href={`tel:${location.지점대표전화번호}`}>📞</a>
+                <a href={`tel:${location.지점대표전화번호}`}>
+                  <img src={call} alt="callImg" style={{ width: "40px" }} />
+                </a>
               </div>
             )
           )}
