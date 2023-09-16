@@ -19,14 +19,21 @@ const useLogin = () => {
   const navigate = useNavigate();
 
   async function getDeviceToken(studentId: any) {
-    const token = await getToken(messaging, {
-      vapidKey: process.env.REACT_APP_VAPID_KEY,
-    });
-    setDeviceToken({
-      token: token,
-    });
-    console.log(token);
-    postDeviceToken(studentId, token);
+    try {
+      const token = await getToken(messaging, {
+        vapidKey: process.env.REACT_APP_VAPID_KEY,
+      });
+      setDeviceToken({
+        token: token,
+      });
+      console.log(token);
+      postDeviceToken(studentId, token);
+    } catch (error) {
+      console.error("Failed to get device token:", error);
+
+      // 오류가 발생한 후에 다시 시도합니다.
+      setTimeout(() => getDeviceToken(studentId), 3000); // 여기서 5000은 5초 후에 다시 시도하게 됩니다. 필요에 따라 조절 가능합니다.
+    }
   }
 
   const postDeviceToken = async (studentId: any, token: any) => {

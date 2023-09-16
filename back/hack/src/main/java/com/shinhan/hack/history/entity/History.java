@@ -43,9 +43,9 @@ public class History {
 
     @Column(name = "transaction_time", nullable = false)
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Builder.Default
-    private LocalDateTime transactionTime = time;
+    private LocalDateTime transactionTime = LocalDateTime.now();
 
     @Column(name = "balance", nullable = false)
     private Long balance;
@@ -61,5 +61,18 @@ public class History {
     @Column(name = "day", nullable = false)
     @Builder.Default
     private String day = dayStr;
+
+    @Column(name = "lat")
+    private String lat;
+
+    @Column(name = "lon")
+    private String lon;
+
+    @Column(name = "user_score")
+    private String userScore;
+
+    @Column(name = "address")
+    private String address;
+
 
 }
