@@ -60,11 +60,10 @@ const MessageBox = (props: MessageBoxProps) => {
       <BoxDiv height={height}>
         <p>{text}</p>
         <input
-          type="text"
+          className="krwInput"
+          type="number"
           value={value}
           onChange={handleInputChange}
-
-          //   placeholder="학번"
         />
         <StyledButton onClick={handleClick}>확인</StyledButton>
       </BoxDiv>

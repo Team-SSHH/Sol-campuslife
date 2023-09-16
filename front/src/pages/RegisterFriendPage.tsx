@@ -8,6 +8,8 @@ import useFriendListData from "../hooks/useFriendListData";
 import { useRecoilValue } from "recoil";
 import { loginuser } from "../stores/atoms";
 import { useNavigate } from "react-router-dom";
+import useGPSLocation from "../hooks/useGPSLocation";
+import usePostGPS from "../hooks/usePostGPS";
 
 interface PageProps {
   text: string;
@@ -26,18 +28,25 @@ const RegisterFriendPage = () => {
   const { isSuccess, password, handleSendOneWon } = useSendOneWon();
   // const { handleSendAlarm } = useFriendPush();
   const { handleMakeFriend } = useMakeFriend();
+  const { handlePutMyLocation } = usePostGPS();
   const { MyfriendStudentIds, fetchFriendList } = useFriendListData(
     userData.studentId
   );
+  const MyLocation = useGPSLocation();
+
+  console.log("내내내내정보", MyLocation);
 
   const registerFriend = (value: string) => {
     if (value === password) {
       handleMakeFriend(userData.studentId, Number(inputID));
       fetchFriendList();
-      console.log("일치합니다. 친구가 되셨습니다.");
-      alert("깐부깐부맺어졌어요");
+      alert("학생증 등록이 완료되었습니다.");
       navigate("/main");
     }
+  };
+
+  const send = () => {
+    handlePutMyLocation(userData.studentId);
   };
 
   const pages: PageProps[] = [
@@ -48,17 +57,16 @@ const RegisterFriendPage = () => {
         setInputID(value);
         console.log(MyfriendStudentIds);
         if (MyfriendStudentIds.includes(Number(value))) {
-          alert("이미 깐부깐부입니다이");
+          alert("이미 친구입니다.");
         } else if (Number(value) === userData.studentId) {
-          alert("내 학번입니데이");
+          alert("본인 학번입니다. 다시 입력해주세요.");
         } else {
           const isSuccessful = await handleSendOneWon(Number(value));
           if (isSuccessful) {
             // handleSendAlarm(userData.studentId, Number(value));
-            console.log("여기몇번찍히냐~~~~");
             setStep((prevStep) => prevStep + 1);
           } else {
-            alert("없는 유저입니다잉");
+            alert("없는 유저입니다.");
           }
         }
       },
@@ -67,9 +75,6 @@ const RegisterFriendPage = () => {
       text: "친구에게 전송된 인증번호를 알려주세요",
       height: 40,
       onConfirm: (value) => {
-        console.log(`입금자명은 ${value} 입니다.`);
-        console.log("패스와드는" + password);
-        console.log(value);
         registerFriend(value);
       },
     },

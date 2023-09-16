@@ -44,7 +44,7 @@ const FavortieModal: React.FC<FavortieModalProps> = (props) => {
           className="favoriteModalMore"
           // onClick={} // 다음페이지 만들고 이동시키기
         >
-          더보기 &gt;&gt;
+          {/* 더보기 &gt;&gt; */}
         </div>
       ) : (
         ""
