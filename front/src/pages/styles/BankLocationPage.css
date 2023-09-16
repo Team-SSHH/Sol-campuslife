@@ -1,5 +1,8 @@
 .mapCard {
   color: white;
+  display: flex;
+}
+.Mybutton {
 }
 
 .box {
@@ -17,8 +20,22 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .title {
   margin-left: 1rem;
+}
+
+.locationWrapper {
+  display: flex;
+}
+
+.locationWrapper a {
+  text-decoration: none;
+}
+
+.locationWrapper img {
+  margin-top: 30%;
 }

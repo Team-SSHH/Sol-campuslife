@@ -8,7 +8,7 @@
 }
 .favoritePlaceBox {
   border-radius: 20px;
-  height: 90%;
+  height: 180px;
   width: 90%;
   background-color: rgb(255, 255, 255);
   display: flex;
@@ -22,6 +22,9 @@
 }
 .favoritePlaceImgBoxContextBox {
   width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .favoritePlaceContent {
   text-align: center;
@@ -29,18 +32,18 @@
   width: 80%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   line-height: normal;
 }
 
 .favoritePlaceContent p {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
+  /* word-wrap: break-word; */
+  /* overflow-wrap: break-word; */
+  /* white-space: pre-wrap; */
   margin: 0.2em 0;
 }
 
 .address {
-  font-size: 0.8em; /* Adjust the size as needed */
+  font-size: 0.8em;
 }
