@@ -257,8 +257,8 @@ public class RemittanceService {
 
     @Transactional
     public RemittanceDto.Response dutchSend(DutchPayDetailDto.send sendInfo) {
-        Long studentId = sendInfo.getStudentId();
-        Long friendId = sendInfo.getFriendId();
+        Long studentId = sendInfo.getFriendId();
+        Long friendId = sendInfo.getStudentId();
         Long dutchId = sendInfo.getDutchId();
 
         if(dutchPayRepository.findByDutchId(dutchId).size() == 0){
