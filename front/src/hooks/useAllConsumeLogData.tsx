@@ -19,19 +19,42 @@ const useAllConsumeData = () => {
     fetchData();
   }, []);
 
+  ///////////// 평균구하기
   // 카테고리별로 합이 나옵니다.
+  const categoryCounts: { [key: string]: number } = {}; // 카테고리별 학생 수를 저장할 객체
+  const categoryStudentCounts: { [key: string]: Set<any> } = {}; // 카테고리별 학생 ID 집합을 저장할 객체
+
   const AllcategorySum = AllDataConsumeLog.reduce<{ [key: string]: number }>(
     (acc, cur) => {
       if (!acc[cur.contentCategory]) {
         acc[cur.contentCategory] = cur.pay;
+        categoryCounts[cur.contentCategory] = 1; // 새로운 카테고리가 등장하면 학생 수를 1로 초기화
+        categoryStudentCounts[cur.contentCategory] = new Set([cur.studentId]); // 새로운 카테고리에 학생 ID 추가
       } else {
         acc[cur.contentCategory] += cur.pay;
+        if (!categoryStudentCounts[cur.contentCategory].has(cur.studentId)) {
+          categoryStudentCounts[cur.contentCategory].add(cur.studentId); // 기존 카테고리에 새로운 학생 ID 추가
+          categoryCounts[cur.contentCategory]++; // 기존 카테고리면 학생 수 증가
+        }
       }
 
       return acc;
     },
     {}
   );
+
+  const categoryAverages: { [key: string]: number } = {};
+
+  // 각 카테고리의 평균 값 계산
+  for (const category in AllcategorySum) {
+    const totalPay = AllcategorySum[category]; // 해당 카테고리의 전체 지출 금액
+    const totalCount = categoryCounts[category]; // 해당 카테고리의 전체 학생 수
+
+    const average = totalCount > 0 ? totalPay / totalCount : 0; // 평균 계산
+
+    categoryAverages[category] = average; // 평균 값을 할당
+  }
+  ///////////////
 
   //필터링 함수//////
   //Create a new array containing only 'content' and 'imgUrl'
@@ -101,10 +124,6 @@ const useAllConsumeData = () => {
           : (frequencyCount[data.content] = 1);
       }
     });
-    console.log(frequencyCount);
-    console.log("frequencnve");
-    console.log(filteredAndSortedData);
-    console.log("ddddddddddddddddddddddddddddddddddd");
 
     filteredAndSortedData.sort(
       (a, b) => frequencyCount[b.content] - frequencyCount[a.content]
@@ -116,6 +135,7 @@ const useAllConsumeData = () => {
   return {
     AllDataConsumeLog,
     AllcategorySum,
+    categoryAverages,
     getContentWithImgSortedByFrequency,
   };
 };

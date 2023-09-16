@@ -22,6 +22,7 @@ const useMyConsumeLogData = () => {
       try {
         const response = await getMyConsumeData(StudentId);
         const response1 = await getMyConsumeDataSummary(StudentId);
+
         setMyDataConsumeLog(response.data);
         setConsumeSummary(response1.data);
         console.log(response1.data);
@@ -70,7 +71,7 @@ const useMyConsumeLogData = () => {
   }, {});
 
   // console.log(MyDataConsumeLog);
-  console.log(dateWiseConsumption);
+
   return {
     MyDataConsumeLog,
     MycategorySum,
