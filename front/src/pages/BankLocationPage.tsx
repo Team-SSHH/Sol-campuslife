@@ -25,6 +25,7 @@ const BankLocationPage = () => {
 
   const [map, setMap] = useState<null | any>(null);
   const UserData = useRecoilValue(loginuser);
+  const kakaoKey = process.env.REACT_APP_KAKAO_KEY;
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -53,8 +54,7 @@ const BankLocationPage = () => {
         setMap(createdMap);
       });
     };
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9d2f5e313f7480e75807d0e7aa01170d";
+    script.src = `${kakaoKey}`;
     document.head.appendChild(script);
   }, [cityName]);
 
