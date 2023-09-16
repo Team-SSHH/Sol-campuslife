@@ -90,15 +90,13 @@ const ConsumeLogPage = () => {
 
   const buttonStyle: CSSProperties = {
     position: "absolute",
-    // 중앙에서 위/아래로 이동하는 것을 유지하고,
     top: "12.8%",
-    // 오른쪽 또는 왼쪽으로 이동하도록 설정합니다.
-    right: showCalendar ? "unset" : "5%",
-    left: showCalendar ? "5%" : "unset",
-    // 상대적으로 이동하는 변형을 적용합니다.
+    right: showCalendar ? "unset" : "3%",
+    left: showCalendar ? "3%" : "unset",
     transform: "translateY(-50%)",
-    // 다른 요소 위에 표시되도록 z-index를 설정합니다.
     zIndex: 999,
+    border: showCalendar ? "1px solid #000" : "1px solid #fff",
+    color: showCalendar ? "#000" : "#fff",
   };
 
   return (
@@ -108,7 +106,7 @@ const ConsumeLogPage = () => {
         onClick={() => setShowCalendar(!showCalendar)}
         style={buttonStyle}
       >
-        {showCalendar ? "◀" : "▶"}
+        {showCalendar ? "<<📊" : "📅>>"}
       </button>
       {!showCalendar && (
         <>

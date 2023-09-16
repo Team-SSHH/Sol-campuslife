@@ -50,24 +50,23 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ dateWiseConsumption }) => {
     );
   };
 
-  console.log(dateWiseConsumption);
-  console.log("ddddddddasssssddddddddddd");
   return (
-    <div className="my-calendar">
-      <h1>나의 소비 달력</h1>
-      {/* 스타일링 클래스 적용 */}
-      <Calendar
-        className="my-calendar"
-        onClickDay={onClickDay}
-        value={value}
-        tileContent={tileContent}
-      />
+    <div className="MyCalendarWrapper">
+      <div className="MyCalendar">
+        <h2>나의 소비 달력</h2>
+        {/* 스타일링 클래스 적용 */}
+        <Calendar
+          className="my-calendar"
+          onClickDay={onClickDay}
+          value={value}
+          tileContent={tileContent}
+        />
+      </div>
       {/* 선택된 날짜의 소비 내역을 보여줍니다. */}
-
       {selectedDate && dateWiseConsumption[selectedDate] && (
-        <div style={{ color: "black" }}>
+        <div className="MyCalendarContent">
           <h2>{selectedDate}</h2>
-          <div className="scrollable-table">
+          <div className="scrollableTable">
             <table>
               <thead>
                 <tr>
