@@ -1,5 +1,16 @@
 .mapCard {
   color: white;
+  display: flex;
+  justify-content: space-between;
+}
+.bankSwitch {
+  /* border: #fff 0.2rem solid; */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding-right: 5%;
+  color: #fac109;
+  font-weight: bold;
 }
 
 .box {
@@ -17,4 +28,22 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.title {
+  margin-left: 1rem;
+}
+
+.locationWrapper {
+  display: flex;
+}
+
+.locationWrapper a {
+  text-decoration: none;
+}
+
+.locationWrapper img {
+  margin-top: 30%;
 }

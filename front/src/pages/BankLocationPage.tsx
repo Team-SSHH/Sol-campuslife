@@ -1,49 +1,73 @@
 import React, { useEffect, useState } from "react";
 import "./styles/BankLocationPage.css";
+import useShinhanLocation from "../hooks/useShinhanLocation";
+import { BankLocationType } from "../types/DataType";
+import { useRecoilValue } from "recoil";
+import { loginuser } from "../stores/atoms";
+import useGPSLocation from "../hooks/useGPSLocation";
+import call from "../assets/call.png";
+import school from "../assets/school.png";
+import location from "../assets/location.png";
 
 declare const kakao: any;
+
 const BankLocationPage = () => {
-  const bankLocations = [
-    {
-      name: "신한은행 건국대학교지점",
-      lat: 37.541823538263,
-      lng: 127.0780213315,
-    },
-    {
-      name: "신한은행 스타시티금융센터",
-      lat: 37.538724826635,
-      lng: 127.073545050464,
-    },
-    { name: "신한은행 자양동점", lat: 37.536262795846, lng: 127.083270673746 },
-    {
-      name: "신한은행 테크노마트점",
-      lat: 37.535494638597,
-      lng: 127.095657684745,
-    },
-    { name: "신한은행 ATM 건대본관", lat: 37.543423, lng: 127.075245 },
-  ];
+  const [cityName, setCityName] = useState("서울");
+
+  const { BanknearbyKonKuk, BanknearbyMyLocation } =
+    useShinhanLocation(cityName);
+
+  const MyLocation = useGPSLocation();
+
+  console.log(BanknearbyMyLocation);
+  console.log(BanknearbyKonKuk);
+  console.log(MyLocation);
 
   const [map, setMap] = useState<null | any>(null);
+  const UserData = useRecoilValue(loginuser);
 
   useEffect(() => {
     const script = document.createElement("script");
     script.onload = () => {
       kakao.maps.load(() => {
         let container = document.getElementById("map");
-        let options = {
-          center: new kakao.maps.LatLng(37.541981, 127.078959),
-          level: 6,
-        };
+        let options;
+        if (cityName === "서울") {
+          options = {
+            center: new kakao.maps.LatLng(37.541981, 127.078959),
+            level: 6,
+          };
+        } else if (cityName === "경기") {
+          // MyLocation 값이 유효한지 확인하세요.
+          options = {
+            center: new kakao.maps.LatLng(
+              MyLocation.latitude,
+              MyLocation.longitude
+            ),
+            level: 7,
+          };
+        }
 
         const createdMap = new kakao.maps.Map(container, options);
 
         setMap(createdMap);
+      });
+    };
+    script.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9d2f5e313f7480e75807d0e7aa01170d";
+    document.head.appendChild(script);
+  }, [cityName]);
 
-        bankLocations.forEach((location) => {
+  // Add another useEffect for BanknearbyKonKuk state update
+  useEffect(() => {
+    if (map) {
+      // Check if the map is already initialized
+      (cityName === "서울" ? BanknearbyKonKuk : BanknearbyMyLocation).forEach(
+        (location: BankLocationType) => {
           // 원하는 위치의 위도와 경도
           const markerPosition = new kakao.maps.LatLng(
-            location.lat,
-            location.lng
+            parseFloat(location.지점위도),
+            parseFloat(location.지점경도)
           );
 
           // 마커를 생성
@@ -51,54 +75,80 @@ const BankLocationPage = () => {
             position: markerPosition,
           });
 
-          marker.setMap(createdMap);
+          marker.setMap(map);
 
           let infowindow = new kakao.maps.InfoWindow({
             content:
-              '<div style="width :auto; text-align:center;font-size:8px; padding :5px;color:#000;">' +
-              location.name +
+              '<div style="width :auto; text-align:center;font-size:8px; padding :5px;color:#000;">신한은행 ' +
+              location.지점명 +
               "</div>",
             removable: true,
           });
-
-          infowindow.open(createdMap, marker);
-        });
-      });
-    };
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9d2f5e313f7480e75807d0e7aa01170d";
-    document.head.appendChild(script);
-  }, []);
-
-  function moveTo(name: string) {
-    let location = bankLocations.find((item) => item.name === name);
-    if (location && map) {
-      map.panTo(new kakao.maps.LatLng(location.lat, location.lng));
+          infowindow.open(map, marker);
+        }
+      );
     }
+  }, [BanknearbyKonKuk, BanknearbyMyLocation, cityName]);
+  function moveTo(name: string) {
+    let location = (
+      cityName === "서울" ? BanknearbyKonKuk : BanknearbyMyLocation
+    ).find((item: BankLocationType) => item.지점명 === name);
+    if (location && map) {
+      map.panTo(
+        new kakao.maps.LatLng(
+          parseFloat(location.지점위도),
+          parseFloat(location.지점경도)
+        )
+      );
+    }
+  }
+
+  function handleButtonClick() {
+    setCityName((prev) => (prev === "서울" ? "경기" : "서울")); // cityName을 서로 전환
   }
 
   return (
     <div className="BankLocationPage">
       <div className="mapCard">
-        <h2>가까운 영업점</h2>
-        <div
-          id="map"
-          style={{ width: "90%", height: "300px", margin: "auto" }}
-        ></div>
+        <h3 className="title">
+          {cityName === "서울" ? UserData.university : "현재 위치에서"}에서
+          가까운 영업점
+        </h3>
+        <span className="bankSwitch" onClick={handleButtonClick}>
+          {cityName === "서울" ? (
+            <div>내 위치기준 보기</div>
+          ) : (
+            <div>학교 기준 보기</div>
+          )}
+        </span>
       </div>
+      <div
+        id="map"
+        style={{ width: "90%", height: "300px", margin: "auto" }}
+      ></div>
       <div className="bankName">
-        <h2 style={{ color: "white" }}>건국대학교에서 가까운 지점입니다.</h2>
+        <h3 className="title" style={{ color: "white" }}>
+          {cityName === "서울" ? UserData.university : "현재 위치에서"}에서
+          가까운 지점입니다.
+        </h3>
 
         <div className="bankCard">
-          {bankLocations.map((location, index) => (
-            <h3
-              key={index}
-              onClick={() => moveTo(location.name)}
-              className="box"
-            >
-              {location.name}
-            </h3>
-          ))}
+          {(cityName === "서울" ? BanknearbyKonKuk : BanknearbyMyLocation).map(
+            (location: BankLocationType, index) => (
+              <div className="locationWrapper">
+                <h3
+                  key={index}
+                  onClick={() => moveTo(location.지점명)}
+                  className="box"
+                >
+                  신한은행 {location.지점명} 지점
+                </h3>
+                <a href={`tel:${location.지점대표전화번호}`}>
+                  <img src={call} alt="callImg" style={{ width: "40px" }} />
+                </a>
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>

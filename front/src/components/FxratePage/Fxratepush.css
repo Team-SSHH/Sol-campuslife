@@ -1,11 +1,13 @@
 #currencySelect {
-  border-radius: 20px;
+  border-radius: 10px;
   text-align: center;
-  background-color: aliceblue;
+  background-color: #fff;
   margin: 2%;
-  height: auto;
-  width: 40vw;
+  height: 2rem;
+  width: 40%;
   overflow-y: scroll;
+  border: none;
+  width: 10.3rem;
 }
 
 #currencySelect option {

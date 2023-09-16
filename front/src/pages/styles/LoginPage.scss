@@ -6,7 +6,7 @@
   font-style: normal;
 }
 
-$ruler: 16px;
+$ruler: 1rem;
 $color-red: #ae1100;
 $color-bg: #ebecf0;
 // $color-bg: #c6d5ff;
@@ -27,13 +27,13 @@ select,
 textarea,
 button {
   font-family: "NanumSquareRound";
-  // letter-spacing: -0.2px;
   font-size: $ruler;
 }
 
 .logindiv {
-  color: $color-shadow;
-  text-shadow: 1px 1px 1px $color-white;
+  color: #fff;
+  // color: $color-shadow;
+  // text-shadow: 1px 1px 1px $color-white;
 }
 .loginp {
   color: $color-shadow;
@@ -58,7 +58,7 @@ button {
   border-radius: $ruler * 20;
   padding: $ruler;
   background-color: $color-bg;
-  text-shadow: 1px 1px 0 $color-white;
+  // text-shadow: 1px 1px 0 $color-white;
 }
 
 .logininput {
@@ -68,7 +68,7 @@ button {
   border-radius: $ruler * 20;
   padding: $ruler;
   background-color: $color-bg;
-  text-shadow: 1px 1px 0 $color-white;
+  // text-shadow: 1px 1px 0 $color-white;
 }
 
 .loginlabel {
@@ -79,24 +79,24 @@ button {
 
 .logininput {
   margin-right: $ruler/2;
-  box-shadow: inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
+  // box-shadow: inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
   width: 100%;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
   appearance: none;
   -webkit-appearance: none;
 
-  &:focus {
-    box-shadow: inset 1px 1px 2px $color-shadow,
-      inset -1px -1px 2px $color-white;
-  }
+  // &:focus {
+  //   box-shadow: inset 1px 1px 2px $color-shadow,
+  //     inset -1px -1px 2px $color-white;
+  // }
 }
 
 .loginbutton {
   color: #61677c;
   font-weight: bold;
   // box-shadow: -5px -5px 20px $color-white, 5px 5px 20px $color-shadow;
-  box-shadow: -2px -2px 10px $color-white, 5px 5px 10px $color-shadow;
+  // box-shadow: -2px -2px 10px $color-white, 5px 5px 10px $color-shadow;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   font-weight: 600;
@@ -133,7 +133,7 @@ button {
   &.red {
     display: block;
     width: 100%;
-    color: $color-red;
+    // color: $color-red;
   }
 }
 

@@ -61,9 +61,14 @@ public class Student {
     @Column(name = "token")
     private String token;
 
-    @Column(name = "lat")
-    private Double lat;
+    @Builder.Default
+    @Column(name = "location_state", nullable = false)
+    private Boolean locationState = false;
 
-    @Column(name = "lon")
-    private Double lon;
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 }
+

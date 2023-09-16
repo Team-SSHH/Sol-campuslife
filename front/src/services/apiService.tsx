@@ -29,7 +29,7 @@ export const getDutchPay = (studentId: Number) =>
   api1.get(`/sshh/remittance/${studentId}/dutch`);
 // 더치페이 상세조회
 export const getDutchPayDetail = (studentId: Number, dutchId: Number) =>
-  api1.get(`/sshh/remittance//${studentId}/dutch/${dutchId}`);
+  api1.get(`/sshh/remittance/${studentId}/dutch/${dutchId}`);
 
 // 요청받은 더치페이 조회
 
@@ -65,6 +65,18 @@ export const postMakeFriend = (studentId: Number, friendId: Number) =>
 //친구 푸쉬알림
 export const postMakeFriendAlarm = (studentId: Number, friendId: Number) =>
   api1.post(`/sshh/push/${studentId}/friend/${friendId}`);
+
+//신한 위취알림!.
+export const postShinhanLocation = (cityName: String) =>
+  api1.post(`/sshh/branch/list`, {
+    dataHeader: {
+      apikey: "2023_Shinhan_SSAFY_Hackathon",
+    },
+    dataBody: {
+      serviceCode: "T0508",
+      시도명: cityName,
+    },
+  });
 
 //####### put 요청#####################
 // 1원이체

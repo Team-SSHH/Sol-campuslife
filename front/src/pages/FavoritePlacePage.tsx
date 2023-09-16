@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./styles/FavoritePlacePage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import qwe from "../assets/qwe.png";
 import styled from "styled-components";
 import Carousel from "../components/FavoritePlacePage/Carousel";
 import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
@@ -13,8 +12,8 @@ import FavortieModal from "../components/FavoritePlacePage/FavortieModal";
 import { placeType } from "../types/DataType";
 
 const StyledButton = styled.button`
-  position: absolute;
-  top: 33%;
+  position: relative;
+  top: 10%;
   left: 40%;
   // outline: none;
   border: none;
@@ -23,7 +22,6 @@ const StyledButton = styled.button`
   font-weight: bold;
   padding-left: 1rem;
   padding-right: 1rem;
-  z-index: 1;
 
   height: 2.4rem;
   width: 20%;
@@ -64,12 +62,12 @@ const FavoritePlacePage = () => {
 
   const getPlace = () => {
     setPlaces(getContentWithImgSortedByFrequency(selectedTags));
-    setModalVisible(true); // 검색 버튼 클릭 시 모달 보이기
+    setModalVisible(true);
   };
 
   return (
     <div className="favoritePlaceWrapper">
-      <p className="tagText">키워드를 선택해주세요.</p>
+      <h3 className="tagText">키워드를 선택해주세요.</h3>
       <div className="tagContainer">
         <Carousel tags={tag1} tagName="요일" onTagClick={handleTagClick} />
         <Carousel tags={tag2} tagName="" onTagClick={handleTagClick} />
@@ -78,15 +76,6 @@ const FavoritePlacePage = () => {
       <StyledButton onClick={getPlace}>검색</StyledButton>
 
       {modalVisible && <FavortieModal places={places} />}
-      {/* <div className="loac-container">
-        <div className="loac-con1">
-          <div className="loacTitle">
-            {userData.university} 학생들이 자주 간
-          </div>
-          <FavoritePlace />
-          <FavoritePlace />
-        </div>
-      </div> */}
     </div>
   );
 };

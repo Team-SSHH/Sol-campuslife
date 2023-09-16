@@ -83,9 +83,8 @@ const FriendsList = () => {
         <MessageBox
           height={40}
           text="카테고리 이름을 정해주세요!"
-          onConfirm={(value) => {
-            // setNewCategoryName(value)
-            handleMakeNewCategory(userData.studentId, value);
+          onConfirm={async (value) => {
+            await handleMakeNewCategory(userData.studentId, value);
             window.location.reload();
           }}
         />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import api from "../../utils/api";
+import api1 from "../../utils/api1";
+import styled from "styled-components";
 
 interface DiscountData {
   통화: string;
@@ -28,7 +29,7 @@ const DiscountRate: React.FC<DiscountRateProps> = ({ selectedCurrency }) => {
 
   const discountRate = async (currency: string) => {
     try {
-      const response = await api.post("/search/fx/discount-rate", disdata);
+      const response = await api1.post("/sshh/fx/discount-rate", disdata);
       // console.log(response.data.dataBody.리스트);
 
       if (Array.isArray(response.data.dataBody.리스트)) {
@@ -53,7 +54,7 @@ const DiscountRate: React.FC<DiscountRateProps> = ({ selectedCurrency }) => {
   };
 
   return (
-    <div>
+    <div className="fxratePreferential">
       {checkData
         ? `${selectedCurrency} 우대율: ${checkData.우대율}`
         : "우대율이 없습니다"}

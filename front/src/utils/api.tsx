@@ -2,7 +2,11 @@ import axios from "axios";
 
 // Axios 인스턴스 생성
 const api = axios.create({
+<<<<<<< HEAD
   baseURL: "https://shbhack.shinhan.com/v1", // API의 기본 URL
+=======
+  baseURL: "/api1/sshh", // API의 기본 URL
+>>>>>>> develop
 });
 
 // 요청 인터셉터 설정
