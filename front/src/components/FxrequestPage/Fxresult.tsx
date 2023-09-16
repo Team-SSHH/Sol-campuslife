@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import api from "../../utils/api";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atoms";
+import api1 from "../../utils/api1";
 
 interface RequestResultType {
   상태구분: string;
@@ -89,8 +89,7 @@ const Fxresult: React.FC = ({}) => {
 
   const fxresult = async () => {
     try {
-      const response = await api.post("/sshh/fx/request-list", data);
-      console.log("요깃다", response.data.dataBody.리스트);
+      const response = await api1.post("/sshh/fx/request-list", data);
       setResultData(response.data.dataBody.리스트);
       setModalOpen(true);
     } catch (error) {
