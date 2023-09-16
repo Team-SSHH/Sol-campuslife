@@ -1,4 +1,5 @@
 package com.shinhan.hack.proxy.controller;
+import com.shinhan.hack.proxy.Dto.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,7 +27,7 @@ public class ProxyController {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+        ResponseEntity<FxrateDto> response = restTemplate.postForEntity(apiUrl, requestEntity, FxrateDto.class);
 
         return ResponseEntity.ok(response.getBody());
     }
@@ -39,7 +40,7 @@ public class ProxyController {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+        ResponseEntity<BranchCityDto> response = restTemplate.postForEntity(apiUrl, requestEntity, BranchCityDto.class);
 
         return ResponseEntity.ok(response.getBody());
     }
@@ -52,7 +53,7 @@ public class ProxyController {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+        ResponseEntity<DiscountDto> response = restTemplate.postForEntity(apiUrl, requestEntity, DiscountDto.class);
 
         return ResponseEntity.ok(response.getBody());
     }
@@ -65,7 +66,7 @@ public class ProxyController {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+        ResponseEntity<KrwDto> response = restTemplate.postForEntity(apiUrl, requestEntity, KrwDto.class);
 
         return ResponseEntity.ok(response.getBody());
     }
@@ -78,7 +79,7 @@ public class ProxyController {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+        ResponseEntity<RequestListDto> response = restTemplate.postForEntity(apiUrl, requestEntity, RequestListDto.class);
 
         return ResponseEntity.ok(response.getBody());
     }
@@ -91,7 +92,7 @@ public class ProxyController {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+        ResponseEntity<RequestDto> response = restTemplate.postForEntity(apiUrl, requestEntity, RequestDto.class);
 
         return ResponseEntity.ok(response.getBody());
     }
@@ -104,7 +105,7 @@ public class ProxyController {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+        ResponseEntity<BranchListDto> response = restTemplate.postForEntity(apiUrl, requestEntity, BranchListDto.class);
 
         return ResponseEntity.ok(response.getBody());
     }

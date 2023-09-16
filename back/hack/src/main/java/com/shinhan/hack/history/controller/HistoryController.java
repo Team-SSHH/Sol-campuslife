@@ -17,7 +17,6 @@ import java.util.Map;
 @RequestMapping("sshh")
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000", "https://sh.solcampuslife.store"}, allowCredentials = "true", allowedHeaders = "*", methods = {
-
         RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.DELETE,
         RequestMethod.PUT })
 public class HistoryController {

@@ -28,4 +28,10 @@ public interface LoginRepository extends JpaRepository<Student, Long> {
 
     @Query("select s.studentId from student s")
     List<Long> findStudentId();
+
+    @Query("select s.token from student s")
+    List<String> findTokenAll();
+
+    @Query("select s.nationality from student s where s.token = :token")
+    List<String> findNationalityByToken(String token);
 }

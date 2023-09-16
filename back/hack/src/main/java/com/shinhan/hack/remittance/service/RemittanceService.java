@@ -236,8 +236,6 @@ public class RemittanceService {
                         .build());
                 friendList.add(friend);
 
-
-
             } catch (FirebaseMessagingException e) {
                 System.out.println(" = " + "오류");
                 throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
