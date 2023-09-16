@@ -7,7 +7,7 @@ import com.google.firebase.messaging.Notification;
 import com.shinhan.hack.Error.CustomException;
 import com.shinhan.hack.Error.ErrorCode;
 import com.shinhan.hack.login.repository.LoginRepository;
-import com.shinhan.hack.proxy.Dto.FxrateDto;
+import com.shinhan.hack.shinhan.Dto.FxrateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
