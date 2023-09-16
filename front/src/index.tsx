@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+// import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { initializeApp } from "firebase/app";
 import { getMessaging } from "firebase/messaging";
@@ -18,6 +18,7 @@ const firebaseConfig = {
 };
 const firebase = initializeApp(firebaseConfig);
 const messaging = getMessaging();
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

@@ -89,7 +89,7 @@ const Fxresult: React.FC = ({}) => {
 
   const fxresult = async () => {
     try {
-      const response = await api.post("/fx/request-list", data);
+      const response = await api.post("/sshh/fx/request-list", data);
       console.log("요깃다", response.data.dataBody.리스트);
       setResultData(response.data.dataBody.리스트);
       setModalOpen(true);
