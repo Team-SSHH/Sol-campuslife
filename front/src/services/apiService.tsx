@@ -66,6 +66,18 @@ export const postMakeFriend = (studentId: Number, friendId: Number) =>
 export const postMakeFriendAlarm = (studentId: Number, friendId: Number) =>
   api1.post(`/sshh/push/${studentId}/friend/${friendId}`);
 
+//신한 위취알림!.
+export const postShinhanLocation = (cityName: String) =>
+  api1.post(`/sshh/branch/list`, {
+    dataHeader: {
+      apikey: "2023_Shinhan_SSAFY_Hackathon",
+    },
+    dataBody: {
+      serviceCode: "T0508",
+      시도명: cityName,
+    },
+  });
+
 //####### put 요청#####################
 // 1원이체
 export const putSendOneWon = (studentId: Number) =>

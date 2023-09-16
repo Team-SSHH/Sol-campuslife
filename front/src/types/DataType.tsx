@@ -59,3 +59,11 @@ export interface GetDutchType {
   requestTime: string;
   details: DutchType[];
 }
+
+export interface BankLocationType {
+  지점경도: string;
+  지점명: string;
+  지점위도: string;
+  지점대표전화번호: string;
+  지점주소: string;
+}
