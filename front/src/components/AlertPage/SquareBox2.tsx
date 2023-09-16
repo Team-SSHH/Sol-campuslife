@@ -38,7 +38,6 @@ const StyledButton = styled.button`
   font-weight: bold;
   padding-left: 1rem;
   padding-right: 1rem;
-  z-index: 1;
 
   height: 2.25rem;
   width: 6rem;

@@ -1,7 +1,6 @@
 import React, { useState, CSSProperties } from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
-
 import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
 import useMyConsumeLogData from "../hooks/useMyConsumeLogData";
 import {
@@ -19,6 +18,7 @@ import {
 
 import MyCalendar from "../components/MyCalendar/MyCalendar";
 import "./styles/ConsumeLogPage.css";
+import { formatCurrency } from "../components/common/formatCurrency";
 
 // 각 섹션별 색상 정의
 const COLORS = [
@@ -90,15 +90,14 @@ const ConsumeLogPage = () => {
 
   const buttonStyle: CSSProperties = {
     position: "absolute",
-    // 중앙에서 위/아래로 이동하는 것을 유지하고,
     top: "12.8%",
-    // 오른쪽 또는 왼쪽으로 이동하도록 설정합니다.
-    right: showCalendar ? "unset" : "5%",
-    left: showCalendar ? "5%" : "unset",
-    // 상대적으로 이동하는 변형을 적용합니다.
+    right: showCalendar ? "unset" : "3%",
+    left: showCalendar ? "3%" : "unset",
     transform: "translateY(-50%)",
-    // 다른 요소 위에 표시되도록 z-index를 설정합니다.
     zIndex: 999,
+    border: showCalendar ? "1px solid #fff" : "1px solid #fff",
+    color: showCalendar ? "#fff" : "#fff",
+    fontWeight: "bold",
   };
 
   return (
@@ -108,7 +107,7 @@ const ConsumeLogPage = () => {
         onClick={() => setShowCalendar(!showCalendar)}
         style={buttonStyle}
       >
-        {showCalendar ? "◀" : "▶"}
+        {showCalendar ? "<<📊" : "📅>>"}
       </button>
       {!showCalendar && (
         <>
@@ -214,7 +213,7 @@ const ConsumeLogPage = () => {
             </div>
           </div>
           <div className="CompareGraphWrapper">
-            <h2>한 달 간 얼마를 썼을까</h2>
+            <h2>한 달 간의 소비</h2>
 
             <div className="CompareGraph">
               <ResponsiveContainer width={400} height={280}>
@@ -229,7 +228,10 @@ const ConsumeLogPage = () => {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" tick={{ fill: "white" }} />
-                  <YAxis tick={{ fill: "white" }} />
+                  <YAxis
+                    tick={{ fill: "white" }}
+                    tickFormatter={(value) => formatCurrency(value)}
+                  />
                   <Tooltip />
                   {/* 나의 데이터 */}
                   <Line
