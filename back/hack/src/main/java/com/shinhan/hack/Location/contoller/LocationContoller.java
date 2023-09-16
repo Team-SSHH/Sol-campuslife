@@ -26,7 +26,10 @@ public class LocationContoller {
 
         return ResponseEntity.ok(response);
     }
-//
+
 //    @PutMapping("/{studentId}/state")
-//    public
+//    public ResponseEntity<String> setState(
+//            @PathVariable("studentId") Long studentId,
+//
+//    )
 }

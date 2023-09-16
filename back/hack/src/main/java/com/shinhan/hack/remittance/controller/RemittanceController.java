@@ -85,8 +85,8 @@ public class RemittanceController {
             throw new CustomException(ErrorCode.ALREADY_PAY_MONEY);
         }
 
-        sendInfo.setFriendId(friendId);
-        sendInfo.setStudentId(studentId);
+        sendInfo.setFriendId(studentId);
+        sendInfo.setStudentId(friendId);
 
         // 더치페이 송금 및 거래 내역 저장
         RemittanceDto.update update = remittanceMapper.toUpdateFromSend(sendInfo);
