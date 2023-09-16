@@ -1,7 +1,6 @@
 import React, { useState, CSSProperties } from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
-
 import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
 import useMyConsumeLogData from "../hooks/useMyConsumeLogData";
 import {
@@ -19,6 +18,7 @@ import {
 
 import MyCalendar from "../components/MyCalendar/MyCalendar";
 import "./styles/ConsumeLogPage.css";
+import { formatCurrency } from "../components/common/formatCurrency";
 
 // 각 섹션별 색상 정의
 const COLORS = [
@@ -95,8 +95,9 @@ const ConsumeLogPage = () => {
     left: showCalendar ? "3%" : "unset",
     transform: "translateY(-50%)",
     zIndex: 999,
-    border: showCalendar ? "1px solid #000" : "1px solid #fff",
-    color: showCalendar ? "#000" : "#fff",
+    border: showCalendar ? "1px solid #fff" : "1px solid #fff",
+    color: showCalendar ? "#fff" : "#fff",
+    fontWeight: "bold",
   };
 
   return (
@@ -212,7 +213,7 @@ const ConsumeLogPage = () => {
             </div>
           </div>
           <div className="CompareGraphWrapper">
-            <h2>한 달 간 얼마를 썼을까</h2>
+            <h2>한 달 간의 소비</h2>
 
             <div className="CompareGraph">
               <ResponsiveContainer width={400} height={280}>
@@ -227,7 +228,10 @@ const ConsumeLogPage = () => {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" tick={{ fill: "white" }} />
-                  <YAxis tick={{ fill: "white" }} />
+                  <YAxis
+                    tick={{ fill: "white" }}
+                    tickFormatter={(value) => formatCurrency(value)}
+                  />
                   <Tooltip />
                   {/* 나의 데이터 */}
                   <Line
