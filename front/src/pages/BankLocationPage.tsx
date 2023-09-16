@@ -6,6 +6,8 @@ import { useRecoilValue } from "recoil";
 import { loginuser } from "../stores/atoms";
 import useGPSLocation from "../hooks/useGPSLocation";
 import call from "../assets/call.png";
+import school from "../assets/school.png";
+import location from "../assets/location.png";
 
 declare const kakao: any;
 
@@ -82,13 +84,11 @@ const BankLocationPage = () => {
               "</div>",
             removable: true,
           });
-
           infowindow.open(map, marker);
         }
       );
     }
   }, [BanknearbyKonKuk, BanknearbyMyLocation, cityName]);
-
   function moveTo(name: string) {
     let location = (
       cityName === "서울" ? BanknearbyKonKuk : BanknearbyMyLocation
@@ -114,9 +114,13 @@ const BankLocationPage = () => {
           {cityName === "서울" ? UserData.university : "현재 위치에서"}에서
           가까운 영업점
         </h3>
-        <button className="Mybutton" onClick={handleButtonClick}>
-          눌러
-        </button>
+        <span className="bankSwitch" onClick={handleButtonClick}>
+          {cityName === "서울" ? (
+            <div>내 위치기준 보기</div>
+          ) : (
+            <div>학교 기준 보기</div>
+          )}
+        </span>
       </div>
       <div
         id="map"

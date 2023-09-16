@@ -25,6 +25,7 @@ const useMyConsumeLogData = () => {
         setMyDataConsumeLog(response.data);
         setConsumeSummary(response1.data);
         console.log(response1.data);
+        console.log("response1.dataresponse1.dataresponse1.data");
       } catch (error) {
         // 에러 처리 부분 추가 필요.
         console.error(error);
