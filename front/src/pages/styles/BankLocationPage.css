@@ -1,8 +1,16 @@
 .mapCard {
   color: white;
   display: flex;
+  justify-content: space-between;
 }
-.Mybutton {
+.bankSwitch {
+  /* border: #fff 0.2rem solid; */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding-right: 5%;
+  color: #fac109;
+  font-weight: bold;
 }
 
 .box {

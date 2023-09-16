@@ -32,7 +32,7 @@ interface BasicBoxComponentProps {
 const BasicBoxComponent = styled.div<BasicBoxComponentProps>`
   position: relative;
 
-  height: 15%;
+  height: 20%;
   // width: %;
   margin-bottom: 3%;
   outline: none;
@@ -40,7 +40,7 @@ const BasicBoxComponent = styled.div<BasicBoxComponentProps>`
   border-radius: 15px;
   color: white;
 
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   background: ${(props) => (props.selected ? "#6e96ff" : "#c7d6ff")};
   color: ${(props) => (props.selected ? "#fff" : "#000")};
 
@@ -67,6 +67,7 @@ const StyledButton = styled.button`
 const CategoryBox = styled.div`
   overflow-y: scroll;
   width: 70%;
+  height: 60%;
 `;
 
 const Ptag = styled.div`
@@ -126,7 +127,6 @@ const BasicBox: React.FC<BasicBoxProps> = (props) => {
             )
         )}
       </CategoryBox>
-
       <StyledButton onClick={() => onConfirm()}>선택</StyledButton>
     </BasicBoxWraper>
   );
