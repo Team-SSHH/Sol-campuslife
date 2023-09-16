@@ -28,7 +28,8 @@ public class LocationService {
     public LocationDto.Response saveLocation(Long studentId, LocationDto.SitePost sitePost) {
         // 경도 위도 저장
         studentRepository.setLatitudeAndLongitude(studentId, sitePost.getLatitude(), sitePost.getLongitude());
-
+        System.out.println(sitePost.getLatitude());
+        System.out.println(sitePost.getLongitude());
         // 현재 상태
         Boolean state = studentRepository.findLocationStateById(studentId);
 
@@ -40,12 +41,14 @@ public class LocationService {
         for (Friends fri : friendList
         ) {
             Optional<Student> friendDummy = studentRepository.findByIdAndLocationState(fri.getFriendId());
-            if(friendDummy.isEmpty())continue;
+            if (friendDummy.isEmpty()) continue;
 
             LocationDto.friend friend = locationMapper.toResponse(friendDummy.get());
 
-            double distance = distance(sitePost.getLatitude(), sitePost.getLatitude(), friendDummy.get().getLatitude(), friendDummy.get().getLongitude());
-            if(distance < 200)continue;
+            Double distance = distance(sitePost.getLatitude(), sitePost.getLongitude(), friendDummy.get().getLatitude(), friendDummy.get().getLongitude());
+
+            if (distance.compareTo(Double.parseDouble("200")) > 0) continue;
+
             friend.setDistance(distance);
 
             friendsTrue.add(friend);
@@ -67,15 +70,18 @@ public class LocationService {
         studentRepository.save(student);
     }
 
-
     private static Double distance(Double lat1, Double lon1, Double lat2, Double lon2) {
-
         Double theta = lon1 - lon2;
         Double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
 
-        dist = rad2deg(Math.acos(dist))* 60 * 1.1515 * 1609.344;
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
 
-        return dist;
+        dist = dist * 1609.344;
+
+
+        return (dist);
     }
 
     // This function converts decimal degrees to radians
