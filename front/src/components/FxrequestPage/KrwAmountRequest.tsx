@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import api1 from "../../utils/api1";
-import "./Kwrate.css";
 import styled from "styled-components";
 import { loginuser } from "../../stores/atoms";
 import { useRecoilState } from "recoil";
@@ -72,9 +71,9 @@ const KrwAmountRequest: React.FC<KrwAmountProps> = ({
   return (
     <div className="kwdiv">
       <StyledButton onClick={handleBtnClick}>확인</StyledButton>
-      <p className="fxrateTitle">
+      <div className="fxrateTitle fxrateMoney">
         원화예상금액 <span> {exchangeAmount}</span>
-      </p>
+      </div>
     </div>
   );
 };
