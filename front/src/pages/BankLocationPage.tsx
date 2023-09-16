@@ -1,30 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./styles/BankLocationPage.css";
-
+import useShinhanLocation from "../hooks/useShinhanLocation";
+import { BankLocationType } from "../types/DataType";
 declare const kakao: any;
+
 const BankLocationPage = () => {
-  const bankLocations = [
-    {
-      name: "신한은행 건국대학교지점",
-      lat: 37.541823538263,
-      lng: 127.0780213315,
-    },
-    {
-      name: "신한은행 스타시티금융센터",
-      lat: 37.538724826635,
-      lng: 127.073545050464,
-    },
-    { name: "신한은행 자양동점", lat: 37.536262795846, lng: 127.083270673746 },
-    {
-      name: "신한은행 테크노마트점",
-      lat: 37.535494638597,
-      lng: 127.095657684745,
-    },
-    { name: "신한은행 ATM 건대본관", lat: 37.543423, lng: 127.075245 },
-  ];
+  const { BanknearbyKonKuk } = useShinhanLocation("서울");
 
   const [map, setMap] = useState<null | any>(null);
 
+  console.log(BanknearbyKonKuk);
   useEffect(() => {
     const script = document.createElement("script");
     script.onload = () => {
@@ -38,31 +23,6 @@ const BankLocationPage = () => {
         const createdMap = new kakao.maps.Map(container, options);
 
         setMap(createdMap);
-
-        bankLocations.forEach((location) => {
-          // 원하는 위치의 위도와 경도
-          const markerPosition = new kakao.maps.LatLng(
-            location.lat,
-            location.lng
-          );
-
-          // 마커를 생성
-          let marker = new kakao.maps.Marker({
-            position: markerPosition,
-          });
-
-          marker.setMap(createdMap);
-
-          let infowindow = new kakao.maps.InfoWindow({
-            content:
-              '<div style="width :auto; text-align:center;font-size:8px; padding :5px;color:#000;">' +
-              location.name +
-              "</div>",
-            removable: true,
-          });
-
-          infowindow.open(createdMap, marker);
-        });
       });
     };
     script.src =
@@ -70,10 +30,47 @@ const BankLocationPage = () => {
     document.head.appendChild(script);
   }, []);
 
+  // Add another useEffect for BanknearbyKonKuk state update
+  useEffect(() => {
+    if (map) {
+      // Check if the map is already initialized
+      BanknearbyKonKuk.forEach((location: BankLocationType) => {
+        // 원하는 위치의 위도와 경도
+        const markerPosition = new kakao.maps.LatLng(
+          parseFloat(location.지점위도),
+          parseFloat(location.지점경도)
+        );
+
+        // 마커를 생성
+        let marker = new kakao.maps.Marker({
+          position: markerPosition,
+        });
+        marker.setMap(map);
+
+        let infowindow = new kakao.maps.InfoWindow({
+          content:
+            '<div style="width :auto; text-align:center;font-size:8px; padding :5px;color:#000;">신한은행 ' +
+            location.지점명 +
+            "</div>",
+          removable: true,
+        });
+
+        infowindow.open(map, marker);
+      });
+    }
+  }, [BanknearbyKonKuk]);
+
   function moveTo(name: string) {
-    let location = bankLocations.find((item) => item.name === name);
+    let location = BanknearbyKonKuk.find(
+      (item: BankLocationType) => item.지점명 === name
+    );
     if (location && map) {
-      map.panTo(new kakao.maps.LatLng(location.lat, location.lng));
+      map.panTo(
+        new kakao.maps.LatLng(
+          parseFloat(location.지점위도),
+          parseFloat(location.지점경도)
+        )
+      );
     }
   }
 
@@ -92,14 +89,17 @@ const BankLocationPage = () => {
         </h2>
 
         <div className="bankCard">
-          {bankLocations.map((location, index) => (
-            <h3
-              key={index}
-              onClick={() => moveTo(location.name)}
-              className="box"
-            >
-              {location.name}
-            </h3>
+          {BanknearbyKonKuk.map((location: BankLocationType, index) => (
+            <div className="locationWrapper">
+              <h3
+                key={index}
+                onClick={() => moveTo(location.지점명)}
+                className="box"
+              >
+                신한은행 {location.지점명} 지점
+              </h3>
+              <a href={`tel:${location.지점대표전화번호}`}>전화기 클릭</a>
+            </div>
           ))}
         </div>
       </div>

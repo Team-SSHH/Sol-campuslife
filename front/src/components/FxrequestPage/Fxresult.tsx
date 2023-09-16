@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../stores/atoms";
 
 interface RequestResultType {
   상태구분: string;
@@ -72,21 +74,22 @@ const FxresultModalWrapper = styled.div`
 const Fxresult: React.FC = ({}) => {
   const [resultData, setResultData] = useState<Array<RequestResultType>>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [userDate, setUserDate] = useRecoilState(loginuser);
   const data = {
     dataHeader: {
       apikey: "2023_Shinhan_SSAFY_Hackathon",
     },
     dataBody: {
       serviceCode: "T0512",
-      신청인명: "김신한",
-      신청인휴대폰번호: "01011111111",
+      신청인명: userDate.name,
+      신청인휴대폰번호: userDate.phoneId,
       신청인생년월일: "980415",
     },
   };
 
   const fxresult = async () => {
     try {
-      const response = await api.post("/search/fx/request-list", data);
+      const response = await api.post("/sshh/fx/request-list", data);
       console.log("요깃다", response.data.dataBody.리스트);
       setResultData(response.data.dataBody.리스트);
       setModalOpen(true);

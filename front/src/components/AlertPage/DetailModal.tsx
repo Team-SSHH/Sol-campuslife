@@ -27,9 +27,11 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  //   display: flex;
-  //   flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: scroll;
+  text-align: center;
 `;
 
 const CloseButton = styled.button`
@@ -51,11 +53,35 @@ const CloseButton = styled.button`
   background: #6e96ff;
 `;
 
+const ThStyled = styled.th`
+  padding: 0px 20px;
+`;
+
 const DetailModal: React.FC<DetailModalProps> = ({ detailInfo, onClose }) => {
   return (
     <ModalWrapper>
       <ModalContent>
-        {detailInfo.map((info, index) => (
+        <table>
+          <thead>
+            <tr>
+              <ThStyled>친구</ThStyled>
+              <ThStyled>금액</ThStyled>
+              <ThStyled>시간</ThStyled>
+            </tr>
+          </thead>
+          <tbody>
+            {detailInfo.map((info, index) => (
+              <tr key={index}>
+                <td>{info.name}</td>
+                <td>{formatCurrency(info.dutchAmount)}</td>
+                <td>
+                  {info.remittanceState ? info.remittanceTime : "기다리는 중"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* {detailInfo.map((info, index) => (
           <div key={index} className="detailModalBox">
             <span className="detailModalName">{info.name} </span>
             <span className="detailModalAmount">
@@ -66,9 +92,8 @@ const DetailModal: React.FC<DetailModalProps> = ({ detailInfo, onClose }) => {
             <span className="detailModalTime">
               {info.remittanceState ? info.remittanceTime : "기다리는 중"}
             </span>
-            {/* <span className="squarebox2Amount"> {info.remittanceTime}</span> 원 */}
           </div>
-        ))}
+        ))} */}
       </ModalContent>
       <CloseButton onClick={onClose}>닫기</CloseButton>
     </ModalWrapper>

@@ -1,25 +1,28 @@
-.my-calendar {
-  background-color: #f0f0f0;
+.MyCalendarWrapper {
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  width: 90%;
+  height: 92%;
   text-align: center;
+  position: absolute;
+  left: 5%;
+  bottom: 0;
+}
+.MyCalendar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.my-calendar h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.my-calendar .react-calendar {
-  border: 1px solid black;
-  font-size: 20px;
+.MyCalendar .react-calendar {
+  /* border: 1px solid black; */
+  border-radius: 20px;
+  font-size: 22px;
   color: black;
 }
 
-.my-calendar .react-calendar__month-view__days__day {
-  font-size: 8px; /* 원하는 크기로 조절하세요 */
+.MyCalendar .react-calendar__month-view__days__day {
+  font-size: 0.8rem;
 }
 
 .my-calendar .react-calendar button {
@@ -33,44 +36,75 @@
 .my-calendar .react-calendar button:enabled:focus {
   background: #f0f0f0;
 }
-
-.my-calendar .react-calendar__tile--active:enabled,
-.my-calendar .react-calendar__tile--now:enabled {
-  background: #f7f726;
+.react-calendar__month-view__weekdays {
+  font-weight: bold;
+  /* text-decoration: none; */
+}
+.my-calendar .react-calendar__tile--active:enabled {
+  border-radius: 90%;
+  background: #c6d5ff;
+  font-weight: bold;
+  color: black;
+  /* color: #000; */
+}
+.MyCalendar .react-calendar__tile--now:enabled {
+  background: #fac109;
+  font-weight: bold;
+  /* background: #fff; */
+  border-radius: 100%;
+  /* border-radius: 3px; */
 }
 
-.my-calendar .react-calendar__tile--hover:enabled {
-  background: #ff6659;
-  color: #fff;
-}
-
-.my-calendar h2 {
+.MyCalendarContent h2 {
+  padding-top: 5%;
   margin-top: 20px;
-  font-size: 18px;
-  color: #333;
+  font-size: 1.4rem;
+  color: black;
 }
 
-.my-calendar .scrollable-table {
+.MyCalendarContent .scrollableTable {
   max-height: 200px; /* 원하는 높이로 조절하세요 */
   overflow-y: scroll;
 }
 
-.my-calendar table {
+.MyCalendarContent table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   white-space: nowrap;
 }
 
-.my-calendar th,
-.my-calendar td {
+.MyCalendarContent th,
+.MyCalendarContent td {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
   vertical-align: top;
+  text-align: center;
 }
 
-.my-calendar th {
-  background-color: #f0f0f0;
-  color: #333;
+.MyCalendarContent th {
+  background-color: #fff;
+  /* color: #333; */
+  color: black;
+}
+.MyCalendar .react-calendar__navigation__arrow {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.MyCalendar .react-calendar__navigation__label {
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+.MyCalendarContent {
+  background-color: #c6d5ff;
+  color: black;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  /* border-radius: 20px; */
+  width: 90%;
+  left: 5%;
+  position: relative;
 }

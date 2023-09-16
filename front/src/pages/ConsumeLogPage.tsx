@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, CSSProperties } from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atoms";
-
 import useAllConsumeLogData from "../hooks/useAllConsumeLogData";
 import useMyConsumeLogData from "../hooks/useMyConsumeLogData";
 import {
@@ -14,10 +13,12 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
 import MyCalendar from "../components/MyCalendar/MyCalendar";
 import "./styles/ConsumeLogPage.css";
+import { formatCurrency } from "../components/common/formatCurrency";
 
 // 각 섹션별 색상 정의
 const COLORS = [
@@ -87,8 +88,27 @@ const ConsumeLogPage = () => {
   ///
   const [showCalendar, setShowCalendar] = useState(false);
 
+  const buttonStyle: CSSProperties = {
+    position: "absolute",
+    top: "12.8%",
+    right: showCalendar ? "unset" : "3%",
+    left: showCalendar ? "3%" : "unset",
+    transform: "translateY(-50%)",
+    zIndex: 999,
+    border: showCalendar ? "1px solid #fff" : "1px solid #fff",
+    color: showCalendar ? "#fff" : "#fff",
+    fontWeight: "bold",
+  };
+
   return (
     <div className="ConsumeLog">
+      <button
+        className="ShowCalendarButton"
+        onClick={() => setShowCalendar(!showCalendar)}
+        style={buttonStyle}
+      >
+        {showCalendar ? "<<📊" : "📅>>"}
+      </button>
       {!showCalendar && (
         <>
           <div className="CompareCircleWrapper">
@@ -193,51 +213,49 @@ const ConsumeLogPage = () => {
             </div>
           </div>
           <div className="CompareGraphWrapper">
-            <h2>한 달 간 얼마를 썼을까</h2>
-            <div className="CompareGraph">
-              <LineChart
-                width={400}
-                height={300}
-                data={data3}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{ fill: "white" }} />
-                <YAxis tick={{ fill: "white" }} />
-                <Tooltip />
-                {/* 나의 데이터 */}
-                <Line
-                  type="monotone"
-                  dataKey="me"
-                  stroke="#FFBB28"
-                  strokeWidth={3}
-                />
+            <h2>한 달 간의 소비</h2>
 
-                {/* 평균 데이터 */}
-                <Line
-                  type="monotone"
-                  dataKey="average"
-                  stroke="#82ca9d"
-                  strokeWidth={3}
-                />
-              </LineChart>
+            <div className="CompareGraph">
+              <ResponsiveContainer width={400} height={280}>
+                <LineChart
+                  data={data3}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" tick={{ fill: "white" }} />
+                  <YAxis
+                    tick={{ fill: "white" }}
+                    tickFormatter={(value) => formatCurrency(value)}
+                  />
+                  <Tooltip />
+                  {/* 나의 데이터 */}
+                  <Line
+                    type="monotone"
+                    dataKey="me"
+                    stroke="#FFBB28"
+                    strokeWidth={3}
+                  />
+
+                  {/* 평균 데이터 */}
+                  <Line
+                    type="monotone"
+                    dataKey="average"
+                    stroke="#82ca9d"
+                    strokeWidth={3}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </>
       )}
       <br />
       {showCalendar && <MyCalendar dateWiseConsumption={dateWiseConsumption} />}
-      <button
-        className="ShowCalendarButton"
-        onClick={() => setShowCalendar(!showCalendar)}
-      >
-        {!showCalendar ? "달력" : "뒤로"}
-      </button>
     </div>
   );
 };
