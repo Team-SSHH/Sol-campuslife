@@ -78,7 +78,7 @@ const KrwAmount: React.FC<KrwAmountProps> = ({ selectedCurrency }) => {
     <div className="krwAmountWrapper">
       <input
         className="krwInput"
-        type="text"
+        type="number"
         placeholder=" 금액을 입력하세요."
         value={inputAmount}
         onChange={handleInputChange}

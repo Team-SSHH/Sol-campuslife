@@ -99,7 +99,7 @@ const Envelop: React.FC<EnvelopProps> = (props) => {
         <div className="remittanceContentMoney">
           <span>
             <StyledInput
-              type="text"
+              type="number"
               value={value}
               onChange={handleInputChange}
               placeholder="금액을 입력하시오"

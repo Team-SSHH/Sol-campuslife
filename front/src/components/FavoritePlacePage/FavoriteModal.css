@@ -22,7 +22,7 @@
   bottom: 0; /* 최종 위치를 위로 설정 */
 }
 .favortieModalContainer.fullScreen {
-  height: 96%;
+  height: 92%;
   bottom: 0;
 }
 .favortieModalContainerMiddle {

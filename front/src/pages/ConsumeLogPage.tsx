@@ -109,6 +109,7 @@ const ConsumeLogPage = () => {
             paddingTop: "2rem",
           }}
         >
+          {" "}
           <div
             style={{
               display: "flex",
@@ -122,7 +123,7 @@ const ConsumeLogPage = () => {
               style={{
                 width: "20px",
                 height: "20px",
-                backgroundColor: "#6F96FF",
+                backgroundColor: "red",
                 marginRight: "10px",
               }}
             ></div>
@@ -141,7 +142,7 @@ const ConsumeLogPage = () => {
               style={{
                 width: "20px",
                 height: "20px",
-                backgroundColor: "red",
+                backgroundColor: "#6F96FF",
                 marginRight: "10px",
               }}
             ></div>
@@ -154,7 +155,7 @@ const ConsumeLogPage = () => {
         onClick={() => setShowCalendar(!showCalendar)}
         style={buttonStyle}
       >
-        {showCalendar ? "<<📊" : "📅>>"}
+        {showCalendar ? "그래프보기" : "달력보기"}
       </button>
       {!showCalendar && (
         <>

@@ -41,7 +41,7 @@ const FxrequestPage: React.FC = () => {
         <div className="fxrateTitle">환전할 금액을 입력해주세요</div>
         <input
           className="krwInput"
-          type="text"
+          type="number"
           placeholder="금액을 입력하세요."
           value={inputAmount}
           onChange={handleInputChange}
