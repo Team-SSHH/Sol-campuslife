@@ -18,7 +18,7 @@ const useLogin = () => {
 
   const navigate = useNavigate();
 
-    async function getDeviceToken(studentId: any) {
+  async function getDeviceToken(studentId: any) {
     const token = await getToken(messaging, {
       vapidKey: process.env.REACT_APP_VAPID_KEY,
     });
@@ -41,7 +41,7 @@ const useLogin = () => {
       console.error(error);
     }
   };
-  
+
   const handleLogin = async () => {
     try {
       const response = await postLogin(studentId, password);

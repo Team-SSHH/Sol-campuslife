@@ -3,6 +3,7 @@ import api from "../../utils/api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Fxrate.css";
+import api1 from "../../utils/api1";
 
 interface RateData {
   통화코드: string;
@@ -42,7 +43,7 @@ const Fxrate: React.FC<FxrateProps> = ({ selectedCurrency }) => {
 
   const allfxrate = async (currency: string) => {
     try {
-      const response = await api.post("/search/fxrate/number", alldata);
+      const response = await api1.post("/sshh/shinhan/fxrate/number", alldata);
       // console.log(response.data);
       setAllRatesData(response.data.dataBody.환율리스트);
       // console.log(response.data.dataBody.환율리스트);

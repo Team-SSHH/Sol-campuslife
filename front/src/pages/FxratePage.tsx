@@ -6,9 +6,9 @@ import KrwAmount from "../components/FxratePage/KrwAmount";
 import { fxlist } from "../utils/fxlist";
 import Fxratepush from "../components/FxratePage/Fxratepush";
 import "./styles/FxratePage.css";
-import { registerServiceWorker } from "../utils/notification";
-import { AppCheckTokenResult } from "@firebase/app-check";
-import { getMessaging, getToken } from "firebase/messaging";
+// import { registerServiceWorker } from "../utils/notification";
+// import { AppCheckTokenResult } from "@firebase/app-check";
+// import { getMessaging, getToken } from "firebase/messaging";
 // import firebase from "firebase/app";
 import api1 from "../utils/api1";
 import styled from "styled-components";
@@ -40,50 +40,50 @@ const StyledButton = styled.button<ButtonProps>`
 const FxratePage: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>("USD");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [deviceToken, setDeviceToken] = useState<AppCheckTokenResult>({
-    token: "",
-  });
-  const messaging = getMessaging();
+  // const [deviceToken, setDeviceToken] = useState<AppCheckTokenResult>({
+  //   token: "",
+  // });
+  // const messaging = getMessaging();
 
   const handleCurrencyChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedCurrency(event.target.value);
   };
-  async function handleModalToggle() {
-    const permission = await Notification.requestPermission();
+  // async function handleModalToggle() {
+  //   const permission = await Notification.requestPermission();
 
-    registerServiceWorker();
-    setIsModalOpen(!isModalOpen);
-  }
-  async function getDeviceToken() {
-    const token = await getToken(messaging, {
-      vapidKey: process.env.REACT_APP_VAPID_KEY,
-    });
-    setDeviceToken({
-      token: token,
-    });
-  }
+  //   registerServiceWorker();
+  //   setIsModalOpen(!isModalOpen);
+  // }
+  // async function getDeviceToken() {
+  //   const token = await getToken(messaging, {
+  //     vapidKey: process.env.REACT_APP_VAPID_KEY,
+  //   });
+  //   setDeviceToken({
+  //     token: token,
+  //   });
+  // }
 
-  const postDeviceToken = async () => {
-    try {
-      const response = await api1.post(
-        "/sshh/login/201403808/token",
-        deviceToken.token
-      );
-      console.log(response);
-    } catch (error) {
-      // 에러 처리 부분 추가 필요.
-      console.error(error);
-    }
-  };
+  // const postDeviceToken = async () => {
+  //   try {
+  //     const response = await api1.post(
+  //       "/sshh/login/201403808/token",
+  //       deviceToken.token
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     // 에러 처리 부분 추가 필요.
+  //     console.error(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    console.log("token", deviceToken);
-    if (deviceToken.token) {
-      postDeviceToken();
-    }
-  }, [deviceToken]);
+  // useEffect(() => {
+  //   console.log("token", deviceToken);
+  //   if (deviceToken.token) {
+  //     postDeviceToken();
+  //   }
+  // }, [deviceToken]);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -107,7 +107,6 @@ const FxratePage: React.FC = () => {
         <div className="fxrateModal">
           <div className="fxrateModalContent">
             <Fxratepush />
-
             <button className="close-button" onClick={handleCloseModal}>
               X
             </button>

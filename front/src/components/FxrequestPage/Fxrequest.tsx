@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import api from "../../utils/api";
+import api1 from "../../utils/api1";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../stores/atoms";
 
 const StyledButton = styled.button`
   position: relative;
@@ -28,6 +30,8 @@ const Fxrequest: React.FC<FxrequestProps> = ({
   const [branchData, setBranchData] = useState<any[]>([]);
   const [checkBranchData, setCheckBranchData] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [userData] = useRecoilState(loginuser);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   const data = {
     dataHeader: {
@@ -36,13 +40,15 @@ const Fxrequest: React.FC<FxrequestProps> = ({
     dataBody: {
       serviceCode: "T0511",
       환전통화: selectedCurrency,
-      거래자성명: "홍길동",
+      거래자성명: userData.name,
       환전금액: inputAmount,
-      수령처: "인천국제공항",
-      수령일자: "20230830",
-      수령인성명: "홍길동",
+      수령처: "인천국제공항 제 1 여객터미널",
+      수령일자: startDate
+        ? startDate.toISOString().substring(0, 10).replace(/-/g, "")
+        : "",
+      수령인성명: userData.name,
       생년월일: "980415",
-      휴대폰번호: "01012345678",
+      휴대폰번호: userData.phoneId,
       환전수령방법: "1",
     },
   };
@@ -59,7 +65,7 @@ const Fxrequest: React.FC<FxrequestProps> = ({
 
   const fxrequest = async () => {
     try {
-      const response = await api.post("/request/fx", data);
+      const response = await api1.post("/sshh/request/fx", data);
       console.log(response.data);
       setrequestresult("신청 완료");
     } catch (error) {
@@ -69,7 +75,7 @@ const Fxrequest: React.FC<FxrequestProps> = ({
 
   const fxbranch = async () => {
     try {
-      const response = await api.post("/search/branch/city", branchdata);
+      const response = await api1.post("/sshh/branch/city", branchdata);
       console.log(response.data.dataBody.리스트);
       setBranchData(response.data.dataBody.리스트);
     } catch (error) {
