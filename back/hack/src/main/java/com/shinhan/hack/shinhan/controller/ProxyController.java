@@ -1,5 +1,5 @@
-package com.shinhan.hack.proxy.controller;
-import com.shinhan.hack.proxy.Dto.*;
+package com.shinhan.hack.shinhan.controller;
+import com.shinhan.hack.shinhan.Dto.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

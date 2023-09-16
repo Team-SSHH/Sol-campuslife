@@ -1,6 +1,5 @@
-package com.shinhan.hack.proxy.Dto;
+package com.shinhan.hack.shinhan.Dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 

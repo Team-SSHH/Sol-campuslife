@@ -70,22 +70,22 @@ public class LoginController {
         return new ResponseEntity<>(studentIdList, HttpStatus.OK);
     }
 
-    @PostMapping("/login/{studentid}/location")
-    public Mono<ResponseEntity<Void>> postLocation(@PathVariable("studentid") Long studentid,
-                                                   @RequestBody StudentLocation studentLocation) {
-        Double lat = studentLocation.getLat();
-        Double lon = studentLocation.getLon();
-
-        Optional<Student> optionalStudent = studentRepository.findStudentByStudentId(studentid);
-
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            student.setLat(lat);
-            student.setLon(lon);
-            studentRepository.save(student);
-            return Mono.just(ResponseEntity.ok().build());
-        } else {
-            return Mono.just(ResponseEntity.notFound().build());
-        }
-    }
+//    @PostMapping("/login/{studentid}/location")
+//    public Mono<ResponseEntity<Void>> postLocation(@PathVariable("studentid") Long studentid,
+//                                                   @RequestBody StudentLocation studentLocation) {
+//        Double lat = studentLocation.getLat();
+//        Double lon = studentLocation.getLon();
+//
+//        Optional<Student> optionalStudent = studentRepository.findStudentByStudentId(studentid);
+//
+//        if (optionalStudent.isPresent()) {
+//            Student student = optionalStudent.get();
+//            student.setLat(lat);
+//            student.setLon(lon);
+//            studentRepository.save(student);
+//            return Mono.just(ResponseEntity.ok().build());
+//        } else {
+//            return Mono.just(ResponseEntity.notFound().build());
+//        }
+//    }
 }
