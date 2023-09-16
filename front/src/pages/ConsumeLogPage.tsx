@@ -89,19 +89,66 @@ const ConsumeLogPage = () => {
   const [showCalendar, setShowCalendar] = useState(false);
 
   const buttonStyle: CSSProperties = {
-    position: "absolute",
-    top: "12.8%",
+    position: "fixed",
+    top: "10%",
     right: showCalendar ? "unset" : "3%",
     left: showCalendar ? "3%" : "unset",
     transform: "translateY(-50%)",
     zIndex: 999,
-    border: showCalendar ? "1px solid #fff" : "1px solid #fff",
-    color: showCalendar ? "#fff" : "#fff",
     fontWeight: "bold",
   };
 
   return (
-    <div className="ConsumeLog">
+    <div className={showCalendar ? "" : "ConsumeLog"}>
+      {!showCalendar && (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            paddingTop: "2rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "10px",
+              width: "50%",
+            }}
+          >
+            <div
+              style={{
+                width: "20px",
+                height: "20px",
+                backgroundColor: "#6F96FF",
+                marginRight: "10px",
+              }}
+            ></div>
+            나
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "10px",
+              width: "50%",
+            }}
+          >
+            <div
+              style={{
+                width: "20px",
+                height: "20px",
+                backgroundColor: "red",
+                marginRight: "10px",
+              }}
+            ></div>
+            평균
+          </div>
+        </div>
+      )}
       <button
         className="ShowCalendarButton"
         onClick={() => setShowCalendar(!showCalendar)}
@@ -112,7 +159,7 @@ const ConsumeLogPage = () => {
       {!showCalendar && (
         <>
           <div className="CompareCircleWrapper">
-            <h2>나와 건국대생의 한 달</h2>
+            <h2>나와 건국대생의 한 달 비교</h2>
             <div className="CompareCircle">
               <BarChart
                 data={combinedData}
@@ -126,23 +173,34 @@ const ConsumeLogPage = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{ fill: "white" }} />
+                <XAxis dataKey="name" tick={{ fill: "black" }} />
                 <YAxis
-                  tick={{ fill: "white" }}
+                  tick={{ fill: "black" }}
                   tickFormatter={(value) => formatCurrency(value)}
                 />
                 <Tooltip />
-                <Bar dataKey="me" fill="#FFBB28" strokeWidth={3} name="Me" />
+                <Bar dataKey="me" fill="red" strokeWidth={3} name="Me" />
                 <Bar
                   dataKey="average"
-                  fill="black"
+                  fill="#6F96FF"
                   strokeWidth={3}
                   name="Average"
                 />
               </BarChart>
             </div>
             <br />
+
+            {/* <div
+              className="Legend"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            > */}
           </div>
+          {/* </div> */}
+
           <div className="CompareGraphWrapper">
             <h2>한 달 간의 소비</h2>
 
@@ -159,9 +217,9 @@ const ConsumeLogPage = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{ fill: "white" }} />
+                <XAxis dataKey="name" tick={{ fill: "black" }} />
                 <YAxis
-                  tick={{ fill: "white" }}
+                  tick={{ fill: "black" }}
                   tickFormatter={(value) => formatCurrency(value)}
                 />
                 <Tooltip />
@@ -169,16 +227,16 @@ const ConsumeLogPage = () => {
                 <Line
                   type="monotone"
                   dataKey="me"
-                  stroke="#FFBB28"
-                  strokeWidth={3}
+                  stroke="red"
+                  strokeWidth={5}
                 />
 
                 {/* 평균 데이터 */}
                 <Line
                   type="monotone"
                   dataKey="average"
-                  stroke="black"
-                  strokeWidth={3}
+                  stroke="#6F96FF"
+                  strokeWidth={5}
                 />
               </LineChart>
             </div>
@@ -186,6 +244,7 @@ const ConsumeLogPage = () => {
         </>
       )}
       <br />
+
       {showCalendar && <MyCalendar dateWiseConsumption={dateWiseConsumption} />}
     </div>
   );

@@ -53,7 +53,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ dateWiseConsumption }) => {
   return (
     <div className="MyCalendarWrapper">
       <div className="MyCalendar">
-        <h2>나의 소비 달력</h2>
+        <h2 style={{ color: "#fff" }}>나의 소비 달력</h2>
         {/* 스타일링 클래스 적용 */}
         <Calendar
           className="my-calendar"
