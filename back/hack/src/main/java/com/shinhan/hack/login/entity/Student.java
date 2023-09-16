@@ -60,4 +60,10 @@ public class Student {
 
     @Column(name = "token")
     private String token;
+
+    @Column(name = "lat")
+    private Double lat;
+
+    @Column(name = "lon")
+    private Double lon;
 }
