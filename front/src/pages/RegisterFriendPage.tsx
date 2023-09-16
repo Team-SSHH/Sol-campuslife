@@ -8,6 +8,8 @@ import useFriendListData from "../hooks/useFriendListData";
 import { useRecoilValue } from "recoil";
 import { loginuser } from "../stores/atoms";
 import { useNavigate } from "react-router-dom";
+import useGPSLocation from "../hooks/useGPSLocation";
+import usePostGPS from "../hooks/usePostGPS";
 
 interface PageProps {
   text: string;
@@ -26,9 +28,13 @@ const RegisterFriendPage = () => {
   const { isSuccess, password, handleSendOneWon } = useSendOneWon();
   // const { handleSendAlarm } = useFriendPush();
   const { handleMakeFriend } = useMakeFriend();
+  const { handlePutMyLocation } = usePostGPS();
   const { MyfriendStudentIds, fetchFriendList } = useFriendListData(
     userData.studentId
   );
+  const MyLocation = useGPSLocation();
+
+  console.log("내내내내정보", MyLocation);
 
   const registerFriend = (value: string) => {
     if (value === password) {
@@ -37,6 +43,10 @@ const RegisterFriendPage = () => {
       alert("학생증 등록이 완료되었습니다.");
       navigate("/main");
     }
+  };
+
+  const send = () => {
+    handlePutMyLocation(userData.studentId);
   };
 
   const pages: PageProps[] = [

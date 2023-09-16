@@ -79,6 +79,23 @@ export const postShinhanLocation = (cityName: String) =>
   });
 
 //####### put 요청#####################
+// 위치 보내기
+export const putMylocation = (
+  studentId: Number,
+  latitude: Number,
+  longitude: Number
+) =>
+  api1.put(`/sshh/location/${studentId}/save`, {
+    latitude,
+    longitude,
+  });
+
+// 위치 상태 변경 함수
+export const putMylocationState = (studentId: Number, locationState: boolean) =>
+  api1.put(`/sshh/location/${studentId}/state`, {
+    locationState,
+  });
+
 // 1원이체
 export const putSendOneWon = (studentId: Number) =>
   api1.put(`/sshh/remittance/${studentId}/won1`);

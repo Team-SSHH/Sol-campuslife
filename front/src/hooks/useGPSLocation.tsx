@@ -24,7 +24,7 @@ const useGPSLocation = (): GeoLocationState => {
     } else {
       alert("위치가 안찍혀오");
     }
-
+    console.log("흠냔냐냐ㅑ냐냐", MyLocation);
     // Cleanup function
     return () => {
       if (watchId !== null) navigator.geolocation.clearWatch(watchId);
