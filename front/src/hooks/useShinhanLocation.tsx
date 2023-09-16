@@ -36,7 +36,7 @@ const useShinhanLocation = (cityName: String) => {
               parseFloat(location.지점경도),
               parseFloat("37.541981"),
               parseFloat("127.078959")
-            ) <= 2000
+            ) <= 1000
         );
         // 거리에 따라 정렬
         nearbyKonKuk = nearbyKonKuk.sort(
