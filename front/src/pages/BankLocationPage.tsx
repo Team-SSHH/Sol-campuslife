@@ -5,30 +5,9 @@ import { BankLocationType } from "../types/DataType";
 declare const kakao: any;
 
 const BankLocationPage = () => {
-  // const bankLocations = [
-  //   {
-  //     name: "신한은행 건국대학교지점",
-  //     lat: 37.541823538263,
-  //     lng: 127.0780213315,
-  //   },
-  //   {
-  //     name: "신한은행 스타시티금융센터",
-  //     lat: 37.538724826635,
-  //     lng: 127.073545050464,
-  //   },
-  //   { name: "신한은행 자양동점", lat: 37.536262795846, lng: 127.083270673746 },
-  //   {
-  //     name: "신한은행 테크노마트점",
-  //     lat: 37.535494638597,
-  //     lng: 127.095657684745,
-  //   },
-  //   { name: "신한은행 ATM 건대본관", lat: 37.543423, lng: 127.075245 },
-  // ];
-
   const { BanknearbyKonKuk } = useShinhanLocation("서울");
 
   const [map, setMap] = useState<null | any>(null);
-  const [markers, setMarkers] = useState<any[]>([]);
 
   console.log(BanknearbyKonKuk);
   useEffect(() => {
@@ -66,7 +45,6 @@ const BankLocationPage = () => {
         let marker = new kakao.maps.Marker({
           position: markerPosition,
         });
-        console.log(map);
         marker.setMap(map);
 
         let infowindow = new kakao.maps.InfoWindow({
@@ -112,13 +90,16 @@ const BankLocationPage = () => {
 
         <div className="bankCard">
           {BanknearbyKonKuk.map((location: BankLocationType, index) => (
-            <h3
-              key={index}
-              onClick={() => moveTo(location.지점명)}
-              className="box"
-            >
-              신한은행 {location.지점명} 지점
-            </h3>
+            <div className="locationWrapper">
+              <h3
+                key={index}
+                onClick={() => moveTo(location.지점명)}
+                className="box"
+              >
+                신한은행 {location.지점명} 지점
+              </h3>
+              <a href={`tel:${location.지점대표전화번호}`}>전화기 클릭</a>
+            </div>
           ))}
         </div>
       </div>
