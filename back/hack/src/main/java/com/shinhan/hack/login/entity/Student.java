@@ -71,3 +71,4 @@ public class Student {
     @Column(name = "longitude")
     private Double longitude;
 }
+

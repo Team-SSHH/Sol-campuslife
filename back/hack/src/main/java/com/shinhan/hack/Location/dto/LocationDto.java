@@ -7,7 +7,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @ToString
 public class LocationDto {
@@ -51,8 +50,8 @@ public class LocationDto {
     @Builder
     @ToString
     public static class SitePost{
-         private Double latitude;
-         private Double longitude;
+        private Double latitude;
+        private Double longitude;
     }
 
     @Getter
