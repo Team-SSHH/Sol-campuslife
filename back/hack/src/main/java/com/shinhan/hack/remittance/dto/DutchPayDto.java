@@ -15,13 +15,19 @@ public class DutchPayDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Response{
+    public static class Response implements Comparable<Response>{
         private Long dutchId;
         private Long amount;
         private Boolean dutchState;
         private Long number;
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime requestTime;
+        private List<DutchPayDetailDto.Response> details;
+
+        @Override
+        public int compareTo(Response o) {
+            return (int)(this.getDutchId() - o.getDutchId());
+        }
     }
 
     @Getter
@@ -34,4 +40,9 @@ public class DutchPayDto {
         private Long amount;
         private Long studentId;
     }
+
+
+
+
+
 }

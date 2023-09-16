@@ -1,5 +1,6 @@
 package com.shinhan.hack.category.dto;
 
+import com.shinhan.hack.login.dto.StudentCategoryDto;
 import com.shinhan.hack.login.dto.StudentDto;
 import com.shinhan.hack.login.entity.Student;
 import lombok.*;
@@ -19,7 +20,7 @@ public class CategoryDto {
         private Long categoryId;
         private Student student;
         private String category;
-        private List<StudentDto.Response> students;
+        private List<StudentCategoryDto.Response> students;
         private Long studentId;
     }
 
@@ -42,5 +43,9 @@ public class CategoryDto {
     public static class Update {
         private Long categoryId;
         private String category;
+
+        private List<StudentCategoryDto.Response> students;
+        private Long studentId;
+
     }
 }

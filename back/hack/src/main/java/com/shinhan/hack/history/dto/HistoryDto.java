@@ -1,7 +1,9 @@
 package com.shinhan.hack.history.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.login.entity.Student;
+import com.shinhan.hack.remittance.dto.DutchPayDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +15,7 @@ public class HistoryDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Response{
+    public static class Response implements Comparable<Response>{
         private long historyId;
 //        private Student student_id;
         private long studentId;
@@ -27,6 +29,17 @@ public class HistoryDto {
         private long balance;
         private String contentCategory;
         private String imgUrl;
+
+        private String lat;
+        private String lon;
+        private String userScore;
+        private String address;
+
+        @Override
+        public int compareTo(HistoryDto.Response o) {
+            return (int)(this.getHistoryId() - o.getHistoryId());
+        }
+
     }
 
 

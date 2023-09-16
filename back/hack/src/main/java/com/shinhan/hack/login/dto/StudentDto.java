@@ -33,6 +33,7 @@ public class StudentDto {
         private Long balance;
         private String phoneId;
         private String imageUrl;
+        private Boolean locationState;
     }
 
     @Getter
@@ -43,5 +44,10 @@ public class StudentDto {
     @ToString
     public static class getBalance{
         private Long balance;
+
     }
+
 }
+
+
+

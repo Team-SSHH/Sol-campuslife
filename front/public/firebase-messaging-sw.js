@@ -18,15 +18,15 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
-
+console.log(messaging);
 self.addEventListener("notificationclick", function (event) {
-  var clickAction = event.notification.data;
+  const clickAction = event.notification.data.Title;
   console.log(clickAction);
   console.log(event);
   if (clickAction === "OPEN_MAIN_PAGE") {
     // OPEN_MAIN_PAGE 값인 경우 Main 페이지로 이동
     event.waitUntil(
-      self.clients.openWindow("http://localhost:3000/Main") // 리액트 PWA의 Main 페이지 URL
+      self.clients.openWindow("/Main") // 리액트 PWA의 Main 페이지 URL
     );
   } else if (clickAction === "OPEN_DUTCHPAY_PAGE") {
     self.clients.openWindow("/Alert");

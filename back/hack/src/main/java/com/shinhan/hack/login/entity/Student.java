@@ -57,4 +57,18 @@ public class Student {
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
+
+    @Column(name = "token")
+    private String token;
+
+    @Builder.Default
+    @Column(name = "location_state", nullable = false)
+    private Boolean locationState = false;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 }
+

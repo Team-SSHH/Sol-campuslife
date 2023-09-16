@@ -1,11 +1,20 @@
 package com.shinhan.hack.history.service;
 
+
 import com.shinhan.hack.history.dto.HistoryDto;
+import com.shinhan.hack.history.dto.KakaoDocument;
+import com.shinhan.hack.history.dto.KakaoLocalResponse;
 import com.shinhan.hack.history.entity.History;
 import com.shinhan.hack.history.repository.HistoryRepository;
 import com.shinhan.hack.login.entity.Student;
 import com.shinhan.hack.login.repository.LoginRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +26,10 @@ import java.util.stream.Collectors;
 public class HistoryService {
     private final HistoryRepository historyRepository;
     private final LoginRepository loginRepository;
+    private static final String KAKAO_LOCAL_API_URL = "https://dapi.kakao.com/v2/local/search/keyword.json";
+    @Value("${kakao.api.key}")
+    private String KAKAO_API_KEY;
+
 
     public HistoryService(HistoryRepository historyRepository, LoginRepository loginRepository) {
         this.historyRepository = historyRepository;
@@ -25,9 +38,10 @@ public class HistoryService {
     public List<HistoryDto.Response> getAllHistory() {
         List<History> histories = historyRepository.findAll();
         return histories.stream()
-                .map(this::ResponseDto)
+                .map(this::Response1Dto)
                 .collect(Collectors.toList());
     }
+
     public List<HistoryDto.Response> getMyHistory(Long studentId) {
         // long id로 객체 student 만들어서
         // student 객체로 탐색하기
@@ -40,7 +54,7 @@ public class HistoryService {
     }
     public List<HistoryDto.Response> getHistoryData() {
         List<History> alltHistories = historyRepository.findAll();
-        System.out.println("alltHistories = " + alltHistories);
+
         return alltHistories.stream()
                 .map(this::ResponseDto)
                 .collect(Collectors.toList());
@@ -82,7 +96,6 @@ public class HistoryService {
 
     public HistoryDto.StatisticsSummary getStatisticsSummary() {
         Map<Long, Map<String, HistoryDto.Summary>> statistics = getStatistics();
-
 
         long grandTotalSum = 0;
         int studentCount = 0;
@@ -140,17 +153,16 @@ public class HistoryService {
 
         int totalStudentsCount = allStudents.size(); // 전체 학생 수
 
+
         List<HistoryDto.DailyConsumptionDto> result = new ArrayList<>();
 
         LocalDate currentDate = oneMonthAgo.toLocalDate();
 
         while (!currentDate.isAfter(now.toLocalDate())) {
             String dayString = currentDate.toString();
-
             long me = myStats.containsKey(dayString) ? myStats.get(dayString).getSum() : 0;
             long average =
-                    Math.round(totalStats.containsKey(dayString) ? totalStats.get(dayString).getAverage() / totalStudentsCount : 0);
-
+                    Math.round(totalStats.containsKey(dayString) ? totalStats.get(dayString).getSum()/ totalStudentsCount : 0);
             result.add(new HistoryDto.DailyConsumptionDto(dayString, me, average));
 
             currentDate = currentDate.plusDays(1);
@@ -158,6 +170,56 @@ public class HistoryService {
 
         return result;
     }
+
+    public void updateHistoryWithKakaoLocalAPI(History history) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK " + KAKAO_API_KEY);
+
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        ResponseEntity<KakaoLocalResponse> responseEntity =
+                restTemplate.exchange(KAKAO_LOCAL_API_URL + "?query=" + history.getContent()+"건국대", HttpMethod.GET, entity, KakaoLocalResponse.class);
+
+        if (responseEntity.getStatusCodeValue() == 200 && responseEntity.getBody() != null) {
+            KakaoLocalResponse kakaoLocalResponse = responseEntity.getBody();
+
+            // 응답 결과 중 첫 번째 항목을 선택 (다른 로직으로 변경 가능)
+            if (!kakaoLocalResponse.getDocuments().isEmpty()) {
+                KakaoDocument firstDocument = kakaoLocalResponse.getDocuments().get(0);
+                System.out.println("firstDocument = " + firstDocument.getCategory());
+                System.out.println("firstDocument = " + firstDocument.getAddressName());
+                System.out.println("firstDocument = " + firstDocument.getY());
+                System.out.println("firstDocument = " + firstDocument.getX());
+
+                // 카테고리를 분류하는 조건문
+                String classification;
+                if (firstDocument.getCategory().startsWith("음식점 >")) {
+                    if (firstDocument.getCategory().startsWith("음식점 > 카페")) {
+                    classification = "카페";
+                        System.out.println("classification = " + classification);
+                    } else {
+                    classification = "음식";
+                        System.out.println("classification = " + classification);
+                    }
+                } classification = "음식";
+
+
+
+                history.setContentCategory(classification);
+                history.setLat(firstDocument.getY());
+                history.setLon(firstDocument.getX());
+                history.setAddress(firstDocument.getAddressName());
+
+//                this.historyRepository.save(history);
+            }
+        }
+    }
+
+
+
+
+
 
 
 
@@ -176,4 +238,24 @@ public class HistoryService {
                 .day(history.getDay())
                 .build();
     }
+    private HistoryDto.Response Response1Dto(History history) {
+        return HistoryDto.Response.builder()
+                .historyId(history.getHistoryId())
+                .studentId((history.getStudent().getStudentId()))
+                .content(history.getContent())
+                .deposit(history.getDeposit())
+                .pay(history.getPay())
+                .transactionTime(history.getTransactionTime())
+                .balance(history.getBalance())
+                .contentCategory(history.getContentCategory())
+                .imgUrl(history.getImgUrl())
+                .day(history.getDay())
+                .lat(history.getLat())
+                .lon(history.getLon())
+                .userScore(history.getUserScore())
+                .address(history.getAddress())
+                .build();
+    }
+
+
     }

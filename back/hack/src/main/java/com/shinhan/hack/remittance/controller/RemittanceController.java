@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/sshh/remittance")
@@ -47,10 +47,15 @@ public class RemittanceController {
     public ResponseEntity<RemittanceDto.Response> won1(
             @PathVariable("studentId") Long studentId
     ){
-
-        RemittanceDto.Response response = remittanceService.won1(studentId);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try {
+            RemittanceDto.Response response = remittanceService.won1(studentId);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (CustomException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/{studentId}/consent")
@@ -80,8 +85,8 @@ public class RemittanceController {
             throw new CustomException(ErrorCode.ALREADY_PAY_MONEY);
         }
 
-        sendInfo.setFriendId(friendId);
-        sendInfo.setStudentId(studentId);
+        sendInfo.setFriendId(studentId);
+        sendInfo.setStudentId(friendId);
 
         // 더치페이 송금 및 거래 내역 저장
         RemittanceDto.update update = remittanceMapper.toUpdateFromSend(sendInfo);
@@ -99,9 +104,9 @@ public class RemittanceController {
     public ResponseEntity<List<DutchPayDto.Response>> getDutchPay(
             @PathVariable("studentId") Long studentId
     ) {
-
-        List<DutchPayDto.Response> response = remittanceMapper.toDutchResponseDto(remittanceService.dutchPay(studentId));
+        List<DutchPayDto.Response> response = remittanceService.dutchPay(studentId);
         return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
     @GetMapping("/{studentId}/dutch/{dutchId}")
@@ -110,6 +115,7 @@ public class RemittanceController {
             @PathVariable("dutchId") Long dutchId
     ){
         List<DutchPayDetailDto.Response> response = remittanceService.getDutchDetail(dutchId);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -117,6 +123,7 @@ public class RemittanceController {
     public ResponseEntity<List<DutchPayDetailDto.Response>> getDutchPayDetailAll(
             @PathVariable("studentId") Long studentId
     ){
-        return new ResponseEntity<>(remittanceService.getDutchDetailAll(studentId), HttpStatus.OK);
+        List<DutchPayDetailDto.Response> response = remittanceService.getDutchDetailAll(studentId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

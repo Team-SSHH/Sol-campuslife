@@ -1,82 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import usePostGPS from "../hooks/usePostGPS";
-// import { useRecoilState } from "recoil";
-// import { loginuser } from "../stores/atoms";
-// import useGPSLocation from "../hooks/useGPSLocation";
-// import radarImg from "../assets/radar.png";
-// import "./styles/FindMyGganbuPage.css";
-// import styled from "styled-components";
-
-// interface gganbuImgType {
-//   imageurl: string;
-// }
-
-// const GganbuImg = styled.div<gganbuImgType>`
-//   width: 100px;
-//   height: 100px;
-//   border-radius: 50%;
-
-//   background-image: url(${(props) => props.imageurl});
-
-//   background-size: cover;
-
-//   background-position: center;
-// `;
-
-// // interface GganbuType {
-// //   balance: Number;
-// //   bankNumber: Number;
-// //   distance: Number;
-// //   gender: string;
-// //   grade: Number;
-// //   imageUrl: string;
-// //   major: string;
-// //   name: string;
-// //   nationality: string;
-// //   phoneId: string;
-// //   studentId: Number;
-// //   university: string;
-// // }
-
-// const FindMyGganbuPage = () => {
-//   const { handlePutMyLocation, frienddata } = usePostGPS();
-//   const [userData, setUserData] = useRecoilState(loginuser);
-//   const MyLocation = useGPSLocation();
-//   const URL = "https://api.solcampuslife.store/static/images/";
-
-//   useEffect(() => {
-//     if (userData.locationState) {
-//       handlePutMyLocation(userData.studentId);
-//     }
-//   }, [MyLocation]);
-
-//   return (
-//     <div className="findGganbuPage">
-//       <img
-//         src={radarImg}
-//         alt="radarImg"
-//         className="raderImg"
-//         style={{ position: "absolute", zIndex: 1 }}
-//       />
-
-//       {frienddata.map((friend, index) => (
-//         <div key={index} style={{ position: "absolute", zIndex: 2 }}>
-//           {/* <img
-//             src={URL + friend.imageUrl}
-//             alt="friend image"
-//             style={{ width: "20%" }}
-//           /> */}
-//           <GganbuImg imageurl={URL + friend.imageUrl} />
-
-//           <div>{friend.distance.toFixed(2)}</div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default FindMyGganbuPage;
-
 import React, { useEffect, useState } from "react";
 import usePostGPS from "../hooks/usePostGPS";
 import { useRecoilState } from "recoil";
@@ -145,8 +66,9 @@ const FindMyGganbuPage = () => {
               transform: `translate(${x}px, ${y}px)`,
             }}
           >
-            <GganbuImg imageurl={URL + friend.imageUrl} />
-            {/* <div>{friend.distance.toFixed(2)} m</div> */}
+            <a href={`tel:${friend.phoneId}`}>
+              <GganbuImg imageurl={URL + friend.imageUrl} />
+            </a>
           </div>
         );
       })}
