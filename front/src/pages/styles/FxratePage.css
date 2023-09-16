@@ -22,7 +22,9 @@
 .fxrateTitle span {
   color: red;
 }
-
+.fxrateMoney {
+  padding-top: 3%;
+}
 .discountBox {
   /* width: 100%; */
   border-radius: 20px;
@@ -34,6 +36,7 @@
   border: none;
   height: 2rem;
   border-radius: 10px;
+  width: 10rem;
 }
 
 .fxratepush {
