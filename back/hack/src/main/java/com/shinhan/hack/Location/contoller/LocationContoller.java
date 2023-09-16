@@ -27,9 +27,12 @@ public class LocationContoller {
         return ResponseEntity.ok(response);
     }
 
-//    @PutMapping("/{studentId}/state")
-//    public ResponseEntity<String> setState(
-//            @PathVariable("studentId") Long studentId,
-//
-//    )
+    @PutMapping("/{studentId}/state")
+    public ResponseEntity<String> setState(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody LocationDto.StatePost statePost
+    ){
+        locationService.setState(studentId, statePost.getLocationState());
+        return ResponseEntity.ok(statePost.getLocationState() + "로 변경 환료");
+    }
 }

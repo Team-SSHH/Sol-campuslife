@@ -4,11 +4,6 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Builder
-@ToString
 public class LocationDto {
 
     @Getter
@@ -50,8 +45,8 @@ public class LocationDto {
     @Builder
     @ToString
     public static class SitePost{
-        private Double latitude;
-        private Double longitude;
+         private Double latitude;
+         private Double longitude;
     }
 
     @Getter
