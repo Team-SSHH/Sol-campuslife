@@ -13,8 +13,16 @@
 [프로젝트 구조도](#item-five)
 
 [서비스 구현 화면](#item-six)
-- [1)Home](#item-seven)
 
+- [1)Home](#item-seven)
+- [2)송금](#item-eight)
+- [3)더치페이](#item-nine)
+- [4)학생증 저장](#item-ten)
+- [5)환율 및 환전](#item-eleven)
+- [6)소비로그](#item-twelve)
+- [7)로그추천](#item-thirteen)
+- [8)영업점찾기](#item-fourteen)
+- [9)깐부찾기](#item-fifteen)
 
 [느낀 점](#item-end)
 
@@ -33,23 +41,18 @@
 - 김동현 : PM, 클라이언트 개발, 계좌 거래내역 조회 API를 활용한 데이터 분석
 
 - 윤자현 : 클라이언트 개발, 사용자 인터페이스 및 사용자 경험 디자인
-  
-- 이상훈 : 백엔드 개발, API 연동 및 서버 사이드 로직 구현
-  
-- 최상익 : 클라이언트, 백엔드 개발, API 연동 및 서버 사이드 로직 구현
 
+- 이상훈 : 백엔드 개발, API 연동 및 서버 사이드 로직 구현
+
+- 최상익 : 클라이언트, 백엔드 개발, API 연동 및 서버 사이드 로직 구현
 
 <a id="item-three"></a> 
 
 ## 기술 스택
 
-
-
 <a id="item-four"></a>
 
 ## 데이터 베이스 모델링 (ERD)
-
-
 
 <a id="item-five"></a>
 
@@ -544,6 +547,7 @@
  ┣ 📜gradlew.bat
  ┗ 📜settings.gradle
 ```
+
 </details>
 
 <details>
@@ -709,6 +713,7 @@
  ┣ 📜package.json
  ┗ 📜tsconfig.json
 ```
+
 </details>
 
 <a id="item-six"></a>
@@ -719,8 +724,104 @@
 
 ### 1) Home
 
+<img src="README_assets/33d786e67ae7caf371947785a621fa7eac5facf6.gif" title="" alt="메인화면.gif" width="286">
+
+
+
+
+
+<a id="item-eight"></a>
+
+### 2) 송금
+
+<img src="README_assets/39e2b26f3798c97f57eeaaf39ca1b2f65bd73092.gif" title="" alt="학생증 송금.gif" width="291">
+
+
+
+
+
+<a id="item-nine"></a>
+
+### 3) 더치페이
+
+<img src="README_assets/cb27faaa3f4174803cc2bd7ad4155f0a4a3c91ba.gif" title="" alt="더치페이1.gif" width="287">
+
+<img src="README_assets/82487a7bcfe02febbd5197588f19bba9a7045736.gif" title="" alt="더치페이2.gif" width="288">
+
+
+
+
+
+<a id="item-ten"></a>
+
+### 4) 학생증 저장
+
+<img src="README_assets/801cb9956a8fb12559f6f5d706f7a137ae7162ea.gif" title="" alt="학생증 저장1.gif" width="287">
+
+<img src="README_assets/60a36ce70a90c25360d12ec01c7ab5ce271bddd2.gif" title="" alt="학생증 저장2.gif" width="289">
+
+
+
+
+
+<a id="item-eleven"></a>
+
+### 5) 환율 및 환전
+
+<img src="README_assets/758421fdc899a9fb44f68fd528b1f4d4781e685e.gif" title="" alt="환율.gif" width="288">
+
+<img src="README_assets/41818b97e2bfe486b606f56508185afea3e48fae.gif" title="" alt="환전신청1.gif" width="288">
+
+<img src="README_assets/dd331660c2d7d52e7e982e43b82aea4faaaa439c.gif" title="" alt="환전신청2.gif" width="285">
+
+
+
+
+
+<a id="item-twelve"></a>
+
+### 6) 소비로그
+
+<img src="README_assets/266f6afca16c6a2724ab4b65a5df297237334164.gif" title="" alt="소비로그1.gif" width="287">
+
+<img src="README_assets/3d5f1cc025f298cf17d8ed6bc1d14d7a9a00839c.gif" title="" alt="소비로그2.gif" width="291">
+
+
+
+
+
+<a id="item-thirteen"></a>
+
+### 7) 로그 추천
+
+<img src="README_assets/6e2ac61cccd4a07d45759cde590a60647f9e6177.gif" title="" alt="가게추천1.gif" width="300">
+
+<img title="" src="README_assets/aa8102a8e10ab7eb403c9a58facf054582889713.gif" alt="가게추천2.gif" width="302">
+
+
+
+
+
+<a id="item-fourteen"></a>
+
+### 8) 영업점 찾기
+
+<img src="README_assets/de6e27f9ff0084c2e7dca50535236f66e827ef31.gif" title="" alt="영업점찾기.gif" width="301">
+
+
+
+
+
+<a id="item-fifteen"></a>
+
+### 9) 깐부 찾기
+
+<img src="README_assets/beeba3ec65899ddd8d43c53b27460fa02785de14.gif" title="" alt="깐부찾기.gif" width="305">
+
+
+
+
 
 <a id="item-end"></a>
 
 ## 느낀 점
-
