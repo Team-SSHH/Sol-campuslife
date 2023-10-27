@@ -50,9 +50,37 @@
 
 ## 기술 스택
 
+## **⚙** Management Tool
+
+- 형상 관리 : GitHub
+- 이슈 관리 : Jira
+- 커뮤니케이션 : Mattermost, Notion, Discord
+- 디자인 : Figma, PowerPoint
+
+## 💻 IDE
+
+- Visual Studio Code `1.75.1`
+- IntelliJ `IntelliJ IDEA 2022.3(Ultimate Edition)`
+
+## 📱 Frontend
+
+- React `18.2.0`
+- typescript `3.7.0`
+- node.js`18.16.1`
+
+## 💾 Backend
+
+- Springboot  `2.7.15`
+- Spring Data JPA
+- MySql 8.0.33
+  
+  
+
 <a id="item-four"></a>
 
 ## 데이터 베이스 모델링 (ERD)
+
+<img title="" src="README_assets/2023-10-27-23-54-47-image.png" alt="" width="702">
 
 <a id="item-five"></a>
 
@@ -726,19 +754,11 @@
 
 <img src="README_assets/33d786e67ae7caf371947785a621fa7eac5facf6.gif" title="" alt="메인화면.gif" width="286">
 
-
-
-
-
 <a id="item-eight"></a>
 
 ### 2) 송금
 
 <img src="README_assets/39e2b26f3798c97f57eeaaf39ca1b2f65bd73092.gif" title="" alt="학생증 송금.gif" width="291">
-
-
-
-
 
 <a id="item-nine"></a>
 
@@ -748,10 +768,6 @@
 
 <img src="README_assets/82487a7bcfe02febbd5197588f19bba9a7045736.gif" title="" alt="더치페이2.gif" width="288">
 
-
-
-
-
 <a id="item-ten"></a>
 
 ### 4) 학생증 저장
@@ -759,10 +775,6 @@
 <img src="README_assets/801cb9956a8fb12559f6f5d706f7a137ae7162ea.gif" title="" alt="학생증 저장1.gif" width="287">
 
 <img src="README_assets/60a36ce70a90c25360d12ec01c7ab5ce271bddd2.gif" title="" alt="학생증 저장2.gif" width="289">
-
-
-
-
 
 <a id="item-eleven"></a>
 
@@ -774,10 +786,6 @@
 
 <img src="README_assets/dd331660c2d7d52e7e982e43b82aea4faaaa439c.gif" title="" alt="환전신청2.gif" width="285">
 
-
-
-
-
 <a id="item-twelve"></a>
 
 ### 6) 소비로그
@@ -785,10 +793,6 @@
 <img src="README_assets/266f6afca16c6a2724ab4b65a5df297237334164.gif" title="" alt="소비로그1.gif" width="287">
 
 <img src="README_assets/3d5f1cc025f298cf17d8ed6bc1d14d7a9a00839c.gif" title="" alt="소비로그2.gif" width="291">
-
-
-
-
 
 <a id="item-thirteen"></a>
 
@@ -798,29 +802,17 @@
 
 <img title="" src="README_assets/aa8102a8e10ab7eb403c9a58facf054582889713.gif" alt="가게추천2.gif" width="302">
 
-
-
-
-
 <a id="item-fourteen"></a>
 
 ### 8) 영업점 찾기
 
 <img src="README_assets/de6e27f9ff0084c2e7dca50535236f66e827ef31.gif" title="" alt="영업점찾기.gif" width="301">
 
-
-
-
-
 <a id="item-fifteen"></a>
 
 ### 9) 깐부 찾기
 
 <img src="README_assets/beeba3ec65899ddd8d43c53b27460fa02785de14.gif" title="" alt="깐부찾기.gif" width="305">
-
-
-
-
 
 <a id="item-end"></a>
 
