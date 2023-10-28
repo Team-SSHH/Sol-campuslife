@@ -24,19 +24,21 @@
 - [8)영업점찾기](#item-fourteen)
 - [9)깐부찾기](#item-fifteen)
 
-[느낀 점](#item-end)
-
 <a id="item-one"></a>
 
 ## 🗓프로젝트 개요
 
 - **진행 기간 : 2023.09.01 ~ 2023.09.17**
-- **목표** 
+- **기획배경 및 목표**
+  - 대학 제휴 카드의 존재와 혜택을 제대로 알지 못하는 학생들이 많다는 문제 인식
+  - 이를 해결하기 위해 다양한 은행들이 스마트 캠퍼스 사업을 통해 제휴 카드 활성화에 주력
+  - 제휴 카드 서비스를 확장하고 개선하여 MZ세데 고객층 확보
+  - 학생들이 평생 고객으로 유지될 수 있도록 서비스를 통한 유도 계획
   - 대학생들의 캠퍼스 주변 소비생활의 편의를 증진시켜주는 플랫폼 개발
 
 <a id="item-two"></a>
 
-## 팀원 정보 및 업무 분담 내역
+## 👨‍👨‍👧‍👦팀원 정보 및 업무 분담 내역
 
 - 김동현 : PM, 클라이언트 개발, 계좌 거래내역 조회 API를 활용한 데이터 분석
 
@@ -46,45 +48,43 @@
 
 - 최상익 : 클라이언트, 백엔드 개발, API 연동 및 서버 사이드 로직 구현
 
-<a id="item-three"></a> 
+<a id="item-three"></a>
 
-## 기술 스택
+## 👨‍💻기술 스택
 
-## **⚙** Management Tool
+## Management Tool
 
 - 형상 관리 : GitHub
 - 이슈 관리 : Jira
 - 커뮤니케이션 : Mattermost, Notion, Discord
 - 디자인 : Figma, PowerPoint
 
-## 💻 IDE
+## IDE
 
 - Visual Studio Code `1.75.1`
 - IntelliJ `IntelliJ IDEA 2022.3(Ultimate Edition)`
 
-## 📱 Frontend
+## Frontend
 
 - React `18.2.0`
 - typescript `3.7.0`
 - node.js`18.16.1`
 
-## 💾 Backend
+## Backend
 
 - Springboot  `2.7.15`
 - Spring Data JPA
 - MySql 8.0.33
-  
-  
 
 <a id="item-four"></a>
 
-## 데이터 베이스 모델링 (ERD)
+## 🛰데이터 베이스 모델링 (ERD)
 
 <img title="" src="README_assets/2023-10-27-23-54-47-image.png" alt="" width="702">
 
 <a id="item-five"></a>
 
-### 프로젝트 구조도
+### 📕프로젝트 구조도
 
 <details>
 <summary>back-end</summary>
@@ -746,7 +746,7 @@
 
 <a id="item-six"></a>
 
-## 서비스 구현 화면
+## 🎞서비스 구현 화면
 
 <a id="item-seven"></a>
 
@@ -754,11 +754,15 @@
 
 <img src="README_assets/33d786e67ae7caf371947785a621fa7eac5facf6.gif" title="" alt="메인화면.gif" width="286">
 
+- 현재 학생증과 연계된 계좌번호와 잔액을 확인 할 수 있습니다.
+
 <a id="item-eight"></a>
 
 ### 2) 송금
 
 <img src="README_assets/39e2b26f3798c97f57eeaaf39ca1b2f65bd73092.gif" title="" alt="학생증 송금.gif" width="291">
+
+- 학생증이 추가된 친구의 학생증을 통해서 송금을 할 수 있도록 했습니다.
 
 <a id="item-nine"></a>
 
@@ -766,7 +770,11 @@
 
 <img src="README_assets/cb27faaa3f4174803cc2bd7ad4155f0a4a3c91ba.gif" title="" alt="더치페이1.gif" width="287">
 
+- 학생증이 추가된 친구들의 학생증을 다중 선택을 해 더치페이를 요청 할 수 있도록 합니다.
+
 <img src="README_assets/82487a7bcfe02febbd5197588f19bba9a7045736.gif" title="" alt="더치페이2.gif" width="288">
+
+- 보관함에 발신함, 수신함으로 나누고 정산되지 않은 더치페이는 상단에 미완 표시합니다.
 
 <a id="item-ten"></a>
 
@@ -774,7 +782,11 @@
 
 <img src="README_assets/801cb9956a8fb12559f6f5d706f7a137ae7162ea.gif" title="" alt="학생증 저장1.gif" width="287">
 
+- 친구이 학번을 입력해 친구 추가 요청을 보냅니다.
+
 <img src="README_assets/60a36ce70a90c25360d12ec01c7ab5ce271bddd2.gif" title="" alt="학생증 저장2.gif" width="289">
+
+- 친구에게 전송된 인증 번호를 입력하면 친구 추가가 완료됩니다.
 
 <a id="item-eleven"></a>
 
@@ -782,9 +794,15 @@
 
 <img src="README_assets/758421fdc899a9fb44f68fd528b1f4d4781e685e.gif" title="" alt="환율.gif" width="288">
 
+- 통화, 날짜를 선택하면 나의 우대율이 표시되고 금액을 입력하면 원화 예상 금액을 계산해 화면에 표시합니다.
+
 <img src="README_assets/41818b97e2bfe486b606f56508185afea3e48fae.gif" title="" alt="환전신청1.gif" width="288">
 
+- 통화를 선택하고 금액을 선택하고 수령지를 선택하면 환전을 신청 할 수 있습니다.
+
 <img src="README_assets/dd331660c2d7d52e7e982e43b82aea4faaaa439c.gif" title="" alt="환전신청2.gif" width="285">
+
+- 환전 신청 후 환전 결과 보기를 통해 상세 정보를 확인 할 수 있습니다.
 
 <a id="item-twelve"></a>
 
@@ -792,7 +810,11 @@
 
 <img src="README_assets/266f6afca16c6a2724ab4b65a5df297237334164.gif" title="" alt="소비로그1.gif" width="287">
 
+- 평균적인 대학생들의 평균 소비 금액과 나의 소비 금액을 그래프로 비교해 줍니다.
+
 <img src="README_assets/3d5f1cc025f298cf17d8ed6bc1d14d7a9a00839c.gif" title="" alt="소비로그2.gif" width="291">
+
+- 달력에 하루에 소비한 금액을 표시하고 해당 날짜를 클릭하면 상세 소비 내역을 제공합니다.
 
 <a id="item-thirteen"></a>
 
@@ -802,11 +824,15 @@
 
 <img title="" src="README_assets/aa8102a8e10ab7eb403c9a58facf054582889713.gif" alt="가게추천2.gif" width="302">
 
+- 사용자가 설정한 카테고리별로 필터되고 결과가 나옵니다.
+
 <a id="item-fourteen"></a>
 
 ### 8) 영업점 찾기
 
 <img src="README_assets/de6e27f9ff0084c2e7dca50535236f66e827ef31.gif" title="" alt="영업점찾기.gif" width="301">
+
+- 가까운 신한은행 지점을 조회해 지도에 나타나고 전화연결을 할 수 있습니다.
 
 <a id="item-fifteen"></a>
 
@@ -814,6 +840,4 @@
 
 <img src="README_assets/beeba3ec65899ddd8d43c53b27460fa02785de14.gif" title="" alt="깐부찾기.gif" width="305">
 
-<a id="item-end"></a>
-
-## 느낀 점
+- 반경 200m 안에 있는 친구를 찾아서 나타나서 클릭시 전화연결을 할 수 있습니다.
