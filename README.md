@@ -782,7 +782,7 @@
 
 <img src="README_assets/801cb9956a8fb12559f6f5d706f7a137ae7162ea.gif" title="" alt="학생증 저장1.gif" width="287">
 
-- 친구이 학번을 입력해 친구 추가 요청을 보냅니다.
+- 친구의 학번을 입력해 친구 추가 요청을 보냅니다.
 
 <img src="README_assets/60a36ce70a90c25360d12ec01c7ab5ce271bddd2.gif" title="" alt="학생증 저장2.gif" width="289">
 
